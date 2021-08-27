@@ -24,22 +24,13 @@
 #
 # Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
 
-snippet vd "Description" i
-var_dump($$1); die;
-endsnippet
+snippet Test "Description" b
+func Test${1}(t *testing.T) {
+	expect := ${2}
+	actual := ${1}()
 
-snippet /** "Description" i
-/**
- * $1
- */
-endsnippet
-
-snippet /* "Description" i
-/*
- * $1
- */
-endsnippet
-
-snippet yashiro "Description" i
-//XXX: yashiro $1
+	if expect != actual {
+		t.Errorf("%s != %s", expect, actual)
+	}
+}
 endsnippet

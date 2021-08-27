@@ -47,6 +47,8 @@ repo = 'tmhedberg/matchit'
 [[plugins]]
 repo = 'itchyny/vim-parenmatch'
 [[plugins]]
+repo = 'leafOfTree/vim-matchtag'
+[[plugins]]
 repo = 'deris/vim-rengbang'
 [[plugins]]
 repo = 'ntpeters/vim-better-whitespace'
@@ -163,6 +165,9 @@ repo='StanAngeloff/php.vim'
 on_ft = ["php"]
 [[plugins]]
 repo='docteurklein/vim-symfony'
+on_ft = ["php"]
+[[plugins]]
+repo='stephpy/vim-php-cs-fixer'
 on_ft = ["php"]
 [[plugins]]
 repo = 'cakebaker/scss-syntax.vim'

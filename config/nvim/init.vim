@@ -204,7 +204,7 @@ if dein#tap('fzf.vim')
   " map <Leader>f [fzf]
   nnoremap <silent> <Leader>f :<C-u>GFiles<CR>
   nnoremap <silent> <Leader>F :<C-u>Files<CR>
-  nnoremap <silent> <Leader>ee :<C-u>FzfDotfiles<CR>
+  nnoremap <silent> <Leader>ee :<C-u>Dotfiles<CR>
   nnoremap <silent> <Leader>u :<C-u>Buffers<CR>
   nnoremap <silent> <Leader>m :<C-u>Marks<CR>
   " nnoremap <silent> <Leader>b :<C-u>LoadedBuffers<CR>
@@ -349,6 +349,18 @@ if dein#tap('PDV--phpDocumentor-for-Vim')
   augroup End
 endif
 
+if dein#tap('vim-php-cs-fixer')
+  " If you use php-cs-fixer version 2.x
+  let g:php_cs_fixer_rules = "@PSR12"          " options: --rules (default:@PSR2)
+  let g:php_cs_fixer_cache = ".php-cs-fixer.cache" " options: --cache-file
+  let g:php_cs_fixer_config_file = '.php-cs-fixer.dist.php' " options: --config
+
+  let g:php_cs_fixer_php_path = "php"               " Path to PHP
+  let g:php_cs_fixer_enable_default_mapping = 0     " Enable the mapping by default (<leader>pcd)
+  let g:php_cs_fixer_dry_run = 0                    " Call command with dry-run option
+  let g:php_cs_fixer_verbose = 0                    " Return the output of command if 1, else an inline information.
+endif
+
 if dein#tap('vim-easy-align')
   " Start interactive EasyAlign in visual mode (e.g. vipga)
   xmap gA <Plug>(EasyAlign)
@@ -457,7 +469,7 @@ endif
 
 if dein#tap('memolist.vim')
   nnoremap <Leader>mn  :MemoNew<CR>
-  nnoremap <Leader>ml  :FzfMemolist<CR>
+  nnoremap <Leader>ml  :MemoListFzf<CR>
   nnoremap <Leader>mg  :MemoGrep<CR>
 endif
 
@@ -653,11 +665,15 @@ if dein#tap('fzf.vim')
   " let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
   let g:fzf_tags_command = 'ctags --exclude=node_modules --exclude=vendor'
 
-  command! -bang -nargs=? -complete=dir FzfDotfiles call fzf#vim#files(g:dotfiles_path, <bang>0)
-  command! -bang -nargs=? -complete=dir FzfMemolist call fzf#vim#files(g:memolist_path, <bang>0)
+  command! -bang -nargs=? -complete=dir Dotfiles
+        \ call fzf#vim#files(g:dotfiles_path, <bang>0)
 
   command! -nargs=? Emoji call s:fzf_emoji(<f-args>)
   command! -bang -nargs=+ -complete=dir Ag call fzf#vim#ag_raw(<q-args>, <bang>0)
+
+  command! -bang -nargs=* -complete=dir MemoListFzf
+        \  call fzf#vim#grep(
+        \    'find '.g:memolist_path.' -type f -name "*.md" | sort -r'.(<q-args>), 1)
 
   command! -bang -nargs=* -complete=dir Rg
         \  call fzf#vim#grep(
@@ -667,9 +683,6 @@ if dein#tap('fzf.vim')
         \    <bang>0)
 
   " Likewise, Files command with preview window
-  command! -bang -nargs=? -complete=dir Files
-        \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-
   command! -bang -nargs=? -complete=dir Files
         \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 
@@ -758,6 +771,7 @@ if dein#tap('coc.nvim')
         \ 'coc-sql',
         \ 'coc-rust-analyzer',
         \ 'coc-diagnostic',
+        \ 'coc-go',
         \ ]
 
         "\  'coc-yaml',
@@ -1319,7 +1333,7 @@ endif
 "--------------------
 if dein#tap('vim-matchtag')
   let g:vim_matchtag_enable_by_default = 1
-  let g:vim_matchtag_files = '*.html,*.xml,*.vue'
+  let g:vim_matchtag_files = '*.html,*.xml,*.vue,*.html.twig'
 endif
 
 "--------------------
@@ -1869,7 +1883,7 @@ set laststatus=2      " ステータスラインを常に表示
 set cursorline        " 下線
 set nowrap              " 画面幅で折り返す
 set list              " 不可視文字表示
-set listchars=tab:>-
+set listchars=tab:>-  "hannkaku
 set display=uhex      " 印字不可能文字を16進数で表示
 set nf=hex            " 数値インクリメントは10進数か16進数
 set splitbelow        " 水平分割時は新しいwindowを下に

@@ -1,5 +1,5 @@
 #!/bin/zsh
-# LANG="C.UTF-8" LC_CTYPE="en_US.UTF-8" LC_ALL="en_US.UTF-8" LANG=ja_JP.UTF-8
+LANG="C.UTF-8" LC_CTYPE="en_US.UTF-8" LC_ALL="en_US.UTF-8" LANG=ja_JP.UTF-8
 # TERM=screen-256color
 
 if [ ! -e "$HOME"/.zsh.bundle/completion ]; then

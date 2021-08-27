@@ -379,9 +379,6 @@ key_bindings:
   - { key: W,      mods: Command,         action: Quit                   }
   # - { key: F,      mods: Command,         action: ToggleSimpleFullscreen }
   - { key: N,      mods: Command,         action: SpawnNewInstance       }
-  - { key: H,      mods: Command,         command:
-      { program: "osascript", args: [ "/Users/filriya/bin/alacritty_hide.scpt" ] }
-    }
 
   # - { key: Paste,                    action: Paste                            }
   # - { key: Copy,                     action: Copy                             }

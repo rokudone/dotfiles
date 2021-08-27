@@ -1,5 +1,5 @@
 {
-  "coc.preferences.formatOnSaveFiletypes": ["rust"],
+  "coc.preferences.formatOnSaveFiletypes": ["rust", "go"],
   "diagnostic.messageTarget": "float",
   "css.lint.unknownAtRules": "ignore",
   "signature.target": "float",
@@ -15,6 +15,7 @@
   "suggest.maxCompleteItemCount": 30,
   "vetur.experimental.templateInterpolationService": true,
   "vetur.validation.template": true,
+  "php-cs-fixer.config": ".php-cs-fixer.dist",
   "list.insertMappings": {
     "<C-n>": "normal:j",
     "<C-p>": "normal:k",
@@ -45,8 +46,9 @@
     "!Not",
     "!Or"
   ],
+  "go.goplsoptions.experimentalWorkspaceModule": true,
+  "diagnostic-languageserver.mergeConfig": true,
   "diagnostic-languageserver.filetypes": {
-    "php": ["phpstan"],
     "sh": "shellcheck",
     "bash": "shellcheck",
     "zsh": "shellcheck"
@@ -55,12 +57,6 @@
     "sh": "shfmt",
     "bash": "shfmt",
     "zsh": "shfmt"
-  },
-  "diagnostic-languageserver.mergeConfig": true,
-  "diagnostic-languageserver.linters": {
-    "phpstan": {
-      "command": "~/.config/composer/vendor/bin/phpstan"
-    }
   },
 
   "languageserver": {

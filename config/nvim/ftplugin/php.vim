@@ -10,7 +10,8 @@ let g:pdv_cfg_Author = "Filriya"
 let g:pdv_cfg_Copyright = ""
 let g:pdv_cfg_License = ""
 
-if dein#tap('vim-php-cs-fixer')
-  nnoremap <silent><buffer> gF :call PhpCsFixerFixFile()<CR>
-endif
+" if dein#tap('vim-php-cs-fixer')
+"   nnoremap <silent><buffer> gF :call PhpCsFixerFixFile()<CR>
+"   autocmd BufWritePost *.php silent! call PhpCsFixerFixFile()
+" endif
 
