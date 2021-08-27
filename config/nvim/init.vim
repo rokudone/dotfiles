@@ -1867,7 +1867,7 @@ set ruler             " ルーラーの表示
 set showcmd           " 入力中のコマンドをステータスに表示する
 set laststatus=2      " ステータスラインを常に表示
 set cursorline        " 下線
-set wrap              " 画面幅で折り返す
+set nowrap              " 画面幅で折り返す
 set list              " 不可視文字表示
 set listchars=tab:>-
 set display=uhex      " 印字不可能文字を16進数で表示

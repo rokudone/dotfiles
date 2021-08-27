@@ -10,14 +10,10 @@ if ! `grep "$(brew --prefix)/bin/zsh" /etc/shells > /dev/null` ; then
 fi
 # nvim
 brew install nvim
-
-brew install ansible
 brew install ripgrep
 brew install yarn
 brew install nkf
 brew install exa
-brew install docker
-brew install docker-compose
 
 brew install gcc #ctags用
 brew install --HEAD universal-ctags/universal-ctags/universal-ctags
