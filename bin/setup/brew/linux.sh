@@ -14,9 +14,11 @@ brew install ripgrep
 brew install yarn
 brew install nkf
 brew install exa
+brew install fzf
 
 brew install gcc #ctags用
-brew install --HEAD universal-ctags/universal-ctags/universal-ctags
+brew install universal-ctags
+
 
 brew cleanup -s
 chsh -s /home/linuxbrew/.linuxbrew/bin/zsh

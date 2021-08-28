@@ -31,7 +31,8 @@ brew install z80oolong/tmux/tmux
 
 brew install ansible
 brew install gzip
-brew install --HEAD universal-ctags/universal-ctags/universal-ctags
+brew install gcc #ctags用
+brew install universal-ctags
 brew install bat
 brew install gibo
 brew install jq
