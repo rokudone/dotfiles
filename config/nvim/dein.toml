@@ -187,6 +187,9 @@ on_ft = ["javascript, typescript"]
 [[plugins]]
 repo = "posva/vim-vue"
 on_ft = ["vue"]
+[[plugins]]
+repo = "evanleck/vim-svelte"
+on_ft = ["svelte"]
 # [[plugins]]
 # repo = "leafOfTree/vim-matchtag"
 # on_ft = ["vue"]
