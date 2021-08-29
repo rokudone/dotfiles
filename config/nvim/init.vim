@@ -470,7 +470,7 @@ endif
 if dein#tap('memolist.vim')
   nnoremap <Leader>mn  :MemoNew<CR>
   nnoremap <Leader>ml  :MemoListFzf<CR>
-  nnoremap <Leader>mg  :MemoGrep<CR>
+  nnoremap <Leader>mg  :MemoGrepFzf<SPACE>
 endif
 
 if dein#tap('tagbar')
@@ -672,8 +672,14 @@ if dein#tap('fzf.vim')
   command! -bang -nargs=+ -complete=dir Ag call fzf#vim#ag_raw(<q-args>, <bang>0)
 
   command! -bang -nargs=* -complete=dir MemoListFzf
-        \  call fzf#vim#grep(
-        \    'find '.g:memolist_path.' -type f -name "*.md" | sort -r'.(<q-args>), 1)
+       \  call fzf#vim#files(g:memolist_path, <bang>0)
+
+  command! -bang -nargs=* -complete=dir MemoGrepFzf
+       \  call fzf#vim#grep(
+       \    'rg --column --line-number --no-heading --color=always --smart-case -M0 -sortr path'.(<q-args>) . ' ' . g:memolist_path, 1,
+       \    <bang>0 ? fzf#vim#with_preview('up:60%')
+       \            : fzf#vim#with_preview('right:50%:hidden'),
+       \    <bang>0)
 
   command! -bang -nargs=* -complete=dir Rg
         \  call fzf#vim#grep(
@@ -2056,7 +2062,7 @@ if has('persistent_undo')
 endif
 
 set expandtab
-set tabstop=8
+set tabstop=4
 set softtabstop=-1
 " set shiftwidth=2
 set autoindent
