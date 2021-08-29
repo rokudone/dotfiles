@@ -414,15 +414,18 @@ if dein#tap('vim-sandwich')
   xmap s <Plug>(operator-sandwich-add)
 endif
 
-
 map <Leader>g [git]
 if dein#tap("vim-fugitive")
   nnoremap [git]f :<C-u>GFiles?<CR>
-  nnoremap [git]w :Gstatus<CR>
-  nnoremap [git]c :Gcommit<CR>
-  nnoremap [git]d :Gdiff<CR>
-  nnoremap [git]B :Git blame<CR>
+  nnoremap [git]w :Git status<CR>
+  nnoremap [git]c :Git commit<CR>
+  nnoremap [git]d :Git diff<CR>
+  " nnoremap [git]B :Git blame<CR>
   " vnoremap [git]B :Gbrowse<CR>
+endif
+
+if dein#tap("blamer.nvim")
+  nnoremap [git]B :BlamerToggle<CR>
 endif
 
 if dein#tap("agit.vim")

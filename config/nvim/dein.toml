@@ -95,6 +95,9 @@ repo = 'rhysd/committia.vim'
 # git 差分表示
 [[plugins]]
 repo = 'airblade/vim-gitgutter'
+# git blame
+[[plugins]]
+repo = 'APZelos/blamer.nvim'
 
 
 #
