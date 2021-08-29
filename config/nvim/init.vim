@@ -781,6 +781,7 @@ if dein#tap('coc.nvim')
         \ 'coc-rust-analyzer',
         \ 'coc-diagnostic',
         \ 'coc-go',
+        \ 'coc-tabnine',
         \ ]
 
         "\  'coc-yaml',
