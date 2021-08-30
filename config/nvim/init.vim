@@ -1350,7 +1350,6 @@ endif
 " kana/vim-smartinput
 "--------------------
 if dein#tap('vim-smartinput')
-
   call smartinput#map_to_trigger('i', '<Space>', '<Space>', '<Space>')
   call smartinput#define_rule({
        \   'at'    : '(\%#)',
@@ -1782,7 +1781,7 @@ endfunction
 
 if !has('mac')
   set background=dark
-elseif system('darkMode') =~ "Dark"
+elseif system('defaults read -g AppleInterfaceStyle 2>/dev/null') != "Dark"
   set background=dark
 else
   set background=light
