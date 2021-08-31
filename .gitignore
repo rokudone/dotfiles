@@ -34,3 +34,4 @@ config/nvim/sessions/*
 
 etc/.tmux/plugins/*
 etc/.tmux/resurrect
+bin/chromedriver
