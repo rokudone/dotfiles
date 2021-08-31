@@ -196,7 +196,6 @@ nnoremap <silent> <C-k> k:call search ("^". matchstr (getline (line (".")+ 1), '
 nnoremap <silent> <C-j> :call search ("^". matchstr (getline (line (".")), '\(\s*\)') ."\\S")<CR>^
 
 if dein#tap('defx.nvim')
-  " nnoremap <silent> <C-e> :Defx -split=vertical -winwidth=40 -direction=topleft<CR>
   nnoremap <silent> <C-e> :Defx -split=vertical -winwidth=60 -direction=topleft `expand('%:p:h')` -search=`expand('%:p')` <CR>
 endif
 
@@ -563,9 +562,8 @@ if dein#tap('defx.nvim')
     nnoremap <silent><buffer><expr> p     defx#do_action('paste')
 
     " edit file
-    nnoremap <silent><buffer><expr> K     defx#do_action('new_directory')
-    nnoremap <silent><buffer><expr> N     defx#do_action('new_file')
-    nnoremap <silent><buffer><expr> M     defx#do_action('new_multiple_files')
+    nnoremap <silent><buffer><expr> o     defx#do_action('new_directory')
+    nnoremap <silent><buffer><expr> i     defx#do_action('new_file')
     nnoremap <silent><buffer><expr> d     defx#do_action('remove')
     nnoremap <silent><buffer><expr> r     defx#do_action('rename')
 
@@ -585,6 +583,8 @@ if dein#tap('defx.nvim')
     nnoremap <silent><buffer><expr> cd    defx#do_action('change_vim_cwd')
 
   endfunction
+
+  command! DeinClean :call dein#check_clean()
 endif
 
 "--------------------
@@ -1889,7 +1889,7 @@ set title             " 編集中のファイル名を表示
 set ruler             " ルーラーの表示
 set showcmd           " 入力中のコマンドをステータスに表示する
 set laststatus=2      " ステータスラインを常に表示
-set cursorline        " 下線
+" set cursorline        " 下線
 set nowrap              " 画面幅で折り返す
 set list              " 不可視文字表示
 set listchars=tab:>-  "hannkaku
