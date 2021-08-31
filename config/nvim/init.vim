@@ -1799,13 +1799,13 @@ if (has("termguicolors"))
 
 
   if (&background == 'dark')
-    " let ayucolor="mirage"
-    " let g:airline_theme='ayu_mirage'
-    " colorscheme ayu
-
-    let ayucolor="dark"
-    let g:airline_theme='ayu_dark'
+    let ayucolor="mirage"
+    let g:airline_theme='ayu_mirage'
     colorscheme ayu
+
+    " let ayucolor="dark"
+    " let g:airline_theme='ayu_dark'
+    " colorscheme ayu
 
     " let g:airline_theme='onedark'
     " colorscheme one
