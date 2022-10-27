@@ -29,7 +29,8 @@ alias gbc='git checkout -b'
 alias gbr="git branch --remote"
 
 # # Commit (c)
-alias gc='git commit --verbose'
+# alias gc='git commit --verbose'
+alias gc='git commit -m "[temp] $(date "+%Y/%m/%d %H:%M:%S")"'
 alias gcm='git commit --message'
 alias gca='git commit --verbose --amend'
 alias gcA='git commit --verbose --amend --reuse-message HEAD'
@@ -43,7 +44,6 @@ alias gcs='git show'
 alias gcl='git-commit-lost'
 alias gcy='git cherry -v --abbrev'
 alias gcY='git cherry -v'
-alias gn='git now'
 
 # Conflict (C)
 alias gCl='git --no-pager diff --name-only --diff-filter=U'
