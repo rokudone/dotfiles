@@ -16,15 +16,15 @@ brew install automake
 brew install binutils
 brew install diffutils
 brew install coreutils
-brew install findutils --with-default-names
+brew install findutils # --with-default-names
 brew install gawk
-brew install gnu-indent --with-default-names
-brew install gnu-sed --with-default-names
-brew install gnu-tar --with-default-names
-brew install gnu-which --with-default-names
+brew install gnu-indent # --with-default-names
+brew install gnu-sed # --with-default-names
+brew install gnu-tar # --with-default-names
+brew install gnu-which # --with-default-names
 brew install gnutls
 brew install gnu-getopt
-brew install grep --with-default-names
+brew install grep # --with-default-names
 
 brew tap z80oolong/tmux
 brew install z80oolong/tmux/tmux
@@ -77,23 +77,27 @@ brew install circleci
 brew install --HEAD universal-ctags/universal-ctags/universal-ctags
 brew install koekeishiya/formulae/yabai
 brew install koekeishiya/formulae/skhd
+brew install rlwrap
 
 
 
 brew install xquartz
 brew install 1password
 brew install alfred
+brew install alt-tab
 brew install appcleaner
 brew install bettertouchtool
+brew install brave-browser
+brew install clickup
 brew install dropbox
 brew install docker
+brew install docker-compose
 brew install evernote
 brew install firefox
 brew install franz
 brew install google-chrome
 brew install google-chrome-canary
 brew install google-japanese-ime
-brew install hyperswitch
 brew install iterm2
 brew install insomnia
 brew install java
@@ -101,15 +105,19 @@ brew install karabiner-elements
 brew install kindle
 brew install marshallofsound-google-play-music-player
 brew install popclip
+brew install postman
 brew install translate-tab
 brew install todoist
 brew install the-unarchiver
 brew install skim
+brew install slack
 brew install sublime-text
 brew install stoplight-studio
 brew install virtualbox
+brew install visual-studio-code
 brew install vmware fusion
 brew install vagrant
+brew install watchman
 
 # brew cask install objektiv
 

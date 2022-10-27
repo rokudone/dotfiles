@@ -40,6 +40,34 @@ snippet /* "Description" i
  */
 endsnippet
 
-snippet yashiro "Description" i
-//XXX: yashiro $1
+snippet yashiroquery "Description" i
+// XXX: yashiro query $1
+endsnippet
+
+snippet yashirosave "Description" i
+// XXX: yashiro_save $1
+endsnippet
+
+snippet yashirocommentout "Description" i
+// XXX: yashiro comment out
+endsnippet
+
+snippet try "Description" b
+try
+{
+
+}
+catch ($1RuntimeException $e)
+{
+
+}
+endsnippet
+
+snippet switch "Description" b
+switch (true) {
+	case $1:
+		break;
+	default:
+		break;
+}
 endsnippet

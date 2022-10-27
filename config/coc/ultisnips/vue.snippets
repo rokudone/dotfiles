@@ -25,25 +25,13 @@
 # Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
 
 snippet template "vue3 template" b
+<script lang="ts" setup>
+
+</script>
+
 <template>
 
 </template>
-
-<script>
-import { defineComponent, computed, ref, reactive } from 'vue'
-export default defineComponent({
-
-	components: { },
-
-	props: {
-	},
-
-	setup(props, context) {
-		return {
-		}
-	}
-})
-</script>
 endsnippet
 
 snippet computed "vue 3 computed" i
@@ -79,12 +67,15 @@ snippet computed-getters-func "vue 3 computed" i
 computed(() => (${1}) => store.getters.${2})
 endsnippet
 
-snippet importUrlFor "Description" b
-import url_for from 'frontend/assets/js/urlFor'
+snippet script-setup "Vue 3 compsition API setup" b
+<script lang="ts" setup>
+</script>
 endsnippet
 
-snippet url_for "Description" b
-url_for(route_name, params = {}) {
-	return url_for(route_name, params)
-},
+snippet v-for "v-for" i
+<div v-for="${1}">${2}</div>
+endsnippet
+
+snippet v-if "v-if" i
+<div v-if="${1}">${2}</div>
 endsnippet

@@ -1,5 +1,7 @@
 [[plugins]]
 repo = 'Shougo/dein.vim'
+[[plugins]]
+repo = 'vim-denops/denops.vim'
 
 [[plugins]]
 repo = 'vim-jp/vimdoc-ja'
@@ -12,10 +14,10 @@ repo = 'junegunn/fzf'
 build = './install --all'
 [[plugins]]
 repo = 'junegunn/fzf.vim'
-
-
-[[plugins]]
-repo = 'Shougo/defx.nvim'
+# [[plugins]]
+# repo = 'Shougo/defx.nvim'
+# [[plugins]]
+# repo = 'lambdalisue/fern.vim'
 [[plugins]]
 repo = 'junegunn/vim-easy-align'
 [[plugins]]
@@ -73,17 +75,21 @@ repo = 'liuchengxu/vista.vim'
 [[plugins]]
 repo = 'easymotion/vim-easymotion'
 [[plugins]]
+repo = 'yuki-yano/fuzzy-motion.vim'
+[[plugins]]
 repo = 'Yggdroot/indentLine'
 [[plugins]]
 repo = 'osyo-manga/vim-over'
 [[plugins]]
 repo = 'syui/airsave.vim'
+[[plugins]]
+repo = 'terryma/vim-expand-region'
 
 
 # git
 [[plugins]]
 repo = 'tpope/vim-fugitive'
-# git log
+# git logDefx
 [[plugins]]
 repo = 'cohama/agit.vim'
 # git branch管理
@@ -128,16 +134,12 @@ repo = 'pocke/vim-textobj-markdown' #c
 [[plugins]]
 repo = 'osyo-manga/vim-textobj-multiblock' #sb
 
-[[plugins]]
-repo = 'terryma/vim-expand-region'
-
 
 # language server client
 [[plugins]]
 repo = 'neoclide/coc.nvim'
 merged = 0
 rev = 'release'
-
 
 # debug adaptor client
 # [[plugins]]
@@ -149,23 +151,11 @@ rev = 'release'
 # on_ft = ["javascript", "bash", "rust"]
 # build = "./install_gadget.py"
 
+# [[plugins]]
+# repo = 'github/copilot.vim'
+
 #
 # filetype
-[[plugins]]
-repo = 'stephpy/vim-yaml'
-[[plugins]]
-repo = 'cespare/vim-toml'
-[[plugins]]
-repo = 'vim-scripts/PDV--phpDocumentor-for-Vim'
-[[plugins]]
-repo = 'neoclide/jsonc.vim'
-on_ft = ["jsonc"]
-[[plugins]]
-repo='vim-scripts/php-annotations-syntax'
-on_ft = ["php"]
-[[plugins]]
-repo='StanAngeloff/php.vim'
-on_ft = ["php"]
 [[plugins]]
 repo='docteurklein/vim-symfony'
 on_ft = ["php"]
@@ -173,57 +163,61 @@ on_ft = ["php"]
 repo='stephpy/vim-php-cs-fixer'
 on_ft = ["php"]
 [[plugins]]
-repo = 'cakebaker/scss-syntax.vim'
-on_ft = ["scss"]
+repo = 'kmyk/brainfuck-highlight.vim'
+on_ft = ["bf"]
 [[plugins]]
-repo = 'billyvg/tigris.nvim'
-on_ft = ['javascript', 'typescript', 'vue']
-hook_post_update = '''
-  let g:dein#plugin.build = './install.sh'
-'''
-[[plugins]]
-repo = "pangloss/vim-javascript"
-on_ft = ["javascript, typescript"]
-[[plugins]]
-repo = "leafgarland/typescript-vim"
-on_ft = ["javascript, typescript"]
+repo = 'PProvost/vim-ps1'
+on_ft = ["ps1"]
 [[plugins]]
 repo = "posva/vim-vue"
 on_ft = ["vue"]
 [[plugins]]
-repo = "evanleck/vim-svelte"
-on_ft = ["svelte"]
-# [[plugins]]
-# repo = "leafOfTree/vim-matchtag"
-# on_ft = ["vue"]
-# [[plugins]]
-# repo = "leafOfTree/vim-vue-plugin"
-# on_ft = ["vue"]
-[[plugins]]
-repo = 'tbastos/vim-lua'
-on_ft = ["lua"]
-[[plugins]]
 repo = 'mechatroner/rainbow_csv'
 on_ft = ["csv"]
-[[plugins]]
-repo = 'rust-lang/rust.vim'
-on_ft = ["rust"]
-[[plugins]]
-repo = 'mhinz/vim-crates'
-on_ft = ["toml"]
-[[plugins]]
-repo = 'robertbasic/vim-hugo-helper'
-on_ft = ["hugo"]
 [[plugins]]
 repo = 'vim-scripts/applescript.vim'
 on_ft = ["applescript"]
 [[plugins]]
-repo = 'kmyk/brainfuck-highlight.vim'
-on_ft = ["bf"]
-[[plugins]]
-repo = 'nelsyeung/twig.vim'
-on_ft = ["twig"]
-
+repo = 'jparise/vim-graphql'
+on_ft = ["graphql"]
+# [[plugins]]
+# repo = 'sheerun/vim-polyglot'
+# [[plugins]]
+# repo = 'stephpy/vim-yaml'
+# [[plugins]]
+# repo = 'cespare/vim-toml'
+# [[plugins]]
+# repo = 'neoclide/jsonc.vim'
+# on_ft = ["jsonc"]
+# [[plugins]]
+# repo='vim-scripts/php-annotations-syntax'
+# on_ft = ["php"]
+# [[plugins]]
+# repo = 'cakebaker/scss-syntax.vim'
+# on_ft = ["scss"]
+# [[plugins]]
+# repo = 'billyvg/tigris.nvim'
+# on_ft = ['javascript', 'typescript', 'vue']
+# hook_post_update = '''
+#   let g:dein#plugin.build = './install.sh'
+# '''
+# [[plugins]]
+# repo = "leafgarland/typescript-vim"
+# on_ft = ["javascript, typescript"]
+# [[plugins]]
+# repo = "evanleck/vim-svelte"
+# on_ft = ["svelte"]
+# [[plugins]]
+# repo = 'tbastos/vim-lua'
+# on_ft = ["lua"]
+# [[plugins]]
+# repo = 'rust-lang/rust.vim'
+# on_ft = ["rust"]
+# [[plugins]]
+# repo = 'mhinz/vim-crates'
+# on_ft = ["toml"]
+# repo = 'neovimhaskell/haskell-vim'
+# on_ft = ["hs"]
 # こいつらonにすると重い
 # [[plugins]]
 # repo = 'othree/yajs.vim'
@@ -234,17 +228,8 @@ on_ft = ["twig"]
 # [[plugins]]
 # repo = 'othree/javascript-libraries-syntax.vim'
 # on_ft = ["javascript, typescript"]
-[[plugins]]
-repo = 'chr4/nginx.vim'
-on_ft = ["nginx"]
-[[plugins]]
-repo = 'chr4/sslsecure.vim'
-on_ft = ["nginx"]
 
 # markdown
-
-[[plugins]]
-repo = 'plasticboy/vim-markdown'
 [[plugins]]
 repo = 'dhruvasagar/vim-table-mode'
 [[plugins]]
@@ -260,42 +245,41 @@ repo = 'vim-scripts/VOoM'
 repo = 'habamax/vim-asciidoctor'
 
 
-# colorscheme
+# syntax
+[[plugins]]
+repo = 'nvim-treesitter/nvim-treesitter'
+merged = 0
+
+[[plugins]]
+repo = 'Shatur/neovim-ayu'
+[[plugins]]
+repo = 'Th3Whit3Wolf/one-nvim'
+[[plugins]]
+repo = 'olimorris/onedarkpro.nvim'
+[[plugins]]
+repo = 'tanvirtin/monokai.nvim'
+[[plugins]]
+repo = 'sainnhe/sonokai'
+[[plugins]]
+repo = 'sainnhe/everforest'
+[[plugins]]
+repo = 'sainnhe/edge'
+[[plugins]]
+repo = 'tiagovla/tokyodark.nvim'
+# [[plugins]]
+# repo = 'ayu-theme/ayu-vim'
+# [[plugins]]
+# repo = 'EdenEast/nightfox.nvim'
+
+
+[[plugins]]
+repo = 'norcalli/nvim-colorizer.lua'
 [[plugins]]
 repo = 'vim-airline/vim-airline'
 [[plugins]]
 repo = 'vim-airline/vim-airline-themes'
 [[plugins]]
 repo = 'ryanoasis/vim-devicons'
-[[plugins]]
-repo = 'mopp/mopkai.vim'
-[[plugins]]
-repo = 'ayu-theme/ayu-vim'
-[[plugins]]
-repo = 'drewtempelmeyer/palenight.vim'
-[[plugins]]
-repo = 'NLKNguyen/papercolor-theme'
-[[plugins]]
-repo = 'preservim/vim-colors-pencil'
-[[plugins]]
-repo = 'rakr/vim-one'
-[[plugins]]
-repo = 'sonph/onehalf'
-rtp = 'vim/'
-[[plugins]]
-repo = 'morhetz/gruvbox'
-[[plugins]]
-repo = 'rakr/vim-two-firewatch'
-
-# 試してイマイチリスト
-# [[plugins]] 
-# repo = 'elzr/vim-json'
-# [[plugins]]
-# repo = 'itchyny/lightline.vim'
-# [[plugins]]
-# repo = 'yarisgutierrez/ayu-lightline'
-# [[plugins]]
-# repo = 'yami-beta/lightline-pencil.vim'
 
 [[plugins]]
 repo = 'thinca/vim-scouter'

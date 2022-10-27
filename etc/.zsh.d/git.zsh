@@ -9,9 +9,7 @@
 zstyle -s ':prezto:module:git:log:medium' format '_git_log_medium_format' \
   || _git_log_medium_format='%C(bold)Commit:%C(reset) %C(green)%H%C(red)%d%n%C(bold)Author:%C(reset) %C(cyan)%an <%ae>%n%C(bold)Date:%C(reset)   %C(blue)%ai (%ar)%C(reset)%n%+B'
 zstyle -s ':prezto:module:git:log:oneline' format '_git_log_oneline_format' \
-  || _git_log_oneline_format='%C(green)%h%C(reset) %s%C(yellow)%d%C(reset)'
-zstyle -s ':prezto:module:git:log:brief' format '_git_log_brief_format' \
-  || _git_log_brief_format='%C(green)%h%C(reset) %s%n%C(blue)(%ar by %an)%C(red)%d%C(reset)%n'
+  || _git_log_oneline_format='%Cred%h%Creset - %s %Cgreen(%ci) %C(bold blue)<%an>%Creset %C(yellow)%d%Creset'
 # Git
 alias g='git'
 
@@ -146,12 +144,12 @@ alias ggv='git grep --invert-match'
 alias ggw='git grep --word-regexp'
 
 # Hub (h)
-alias ghb='hub browse'         # Open a GitHub page in the default browser
-alias ghc='hub create'         # Create this repository on GitHub and add GitHub as origin
-alias ghd='hub compare'        # Open a compare page on GitHub
-alias ghp='hub pr'             # List or checkout GitHub pull requests
-alias ghP='hub pull-request'   # Open a pull request on GitHub
-alias ghs='hub sync'           # Fetch git objects from upstream and update branches
+# alias ghb='hub browse'         # Open a GitHub page in the default browser
+# alias ghc='hub create'         # Create this repository on GitHub and add GitHub as origin
+# alias ghd='hub compare'        # Open a compare page on GitHub
+# alias ghp='hub pr'             # List or checkout GitHub pull requests
+# alias ghP='hub pull-request'   # Open a pull request on GitHub
+# alias ghs='hub sync'           # Fetch git objects from upstream and update branches
 # alias ghci='hub ci-status'      # Show the status of GitHub checks for a commit
 # alias ghD='hub delete'         # Delete a repository on GitHub
 # alias ghf='hub fork'           # Make a fork of a remote repository on GitHub and add as remote
@@ -201,6 +199,7 @@ alias gpt='git push --tags'
 alias gpd='git push --delete origin'
 alias gpc='git push --set-upstream origin "$(git-branch-current 2> /dev/null)"'
 alias gpp='git pull --rebase origin "$(git-branch-current 2> /dev/null)" && git push origin "$(git-branch-current 2> /dev/null)"'
+alias gP='git lfs push'
 
 # Rebase (r)
 alias gr='git rebase'

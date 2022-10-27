@@ -30,7 +30,7 @@
 	editor = nvim
   quotepath = false
   autocrlf = false
-  safecrlf = true
+  safecrlf = false
   # pager = less=-R less
   pager=LC_ALL=ja_JP.UTF-8 less -Sx4
   excludesfile = ~/.gitignore_global

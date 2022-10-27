@@ -17,6 +17,8 @@
 scriptencoding utf-8
 set encoding=UTF-8
 
+lang ja_JP.UTF-8
+
 filetype off
 filetype plugin indent off
 
@@ -24,8 +26,6 @@ filetype plugin indent off
 "dein
 "----------------------
 let g:dotfiles_path = substitute(system("cd $(dirname ".$MYVIMRC."); git rev-parse --show-toplevel"), "[\n\r]", "", "g")
-" let g:dotfiles_path = system("cd $(dirname ".$MYVIMRC."); git rev-parse --show-toplevel")
-" let g:dotfiles_path = "~/projects/dotfiles/"
 let s:dein_dir = expand('~/.config/nvim.bundle')
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim' " dein.vim 本体
 let g:dein#install_process_timeout =  600
@@ -53,7 +53,8 @@ if dein#check_install()
   call dein#install()
 endif
 
-" :call dein#recache_runtimepath()
+" call dein#update()
+call dein#recache_runtimepath()
 
 "-------------------
 " keymap
@@ -64,9 +65,13 @@ nmap <Leader><Leader> <Space>
 
 "esc2回でハイライトを消す
 nnoremap <silent> <ESC><ESC> :noh<cr>
+
 "挿入モード便利キー
-noremap! <C-P> <Up>
-noremap! <C-N> <Down>
+" noremap! <C-P> <Up>
+" noremap! <C-N> <Down>
+
+cnoremap <C-P> <Up>
+cnoremap <C-N> <Down>
 noremap! <C-F> <Right>
 noremap! <C-B> <Left>
 noremap! <C-[> <ESC>
@@ -108,6 +113,13 @@ nnoremap zl zo
 nnoremap zL zO
 nnoremap zh zc
 nnoremap zH zC
+
+"----------------------
+" fuzzy-motion
+"----------------------
+if dein#tap('fuzzy-motion.vim')
+  nnoremap <silent>F :<C-u>FuzzyMotion<CR>
+endif
 
 " ----------------------------------------
 " <m> commands
@@ -178,6 +190,7 @@ nnoremap <silent> <C-w>_ <C-w>-
 nnoremap <silent> <Leader>es :<C-u>source ~/.config/nvim/init.vim<CR>
 nnoremap <silent> <Leader>ev :<C-u>tabnew ~/.config/nvim/init.vim<CR>
 nnoremap <silent> <Leader>et :<C-u>tabnew ~/.config/nvim/dein.toml<CR>
+nnoremap <silent> <Leader>ec :<C-u>CocConfig<CR>
 
 " reload file
 " nnoremap <silent> <Leader>R :<C-u>e<CR>
@@ -195,14 +208,18 @@ nnoremap <silent> <Leader>Q :qa!<CR>
 nnoremap <silent> <C-k> k:call search ("^". matchstr (getline (line (".")+ 1), '\(\s*\)') ."\\S", 'b')<CR>^
 nnoremap <silent> <C-j> :call search ("^". matchstr (getline (line (".")), '\(\s*\)') ."\\S")<CR>^
 
-if dein#tap('defx.nvim')
-  nnoremap <silent> <C-e> :Defx -split=vertical -winwidth=60 -direction=topleft `expand('%:p:h')` -search=`expand('%:p')` <CR>
-endif
+" if dein#tap('defx.nvim')
+"   nnoremap <silent> <C-e> :Defx -split=vertical -winwidth=60 -direction=topleft `expand('%:p:h')` -search=`expand('%:p')` <CR>
+" endif
+
+" if dein#tap('fern.vim')
+"   nnoremap <silent> <C-t> :Fern -split=vertical -winwidth=60 -direction=topleft `expand('%:p:h')` -search=`expand('%:p')` <CR>
+" endif
 
 if dein#tap('fzf.vim')
   " map <Leader>f [fzf]
-  nnoremap <silent> <Leader>f :<C-u>GFiles<CR>
-  nnoremap <silent> <Leader>F :<C-u>Files<CR>
+  " nnoremap <silent> <Leader>f :<C-u>GFiles<CR>
+  nnoremap <silent> <Leader>f :<C-u>Files<CR>
   nnoremap <silent> <Leader>ee :<C-u>Dotfiles<CR>
   nnoremap <silent> <Leader>u :<C-u>Buffers<CR>
   nnoremap <silent> <Leader>m :<C-u>Marks<CR>
@@ -225,19 +242,25 @@ if dein#tap('coc.nvim')
   " <CR>で補完せず下の行
   " <Tab>で補完 スニペットのジャンプ
   inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-
-  " inoremap <expr> <CR> pumvisible() ? "\<C-e>" : "\<C-g>u\<CR>"
-
+      \ coc#pum#visible() ?
+      \     coc#_select_confirm() :
+      \     coc#expandableOrJumpable() ?
+      \         "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \         <SID>check_back_space() ?
+      \             "\<TAB>" :
+      \             coc#refresh()
   function! s:check_back_space() abort
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~# '\s'
   endfunction
 
   nnoremap <silent> <C-l> :<C-u>Reload<CR>
+
+
+  inoremap <silent><expr> <CR> coc#pum#visible() ? "\<right>\<CR>" : "\<CR>"
+
+  " C-Sで0文字でもポップアップメニューを開く
+  inoremap <silent><expr> <C-S> coc#refresh()
 
 
   " Use `g[` and `g]` to navigate diagnostics
@@ -323,6 +346,9 @@ if dein#tap('coc.nvim')
   " " Resume latest coc list
   " nnoremap <silent> gp  :<C-u>CocListResume<CR>
 
+  nnoremap <silent> ge :<C-u>CocCommand explorer<CR>
+  nnoremap <silent> gE :<C-u>CocCommand explorer --preset floating<CR>
+
 endif
 
 " --------------------
@@ -334,6 +360,15 @@ endif
 "   nmap <S-F9>F9 <Plug>VimspectorToggleConditionalBreakpoint
 "   nmap <S-F8>F8 <Plug>VimspectorRunToCursor
 " endif
+"
+if dein#tap('copilot.vim')
+  " let g:copilot_filetypes = {
+  "      \ '*': v:true,
+  "      \ }
+  imap <silent><script><expr> <C-j> copilot#Accept("\<CR>")
+  let g:copilot_no_tab_map = v:true
+endif
+
 
 if dein#tap('vista.vim')
   nnoremap <silent> <Leader>o :<C-u>Vista coc<CR>
@@ -368,11 +403,12 @@ if dein#tap('vim-easy-align')
 endif
 
 if dein#tap('caw.vim')
+  let g:caw_operator_keymappings = 0
   " 行の最初の文字の前にコメント文字をトグル
-  nmap gc <Plug>(caw:hatpos:toggle)
-  nmap gC <Plug>(caw:wrap:toggle)
-  vmap gc <Plug>(caw:hatpos:toggle)
-  vmap gC <Plug>(caw:wrap:toggle)
+  " nmap gc <Plug>(caw:hatpos:toggle)
+  " nmap gC <Plug>(caw:wrap:toggle)
+  " vmap gc <Plug>(caw:hatpos:toggle)
+  " vmap gC <Plug>(caw:wrap:toggle)
 endif
 
 if dein#tap('incsearch-migemo.vim')
@@ -385,16 +421,16 @@ if dein#tap('vim-rengbang')
 endif
 
 if dein#tap('vim-over')
-  nnoremap <leader>s :<C-u>OverCommandLine<CR>%s/
-  vnoremap <leader>s :<C-u>OverCommandLine<CR>'<,'>s/
+  nnoremap <leader>s :<C-u>OverCommandLine<CR>%s/\v
+  vnoremap <leader>s :<C-u>OverCommandLine<CR>'<,'>s/\v
 endif
 
 if dein#tap('vim-easymotion')
   " <Leader>f{char} to move to {char}
   map  f <Plug>(easymotion-fl)
-  map  F <Plug>(easymotion-Fl)
+  " map  F <Plug>(easymotion-Fl)
   map  t <Plug>(easymotion-tl)
-  map  T <Plug>(easymotion-Tl)
+  " map  T <Plug>(easymotion-Tl)
 
   " s{char}{char} to move to {char}{char}
   nmap <Leader>[ <Plug>(easymotion-overwin-f2)/
@@ -418,13 +454,14 @@ if dein#tap("vim-fugitive")
   nnoremap [git]f :<C-u>GFiles?<CR>
   nnoremap [git]w :Git status<CR>
   nnoremap [git]c :Git commit<CR>
-  nnoremap [git]d :Git diff<CR>
-  " nnoremap [git]B :Git blame<CR>
+  " nnoremap [git]d :Git diff<CR>
+  nnoremap [git]d :Gdiff<CR>
+  nnoremap [git]B :Git blame<CR>
   " vnoremap [git]B :Gbrowse<CR>
 endif
 
 if dein#tap("blamer.nvim")
-  nnoremap [git]B :BlamerToggle<CR>
+  " nnoremap [git]B :BlamerToggle<CR>
 endif
 
 if dein#tap("agit.vim")
@@ -505,87 +542,88 @@ endif
 "-----------
 " defx
 "----------
-if dein#tap('defx.nvim')
-  autocmd FileType defx call s:defx_my_settings()
-
-  function! s:defx_my_settings() abort
-
-    function! Defx_git_root_dir(context) abort
-      let l:path = system('git rev-parse --show-toplevel')
-      let l:path = substitute(l:path, "[\n\r]", "", "g")
-      call defx#call_action('cd', l:path)
-    endfunction
-
-    " Define mappings
-    " move cursor
-    nnoremap <silent><buffer><expr> j line('.') == line('$') ? 'gg' : 'j'
-    nnoremap <silent><buffer><expr> k line('.') == 1 ? 'G': 'k'
-
-    " change directory
-    nnoremap <silent><buffer><expr> <CR>
-          \ defx#is_directory() ?
-          \ defx#do_action('open'):
-          \ defx#do_action('multi', ['quit', 'open'])
-    nnoremap <silent><buffer><expr> l
-          \ defx#is_directory() ?
-          \ defx#do_action('open_tree'):
-          \ defx#do_action('preview')
-    nnoremap <silent><buffer><expr> L
-          \ defx#do_action('open_tree', 'recuresive:5'):
-    nnoremap <silent><buffer><expr> h
-          \ defx#do_action('close_tree')
-    nnoremap <silent><buffer><expr> u defx#do_action('cd', ['..'])
-    " nnoremap <silent><buffer><expr> <CR>
-    "      \ defx#is_directory() ?
-    "      \ defx#do_action('open_or_close_tree'):
-    "      \ defx#do_action('drop')
-    " nnoremap <silent><buffer><expr> l
-    "      \ defx#is_directory() ?
-    "      \ defx#do_action('open'):
-    "      \ defx#do_action('drop')
-    nnoremap <silent><buffer><expr> ` defx#do_action('call', 'Defx_git_root_dir')
-    nnoremap <silent><buffer><expr> ~ defx#do_action('cd')
-    nnoremap <silent><buffer><expr> \ defx#do_action('cd', ['/'])
-
-    " open file
-    nnoremap <silent><buffer><expr> s
-          \ defx#do_action('multi', ['quit', ['open', 'split']])
-    nnoremap <silent><buffer><expr> v
-          \ defx#do_action('multi', ['quit', ['open', 'vsplit']])
-    nnoremap <silent><buffer><expr> t
-          \ defx#do_action('multi', ['quit', ['open', 'tabnew']])
-    " nnoremap <silent><buffer><expr> P defx#do_action('open', 'pedit')
-
-    " move file
-    nnoremap <silent><buffer><expr> c    defx#do_action('copy')
-    nnoremap <silent><buffer><expr> m     defx#do_action('move')
-    nnoremap <silent><buffer><expr> p     defx#do_action('paste')
-
-    " edit file
-    nnoremap <silent><buffer><expr> o     defx#do_action('new_directory')
-    nnoremap <silent><buffer><expr> i     defx#do_action('new_file')
-    nnoremap <silent><buffer><expr> d     defx#do_action('remove')
-    nnoremap <silent><buffer><expr> r     defx#do_action('rename')
-
-    " select file
-    nnoremap <silent><buffer><expr> <c-j> defx#do_action('toggle_select').'j'
-    vnoremap <silent><buffer><expr> <c-j> defx#do_action('toggle_select_visual').'j'
-    nnoremap <silent><buffer><expr> <c-k> defx#do_action('toggle_select').'k'
-    vnoremap <silent><buffer><expr> <c-k> defx#do_action('toggle_select_visual').'k'
-    nnoremap <silent><buffer><expr> *     defx#do_action('toggle_select_all')
-
-    " other
-    nnoremap <silent><buffer><expr> x     defx#do_action('execute_system')
-    nnoremap <silent><buffer><expr> yy    defx#do_action('yank_path')
-    nnoremap <silent><buffer><expr> .     defx#do_action('toggle_ignored_files')
-    nnoremap <silent><buffer><expr> <C-l> defx#do_action('redraw')
-    nnoremap <silent><buffer><expr> q     defx#do_action('quit')
-    nnoremap <silent><buffer><expr> cd    defx#do_action('change_vim_cwd')
-
-  endfunction
-
-  command! DeinClean :call dein#check_clean()
-endif
+" if dein#tap('defx.nvim')
+"   autocmd FileType defx call s:defx_my_settings()
+" 
+"   function! s:defx_my_settings() abort
+" 
+"     function! Defx_git_root_dir(context) abort
+"       let l:path = system('git rev-parse --show-toplevel')
+"       let l:path = substitute(l:path, "[\n\r]", "", "g")
+"       call defx#call_action('cd', l:path)
+"     endfunction
+" 
+"     " Define mappings
+"     " move cursor
+"     nnoremap <silent><buffer><expr> j line('.') == line('$') ? 'gg' : 'j'
+"     nnoremap <silent><buffer><expr> k line('.') == 1 ? 'G': 'k'
+" 
+"     " change directory
+"     nnoremap <silent><buffer><expr> <CR>
+"         \ defx#is_directory() ?
+"         \ defx#do_action('open'):
+"         \ defx#do_action('multi', ['quit', 'open'])
+"     nnoremap <silent><buffer><expr> l
+"          \ defx#is_directory() ?
+"          \ defx#do_action('open_tree'):
+"          \ defx#do_action('drop')
+"     nnoremap <silent><buffer><expr> L
+"          \ defx#do_action('open_tree', 'recuresive:5'):
+"     nnoremap <silent><buffer><expr> h
+"          \ defx#do_action('close_tree')
+"     nnoremap <silent><buffer><expr> u defx#do_action('cd', ['..'])
+"     " nnoremap <silent><buffer><expr> <CR>
+"     "      \ defx#is_directory() ?
+"     "      \ defx#do_action('open_or_close_tree'):
+"     "      \ defx#do_action('drop')
+"     " nnoremap <silent><buffer><expr> l
+"     "      \ defx#is_directory() ?
+"     "      \ defx#do_action('open'):
+"     "      \ defx#do_action('drop')
+"     nnoremap <silent><buffer><expr> ` defx#do_action('call', 'Defx_git_root_dir')
+"     nnoremap <silent><buffer><expr> ~ defx#do_action('cd')
+"     nnoremap <silent><buffer><expr> \ defx#do_action('cd', ['/'])
+" 
+"     " open file
+"     nnoremap <silent><buffer><expr> s
+"          \ defx#do_action('multi', ['quit', ['open', 'split']])
+"     nnoremap <silent><buffer><expr> v
+"          \ defx#do_action('multi', ['quit', ['open', 'vsplit']])
+"     nnoremap <silent><buffer><expr> t
+"          \ defx#do_action('multi', ['quit', ['open', 'tabnew']])
+"     " nnoremap <silent><buffer><expr> P defx#do_action('open', 'pedit')
+" 
+"     " move file
+"     nnoremap <silent><buffer><expr> c     defx#do_action('copy')
+"     nnoremap <silent><buffer><expr> m     defx#do_action('move')
+"     nnoremap <silent><buffer><expr> mm    defx#do_action('move')
+"     nnoremap <silent><buffer><expr> p     defx#do_action('paste')
+" 
+"     " edit file
+"     nnoremap <silent><buffer><expr> o     defx#do_action('new_directory')
+"     nnoremap <silent><buffer><expr> i     defx#do_action('new_file')
+"     nnoremap <silent><buffer><expr> d     defx#do_action('remove')
+"     nnoremap <silent><buffer><expr> r     defx#do_action('rename')
+" 
+"     " select file
+"     nnoremap <silent><buffer><expr> <c-j> defx#do_action('toggle_select').'j'
+"     vnoremap <silent><buffer><expr> <c-j> defx#do_action('toggle_select_visual').'j'
+"     nnoremap <silent><buffer><expr> <c-k> defx#do_action('toggle_select').'k'
+"     vnoremap <silent><buffer><expr> <c-k> defx#do_action('toggle_select_visual').'k'
+"     nnoremap <silent><buffer><expr> *     defx#do_action('toggle_select_all')
+" 
+"     " other
+"     nnoremap <silent><buffer><expr> x     defx#do_action('execute_system')
+"     nnoremap <silent><buffer><expr> yy    defx#do_action('yank_path')
+"     nnoremap <silent><buffer><expr> .     defx#do_action('toggle_ignored_files')
+"     nnoremap <silent><buffer><expr> <C-l> defx#do_action('redraw')
+"     nnoremap <silent><buffer><expr> q     defx#do_action('quit')
+"     nnoremap <silent><buffer><expr> cd    defx#do_action('change_vim_cwd')
+" 
+"   endfunction
+" 
+"   command! DeinClean :call dein#check_clean()
+" endif
 
 "--------------------
 " fzf.vim
@@ -737,6 +775,7 @@ if dein#tap('coc.nvim')
   " let g:coc_config_home='~/.config/nvim/coc/'
   augroup cocmygroup
     autocmd!
+    autocmd FileType * let b:coc_additional_keywords = ["-"]
     " Setup formatexpr specified filetype(s).
     autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
     " Update signature help on jump placeholder
@@ -771,22 +810,45 @@ if dein#tap('coc.nvim')
         \ 'coc-html',
         \ 'coc-svg',
         \ 'coc-css',
+        \ 'coc-prettier',
         \ 'coc-tailwindcss',
-        \ 'coc-vetur',
+        \ '@yaegassy/coc-volar',
+        \ '@yaegassy/coc-volar-tools',
         \ 'coc-tsserver',
         \ 'coc-eslint',
+        \ 'coc-php-cs-fixer',
+        \ 'coc-psalm',
         \ 'coc-xml',
         \ 'coc-json',
         \ 'coc-sql',
         \ 'coc-rust-analyzer',
         \ 'coc-diagnostic',
         \ 'coc-go',
-        \ 'coc-tabnine',
+        \ 'coc-powershell',
+        \ 'coc-explorer',
         \ ]
 
-        "\  'coc-yaml',
-        "\  'coc-phpls',
+        "\ '@yaegassy/coc-tailwindcss3',
+        "\ 'https://github.com/rodrigore/coc-tailwind-intellisense',
+        "\ 'coc-vetur',
+        "\ 'coc-yaml',
+        "\ 'coc-tabnine',
+        "\ 'coc-yaml',
+        "\ 'coc-phpls',
 
+  let g:coc_disable_transparent_cursor = 1
+
+  let g:coc_explorer_global_presets = {
+    \   'floating': {
+    \     'position': 'floating',
+    \     'open-action-strategy': 'sourceWindow',
+    \   },
+    \ }
+  augroup coccolorscheme
+    autocmd!
+    autocmd ColorScheme * hi! link CocExplorerGitDeleted Exception
+  augroup end
+  au FileType vue let b:coc_root_patterns = ['.git', '.env', 'package.json', 'tsconfig.json', 'jsconfig.json', 'vite.config.ts', 'vue.config.js', 'nuxt.config.ts', 'tailwind.config.js', 'tailwind.config.ts']
 endif
 
 " " --------------------
@@ -842,6 +904,24 @@ endif
 "   " VimspectorUpdate
 " 
 " endif
+
+" --------------------
+" nvim-treesitter/nvim-treesitter
+" --------------------
+if dein#tap('nvim-treesitter')
+lua << EOF
+require('nvim-treesitter.configs').setup({
+  ensure_installed = "all",
+  ignore_install = {"phpdoc"},
+  highlight = {
+    enable = true,
+  },
+  indent = {
+    enable = true
+  }
+})
+EOF
+endif
 
 " --------------------
 " vista.vim
@@ -1010,6 +1090,7 @@ if dein#tap('tagbar')
   let g:tagbar_autofocus = 1
   let g:tagbar_sort = 0
   let g:tagbar_width = 60
+  " let g:tagbar_ctags_bin = 'ctags --exclude=node_modules --exclude=vendor'
 
   augroup tagbarhighlight
     autocmd!
@@ -1476,20 +1557,20 @@ endif
 "--------------------
 if dein#tap('committia.vim')
   let g:committia_hooks = {}
-  function! g:committia_hooks.edit_open(info)
-    " Additional settings
-    setlocal spell
-
-    " If no commit message, start with insert mode
-    if a:info.vcs ==# 'git' && getline(1) ==# ''
-      startinsert
-    endif
-
-    " Scroll the diff window from insert mode
-    " Map <C-n> and <C-p>
-    imap <buffer><C-n> <Plug>(committia-scroll-diff-down-half)
-    imap <buffer><C-p> <Plug>(committia-scroll-diff-up-half)
-  endfunction
+  " function! g:committia_hooks.edit_open(info)
+  "   " Additional settings
+  "   setlocal spell
+  " 
+  "   " If no commit message, start with insert mode
+  "   if a:info.vcs ==# 'git' && getline(1) ==# ''
+  "     startinsert
+  "   endif
+  " 
+  "   " Scroll the diff window from insert mode
+  "   " Map <C-n> and <C-p>
+  "   imap <buffer><C-n> <Plug>(committia-scroll-diff-down-half)
+  "   imap <buffer><C-p> <Plug>(committia-scroll-diff-up-half)
+  " endfunction
 endif
 
 "--------------------
@@ -1643,10 +1724,11 @@ if dein#tap('vim-php-cs-fixer')
   let g:php_cs_fixer_dry_run = 0                    " Call command with dry-run option
   let g:php_cs_fixer_verbose = 0                    " Return the output of command if 1, else an inline information.
 endif
+
 "--------------------
 " php.vim
 "--------------------
-let g:php_version_id = 70414
+let g:php_version_id = 80000
 let g:php_html_load = 1
 let g:php_htmlInStrings = 1
 
@@ -1667,6 +1749,14 @@ let g:php_htmlInStrings = 1
 "   set shada=!,'100,<50,s10,h
 " endif
 
+"--------------------
+" nvim-colorizer
+"--------------------
+if dein#tap('nvim-colorizer')
+lua << EOF
+lua require'colorizer'.setup()
+EOF
+endif
 "--------------------
 " vim-chrome-devtools
 "--------------------
@@ -1799,25 +1889,39 @@ if (has("termguicolors"))
 
 
   if (&background == 'dark')
-    let ayucolor="mirage"
-    let g:airline_theme='ayu_mirage'
-    colorscheme ayu
+
+    " let g:airline_theme='ayu_mirage'
+    " let ayucolor="mirage"
+    " colorscheme ayu-mirage
 
     " let ayucolor="dark"
     " let g:airline_theme='ayu_dark'
     " colorscheme ayu
 
+    " colorscheme nightfox
+
+    " let g:airline_theme="molokai"
+    " colorscheme monokai_pro
+
+    let g:airline_theme="sonokai"
+    colorscheme sonokai
+
+    " let g:airline_theme="everforest"
+    " colorscheme everforest
+
+    " let g:airline_theme="edge"
+    " colorscheme edge
+
     " let g:airline_theme='onedark'
-    " colorscheme one
-    augroup mycolorschemedark
-      " autocmd ColorScheme * hi LineNr ctermbg=224 guibg=#F3F3F3
-      autocmd ColorScheme * hi! link SignColumn ColorColumn
-      autocmd ColorScheme * hi! link VertSplit ColorColumn
-    augroup END
+    " colorscheme onenord
+    " augroup mycolorschemedark
+    "   autocmd ColorScheme * hi LineNr ctermbg=224 guibg=#F3F3F3
+    "   autocmd ColorScheme * hi! link SignColumn ColorColumn
+    "   autocmd ColorScheme * hi! link VertSplit ColorColumn
+    " augroup END
   else
-    let ayucolor="light"
-    let g:airline_theme='ayu_light'
-    colorscheme ayu
+    " let g:airline_theme='ayu_light'
+    " colorscheme ayu-light
     augroup mycolorschemelight
       " autocmd ColorScheme * hi LineNr ctermbg=224 guibg=#F3F3F3
       autocmd ColorScheme * hi! link SignColumn ColorColumn
@@ -1889,7 +1993,7 @@ set title             " 編集中のファイル名を表示
 set ruler             " ルーラーの表示
 set showcmd           " 入力中のコマンドをステータスに表示する
 set laststatus=2      " ステータスラインを常に表示
-" set cursorline        " 下線
+set cursorline        " 下線
 set nowrap              " 画面幅で折り返す
 set list              " 不可視文字表示
 set listchars=tab:>-  "hannkaku
@@ -1900,10 +2004,9 @@ set splitright        " 垂直分割時は新しいwindowを右に
 set spelllang+=cjk
 set pumblend=15
 set fillchars=eob:\   " ファイル末尾以降の行頭は半角スペース
-set iskeyword=@,48-57,_,192-255,#,$
+set iskeyword=@,48-57,_,192-255,#,$,-
 
 " eob:'~'
-
 
 "------------------------------
 " 移動系
@@ -1951,6 +2054,7 @@ augroup END
 "--------------------------------
 "ファイル操作
 "--------------------------------
+set mouse=
 set autowrite
 set nofixeol
 
@@ -2052,6 +2156,18 @@ if &term =~ "xterm-256color"
   cnoremap <special> <Esc>[200~ <nop>
   cnoremap <special> <Esc>[201~ <nop>
 endif
+"--------------------------------
+"ターミナル操作
+"--------------------------------
+tnoremap <Esc> <C-\><C-n>
+tnoremap <C-[> <C-\><C-n>
+if has('nvim')
+  " Neovim 用
+  autocmd WinEnter * if &buftype ==# 'terminal' | startinsert | endif
+else
+  " Vim 用
+  autocmd WinEnter * if &buftype ==# 'terminal' | normal i | endif
+endif
 
 "---------------
 "タブキーの処理
@@ -2092,6 +2208,7 @@ command! Mac :set ff=mac
 "file enc
 command! Sjis :e ++enc=sjis
 command! Utf8 :e ++enc=utf8
+command! Utf16 :e ++enc=utf16
 
 " augroup MyXML
 "   autocmd!
