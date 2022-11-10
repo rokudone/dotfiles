@@ -776,10 +776,12 @@ if dein#tap('coc.nvim')
   augroup cocmygroup
     autocmd!
     autocmd FileType * let b:coc_additional_keywords = ["-"]
+
     " Setup formatexpr specified filetype(s).
     autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
     " Update signature help on jump placeholder
     autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+    autocmd FileType vue let b:coc_root_patterns = ['.git', '.env', 'package.json', 'tsconfig.json', 'jsconfig.json', 'vite.config.ts', 'vue.config.js', 'nuxt.config.ts', 'tailwind.config.js', 'tailwind.config.ts']
   augroup end
 
   " Use `:Format` to format current buffer
@@ -811,9 +813,9 @@ if dein#tap('coc.nvim')
         \ 'coc-svg',
         \ 'coc-css',
         \ 'coc-prettier',
-        \ 'coc-tailwindcss',
         \ '@yaegassy/coc-volar',
         \ '@yaegassy/coc-volar-tools',
+        \ '@yaegassy/coc-tailwindcss3',
         \ 'coc-tsserver',
         \ 'coc-eslint',
         \ 'coc-php-cs-fixer',
@@ -828,8 +830,7 @@ if dein#tap('coc.nvim')
         \ 'coc-explorer',
         \ ]
 
-        "\ '@yaegassy/coc-tailwindcss3',
-        "\ 'https://github.com/rodrigore/coc-tailwind-intellisense',
+        " \ 'coc-tailwindcss',
         "\ 'coc-vetur',
         "\ 'coc-yaml',
         "\ 'coc-tabnine',
@@ -848,7 +849,6 @@ if dein#tap('coc.nvim')
     autocmd!
     autocmd ColorScheme * hi! link CocExplorerGitDeleted Exception
   augroup end
-  au FileType vue let b:coc_root_patterns = ['.git', '.env', 'package.json', 'tsconfig.json', 'jsconfig.json', 'vite.config.ts', 'vue.config.js', 'nuxt.config.ts', 'tailwind.config.js', 'tailwind.config.ts']
 endif
 
 " " --------------------
@@ -1807,7 +1807,7 @@ let g:python3_host_prog = substitute(system('which python3'),"\n","","")
 
 augroup vimrchighlight
   autocmd!
-  autocmd Syntax * if 100000 < line('$') | syntax off | endif
+  autocmd BufEnter * if 10000 < line('$') | syntax clear | endif
 augroup END
 
 function! s:get_syn_id(transparent)
@@ -2004,9 +2004,8 @@ set splitright        " 垂直分割時は新しいwindowを右に
 set spelllang+=cjk
 set pumblend=15
 set fillchars=eob:\   " ファイル末尾以降の行頭は半角スペース
-set iskeyword=@,48-57,_,192-255,#,$,-
-
-" eob:'~'
+" set iskeyword=@,48-57,_,192-255,#,$,-
+set iskeyword+=-,$,#
 
 "------------------------------
 " 移動系

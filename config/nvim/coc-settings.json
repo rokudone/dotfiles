@@ -20,7 +20,7 @@
   "volar.takeOverMode.enabled": true,
   "volar.autoClosingTags": true,
   "volar-tools.enable": true,
-  "tsserver.enable": false,
+  "tsserver.enable": true,
   "php-cs-fixer.enable": false,
   "psalm.enable": false,
   "tailwindCSS.emmetCompletions": true,
