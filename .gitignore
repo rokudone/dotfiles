@@ -28,9 +28,10 @@ Temporary Items
 .apdisk
 
 config/coc/*
+!config/coc/ultisnips/
 config/karabiner/automatic_backups/*
 config/nvim/sessions/*
-!config/coc/ultisnips/
+config/nvim/plugin/*
 
 etc/.tmux/plugins/*
 etc/.tmux/resurrect

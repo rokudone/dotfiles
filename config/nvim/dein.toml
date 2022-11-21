@@ -24,8 +24,10 @@ repo = 'junegunn/vim-easy-align'
 repo = 'vim-scripts/sudo.vim'
 [[plugins]]
 repo = 'vim-scripts/catn.vim'
+# [[plugins]]
+# repo = 'tyru/caw.vim'
 [[plugins]]
-repo = 'tyru/caw.vim'
+repo = 'tpope/vim-commentary'
 [[plugins]]
 repo = 'Shougo/context_filetype.vim'
 [[plugins]]
@@ -150,6 +152,10 @@ rev = 'release'
 # repo = "puremourning/vimspector"
 # on_ft = ["javascript", "bash", "rust"]
 # build = "./install_gadget.py"
+[[plugins]]
+repo = "mfussenegger/nvim-dap"
+[[plugins]]
+repo = "rcarriga/nvim-dap-ui"
 
 # [[plugins]]
 # repo = 'github/copilot.vim'
@@ -250,22 +256,22 @@ repo = 'habamax/vim-asciidoctor'
 repo = 'nvim-treesitter/nvim-treesitter'
 merged = 0
 
-[[plugins]]
-repo = 'Shatur/neovim-ayu'
-[[plugins]]
-repo = 'Th3Whit3Wolf/one-nvim'
-[[plugins]]
-repo = 'olimorris/onedarkpro.nvim'
-[[plugins]]
-repo = 'tanvirtin/monokai.nvim'
+# [[plugins]]
+# repo = 'Shatur/neovim-ayu'
+# [[plugins]]
+# repo = 'Th3Whit3Wolf/one-nvim'
+# [[plugins]]
+# repo = 'olimorris/onedarkpro.nvim'
+# [[plugins]]
+# repo = 'tanvirtin/monokai.nvim'
 [[plugins]]
 repo = 'sainnhe/sonokai'
-[[plugins]]
-repo = 'sainnhe/everforest'
-[[plugins]]
-repo = 'sainnhe/edge'
-[[plugins]]
-repo = 'tiagovla/tokyodark.nvim'
+# [[plugins]]
+# repo = 'sainnhe/everforest'
+# [[plugins]]
+# repo = 'sainnhe/edge'
+# [[plugins]]
+# repo = 'tiagovla/tokyodark.nvim'
 # [[plugins]]
 # repo = 'ayu-theme/ayu-vim'
 # [[plugins]]
@@ -280,6 +286,8 @@ repo = 'vim-airline/vim-airline'
 repo = 'vim-airline/vim-airline-themes'
 [[plugins]]
 repo = 'ryanoasis/vim-devicons'
+[[plugins]]
+repo = 'junegunn/goyo.vim'
 
 [[plugins]]
 repo = 'thinca/vim-scouter'

@@ -23,6 +23,29 @@ filetype off
 filetype plugin indent off
 
 "----------------------
+" packer
+"----------------------
+let s:packer_repo_dir = expand('~/.local/share/nvim/site/pack/packer/opt/packer.nvim')
+" packerが入っていなければinstall
+if !isdirectory(s:packer_repo_dir)
+  call system('mkdir -p ~/.local/share/nvim/site/pack/packer/opt/')
+  call system('git clone https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/opt/packer.nvim')
+endif
+
+lua << EOF
+require'plugins'
+EOF
+
+augroup packer
+  autocmd!
+  autocmd BufWritePost */lua/plugins.lua PackerCompile
+  autocmd BufWritePost */lua/plugins/*.lua PackerCompile
+
+  " autocmd BufWritePost */lua/plugins.lua echo 'update plugins.lua'
+  " autocmd BufWritePost */lua/plugins/*.lua echo 'update plugins/*.lua'
+augroup End
+
+"----------------------
 "dein
 "----------------------
 let g:dotfiles_path = substitute(system("cd $(dirname ".$MYVIMRC."); git rev-parse --show-toplevel"), "[\n\r]", "", "g")
@@ -166,9 +189,7 @@ nnoremap <silent> <C-w>c :<C-u>tabnew<CR>:tabmove<CR>
 nnoremap <silent> <C-w><C-c> :<C-u>tabnew<CR>:tabmove<CR>
 nnoremap <silent> <C-w>Q :<C-u>tabclose<CR>
 
-nnoremap <silent> <C-w><bar> :<C-u>vsp<CR>
-nnoremap <silent> <C-w>- :<C-u>sp<CR>
-nnoremap <silent> <C-w>_ <C-w>-
+nnoremap <silent> <C-w>+ <C-w>_<C-w><bar>
 
 " nnoremap <C-z> `.zz
 
@@ -355,12 +376,20 @@ endif
 " vimspector
 " --------------------
 " if dein#tap('vimspector')
-"   nnoremap <F2> :<C-u>call LaunchFileDebug()<CR>
-"   nnoremap <S-F2> :<C-u>VimspectorReset<CR>
-"   nmap <S-F9>F9 <Plug>VimspectorToggleConditionalBreakpoint
-"   nmap <S-F8>F8 <Plug>VimspectorRunToCursor
+" F5	<Plug>VimspectorContinue	When debugging, continue. Otherwise start debugging.
+" Shift F5	<Plug>VimspectorStop	Stop debugging.
+" Ctrl Shift F5	<Plug>VimspectorRestart	Restart debugging with the same configuration.
+" F6	<Plug>VimspectorPause	Pause debuggee.
+" F8	<Plug>VimspectorJumpToNextBreakpoint	Jump to next breakpoint in the current file.
+" Shift F8	<Plug>VimspectorJumpToPreviousBreakpoint	Jump to previous breakpoint in the current file.
+" F9	<Plug>VimspectorToggleBreakpoint	Toggle line breakpoint on the current line.
+" Shift F9	<Plug>VimspectorAddFunctionBreakpoint	Add a function breakpoint for the expression under cursor
+" F10	<Plug>VimspectorStepOver	Step Over
+" F11	<Plug>VimspectorStepInto	Step Into
+" Shift F11	<Plug>VimspectorStepOut	Step out of current function scope
+" Alt 8	`VimspectorDisassemble	Show disassembly
 " endif
-"
+
 if dein#tap('copilot.vim')
   " let g:copilot_filetypes = {
   "      \ '*': v:true,
@@ -826,6 +855,7 @@ if dein#tap('coc.nvim')
         \ 'coc-rust-analyzer',
         \ 'coc-diagnostic',
         \ 'coc-go',
+        \ 'coc-lua',
         \ 'coc-powershell',
         \ 'coc-explorer',
         \ ]
@@ -1188,8 +1218,14 @@ if dein#tap('vim-airline')
   " let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
   " let g:airline#extensions#tabline#formatter = 'default'
 
-
   let g:airline#extensions#tabline#enabled = 1
+  let g:airline_filetype_overrides = {
+      \ 'coc-explorer':  [ 'CoC Explorer', '' ],
+      \ 'fugitive': ['fugitive', '%{airline#util#wrap(airline#extensions#branch#get_head(),80)}'],
+      \ 'gundo': [ 'Gundo', '' ],
+      \ 'help':  [ 'Help', '%f' ],
+      \ }
+  let g:airline_exclude_filetypes = [ 'dap-repl', 'dapui_console', 'dapui_scopes', 'dapui_breakpoints', 'dapui_stacks', 'dapui_watches' ]
 
   let g:airline#extensions#tabline#fnamemod = ':t' " タブに表示する名前（fnamemodifyの第二引数）
   let g:airline#extensions#tabline#show_splits = 1 "enable/disable displaying open splits per tab (only when tabs are opened). >
@@ -1773,8 +1809,9 @@ if dein#tap('vim-sandwich')
         \    {'buns': ['<', '>']}
         \  ]
 endif
+
 "--------------------
-" vim-sandwich
+" tigris.nvim
 "--------------------
 if dein#tap('tigris.nvim')
   let g:tigris#enabled = 1
@@ -1785,6 +1822,13 @@ endif
 if dein#tap('airsave.vim')
   let g:auto_write = 1
 endif
+
+"--------------------
+" goyo.vim
+"--------------------
+" if dein#tap('goyo.vim')
+"   let g:goyo_width = 100
+" endif
 
 "--------------------
 " setting ここまで
@@ -2060,6 +2104,10 @@ set nofixeol
 " autocmd CursorHold * wall
 " autocmd CursorHoldI * wall
 
+augroup checktime
+  autocmd!
+  autocmd BufEnter * checktime " window移動時にファイル更新
+augroup END
 set autoread                        " 更新時自動再読込み
 set hidden                          " 編集中でも他のファイルを開けるようにする
 set noswapfile                      " スワップファイルを作らない
