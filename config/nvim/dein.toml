@@ -28,8 +28,14 @@ repo = 'vim-scripts/catn.vim'
 # repo = 'tyru/caw.vim'
 [[plugins]]
 repo = 'tpope/vim-commentary'
+# [[plugins]]
+# repo = 'preservim/nerdcommenter'
+# [[plugins]]
+# repo = 'tomtom/tcomment_vim'
 [[plugins]]
-repo = 'Shougo/context_filetype.vim'
+repo = 'JoosepAlviste/nvim-ts-context-commentstring'
+# [[plugins]]
+# repo = 'Shougo/context_filetype.vim'
 [[plugins]]
 repo = 'thinca/vim-qfreplace'
 [[plugins]]
@@ -48,8 +54,8 @@ repo = 'haya14busa/incsearch-migemo.vim'
 repo = 'tpope/vim-repeat'
 [[plugins]]
 repo = 'tmhedberg/matchit'
-[[plugins]]
-repo = 'itchyny/vim-parenmatch'
+# [[plugins]]
+# repo = 'itchyny/vim-parenmatch'
 [[plugins]]
 repo = 'leafOfTree/vim-matchtag'
 [[plugins]]
@@ -68,8 +74,8 @@ repo = 'glidenote/memolist.vim'
 repo = 'majutsushi/tagbar'
 [[plugins]]
 repo = 'editorconfig/editorconfig-vim'
-[[plugins]]
-repo = 'LeafCage/yankround.vim'
+# [[plugins]]
+# repo = 'LeafCage/yankround.vim'
 [[plugins]]
 repo = 'MattesGroeger/vim-bookmarks'
 [[plugins]]
@@ -78,6 +84,8 @@ repo = 'liuchengxu/vista.vim'
 repo = 'easymotion/vim-easymotion'
 [[plugins]]
 repo = 'yuki-yano/fuzzy-motion.vim'
+[[plugins]]
+repo = 't9md/vim-choosewin'
 [[plugins]]
 repo = 'Yggdroot/indentLine'
 [[plugins]]
@@ -135,6 +143,10 @@ repo = 'machakann/vim-textobj-delimited'  #ad aD
 repo = 'pocke/vim-textobj-markdown' #c
 [[plugins]]
 repo = 'osyo-manga/vim-textobj-multiblock' #sb
+[[plugins]]
+repo = 'github/copilot.vim'
+[[plugins]]
+repo = 'mattn/vim-chatgpt'
 
 
 # language server client
@@ -143,22 +155,6 @@ repo = 'neoclide/coc.nvim'
 merged = 0
 rev = 'release'
 
-# debug adaptor client
-# [[plugins]]
-# repo = "puremourning/vimspector"
-# on_ft = ["php"]
-# build = "./install_gadget.py --force-enable-php"
-# [[plugins]]
-# repo = "puremourning/vimspector"
-# on_ft = ["javascript", "bash", "rust"]
-# build = "./install_gadget.py"
-[[plugins]]
-repo = "mfussenegger/nvim-dap"
-[[plugins]]
-repo = "rcarriga/nvim-dap-ui"
-
-# [[plugins]]
-# repo = 'github/copilot.vim'
 
 #
 # filetype
@@ -237,14 +233,25 @@ on_ft = ["graphql"]
 
 # markdown
 [[plugins]]
+repo = 'preservim/vim-markdown'
+on_ft = ['markdown', 'pandoc.markdown', 'rmd']
+[[plugins]]
+repo = 'godlygeek/tabular'
+[[plugins]]
 repo = 'dhruvasagar/vim-table-mode'
+[[plugins]]
+repo = 'mattn/vim-maketable'
 [[plugins]]
 repo = 'rhysd/vim-gfm-syntax'
 on_ft = ['markdown', 'pandoc.markdown', 'rmd']
+# [[plugins]]
+# repo = 'iamcco/markdown-preview.nvim'
+# on_ft = ['markdown', 'pandoc.markdown', 'rmd']
+# build = 'cd app & yarn install'
 [[plugins]]
-repo = 'iamcco/markdown-preview.nvim'
-on_ft = ['markdown', 'pandoc.markdown', 'rmd']
-build = 'cd app & yarn install'
+repo = 'previm/previm'
+[[plugins]]
+repo = 'tyru/open-browser.vim'
 [[plugins]]
 repo = 'vim-scripts/VOoM'
 [[plugins]]
@@ -255,6 +262,13 @@ repo = 'habamax/vim-asciidoctor'
 [[plugins]]
 repo = 'nvim-treesitter/nvim-treesitter'
 merged = 0
+[[plugins]]
+repo = 'RRethy/nvim-treesitter-endwise'
+[[plugins]]
+repo = 'kat0h/vim-auto-color-switcher'
+hook_post_update = '''
+let g:dein#plugin.build = 'make'
+'''
 
 # [[plugins]]
 # repo = 'Shatur/neovim-ayu'
@@ -266,6 +280,14 @@ merged = 0
 # repo = 'tanvirtin/monokai.nvim'
 [[plugins]]
 repo = 'sainnhe/sonokai'
+[[plugins]]
+repo = 'ishan9299/nvim-solarized-lua'
+[[plugins]]
+repo = 'Th3Whit3Wolf/onebuddy'
+[[plugins]]
+repo = 'rakr/vim-one'
+[[plugins]]
+repo = 'marko-cerovac/material.nvim'
 # [[plugins]]
 # repo = 'sainnhe/everforest'
 # [[plugins]]

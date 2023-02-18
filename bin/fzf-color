@@ -1,9 +1,9 @@
 #!/bin/bash
 if [[ "$(defaults read -g AppleInterfaceStyle 2>/dev/null)" == "Dark" ]]; then
   #one dark
-  echo " \
-    --color=fg:-1,bg:-1,hl:#c678dd \
-    --color=fg+:#ffffff,bg+:#4b5263,hl+:#d858fe \
+  FZF_COLOR=" \
+    --color=fg:-1,bg:-1,hl:-1 \
+    --color=fg+:-1,bg+:-1,hl+:-1 \
     --color=info:#98c379,prompt:#61afef,pointer:#be5046 \
     --color=marker:#e5c07b,spinner:#61afef,header:#61afef"
 
@@ -21,9 +21,9 @@ if [[ "$(defaults read -g AppleInterfaceStyle 2>/dev/null)" == "Dark" ]]; then
     else
 
 # ayu light
-echo " \
-  --color=fg:#4d4d4c,bg:#eeeeee,hl:#d7005f \
-  --color=fg+:#4d4d4c,bg+:#e8e8e8,hl+:#d7005f \
+FZF_COLOR=" \
+  --color=fg:-1,bg:-1,hl:-1 \
+  --color=fg+:-1,bg+:-1,hl+:-1 \
   --color=info:#4271ae,prompt:#8959a8,pointer:#d7005f \
   --color=marker:#4271ae,spinner:#4271ae,header:#4271ae"
 
@@ -34,6 +34,7 @@ echo " \
 #   --color=info:#427b58,prompt:#9d0006,spinner:#9d0006,pointer:#9d0006,marker:#9d0006,header:#928374"
 fi
 
+export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_COLOR"
 # \ { 'fg':      ['fg', 'Normal'],
 #   \ 'bg':      ['bg', 'Normal'],
 #   \ 'hl':      ['fg', 'Comment'],

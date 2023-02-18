@@ -1,48 +1,68 @@
-require'packer'.startup(function()
-  use "mfussenegger/nvim-dap"
-  use "rcarriga/nvim-dap-ui"
--- use {
---   "mxsdev/nvim-dap-vscode-js",
---   requires = {"mfussenegger/nvim-dap"}
--- }
--- use {
---   "microsoft/vscode-js-debug",
---   opt = true,
---   run = "npm install --legacy-peer-deps && npm run compile"
--- }
-end)
-
--- require("dap-vscode-js").setup({
---   -- node_path = "node", -- Path of node executable. Defaults to $NODE_PATH, and then "node"
---   -- debugger_path = "(runtimedir)/site/pack/packer/opt/vscode-js-debug", -- Path to vscode-js-debug installation.
---   -- debugger_cmd = { "js-debug-adapter" }, -- Command to use to launch the debug server. Takes precedence over `node_path` and `debugger_path`.
---   adapters = { 'pwa-node', 'pwa-chrome', 'pwa-msedge', 'node-terminal', 'pwa-extensionHost' }, -- which adapters to register in nvim-dap
---   -- log_file_path = "(stdpath cache)/dap_vscode_js.log" -- Path for file logging
---   -- log_file_level = false -- Logging level for output to file. Set to false to disable file logging.
---   -- log_console_level = vim.log.levels.ERROR -- Logging level for output to console. Set to false to disable console output.
+-- require("mason").setup()
+-- require("mason-nvim-dap").setup({
+--   ensure_installed = {"chrome", "node2", "php"},
+--   automatic_installation = true,
+--   automatic_setup = true,
 -- })
--- for _, language in ipairs({ "typescript", "javascript" }) do
---   require("dap").configurations[language] = {
---     {
---       type = "pwa-node",
---       request = "launch",
---       name = "Launch file",
---       program = "${file}",
---       cwd = "${workspaceFolder}",
---       resolveSourceMapLocations = {},
---     },
---     {
---       type = "pwa-node",
---       request = "attach",
---       name = "Attach",
---       processId = require'dap.utils'.pick_process,
---       cwd = "${workspaceFolder}",
---       resolveSourceMapLocations = {},
---     }
---   }
--- end
 
-require("dapui").setup({
+local dap = require('dap')
+dap.adapters.node2 = {
+  type = 'executable',
+  command = 'node',
+  args = {os.getenv('HOME') .. '/dev/microsoft/vscode-node-debug2/out/src/nodeDebug.js'},
+}
+
+dap.adapters.chrome = {
+  type = "executable",
+  command = "node",
+  args = {os.getenv("HOME") .. "/dev/microsoft/vscode-chrome-debug/out/src/chromeDebug.js"}
+}
+
+dap.configurations.javascript = {
+  {
+    name = 'Launch',
+    type = 'node2',
+    request = 'launch',
+    program = '${file}',
+    cwd = vim.fn.getcwd(),
+    sourceMaps = true,
+  },
+  {
+    -- For this to work you need to make sure the node process is started with the `--inspect` flag.
+    name = 'Attach to process',
+    type = 'node2',
+    request = 'attach',
+    processId = require'dap.utils'.pick_process,
+  },
+}
+
+-- https://qiita.com/murasuke/items/9ce3eeeee949324f32b7
+dap.configurations.typescript = {
+  {
+    name = 'Launch',
+    type = 'node2',
+    request = 'launch',
+    runtimeArgs = {"--nolazy", "-r", "ts-node/register"},
+    args = {"${file}", "--transpile-only"},
+    skipFiles = {"<node_internals>/**", "node_modules/**"},
+    env = {
+      TS_NODE_PROJECT = "${workspaceFolder}/tsconfig.json"
+    },
+    sourceMaps = true,
+  },
+  {
+    -- For this to work you need to make sure the node process is started with the `--inspect` flag.
+    name = 'Attach to process',
+    type = 'node2',
+    request = 'attach',
+    processId = require'dap.utils'.pick_process,
+  },
+}
+
+require('dap-ruby').setup();
+
+local function dapui_setup()
+  require("dapui").setup({
   icons = { expanded = "", collapsed = "", current_frame = "" },
   mappings = {
     -- Use a table to apply multiple mappings
@@ -122,3 +142,11 @@ require("dapui").setup({
     max_value_lines = 100, -- Can be integer or nil.
   }
 })
+end
+
+dapui_setup();
+
+function dapui_reload()
+dapui_setup();
+require("dapui").open();
+end

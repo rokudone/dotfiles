@@ -1,5 +1,5 @@
 {
-  "coc.preferences.formatOnSaveFiletypes": ["rust", "go", "typescript", "vue"],
+  "coc.preferences.formatOnSaveFiletypes": ["rust", "go", "typescript", "ruby"],
   "diagnostic.messageTarget": "float",
   "diagnostic.checkCurrentLine": false,
   "diagnostic.virtualText": false,
@@ -13,18 +13,24 @@
   "suggest.acceptSuggestionOnCommitCharacter": true,
   "suggest.snippetIndicator": "►",
   "suggest.maxCompleteItemCount": 20,
-  "html.filetypes": [ "html" ],
+  "html.filetypes": ["html", "vue", "typescriptreact", "javascriptreact", "svelte", "markdown"],
   "css.lint.unknownAtRules": "ignore",
+  "eslint.autoFixOnSave": true,
+  "eslint.filetypes": ["javascript", "typescript", "typescriptreact", "javascriptreact", "typescript.tsx"],
   "vetur.enable": false,
   "vetur.validation.template": true,
   "volar.takeOverMode.enabled": true,
   "volar.autoClosingTags": true,
   "volar-tools.enable": true,
   "tsserver.enable": true,
+  "typescript.format.enable": false,
   "php-cs-fixer.enable": false,
   "psalm.enable": false,
   "tailwindCSS.emmetCompletions": true,
   "tailwindCSS.headwind.runOnSave": false,
+  "solargraph.autoformat": true,
+  "solargraph.formatting": true,
+  "solargraph.diagnostics": true,
   "graphql.watcherPattern": "**/*.{graphql,gql,js,ts}",
   "graphql.filetypes": [
     "graphql",
@@ -183,5 +189,6 @@
       "rootPatterns": ["*.cabal", "stack.yaml", "cabal.project", "package.yaml", "hie.yaml"],
       "filetypes": ["haskell", "lhaskell"]
     }
-  }
+  },
+  "snippets.ultisnips.pythonPrompt": false
 }

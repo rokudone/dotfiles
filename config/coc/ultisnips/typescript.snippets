@@ -24,9 +24,87 @@
 #
 # Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
 
-snippet swap "swap function" b
+snippet swap "swap" b
 const swap = (x: any[], i: number, j: number)  => {
 	x[j] = x.splice(i, 1, x[j])[0]
 	return x
 }
+endsnippet
+
+snippet range "Description" b
+const range = (length: number) => Array.from({ length }).map((_, i) => i);
+endsnippet
+
+snippet range "Description" b
+const range = (start: number, end: number) =>
+Array.from({ length: end - start + 1 }, (_, i) => start + i);
+endsnippet
+
+snippet Primitives "Description" b
+type Primitives = string | number | boolean;
+endsnippet
+
+snippet Maybe "Description" b
+type Maybe<T> = T | undefined | null;
+endsnippet
+
+snippet log "Description" b
+const log = (arg: unknown) => console.log(JSON.stringify(arg, null, 2));
+endsnippet
+
+snippet transpose "Description" b
+const transpose = <T>(table: T[][]) => table[0].map((_, i) => table.map((row) => row[i]));
+endsnippet
+
+snippet uniq "Description" b
+const uniq = <T>(arr: T[]) => Array.from(new Set(arr));
+endsnippet
+
+snippet paiza "Description" b
+export {}
+const getData = () => {
+	// @ts-ignore
+	if (typeof lines !== "undefined") {
+		// @ts-ignore
+		return lines.map((line) => line.trim()).filter((line) => line !== "");
+	}
+	return \`
+	\`
+	.split("\n")
+	.map((line) => line.trim())
+	.filter((line) => line !== "");
+};
+
+const data = getData();
+
+const log = (msg: any) => {
+	// @ts-ignore
+	if (typeof lines === "undefined") {
+		console.log(msg);
+	}
+};
+
+endsnippet
+
+snippet photoshop "Description" b
+/// <reference types="types-for-adobe/Photoshop/2015.5"/>
+
+import "json3";
+import "extendscript-es5-shim";
+import "extendscript-es6-shim";
+
+let actionSet: string;
+let actionName: string;
+
+// @ts-ignore
+if (typeof arguments === "undefined" || arguments.length < 3) {
+	actionSet = "";
+	actionName = "";
+} else {
+	// @ts-ignore
+	actionSet = arguments[1];
+	// @ts-ignore
+	actionName = arguments[2];
+}
+
 endsnippet

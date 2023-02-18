@@ -25,11 +25,11 @@ filetype plugin indent off
 "----------------------
 " packer
 "----------------------
-let s:packer_repo_dir = expand('~/.local/share/nvim/site/pack/packer/opt/packer.nvim')
+let s:packer_repo_dir = expand('~/.local/share/nvim/site/pack/packer/start/packer.nvim')
 " packerが入っていなければinstall
 if !isdirectory(s:packer_repo_dir)
-  call system('mkdir -p ~/.local/share/nvim/site/pack/packer/opt/')
-  call system('git clone https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/opt/packer.nvim')
+  call system('mkdir -p ~/.local/share/nvim/site/pack/packer/start/')
+  call system('git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim')
 endif
 
 lua << EOF
@@ -89,6 +89,11 @@ nmap <Leader><Leader> <Space>
 "esc2回でハイライトを消す
 nnoremap <silent> <ESC><ESC> :noh<cr>
 
+noremap <silent> j gj
+noremap <silent> k gk
+noremap <silent> gj j
+noremap <silent> gk k
+
 "挿入モード便利キー
 " noremap! <C-P> <Up>
 " noremap! <C-N> <Down>
@@ -137,13 +142,6 @@ nnoremap zL zO
 nnoremap zh zc
 nnoremap zH zC
 
-"----------------------
-" fuzzy-motion
-"----------------------
-if dein#tap('fuzzy-motion.vim')
-  nnoremap <silent>F :<C-u>FuzzyMotion<CR>
-endif
-
 " ----------------------------------------
 " <m> commands
 " マーク関連
@@ -189,24 +187,10 @@ nnoremap <silent> <C-w>c :<C-u>tabnew<CR>:tabmove<CR>
 nnoremap <silent> <C-w><C-c> :<C-u>tabnew<CR>:tabmove<CR>
 nnoremap <silent> <C-w>Q :<C-u>tabclose<CR>
 
-nnoremap <silent> <C-w>+ <C-w>_<C-w><bar>
+nnoremap <silent> <C-w>\ <C-w>_<C-w><bar>
 
 " nnoremap <C-z> `.zz
 
-" Moving back and forth between lines of same or lower indentation.
-" nnoremap <silent> [l :call NextIndent(0, 0, 0, 1)<CR>
-" nnoremap <silent> ]l :call NextIndent(0, 1, 0, 1)<CR>
-" nnoremap <silent> [L :call NextIndent(0, 0, 1, 1)<CR>
-" nnoremap <silent> ]L :call NextIndent(0, 1, 1, 1)<CR>
-" vnoremap <silent> [l <Esc>:call NextIndent(0, 0, 0, 1)<CR>m'gv''
-" vnoremap <silent> ]l <Esc>:call NextIndent(0, 1, 0, 1)<CR>m'gv''
-" vnoremap <silent> [L <Esc>:call NextIndent(0, 0, 1, 1)<CR>m'gv''
-" vnoremap <silent> ]L <Esc>:call NextIndent(0, 1, 1, 1)<CR>m'gv''
-" onoremap <silent> [l :call NextIndent(0, 0, 0, 1)<CR>
-" onoremap <silent> ]l :call NextIndent(0, 1, 0, 1)<CR>
-" onoremap <silent> [L :call NextIndent(1, 0, 1, 1)<CR>
-" onoremap <silent> ]L :call NextIndent(1, 1, 1, 1)<CR>
-"
 ".edit config
 nnoremap <silent> <Leader>es :<C-u>source ~/.config/nvim/init.vim<CR>
 nnoremap <silent> <Leader>ev :<C-u>tabnew ~/.config/nvim/init.vim<CR>
@@ -229,31 +213,24 @@ nnoremap <silent> <Leader>Q :qa!<CR>
 nnoremap <silent> <C-k> k:call search ("^". matchstr (getline (line (".")+ 1), '\(\s*\)') ."\\S", 'b')<CR>^
 nnoremap <silent> <C-j> :call search ("^". matchstr (getline (line (".")), '\(\s*\)') ."\\S")<CR>^
 
-" if dein#tap('defx.nvim')
-"   nnoremap <silent> <C-e> :Defx -split=vertical -winwidth=60 -direction=topleft `expand('%:p:h')` -search=`expand('%:p')` <CR>
-" endif
-
-" if dein#tap('fern.vim')
-"   nnoremap <silent> <C-t> :Fern -split=vertical -winwidth=60 -direction=topleft `expand('%:p:h')` -search=`expand('%:p')` <CR>
-" endif
-
 if dein#tap('fzf.vim')
   " map <Leader>f [fzf]
   " nnoremap <silent> <Leader>f :<C-u>GFiles<CR>
   nnoremap <silent> <Leader>f :<C-u>Files<CR>
   nnoremap <silent> <Leader>ee :<C-u>Dotfiles<CR>
-  nnoremap <silent> <Leader>u :<C-u>Buffers<CR>
+  nnoremap <silent> <Leader>b :<C-u>Buffers<CR>
+  nnoremap <silent> <Leader>u <Nop>
   nnoremap <silent> <Leader>m :<C-u>Marks<CR>
   " nnoremap <silent> <Leader>b :<C-u>LoadedBuffers<CR>
   " nnoremap          <Leader>a :<C-u>Ag<Space>
   nnoremap          <Leader>a :<C-u>Rg<Space>
-  nnoremap <silent> <Leader>/ :<C-u>Lines<CR>
-  nnoremap <silent> <Leader>? :<C-u>BLines<CR>
+  nnoremap <silent> <Leader>/ :<C-u>BLines<CR>
+  nnoremap <silent> <Leader>? :<C-u>Lines<CR>
   nnoremap <silent> <Leader>h :<C-u>History<CR>
   nnoremap <silent> <Leader>H :<C-u>Helptags<CR>
   nnoremap <silent> <Leader>t :call fzf#vim#tags(expand('<cword>'))<CR>
   nnoremap <silent> <Leader>T :<C-u>Tags<CR>
-  nnoremap <silent> <Leader>j :<C-u>Jump<CR>
+  nnoremap <silent> <Leader>J :<C-u>Jump<CR>
 endif
 
 if dein#tap('coc.nvim')
@@ -275,7 +252,7 @@ if dein#tap('coc.nvim')
     return !col || getline('.')[col - 1]  =~# '\s'
   endfunction
 
-  nnoremap <silent> <C-l> :<C-u>Reload<CR>
+  nnoremap <silent> <C-l> :<C-u>source ~/.config/nvim/init.vim<CR>:<C-u>Reload<CR>
 
 
   inoremap <silent><expr> <CR> coc#pum#visible() ? "\<right>\<CR>" : "\<CR>"
@@ -292,8 +269,8 @@ if dein#tap('coc.nvim')
   " Remap keys for gotos
   " 定義ジャンプ
   nmap <silent> gd <Plug>(coc-definition)
+  nmap <silent> gt <Plug>(coc-type-definition)
   nmap <silent> gr <Plug>(coc-references)
-  nmap <silent> gy <Plug>(coc-type-definition)
   nmap <silent> gi <Plug>(coc-implementation)
   nnoremap <silent> gD :call <SID>show_documentation()<CR>
   function! s:show_documentation()
@@ -314,7 +291,6 @@ if dein#tap('coc.nvim')
   " Remap for rename current word
   " リネーム
   nmap <silent> gR <Plug>(coc-rename)
-  " nmap gR <Plug>(coc-refactor)
 
   " Remap for format selected region
   " 整形
@@ -328,16 +304,16 @@ if dein#tap('coc.nvim')
   " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
   " 選択ファイルを関数化したり、別ファイルに書き出したり
   xmap <silent> ga <Plug>(coc-codeaction-selected)
-  nmap <silent> ga <Plug>(coc-codeaction-selected)
+  " nmap <silent> ga <Plug>(coc-codeaction-selected)
 
   " Remap for do codeAction of current line
   " actionのカレント行バージョン
-  nmap <silent> gX  <Plug>(coc-codeaction)
+  nmap <silent> ga  <Plug>(coc-codeaction)
 
   " Fix autofix problem of current line
   " エラーの自動修正
-  nmap <silent> gq  <Plug>(coc-fix-current)
-
+  nmap <silent> gA  <Plug>(coc-fix-current)
+  nmap gq <Plug>(coc-refactor)
 
   " Convert visual selected code to snippet
   nnoremap <silent> gS  :<C-u>CocCommand snippets.editSnippets<cr>
@@ -370,6 +346,7 @@ if dein#tap('coc.nvim')
   nnoremap <silent> ge :<C-u>CocCommand explorer<CR>
   nnoremap <silent> gE :<C-u>CocCommand explorer --preset floating<CR>
 
+  nnoremap <silent> gy :<C-u>CocList -A --normal yank<cr>
 endif
 
 " --------------------
@@ -391,10 +368,10 @@ endif
 " endif
 
 if dein#tap('copilot.vim')
-  " let g:copilot_filetypes = {
-  "      \ '*': v:true,
-  "      \ }
-  imap <silent><script><expr> <C-j> copilot#Accept("\<CR>")
+  imap <silent><script><expr> <right> copilot#Accept("\<CR>")
+  imap <silent><script><expr> <c-f> copilot#Accept("\<CR>")
+  " imap <silent><script><expr> <S-Space> copilot#Accept("\<CR>")
+  imap <silent><script><expr> <S-Space> <Nop>
   let g:copilot_no_tab_map = v:true
 endif
 
@@ -426,9 +403,9 @@ endif
 
 if dein#tap('vim-easy-align')
   " Start interactive EasyAlign in visual mode (e.g. vipga)
-  xmap gA <Plug>(EasyAlign)
+  xmap <Leader>A <Plug>(EasyAlign)
   " Start interactive EasyAlign for a motion/text object (e.g. gaip)
-  nmap gA <Plug>(EasyAlign)
+  nmap <Leader>A <Plug>(EasyAlign)
 endif
 
 if dein#tap('caw.vim')
@@ -440,6 +417,12 @@ if dein#tap('caw.vim')
   " vmap gC <Plug>(caw:wrap:toggle)
 endif
 
+" if dein#tap('nerdcommenter')
+"   nmap gcc <plug>NERDCommenterToggle
+"   vmap gcc <plug>NERDCommenterToggle
+" endif
+
+
 if dein#tap('incsearch-migemo.vim')
   nmap <silent> g/ <Plug>(incsearch-migemo-/)
   " nmap g? <Plug>(incsearch-migemo-?)
@@ -450,27 +433,35 @@ if dein#tap('vim-rengbang')
 endif
 
 if dein#tap('vim-over')
-  nnoremap <leader>s :<C-u>OverCommandLine<CR>%s/\v
-  vnoremap <leader>s :<C-u>OverCommandLine<CR>'<,'>s/\v
+  " nnoremap <leader>s :<C-u>OverCommandLine<CR>%s/\v
+  " vnoremap <leader>s :<C-u>OverCommandLine<CR>'<,'>s/\v
+  nnoremap <leader>s :<C-u>%s/\v
+  vnoremap <leader>s :<C-u>'<,'>s/\v
 endif
 
 if dein#tap('vim-easymotion')
-  " <Leader>f{char} to move to {char}
   map  f <Plug>(easymotion-fl)
-  " map  F <Plug>(easymotion-Fl)
+  map  F <Plug>(easymotion-Fl)
   map  t <Plug>(easymotion-tl)
-  " map  T <Plug>(easymotion-Tl)
+  map  T <Plug>(easymotion-Tl)
 
-  " s{char}{char} to move to {char}{char}
-  nmap <Leader>[ <Plug>(easymotion-overwin-f2)/
+  nmap <Leader>[ <Plug>(easymotion-overwin-f2)
   vmap <Leader>[ <Plug>(easymotion-bd-f2)
 
   " Move to line
-  map <Leader>l <Plug>(easymotion-bd-jk)
-  nmap <Leader>l <Plug>(easymotion-overwin-line)
-  " map <Leader>j <Plug>(easymotion-j)
-  " map <Leader>k <Plug>(easymotion-k)
+  map <Leader>j <Plug>(easymotion-j)
+  map <Leader>k <Plug>(easymotion-k)
 endif
+
+if dein#tap('fuzzy-motion.vim')
+  nnoremap <leader>F :<C-u>FuzzyMotion<CR>
+endif
+
+if dein#tap('vim-choosewin')
+  nmap <C-w>w  <Plug>(choosewin)
+  nmap <C-w><C-w>  <Plug>(choosewin)
+endif
+
 
 if dein#tap('vim-sandwich')
   runtime macros/sandwich/keymap/surround.vim
@@ -512,16 +503,16 @@ if dein#tap('vim-gitgutter')
 endif
 
 if dein#tap('vim-table-mode')
-  let g:table_mode_disable_mappings = 1
+  let g:table_mode_disable_mappings = 0
 
-  let g:table_mode_map_prefix = ""
-  " let g:table_mode_corner = "|"
-  let g:table_mode_toggle_map = '<C-t>m'
+  let g:table_mode_map_prefix = "<C-t>"
+  let g:table_mode_corner = "|"
+  let g:table_mode_toggle_map = 'm'
 
-  let g:table_mode_motion_up_map = '<C-k>'
-  let g:table_mode_motion_down_map = '<C-j>'
-  let g:table_mode_motion_left_map = '<C-h>'
-  let g:table_mode_motion_right_map = '<C-l>'
+  let g:table_mode_motion_up_map = '<C-t>k'
+  let g:table_mode_motion_down_map = '<C-t>j'
+  let g:table_mode_motion_left_map = '<C-t>h'
+  let g:table_mode_motion_right_map = '<C-t>l'
 
   " 以下ノーマルモード
   let g:table_mode_tableize_map = '<C-t>T'
@@ -545,15 +536,41 @@ if dein#tap('tagbar')
   nnoremap <Leader>O :TagbarToggle<CR>
 endif
 
-if dein#tap('yankround.vim')
-  nmap p <Plug>(yankround-p)
-  xmap p <Plug>(yankround-p)
-  nmap P <Plug>(yankround-P)
-  nmap gp <Plug>(yankround-gp)
-  xmap gp <Plug>(yankround-gp)
-  nmap gP <Plug>(yankround-gP)
-  nmap <C-p> <Plug>(yankround-prev)
-  nmap <C-n> <Plug>(yankround-next)
+" if dein#tap('yankround.vim')
+"   nmap p <Plug>(yankround-p)
+"   xmap p <Plug>(yankround-p)
+"   nmap P <Plug>(yankround-P)
+"   nmap gp <Plug>(yankround-gp)
+"   xmap gp <Plug>(yankround-gp)
+"   nmap gP <Plug>(yankround-gP)
+"   nmap <Buffer><C-p> <Plug>(yankround-prev)
+"   nmap <Buffer><C-n> <Plug>(yankround-next)
+" endif
+
+if dein#tap('vim-chatgpt')
+  nnoremap <Leader>c :ChatGPT<SPACE>
+endif
+
+if dein#tap('vim-markdown')
+  " plasticboy/vim-markdown
+  autocmd FileType markdown nnoremap <silent><buffer> + :<C-u>.HeaderIncrease<CR>
+  autocmd FileType markdown nnoremap <silent><buffer> - :<C-u>.HeaderDecrease<CR>
+  autocmd FileType markdown vnoremap <silent><buffer> + :<C-u>'<,'>HeaderIncrease<CR>
+  autocmd FileType markdown vnoremap <silent><buffer> - :<C-u>'<,'>HeaderDecrease<CR>
+
+  let g:vim_markdown_folding_disabled = 1
+  let g:vim_markdown_no_default_key_mappings = 1
+  let g:vim_markdown_new_list_item_indent = 0
+
+  let g:vim_markdown_conceal = 0
+endif
+
+" if dein#tap('markdown-preview.nvim')
+"   autocmd FileType markdown nmap <silent><buffer> <Leader><Bslash> <Plug>MarkdownPreviewToggle
+" endif
+
+if dein#tap('previm')
+  autocmd FileType markdown nnoremap <silent><buffer> <Leader><Bslash> :<C-U>PrevimOpen<CR>
 endif
 
 " --------------------
@@ -567,93 +584,6 @@ endif
 " --------------------
 " setting ここから
 " --------------------
-
-"-----------
-" defx
-"----------
-" if dein#tap('defx.nvim')
-"   autocmd FileType defx call s:defx_my_settings()
-" 
-"   function! s:defx_my_settings() abort
-" 
-"     function! Defx_git_root_dir(context) abort
-"       let l:path = system('git rev-parse --show-toplevel')
-"       let l:path = substitute(l:path, "[\n\r]", "", "g")
-"       call defx#call_action('cd', l:path)
-"     endfunction
-" 
-"     " Define mappings
-"     " move cursor
-"     nnoremap <silent><buffer><expr> j line('.') == line('$') ? 'gg' : 'j'
-"     nnoremap <silent><buffer><expr> k line('.') == 1 ? 'G': 'k'
-" 
-"     " change directory
-"     nnoremap <silent><buffer><expr> <CR>
-"         \ defx#is_directory() ?
-"         \ defx#do_action('open'):
-"         \ defx#do_action('multi', ['quit', 'open'])
-"     nnoremap <silent><buffer><expr> l
-"          \ defx#is_directory() ?
-"          \ defx#do_action('open_tree'):
-"          \ defx#do_action('drop')
-"     nnoremap <silent><buffer><expr> L
-"          \ defx#do_action('open_tree', 'recuresive:5'):
-"     nnoremap <silent><buffer><expr> h
-"          \ defx#do_action('close_tree')
-"     nnoremap <silent><buffer><expr> u defx#do_action('cd', ['..'])
-"     " nnoremap <silent><buffer><expr> <CR>
-"     "      \ defx#is_directory() ?
-"     "      \ defx#do_action('open_or_close_tree'):
-"     "      \ defx#do_action('drop')
-"     " nnoremap <silent><buffer><expr> l
-"     "      \ defx#is_directory() ?
-"     "      \ defx#do_action('open'):
-"     "      \ defx#do_action('drop')
-"     nnoremap <silent><buffer><expr> ` defx#do_action('call', 'Defx_git_root_dir')
-"     nnoremap <silent><buffer><expr> ~ defx#do_action('cd')
-"     nnoremap <silent><buffer><expr> \ defx#do_action('cd', ['/'])
-" 
-"     " open file
-"     nnoremap <silent><buffer><expr> s
-"          \ defx#do_action('multi', ['quit', ['open', 'split']])
-"     nnoremap <silent><buffer><expr> v
-"          \ defx#do_action('multi', ['quit', ['open', 'vsplit']])
-"     nnoremap <silent><buffer><expr> t
-"          \ defx#do_action('multi', ['quit', ['open', 'tabnew']])
-"     " nnoremap <silent><buffer><expr> P defx#do_action('open', 'pedit')
-" 
-"     " move file
-"     nnoremap <silent><buffer><expr> c     defx#do_action('copy')
-"     nnoremap <silent><buffer><expr> m     defx#do_action('move')
-"     nnoremap <silent><buffer><expr> mm    defx#do_action('move')
-"     nnoremap <silent><buffer><expr> p     defx#do_action('paste')
-" 
-"     " edit file
-"     nnoremap <silent><buffer><expr> o     defx#do_action('new_directory')
-"     nnoremap <silent><buffer><expr> i     defx#do_action('new_file')
-"     nnoremap <silent><buffer><expr> d     defx#do_action('remove')
-"     nnoremap <silent><buffer><expr> r     defx#do_action('rename')
-" 
-"     " select file
-"     nnoremap <silent><buffer><expr> <c-j> defx#do_action('toggle_select').'j'
-"     vnoremap <silent><buffer><expr> <c-j> defx#do_action('toggle_select_visual').'j'
-"     nnoremap <silent><buffer><expr> <c-k> defx#do_action('toggle_select').'k'
-"     vnoremap <silent><buffer><expr> <c-k> defx#do_action('toggle_select_visual').'k'
-"     nnoremap <silent><buffer><expr> *     defx#do_action('toggle_select_all')
-" 
-"     " other
-"     nnoremap <silent><buffer><expr> x     defx#do_action('execute_system')
-"     nnoremap <silent><buffer><expr> yy    defx#do_action('yank_path')
-"     nnoremap <silent><buffer><expr> .     defx#do_action('toggle_ignored_files')
-"     nnoremap <silent><buffer><expr> <C-l> defx#do_action('redraw')
-"     nnoremap <silent><buffer><expr> q     defx#do_action('quit')
-"     nnoremap <silent><buffer><expr> cd    defx#do_action('change_vim_cwd')
-" 
-"   endfunction
-" 
-"   command! DeinClean :call dein#check_clean()
-" endif
-
 "--------------------
 " fzf.vim
 "--------------------
@@ -678,7 +608,7 @@ if dein#tap('fzf.vim')
       let l:file = a:1
     else
       let l:file = "*"
-    end
+    endif
     call fzf#run({
           \ 'source': 'cat ~/.config/nvim/cheatsheet/emoji/'.l:file,
           \ 'sink': function('s:insert_emoji'),
@@ -764,14 +694,10 @@ if dein#tap('fzf.vim')
 
   command! Jump call s:fzf_jump()
 
-  function! s:fzf_statusline()
-    " Override statusline as you like
-    highlight fzf1 ctermfg=161 ctermbg=251
-    highlight fzf2 ctermfg=23 ctermbg=251
-    highlight fzf3 ctermfg=237 ctermbg=251
-    setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
-  endfunction
-  autocmd! User FzfStatusLine call <SID>fzf_statusline()
+  " function! s:fzf_statusline()
+  "   set statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
+  " endfunction
+  " autocmd! User FzfStatusLine call <SID>fzf_statusline()
 
   let g:fzf_colors =
     \ { 'fg':      ['fg', 'Normal'],
@@ -786,7 +712,8 @@ if dein#tap('fzf.vim')
       \ 'pointer': ['fg', 'Exception'],
       \ 'marker':  ['fg', 'Keyword'],
       \ 'spinner': ['fg', 'Label'],
-      \ 'header':  ['fg', 'Comment'] }
+      \ 'header':  ['fg', 'Comment']
+      \ }
 endif
 
 " --------------------
@@ -832,23 +759,25 @@ if dein#tap('coc.nvim')
   command! -nargs=0 OR  :call CocAction('runCommand', 'editor.action.organizeImport')
 
   " Add status line support, for integration with other plugin, checkout `:h coc-status`
-  set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+  " set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
   let g:coc_global_extensions = [
         \ 'coc-lists',
         \ 'coc-marketplace',
         \ 'coc-snippets',
         \ 'coc-html',
+        \ 'coc-emmet',
         \ 'coc-svg',
         \ 'coc-css',
-        \ 'coc-prettier',
         \ '@yaegassy/coc-volar',
         \ '@yaegassy/coc-volar-tools',
         \ '@yaegassy/coc-tailwindcss3',
         \ 'coc-tsserver',
         \ 'coc-eslint',
+        \ 'coc-graphql',
         \ 'coc-php-cs-fixer',
         \ 'coc-psalm',
+        \ 'coc-solargraph',
         \ 'coc-xml',
         \ 'coc-json',
         \ 'coc-sql',
@@ -858,6 +787,8 @@ if dein#tap('coc.nvim')
         \ 'coc-lua',
         \ 'coc-powershell',
         \ 'coc-explorer',
+        \ 'coc-copilot',
+        \ 'coc-yank',
         \ ]
 
         " \ 'coc-tailwindcss',
@@ -881,60 +812,6 @@ if dein#tap('coc.nvim')
   augroup end
 endif
 
-" " --------------------
-" " vimspector
-" " --------------------
-" if dein#tap('vimspector')
-"   let g:vimspector_base_dir=expand( '$HOME/.config/vimspector-config' )
-" 
-"   let g:vimspector_install_gadgets = [
-"        \ 'CodeLLDB',
-"        \ 'vscode-bash-debug',
-"        \ 'vscode-node-debug2',
-"        \ 'debugger-for-chrome',
-"        \ 'vscode-php-debug',
-"        \ ]
-" 
-"   function! LaunchFileDebug()
-"     call vimspector#LaunchWithSettings({'configuration': &filetype.'_file'})
-"   endfunction
-" 
-"   let g:vimspector_enable_mappings = 'HUMAN'
-"   " let g:vimspector_enable_mappings = 'VISUAL_STUDIO'
-"   " Visual Studio
-"   " F5     <Plug>VimspectorContinue              When debugging, continue. Otherwise start debugging.
-"   " S-F5   <Plug>VimspectorStop                  Stop debugging.
-"   " C-S-F5 <Plug>VimspectorRestart               Restart debugging with the same configuration.
-"   " F6     <Plug>VimspectorPause                 Pause debuggee.
-"   " F9     <Plug>VimspectorToggleBreakpoint      Toggle line breakpoint on the current line.
-"   " S-F9   <Plug>VimspectorAddFunctionBreakpoint Add a function breakpoint for the expression under cursor
-"   "
-"   " F10    <Plug>VimspectorStepOver              Step Over
-"   " F11    <Plug>VimspectorStepInto              Step Into
-"   " S-F11  <Plug>VimspectorStepOut               Step out of current function scope
-" 
-"   " human
-"   " F5         <Plug>VimspectorContinue                    When_debugging,_continue._Otherwise_start_debugging.
-"   " F3         <Plug>VimspectorStop                        Stop_debugging.
-"   " F4         <Plug>VimspectorRestart                     Restart_debugging_with_the_same_configuration.
-"   " F6         <Plug>VimspectorPause                       Pause_debuggee.
-"   " F9         <Plug>VimspectorToggleBreakpoint            Toggle_line_breakpoint_on_the_current_line.
-"   " <leader>F9 <Plug>VimspectorToggleConditionalBreakpoint Toggle_conditional_line_breakpoint_on_the_current_line.
-"   "
-"   " F8         <Plug>VimspectorAddFunctionBreakpoint       Add_a_function_breakpoint_for_the_expression_under_cursor
-"   " <leader>F8 <Plug>VimspectorRunToCursor                 Run_to_Cursor
-"   "
-"   " F10        <Plug>VimspectorStepOver                    Step_Over
-"   " F11        <Plug>VimspectorStepInto                    Step_Into
-"   " F12        <Plug>VimspectorStepOut                     Step_out_of_current_function_scope
-" 
-"   " 以下を打つ
-"   " VimspectorInstall
-"   " or
-"   " VimspectorUpdate
-" 
-" endif
-
 " --------------------
 " nvim-treesitter/nvim-treesitter
 " --------------------
@@ -942,14 +819,30 @@ if dein#tap('nvim-treesitter')
 lua << EOF
 require('nvim-treesitter.configs').setup({
   ensure_installed = "all",
-  ignore_install = {"phpdoc"},
+  ignore_install = {"phpdoc", "markdown"},
   highlight = {
     enable = true,
   },
   indent = {
     enable = true
-  }
+  },
+  endwise = {
+    enable = true
+  },
 })
+EOF
+endif
+
+" --------------------
+" nvim-ts-context-commentstring
+" --------------------
+if dein#tap('nvim-ts-context-commentstring')
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  context_commentstring = {
+    enable = true
+  }
+}
 EOF
 endif
 
@@ -969,96 +862,49 @@ if dein#tap('vista.vim')
   let g:vista_sidebar_width = 50
   let g:vista_enable_centering_jump = 1
   let g:vista_fzf_preview = ['right:50%']
-  " let g:vista_stay_on_open = 1
-  " let g:vista_ctags_cmd = {
-  "      \ 'haskell': 'hasktags -x -o - -c',
-  "      \ }
-
-  " set guifont=RobotoMono\ Nerd\ Font
-     "\    'var': "\uf71b",
 
   let g:vista#renderer#icons = {
-     \    'func': "\uf794",
-     \    'function': "\uf794",
-     \    'functions': "\uf794",
-     \    'var': "\uf71b",
-     \    'variable': "\uf71b",
-     \    'variables': "\uf71b",
-     \    'const': "\uf8ff",
-     \    'constant': "\uf8ff",
-     \    'constructor': "\uf976",
-     \    'method': "\uf6a6",
-     \    'package': "\ue612",
-     \    'packages': "\ue612",
-     \    'enum': "\uf702",
-     \    'enummember': "\uf282",
-     \    'enumerator': "\uf702",
-     \    'module': "\uf136",
-     \    'modules': "\uf136",
-     \    'type': "\uf7fd",
-     \    'typedef': "\uf7fd",
-     \    'types': "\uf7fd",
-     \    'field': "\uf30b",
-     \    'fields': "\uf30b",
-     \    'macro': "\uf8a3",
-     \    'macros': "\uf8a3",
-     \    'map': "\ufb44",
-     \    'class': "\uf0e8",
-     \    'augroup': "\ufb44",
-     \    'struct': "\uf318",
-     \    'union': "\ufacd",
-     \    'member': "\uf02b",
-     \    'target': "\uf893",
-     \    'property': "\ufab6",
-     \    'interface': "\uf7fe",
-     \    'namespace': "\uf475",
-     \    'subroutine': "\uf9af",
-     \    'implementation': "\uf776",
-     \    'typeParameter': "\uf278",
-     \    'default': "\uf29c"
-     \}
+        \    'func': "\uf794",
+        \    'function': "\uf794",
+        \    'functions': "\uf794",
+        \    'var': "\uf71b",
+        \    'variable': "\uf71b",
+        \    'variables': "\uf71b",
+        \    'const': "\uf8ff",
+        \    'constant': "\uf8ff",
+        \    'constructor': "\uf976",
+        \    'method': "\uf6a6",
+        \    'package': "\ue612",
+        \    'packages': "\ue612",
+        \    'enum': "\uf702",
+        \    'enummember': "\uf282",
+        \    'enumerator': "\uf702",
+        \    'module': "\uf136",
+        \    'modules': "\uf136",
+        \    'type': "\uf7fd",
+        \    'typedef': "\uf7fd",
+        \    'types': "\uf7fd",
+        \    'field': "\uf30b",
+        \    'fields': "\uf30b",
+        \    'macro': "\uf8a3",
+        \    'macros': "\uf8a3",
+        \    'map': "\ufb44",
+        \    'class': "\uf0e8",
+        \    'augroup': "\ufb44",
+        \    'struct': "\uf318",
+        \    'union': "\ufacd",
+        \    'member': "\uf02b",
+        \    'target': "\uf893",
+        \    'property': "\ufab6",
+        \    'interface': "\uf7fe",
+        \    'namespace': "\uf475",
+        \    'subroutine': "\uf9af",
+        \    'implementation': "\uf776",
+        \    'typeParameter': "\uf278",
+        \    'default': "\uf29c"
+        \}
   let g:vista#renderer#enable_icon = 1
 
-  " let g:vista#renderer#icons = {
-  "    \    'func': "\u003e",
-  "    \    'function': "\u003e",
-  "    \    'functions': "\u003e",
-  "    \    'var': "\u003e",
-  "    \    'variable': "\u003e",
-  "    \    'variables': "\u003e",
-  "    \    'const': "\u003e",
-  "    \    'constant': "\u003e",
-  "    \    'constructor': "\u003e",
-  "    \    'method': "\u003e",
-  "    \    'package': "\ue612",
-  "    \    'packages': "\ue612",
-  "    \    'enum': "\u003e",
-  "    \    'enummember': "\u003e",
-  "    \    'enumerator': "\u003e",
-  "    \    'module': "\u003e",
-  "    \    'modules': "\u003e",
-  "    \    'type': "\u003e",
-  "    \    'typedef': "\u003e",
-  "    \    'types': "\u003e",
-  "    \    'field': "\u003e",
-  "    \    'fields': "\u003e",
-  "    \    'macro': "\u003e",
-  "    \    'macros': "\u003e",
-  "    \    'map': "\u003e",
-  "    \    'class': "\u003e",
-  "    \    'augroup': "\u003e",
-  "    \    'struct': "\u003e",
-  "    \    'union': "\u003e",
-  "    \    'member': "\u003e",
-  "    \    'target': "\u003e",
-  "    \    'property': "\u003e",
-  "    \    'inter003e': "\u003e",
-  "    \    'namespace': "\u003e",
-  "    \    'subroutine': "\u003e",
-  "    \    'implementation': "\u003e",
-  "    \    'typeParameter': "\u003e",
-  "    \    'default': "\u003e"
-  "    \}
   function! NearestMethodOrFunction() abort
     return get(b:, 'vista_nearest_method_or_function', '')
   endfunction
@@ -1166,14 +1012,17 @@ if dein#tap('vim-easymotion')
   let g:EasyMotion_enter_jump_first = 1
   let g:EasyMotion_space_jump_first = 1
   let g:EasyMotion_do_shade = 0
-  let g:EasyMotion_keys = "awefjioptyusdklzxcvbnmgh;"
+  let g:EasyMotion_keys = "AWEFJIOPTYUSDKLZXCVBNMGH;"
   "asdf jiop qwert yukl zxcvbnm gh;"
 endif
-
 " a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
 "
+if dein#tap('vim-choosewin')
+  let g:choosewin_overlay_enable = 1
+endif
+
 if dein#tap('vim-over')
-  let g:over_command_line_prompt = ""
+  let g:over_command_line_prompt = "> "
 endif
 
 " --------------------
@@ -1220,11 +1069,11 @@ if dein#tap('vim-airline')
 
   let g:airline#extensions#tabline#enabled = 1
   let g:airline_filetype_overrides = {
-      \ 'coc-explorer':  [ 'CoC Explorer', '' ],
-      \ 'fugitive': ['fugitive', '%{airline#util#wrap(airline#extensions#branch#get_head(),80)}'],
-      \ 'gundo': [ 'Gundo', '' ],
-      \ 'help':  [ 'Help', '%f' ],
-      \ }
+        \ 'coc-explorer':  [ 'CoC Explorer', '' ],
+        \ 'fugitive': ['fugitive', '%{airline#util#wrap(airline#extensions#branch#get_head(),80)}'],
+        \ 'gundo': [ 'Gundo', '' ],
+        \ 'help':  [ 'Help', '%f' ],
+        \ }
   let g:airline_exclude_filetypes = [ 'dap-repl', 'dapui_console', 'dapui_scopes', 'dapui_breakpoints', 'dapui_stacks', 'dapui_watches' ]
 
   let g:airline#extensions#tabline#fnamemod = ':t' " タブに表示する名前（fnamemodifyの第二引数）
@@ -1249,144 +1098,7 @@ if dein#tap('vim-airline')
     return label
   endfunction
 
-  " function! MyTabLine()
-  "   let s = ''
-  "   for i in range(tabpagenr('$'))
-  "     " select the highlighting
-  "     if i + 1 == tabpagenr()
-  "       let s .= '%#TabLineSel#'
-  "       let issel = "v:true"
-  "     else
-  "       let s .= '%#TabLine#'
-  "       let issel = "v:false"
-  "     endif
-  "     " set the tab page number (for mouse clicks)
-  "     let s .= '%' . (i + 1) . 'T'
-  "     " the label is made by MyTabLabelFormatter()
-  "     let s .= ' %{MyTabLabel(' . (i + 1) . ',' . issel . ')} '
-  "   endfor
-  "   " after the last tab fill with TabLineFill and reset tab page nr
-  "   let s .= '%#TabLineFill#%T'
-  "   " " right-align the label to close the current tab page
-  "   " if tabpagenr('$') > 1
-  "   "   let s .= '%=%#TabLine#%999Xclose'
-  "   " endif
-  "   return s
-  " endfunction
 endif
-
-"------------
-"lightline
-"------------
-" if dein#tap('lightline.vim')
-"   let g:lightline = {}
-"   let g:lightline.enable = {
-"        \ 'statusline': 1,
-"        \ 'tabline': 1 }
-"   let g:lightline.active = {
-"        \ 'left': [ [ 'mode', 'paste', 'table', 'jpmode'],
-"        \           [ 'file' ],
-"        \           [ 'coccurrent' ],
-"        \           [ 'vista' ]
-"        \         ],
-"        \ 'right': [ [ 'lineinfo' ],
-"        \          [ 'percent' ],
-"        \          [ 'fileformat', 'fileencoding', 'filetype' ] ] }
-"   let g:lightline.component_function = {
-"        \   'vista': 'NearestMethodOrFunction',
-"        \   'table': 'CurrentTableMode',
-"        \   'readonly': 'MyReadonly',
-"        \   'modified': 'MyModified',
-"        \   'file': 'MyFile',
-"        \   'coccurrent': 'CocCurrentFunction'
-"        \ }
-"   "
-"   let g:lightline.tabline = {
-"        \ 'left': [ [ 'tabs' ] ],
-"        \ 'right': [ [ 'close' ] ] }
-" 
-"   if dein#tap('coc.nvim')
-"     function! CocCurrentFunction()
-"       let info = get(b:, 'coc_diagnostic_info', {})
-"       if empty(info) | return '' | endif
-"       let msgs = []
-"       if get(info, 'error', 0)
-"         call add(msgs, 'E:' . info['error'])
-"       endif
-"       if get(info, 'warning', 0)
-"         call add(msgs, 'W:' . info['warning'])
-"       endif
-"       if get(info, 'hint', 0)
-"         call add(msgs, 'H:' . info['hint'])
-"       endif
-"       return join(msgs, ' ') . ' ' . get(g:, 'coc_status', '')
-"     endfunction
-"   else
-"     function! CocCurrentFunction()
-"       return ""
-"     endfunction
-"   endif
-" 
-"   if dein#tap('vim-table-mode')
-"     function! CurrentTableMode()
-"       " 重い?
-"       " if tablemode#IsActive()
-"       "   return "TABLE"
-"       " else
-"       "   return ""
-"       " endif
-"       return ""
-"     endfunction
-"   else
-"     function! CurrentTableMode()
-"       return ""
-"     endfunction
-"   endif
-" 
-"   function! MyModified()
-"     if &filetype == "help"
-"       return ""
-"     elseif &modified
-"       return "+"
-"     elseif &modifiable
-"       return ""
-"     else
-"       return ""
-"     endif
-"   endfunction
-" 
-"   function! MyReadonly()
-"     if &filetype == "help"
-"       return ""
-"     elseif &readonly
-"       return ""
-"     else
-"       return ""
-"     endif
-"   endfunction
-" 
-"   " function! MyJpMode()
-"   "   return IMStatus("JPMODE")
-"   " endfunction
-"   "
-"   " function! MyFile()
-"   "   return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
-"   "        \ ('' != expand('%') ? ShortenPath() : '[No Name]') .
-"   "        \ ('' != MyModified() ? ' ' . MyModified() : '')
-"   " endfunction
-"   function! MyFile()
-"     return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
-"         \ ('' != expand('%') ? fnamemodify(expand("%"), ":~:.") : '[No Name]') .
-"         \ ('' != MyModified() ? ' ' . MyModified() : '')
-"   endfunction
-" 
-"   function! ShortenPath()
-"     let path = substitute(expand('%:h'), $HOME, '~', "g")
-"     return substitute(path, '\v/([^/]{1,3})[^/]+', '/\1', "g").'/'.expand('%:t')
-"   endfunction
-" 
-" endif
-
 
 "--------------------
 "vim-quickrun
@@ -1400,11 +1112,11 @@ if dein#tap("vim-quickrun")
   let g:quickrun_config.rust = {'exec' : 'cargo run'}
   let g:quickrun_config['typescript'] = { 'type' : 'typescript/tsc' }
   let g:quickrun_config['typescript/tsc'] = {
-       \   'command': 'tsc',
-       \   'exec': ['%c --target esnext --module commonjs %o %s', 'node %s:r.js'],
-       \   'tempfile': '%{tempname()}.ts',
-       \   'hook/sweep/files': ['%S:p:r.js'],
-       \ }
+        \   'command': 'tsc',
+        \   'exec': ['%c --target esnext --module commonjs %o %s', 'node %s:r.js'],
+        \   'tempfile': '%{tempname()}.ts',
+        \   'hook/sweep/files': ['%S:p:r.js'],
+        \ }
 endif
 
 "--------------------
@@ -1422,7 +1134,7 @@ if dein#tap("indentLine")
   let g:indentLine_char = '¦'
   let g:indentLine_color_term = 236
   let g:indentLine_color_gui = '#708090'
-  let g:indentLine_setConceal = 0
+  let g:indentLine_setConceal = 1
   let g:indentLine_fileTypeExclude = ['help', 'dein', 'denite', 'vaffle', 'defx']
 endif
 
@@ -1439,20 +1151,20 @@ endif
 "--------------------
 if dein#tap('vim-vue-plugin')
   let g:vim_vue_plugin_config = {
-       \'syntax': {
-      \   'template': ['html'],
-      \   'script': ['typescript', 'javascript'],
-      \   'style': ['scss'],
-      \   'i18n': ['json'],
-      \   'route': 'json',
-      \},
-      \'full_syntax': [],
-      \'initial_indent': [],
-      \'attribute': 0,
-      \'keyword': 0,
-      \'foldexpr': 0,
-      \'debug': 0,
-      \}
+        \'syntax': {
+        \   'template': ['html'],
+        \   'script': ['typescript', 'javascript'],
+        \   'style': ['scss'],
+        \   'i18n': ['json'],
+        \   'route': 'json',
+        \},
+        \'full_syntax': [],
+        \'initial_indent': [],
+        \'attribute': 0,
+        \'keyword': 0,
+        \'foldexpr': 0,
+        \'debug': 0,
+        \}
 endif
 
 "--------------------
@@ -1469,61 +1181,61 @@ endif
 if dein#tap('vim-smartinput')
   call smartinput#map_to_trigger('i', '<Space>', '<Space>', '<Space>')
   call smartinput#define_rule({
-       \   'at'    : '(\%#)',
-       \   'char'  : '<Space>',
-       \   'input' : '<Space><Space><Left>',
-       \   })
+        \   'at'    : '(\%#)',
+        \   'char'  : '<Space>',
+        \   'input' : '<Space><Space><Left>',
+        \   })
 
   call smartinput#define_rule({
-       \   'at'    : '( \%# )',
-       \   'char'  : '<BS>',
-       \   'input' : '<Del><BS>',
-       \   })
+        \   'at'    : '( \%# )',
+        \   'char'  : '<BS>',
+        \   'input' : '<Del><BS>',
+        \   })
 
   call smartinput#define_rule({
-       \   'at': '\s\+\%#',
-       \   'char': '<CR>',
-       \   'input': "<C-o>:call setline(line('.'), substitute(getline(line('.')), '\\s\\+$', '', ''))<CR><CR>",
-       \   })
+        \   'at': '\s\+\%#',
+        \   'char': '<CR>',
+        \   'input': "<C-o>:call setline(line('.'), substitute(getline(line('.')), '\\s\\+$', '', ''))<CR><CR>",
+        \   })
 
   call smartinput#map_to_trigger('i', '<bar>', '<bar>', '<bar>')
   call smartinput#define_rule({
-       \  'at': '^\%#',
-       \  'char': '<bar>',
-       \  'input': '<c-o>:TableModeEnable<cr><bar><space>',
-       \  })
+        \  'at': '^\%#',
+        \  'char': '<bar>',
+        \  'input': '<c-o>:TableModeEnable<cr><bar><space>',
+        \  })
 
   call smartinput#map_to_trigger('i', '<Bar>', '<Bar>', '<Bar>')
   call smartinput#define_rule({
-       \    'at': '\%#',
-       \    'char': '<Bar>',
-       \    'input': '<Bar><Bar><Left>',
-       \    'filetype': ['rust'],
-       \ })
+        \    'at': '\%#',
+        \    'char': '<Bar>',
+        \    'input': '<Bar><Bar><Left>',
+        \    'filetype': ['rust', 'ruby'],
+        \ })
   call smartinput#define_rule({
-       \    'at': '\%#|',
-       \    'char': '<Bar>',
-       \    'input': '<Right>',
-       \    'filetype': ['rust'],
-       \ })
+        \    'at': '\%#|',
+        \    'char': '<Bar>',
+        \    'input': '<Right>',
+        \    'filetype': ['rust', 'ruby'],
+        \ })
   call smartinput#define_rule({
-       \    'at': '|\%#|',
-       \    'char': '<BS>',
-       \    'input': '<BS><Del>',
-       \    'filetype': ['rust'],
-       \ })
+        \    'at': '|\%#|',
+        \    'char': '<BS>',
+        \    'input': '<BS><Del>',
+        \    'filetype': ['rust', 'ruby'],
+        \ })
   call smartinput#define_rule({
-       \    'at': '||\%#',
-       \    'char': '<BS>',
-       \    'input': '<BS><BS>',
-       \    'filetype': ['rust'],
-       \ })
+        \    'at': '||\%#',
+        \    'char': '<BS>',
+        \    'input': '<BS><BS>',
+        \    'filetype': ['rust', 'ruby'],
+        \ })
   call smartinput#define_rule({
-       \    'at': '\\\%#',
-       \    'char': '<Bar>',
-       \    'input': '<Bar>',
-       \    'filetype': ['rust'],
-       \ })
+        \    'at': '\\\%#',
+        \    'char': '<Bar>',
+        \    'input': '<Bar>',
+        \    'filetype': ['rust', 'ruby'],
+        \ })
 endif
 
 "--------------------
@@ -1617,34 +1329,6 @@ if dein#tap('vim-merginal')
 endif
 
 "--------------------
-" vim-markdown
-"--------------------
-if dein#tap('vim-markdown')
-  " plasticboy/vim-markdown
-  let g:vim_markdown_folding_disabled = 1
-  let g:vim_markdown_toc_autofit = 0
-  let g:vim_markdown_fenced_languages = ['c++=cpp', 'viml=vim', 'bash=sh', 'ini=dosini', 'csharp=cs']
-  let g:vim_markdown_new_list_item_indent = 0
-  let g:vim_markdown_math = 0
-  let g:vim_markdown_frontmatter = 1
-  let g:vim_markdown_toml_frontmatter = 0
-  let g:vim_markdown_json_frontmatter = 0
-  let g:vim_markdown_conceal_code_blocks = 0
-
-  " set nofoldenable
-
-  " gabrielelana/vim-markdown
-  " let g:markdown_include_jekyll_support = 1 "disable support for Jekyll files (enabled by default with: 1)
-  " let g:markdown_enable_folding = 0 " enable the fold expression markdown#FoldLevelOfLine to fold markdown files. This is disabled by default because it's a huge performance hit even when folding is disabled with the nofoldenable option (disabled by default with: 0)
-  " let g:markdown_enable_mappings = 1 " disable default mappings (enabled by default with: 1)
-  " let g:markdown_enable_insert_mode_mappings = 0 " disable insert mode mappings (enabled by default with: 1)
-  " let g:markdown_enable_insert_mode_leader_mappings = 0 " enable insert mode leader mappings (disabled by default with: 0)
-  " let g:markdown_enable_spell_checking = 0 " disable spell checking (enabled by default with: 1)
-  " let g:markdown_enable_input_abbreviations = 1 " disable abbreviations for punctuation and emoticons (enabled by default with: 1)
-  " let g:markdown_enable_conceal = 0 " enable conceal for italic, bold, inline-code and link text (disabled by default with: 0)
-endif
-
-"--------------------
 " vim-asciidoctor
 "--------------------
 if dein#tap('vim-asciidoctor')
@@ -1673,8 +1357,8 @@ if dein#tap('vim-asciidoctor')
   endfun
   " " Call AsciidoctorMappings for all `*.adoc` and `*.asciidoc` files
   augroup asciidoctor
-      au!
-      au BufEnter *.adoc,*.asciidoc call AsciidoctorMappings()
+    au!
+    au BufEnter *.adoc,*.asciidoc call AsciidoctorMappings()
   augroup END
 endif
 
@@ -1720,6 +1404,13 @@ if dein#tap('markdown-preview.nvim')
   " ${name} will be replace with the file name
   let g:mkdp_page_title = '「${name}」'
 endif
+"--------------------
+" previm
+"--------------------
+if dein#tap("previm")
+  let g:previm_disable_default_css = 1
+  let g:previm_custom_css_path = '~/.config/nvim/templates/previm/github.css'
+endif
 
 "--------------------
 " vim-gitgutter
@@ -1737,7 +1428,7 @@ endif
 " vim-json
 "--------------------
 if dein#tap('vim-json')
-  let g:vim_json_syntax_conceal = 0
+  let g:vim_json_syntax_conceal = 1
 endif
 
 "--------------------
@@ -1823,11 +1514,36 @@ if dein#tap('airsave.vim')
   let g:auto_write = 1
 endif
 
-"--------------------
-" goyo.vim
-"--------------------
-" if dein#tap('goyo.vim')
-"   let g:goyo_width = 100
+" if dein#tap('nerdcommenter')
+"   let g:NERDCreateDefaultMappings = 0
+"   let g:NERDSpaceDelims = 1
+"
+"   let g:NERDCompactSexyComs = 0
+"   let g:NERDDefaultAlign = 'left'
+"   " let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+"   let g:NERDCommentEmptyLines = 1
+"   let g:NERDTrimTrailingWhitespace = 1
+"   let g:NERDToggleCheckAllLines = 1
+"   let g:ft = ''
+"
+"   function! NERDCommenter_before()
+"     if &ft == 'vue'
+"       let g:ft = 'vue'
+"       let stack = synstack(line('.'), col('.'))
+"       if len(stack) > 0
+"         let syn = synIDattr((stack)[0], 'name')
+"         if len(syn) > 0
+"           exe 'setf ' . substitute(tolower(syn), '^vue_', '', '')
+"         endif
+"       endif
+"     endif
+"   endfunction
+"   function! NERDCommenter_after()
+"     if g:ft == 'vue'
+"       setf vue
+"       let g:ft = ''
+"     endif
+"   endfunction
 " endif
 
 "--------------------
@@ -1890,19 +1606,13 @@ function! s:get_syn_info()
         \ " guifg: " . linkedSyn.guifg .
         \ " guibg: " . linkedSyn.guibg
 endfunction
-command! HighlightInfo call s:get_syn_info()
-command! HighlightInfoAll source $VIMRUNTIME/syntax/hitest.vim
-
-" augroup ZenkakuSpace
-"   au!
-"   au VimEnter,WinEnter,BufRead * let w:m1 = matchadd("ZenkakuSpace", '　')
-"   autocmd ColorScheme * hi ZenkakuSpace cterm=underline
-" augroup END
+command! SyntaxInfo call s:get_syn_info()
+command! SyntaxInfoAll source $VIMRUNTIME/syntax/hitest.vim
 
 set t_Co=256
 
 command! Reload call s:reload()
-function! s:reload() abort
+function! s:reload()
   redraw
   CocRestart
 
@@ -1915,11 +1625,26 @@ endfunction
 
 if !has('mac')
   set background=dark
+  let g:auto_color_switcher#disable = v:true
 elseif system('defaults read -g AppleInterfaceStyle 2>/dev/null') =~ "Dark"
   set background=dark
 else
   set background=light
 endif
+
+augroup fzfcolorscheme
+  autocmd!
+  if (&background == 'dark')
+    " Override statusline as you like
+    autocmd ColorScheme * hi! fzf1 ctermfg=161 ctermbg=251
+    autocmd ColorScheme * hi! fzf2 ctermfg=23 ctermbg=251
+    autocmd ColorScheme * hi! fzf3 ctermfg=237 ctermbg=251
+  else
+    autocmd ColorScheme * hi! fzf1 ctermfg=161 ctermbg=7
+    autocmd ColorScheme * hi! fzf1 ctermfg=23 ctermbg=7
+    autocmd ColorScheme * hi! fzf1 ctermfg=237 ctermbg=7
+  endif
+augroup end
 
 if (has("termguicolors"))
   set termguicolors
@@ -1930,7 +1655,6 @@ if (has("termguicolors"))
     autocmd!
     autocmd ColorScheme * hi Normal term=none ctermbg=none guibg=none
   augroup END
-
 
   if (&background == 'dark')
 
@@ -1950,6 +1674,81 @@ if (has("termguicolors"))
     let g:airline_theme="sonokai"
     colorscheme sonokai
 
+    " let g:airline_theme='base16_material_darker'
+    " let g:material_style='darker'
+    " " let g:material_style='oceanic'
+    " " let g:material_style='deep ocean'
+    " " let g:material_style='palenight'
+    " colorscheme material
+
+" lua << EOF
+" require('material').setup({
+" 
+"     contrast = {
+"         terminal = true, -- Enable contrast for the built-in terminal
+"         sidebars = true, -- Enable contrast for sidebar-like windows ( for example Nvim-Tree )
+"         floating_windows = true, -- Enable contrast for floating windows
+"         cursor_line = true, -- Enable darker background for the cursor line
+"         non_current_windows = false, -- Enable darker background for non-current windows
+"         filetypes = {}, -- Specify which filetypes get the contrasted (darker) background
+"     },
+" 
+"     styles = { -- Give comments style such as bold, italic, underline etc.
+"         comments = { --[[ italic = true ]] },
+"         strings = { --[[ bold = true ]] },
+"         keywords = { --[[ underline = true ]] },
+"         functions = { --[[ bold = true, undercurl = true ]] },
+"         variables = {},
+"         operators = {},
+"         types = {},
+"     },
+" 
+"     plugins = { -- Uncomment the plugins that you use to highlight them
+"         -- Available plugins:
+"         -- "dap",
+"         -- "dashboard",
+"         -- "gitsigns",
+"         -- "hop",
+"         -- "indent-blankline",
+"         -- "lspsaga",
+"         -- "mini",
+"         -- "neogit",
+"         -- "nvim-cmp",
+"         -- "nvim-navic",
+"         -- "nvim-tree",
+"         -- "nvim-web-devicons",
+"         -- "sneak",
+"         -- "telescope",
+"         -- "trouble",
+"         -- "which-key",
+"     },
+" 
+"     disable = {
+"         colored_cursor = false, -- Disable the colored cursor
+"         borders = false, -- Disable borders between verticaly split windows
+"         background = true, -- Prevent the theme from setting the background (NeoVim then uses your terminal background)
+"         term_colors = false, -- Prevent the theme from setting terminal colors
+"         eob_lines = false -- Hide the end-of-buffer lines
+"     },
+" 
+"     high_visibility = {
+"         lighter = true, -- Enable higher contrast text for lighter style
+"         darker = true -- Enable higher contrast text for darker style
+"     },
+" 
+"     lualine_style = "default", -- Lualine style ( can be 'stealth' or 'default' )
+" 
+"     async_loading = true, -- Load parts of the theme asyncronously for faster startup (turned on by default)
+" 
+"     custom_highlights = {}, -- Overwrite highlights with your own
+" 
+"     custom_colors = function(colors)
+"     end
+" })
+" EOF
+
+
+
     " let g:airline_theme="everforest"
     " colorscheme everforest
 
@@ -1964,25 +1763,99 @@ if (has("termguicolors"))
     "   autocmd ColorScheme * hi! link VertSplit ColorColumn
     " augroup END
   else
-    " let g:airline_theme='ayu_light'
-    " colorscheme ayu-light
-    augroup mycolorschemelight
-      " autocmd ColorScheme * hi LineNr ctermbg=224 guibg=#F3F3F3
-      autocmd ColorScheme * hi! link SignColumn ColorColumn
-      autocmd ColorScheme * hi! link VertSplit ColorColumn
-      " autocmd ColorScheme * hi VertSplit ctermbg=224 guifg=none guibg=#F3F3F3
-    augroup END
-  endif
-  " ぼんやり
-  " let g:gruvbox_contrast_light = 'medium'
-  " colorscheme gruvbox
 
-  " ぼんやり
-  " colorscheme PaperColor
-  " let g:airline_theme='papercolor'
-  "
-  " colorscheme pencil
-  " let g:airline_theme='pencil'
+    " onebuddy
+    augroup mycolorschemelight
+      autocmd ColorScheme * hi! link CursorLineNr CursorLine
+      autocmd ColorScheme * hi! link SignColumn CursorLine
+      autocmd ColorScheme * hi! link VertSplit CursorLine
+      autocmd ColorScheme * hi! Cursor guibg=#54b9d0
+    augroup END
+    " let g:airline_theme='base16_one_light'
+    " colorscheme onebuddy
+
+    let g:airline_theme='base16_material_lighter'
+    let g:material_style='lighter'
+    colorscheme material
+
+lua << EOF
+local colors = require 'material.colors'
+require('material').setup({
+
+    contrast = {
+        terminal = true, -- Enable contrast for the built-in terminal
+        sidebars = true, -- Enable contrast for sidebar-like windows ( for example Nvim-Tree )
+        floating_windows = true, -- Enable contrast for floating windows
+        cursor_line = true, -- Enable darker background for the cursor line
+        non_current_windows = false, -- Enable darker background for non-current windows
+        filetypes = {}, -- Specify which filetypes get the contrasted (darker) background
+    },
+
+    styles = { -- Give comments style such as bold, italic, underline etc.
+        comments = { --[[ italic = true ]] },
+        strings = { --[[ bold = true ]] },
+        keywords = { --[[ underline = true ]] },
+        functions = { --[[ bold = true, undercurl = true ]] },
+        variables = {},
+        operators = {},
+        types = {},
+    },
+
+    plugins = { -- Uncomment the plugins that you use to highlight them
+        -- Available plugins:
+        -- "dap",
+        -- "dashboard",
+        -- "gitsigns",
+        -- "hop",
+        -- "indent-blankline",
+        -- "lspsaga",
+        -- "mini",
+        -- "neogit",
+        -- "nvim-cmp",
+        -- "nvim-navic",
+        -- "nvim-tree",
+        -- "nvim-web-devicons",
+        -- "sneak",
+        -- "telescope",
+        -- "trouble",
+        -- "which-key",
+    },
+
+    disable = {
+        colored_cursor = false, -- Disable the colored cursor
+        borders = false, -- Disable borders between verticaly split windows
+        background = true, -- Prevent the theme from setting the background (NeoVim then uses your terminal background)
+        term_colors = false, -- Prevent the theme from setting terminal colors
+        eob_lines = false -- Hide the end-of-buffer lines
+    },
+
+    high_visibility = {
+        lighter = true, -- Enable higher contrast text for lighter style
+        darker = false -- Enable higher contrast text for darker style
+    },
+
+    lualine_style = "default", -- Lualine style ( can be 'stealth' or 'default' )
+
+    async_loading = true, -- Load parts of the theme asyncronously for faster startup (turned on by default)
+
+    custom_highlights = {}, -- Overwrite highlights with your own
+
+    custom_colors = function(colors)
+    end
+})
+EOF
+
+    " ぼんやり
+    " let g:gruvbox_contrast_light = 'medium'
+    " colorscheme gruvbox
+
+    " ぼんやり
+    " colorscheme PaperColor
+    " let g:airline_theme='papercolor'
+    "
+    " colorscheme pencil
+    " let g:airline_theme='pencil'
+  endif
 else
   " 256colorの場合
   augroup mycolorscheme
@@ -1997,8 +1870,8 @@ else
     autocmd ColorScheme * hi Visual ctermbg=238
 
     "行番号
-    autocmd ColorScheme * hi LineNr ctermfg=239
-    autocmd ColorScheme * hi CursorLineNr ctermfg=250
+    " autocmd ColorScheme * hi LineNr ctermfg=239
+    " autocmd ColorScheme * hi CursorLineNr ctermfg=250
 
     autocmd ColorScheme * hi Delimiter ctermfg=247
     autocmd ColorScheme * hi Comment ctermfg=73
@@ -2014,7 +1887,7 @@ if dein#tap('vim-better-whitespace')
   let g:better_whitespace_enabled=1
   if (&background == 'dark')
     let g:better_whitespace_ctermcolor='14'
-    let g:better_whitespace_guicolor='#5C6773'
+    let g:better_whitespace_guicolor='#3a453e'
   else
     let g:better_whitespace_ctermcolor='4'
     let g:better_whitespace_guicolor='#ABB0B6'
@@ -2023,13 +1896,12 @@ if dein#tap('vim-better-whitespace')
   " let g:strip_whitespace_on_save = 1
   " let g:strip_max_file_size = 1000
 
-  let g:better_whitespace_filetypes_blacklist=['markdown', 'diff', 'gitcommit', 'qf', 'help', 'dein', 'denite', 'vaffle', 'defx']
+  let g:better_whitespace_filetypes_blacklist=['diff', 'gitcommit', 'qf', 'help', 'dein', 'denite', 'vaffle', 'defx']
 endif
 
 let g:is_bash = 1
 
 set redrawtime=5000
-set signcolumn=yes
 set number
 set nomore
 set showmode          " モード表示
@@ -2040,13 +1912,15 @@ set laststatus=2      " ステータスラインを常に表示
 set cursorline        " 下線
 set nowrap              " 画面幅で折り返す
 set list              " 不可視文字表示
-set listchars=tab:>-  "hannkaku
+" set listchars=tab:>-,trail:-
+set listchars=tab:>-
 set display=uhex      " 印字不可能文字を16進数で表示
 set nf=hex            " 数値インクリメントは10進数か16進数
 set splitbelow        " 水平分割時は新しいwindowを下に
 set splitright        " 垂直分割時は新しいwindowを右に
 set spelllang+=cjk
-set pumblend=15
+set pumblend=10
+set winblend=10
 set fillchars=eob:\   " ファイル末尾以降の行頭は半角スペース
 " set iskeyword=@,48-57,_,192-255,#,$,-
 set iskeyword+=-,$,#
@@ -2056,19 +1930,19 @@ set iskeyword+=-,$,#
 "------------------------------
 " 現在位置をマーク
 if !exists('g:markrement_char')
-    let g:markrement_char = [
-    \     'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
-    \     'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
-    \ ]
+  let g:markrement_char = [
+        \     'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+        \     'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
+        \ ]
 endif
 function! s:AutoMarkrement()
-    if !exists('b:markrement_pos')
-        let b:markrement_pos = 0
-    else
-        let b:markrement_pos = (b:markrement_pos + 1) % len(g:markrement_char)
-    endif
-    execute 'mark' g:markrement_char[b:markrement_pos]
-    echo 'marked' g:markrement_char[b:markrement_pos]
+  if !exists('b:markrement_pos')
+    let b:markrement_pos = 0
+  else
+    let b:markrement_pos = (b:markrement_pos + 1) % len(g:markrement_char)
+  endif
+  execute 'mark' g:markrement_char[b:markrement_pos]
+  echo 'marked' g:markrement_char[b:markrement_pos]
 endfunction
 
 " バッファ読み込み時にマークを初期化
@@ -2088,6 +1962,7 @@ set wrapscan        " 最後まで検索したら先頭へ戻る
 set ignorecase      " 大文字小文字無視
 set smartcase       " 大文字ではじめたら大文字小文字無視しない
 set incsearch       " インクリメンタルサーチ
+set matchpairs+=(:),{:},[:],<:>
 
 augroup vimrcincsearchhighlight
   autocmd!
@@ -2098,7 +1973,6 @@ augroup END
 "ファイル操作
 "--------------------------------
 set mouse=
-set autowrite
 set nofixeol
 
 " autocmd CursorHold * wall
@@ -2106,9 +1980,12 @@ set nofixeol
 
 augroup checktime
   autocmd!
-  autocmd BufEnter * checktime " window移動時にファイル更新
+  autocmd InsertLeave,TextChanged * silent! write
+  autocmd FocusGained,BufEnter * :silent! !
 augroup END
 set autoread                        " 更新時自動再読込み
+set autowrite
+set autowriteall
 set hidden                          " 編集中でも他のファイルを開けるようにする
 set noswapfile                      " スワップファイルを作らない
 set nobackup                        " バックアップを取らない
@@ -2125,10 +2002,10 @@ autocmd BufWritePre * call s:auto_mkdir(expand('<afile>:p:h'), v:cmdbang)
 " shebang持ちのファイルの保存時に実行権限を付与
 autocmd BufWritePost * :call AddExecmod()
 function AddExecmod()
-    let line = getline(1)
-    if strpart(line, 0, 2) == "#!"
-        call system("chmod +x ". expand("%"))
-    endif
+  let line = getline(1)
+  if strpart(line, 0, 2) == "#!"
+    call system("chmod +x ". expand("%"))
+  endif
 endfunction
 
 " ファイルを開いた際に、前回終了時の行で起動
@@ -2274,6 +2151,21 @@ function! s:Jq(...)
   endif
   execute "%! jq \"" . l:arg . "\""
 endfunction
+
+let g:alpha_lower = 'abcdefghijklmnopqrstuvwxyz'
+let g:alpha_upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+let g:digits = '0123456789'
+let g:alpha_all = g:alpha_lower .. g:alpha_upper
+let g:alnum = g:alpha_all .. g:digits
+" }}}
+
+" {{{ ClearRegs
+function! s:clear_regs() abort
+  for r in split(g:alnum .. '/', '\zs')
+    call setreg(r, [])
+  endfor
+endfunction
+command! ClearRegs call s:clear_regs()
 
 " column
 " command! -nargs=? PrettyCsv call s:PrettyCsv(<f-args>)

@@ -81,5 +81,6 @@ if [ "$(uname)" == 'Darwin' ]; then
   ln -sf ${HOME}/Dropbox/アプリ/.hammerspoon ${HOME}/
   ln -sf ${HOME}/Dropbox/VSCode/extensions ${HOME}/.vscode/
   ln -sf ${HOME}/Dropbox/VSCode/User ${HOME}/Library/Application\ Support/Code/
+  ln -sf ${HOME}/Dropbox/アプリ/iTerm2/AutoLaunch ${HOME}/Library/ApplicationSupport/iTerm2/Scripts/
 fi
 

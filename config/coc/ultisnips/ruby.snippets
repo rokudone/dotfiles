@@ -24,20 +24,13 @@
 #
 # Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
 
-snippet paiza "Description" b
-const getData = () => {
-		if (typeof lines !== 'undefined') {
-				return lines;
-		}
-		return [
-		]
-}
-const data = getData()
+snippet minitest "Description" b
+require 'minitest/autorun'
 
-const log = (msg) => {
-		if (typeof lines === 'undefined') {
-				console.log(msg);
-		}
-}
+class SampleTest < Minitest::Test
+	def test_
+		assert_equal 1, 1
+	end
+end
 
 endsnippet

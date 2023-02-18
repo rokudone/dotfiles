@@ -94,9 +94,7 @@ fi
 EXTRA_FZF_COMPLETIONS_FZF_PREFIX=,
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# iterm
-# alias it2-light='echo -ne "\033]1337;SetProfile=light\a" && export ITERM_PROFILE=light && tmux source ~/.tmux/light'
-# alias it2-dark='echo -ne "\033]1337;SetProfile=dark\a" && export ITERM_PROFILE=dark && tmux source ~/.tmux/dark'
+source ~/bin/fzf-color
 
 # alias
 alias cl="clear"
@@ -303,6 +301,9 @@ alias sf='php `git rev-parse --show-toplevel`/symfony'
 
 # vim
 alias vim='nvim'
+
+# ruby 
+eval "$(rbenv init -)"
 
 alias vg='vagrant'
 

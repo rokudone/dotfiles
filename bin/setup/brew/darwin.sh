@@ -8,7 +8,6 @@ brew install zsh
 if ! `grep "$(brew --prefix)/bin/zsh" /etc/shells > /dev/null` ; then
   echo $(brew --prefix)/bin/zsh | sudo tee -a /etc/shells
 fi
-
 brew tap homebrew/cask-versions
 
 brew install autoconf
@@ -28,6 +27,9 @@ brew install grep # --with-default-names
 
 brew tap z80oolong/tmux
 brew install z80oolong/tmux/tmux
+
+brew tap kyoshidajp/ghkw
+brew install ghkw
 
 brew install ansible
 brew install gzip
@@ -49,10 +51,10 @@ brew install tig
 brew install gina
 brew install cmigemo
 brew install keychain
-# brew install rbenv
-# brew install ruby-build
+brew install rbenv
+brew install ruby-build
 # brew install rdiff-backup
-# brew install python3
+brew install python3
 brew install lua
 brew install luajit
 brew install git
