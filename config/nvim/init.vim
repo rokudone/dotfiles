@@ -41,6 +41,9 @@ augroup packer
   autocmd BufWritePost */lua/plugins.lua PackerCompile
   autocmd BufWritePost */lua/plugins/*.lua PackerCompile
 
+  " PackerInstall
+  " PackerSync
+
   " autocmd BufWritePost */lua/plugins.lua echo 'update plugins.lua'
   " autocmd BufWritePost */lua/plugins/*.lua echo 'update plugins/*.lua'
 augroup End
@@ -137,9 +140,9 @@ vnoremap Y "*y
 vnoremap D "*d
 
 "fold
-nnoremap zl zo
+nnoremap zl 2zo
 nnoremap zL zO
-nnoremap zh zc
+nnoremap zh 2zc
 nnoremap zH zC
 
 " ----------------------------------------
@@ -193,8 +196,8 @@ nnoremap <silent> <C-w>\ <C-w>_<C-w><bar>
 
 ".edit config
 nnoremap <silent> <Leader>es :<C-u>source ~/.config/nvim/init.vim<CR>
-nnoremap <silent> <Leader>ev :<C-u>tabnew ~/.config/nvim/init.vim<CR>
-nnoremap <silent> <Leader>et :<C-u>tabnew ~/.config/nvim/dein.toml<CR>
+nnoremap <silent> <Leader>ev :<C-u>e ~/.config/nvim/init.vim<CR>
+nnoremap <silent> <Leader>et :<C-u>e ~/.config/nvim/dein.toml<CR>
 nnoremap <silent> <Leader>ec :<C-u>CocConfig<CR>
 
 " reload file
@@ -215,8 +218,8 @@ nnoremap <silent> <C-j> :call search ("^". matchstr (getline (line (".")), '\(\s
 
 if dein#tap('fzf.vim')
   " map <Leader>f [fzf]
-  " nnoremap <silent> <Leader>f :<C-u>GFiles<CR>
-  nnoremap <silent> <Leader>f :<C-u>Files<CR>
+  nnoremap <silent> <Leader>f :<C-u>GFiles<CR>
+  nnoremap <silent> <Leader>F :<C-u>Files<CR>
   nnoremap <silent> <Leader>ee :<C-u>Dotfiles<CR>
   nnoremap <silent> <Leader>b :<C-u>Buffers<CR>
   nnoremap <silent> <Leader>u <Nop>
@@ -294,12 +297,12 @@ if dein#tap('coc.nvim')
 
   " Remap for format selected region
   " 整形
-  xmap <silent> gF <Plug>(coc-format-selected)
+  xmap <silent> gf <Plug>(coc-format-selected)
   " nmap <silent> gF <Plug>(coc-format-selected)
-  nnoremap <silent> gF :<C-u>Format<CR>
+  nnoremap <silent> gf :<C-u>Format<CR>
 
   " 折りたたみ
-  nnoremap <silent> gf :<C-u>Fold<CR>
+  nnoremap <silent> gF :<C-u>Fold<CR>
 
   " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
   " 選択ファイルを関数化したり、別ファイルに書き出したり
@@ -342,6 +345,8 @@ if dein#tap('coc.nvim')
   " nnoremap <silent> gk  :<C-u>CocPrev<CR>
   " " Resume latest coc list
   " nnoremap <silent> gp  :<C-u>CocListResume<CR>
+  " Open marketplace
+  nnoremap <silent> glm  :<C-u>CocList marketplace<cr>
 
   nnoremap <silent> ge :<C-u>CocCommand explorer<CR>
   nnoremap <silent> gE :<C-u>CocCommand explorer --preset floating<CR>
@@ -362,7 +367,7 @@ endif
 " F9	<Plug>VimspectorToggleBreakpoint	Toggle line breakpoint on the current line.
 " Shift F9	<Plug>VimspectorAddFunctionBreakpoint	Add a function breakpoint for the expression under cursor
 " F10	<Plug>VimspectorStepOver	Step Over
-" F11	<Plug>VimspectorStepInto	Step Into
+" F11	<Plug>VimspaatorStepInto	Step Into
 " Shift F11	<Plug>VimspectorStepOut	Step out of current function scope
 " Alt 8	`VimspectorDisassemble	Show disassembly
 " endif
@@ -428,9 +433,9 @@ if dein#tap('incsearch-migemo.vim')
   " nmap g? <Plug>(incsearch-migemo-?)
 endif
 
-if dein#tap('vim-rengbang')
-  map <Leader>R <Plug>(operator-rengbang)
-endif
+" if dein#tap('vim-rengbang')
+"   map <Leader>R <Plug>(operator-rengbang)
+" endif
 
 if dein#tap('vim-over')
   " nnoremap <leader>s :<C-u>OverCommandLine<CR>%s/\v
@@ -453,9 +458,9 @@ if dein#tap('vim-easymotion')
   map <Leader>k <Plug>(easymotion-k)
 endif
 
-if dein#tap('fuzzy-motion.vim')
-  nnoremap <leader>F :<C-u>FuzzyMotion<CR>
-endif
+" if dein#tap('fuzzy-motion.vim')
+"   nnoremap <leader>F :<C-u>FuzzyMotion<CR>
+" endif
 
 if dein#tap('vim-choosewin')
   nmap <C-w>w  <Plug>(choosewin)
@@ -502,28 +507,32 @@ if dein#tap('vim-gitgutter')
   nmap [git]t <Plug>(GitGutterLineHighlightsToggle)
 endif
 
-if dein#tap('vim-table-mode')
-  let g:table_mode_disable_mappings = 0
+" if dein#tap('vim-table-mode')
+"   let g:table_mode_disable_mappings = 0
 
-  let g:table_mode_map_prefix = "<C-t>"
-  let g:table_mode_corner = "|"
-  let g:table_mode_toggle_map = 'm'
+"   let g:table_mode_map_prefix = "<C-t>"
+"   let g:table_mode_corner = "|"
+"   let g:table_mode_toggle_map = 'm'
 
-  let g:table_mode_motion_up_map = '<C-t>k'
-  let g:table_mode_motion_down_map = '<C-t>j'
-  let g:table_mode_motion_left_map = '<C-t>h'
-  let g:table_mode_motion_right_map = '<C-t>l'
+"   let g:table_mode_motion_up_map = '<C-t>k'
+"   let g:table_mode_motion_down_map = '<C-t>j'
+"   let g:table_mode_motion_left_map = '<C-t>h'
+"   let g:table_mode_motion_right_map = '<C-t>l'
 
-  " 以下ノーマルモード
-  let g:table_mode_tableize_map = '<C-t>T'
-  let g:table_mode_tableize_d_map = '<C-t>t'
-  let g:table_mode_realign_map = '<C-t>r'
-  let g:table_mode_delete_row_map = '<C-t>dr'
-  let g:table_mode_delete_column_map = '<C-t>dc'
-  " let g:table_mode_add_formula_map = '<C-t>fa'
-  " let g:table_mode_eval_formula_map = '<C-t>fe'
-  let g:table_mode_echo_cell_map = '<C-t>?'
-  " let g:table_mode_sort_map = '<C-t>s'
+"   " 以下ノーマルモード
+"   let g:table_mode_tableize_map = '<C-t>T'
+"   let g:table_mode_tableize_d_map = '<C-t>t'
+"   let g:table_mode_realign_map = '<C-t>r'
+"   let g:table_mode_delete_row_map = '<C-t>dr'
+"   let g:table_mode_delete_column_map = '<C-t>dc'
+"   " let g:table_mode_add_formula_map = '<C-t>fa'
+"   " let g:table_mode_eval_formula_map = '<C-t>fe'
+"   let g:table_mode_echo_cell_map = '<C-t>?'
+"   " let g:table_mode_sort_map = '<C-t>s'
+" endif
+
+if dein#tap('vim-maketable')
+  " nnoremap <c-t>t :MakeTable<CR>
 endif
 
 if dein#tap('memolist.vim')
@@ -552,7 +561,6 @@ if dein#tap('vim-chatgpt')
 endif
 
 if dein#tap('vim-markdown')
-  " plasticboy/vim-markdown
   autocmd FileType markdown nnoremap <silent><buffer> + :<C-u>.HeaderIncrease<CR>
   autocmd FileType markdown nnoremap <silent><buffer> - :<C-u>.HeaderDecrease<CR>
   autocmd FileType markdown vnoremap <silent><buffer> + :<C-u>'<,'>HeaderIncrease<CR>
@@ -571,6 +579,62 @@ endif
 
 if dein#tap('previm')
   autocmd FileType markdown nnoremap <silent><buffer> <Leader><Bslash> :<C-U>PrevimOpen<CR>
+endif
+
+if dein#tap("vim-rails")
+  " https://qiita.com/bibio/items/ac3f0cb8e7949b2ce56c
+  map <Leader>r [rails]
+
+  " alternate file (test)
+  nnoremap [rails]a :A<CR>
+  " nnoremap [rails]ae :AE<CR>
+  " nnoremap [rails]as :AS<CR>
+  " nnoremap [rails]av :AV<CR>
+  " nnoremap [rails]at :AT<CR>
+  " nnoremap [rails]ad :AD<CR>
+
+  " related file (test)
+  nnoremap [rails]r :R<CR>
+  " nnoremap [rails]re :RE<CR>
+  " nnoremap [rails]rs :RS<CR>
+  " nnoremap [rails]rv :RV<CR>
+  " nnoremap [rails]rt :RT<CR>
+  " nnoremap [rails]rd :RD<CR>
+
+  " app/contollers/xxx_controller.rb
+  nnoremap [rails]c :Econtroller<CR>
+  " config/application.rb
+  nnoremap [rails]e :Eenvironment<CR>
+  " test/fixture/xxx.yml
+  nnoremap [rails]f :Efixture<CR>
+  " app/helpers/xxx_helper.rb
+  nnoremap [rails]h :Ehelper<CR>
+  " config/routes.rb
+  nnoremap [rails]i :Einitializer<CR>
+  " app/assets/javascripts/books.js.coffee
+  nnoremap [rails]j :Ejavascript<CR>
+  " app/views/layouts/application.html.erb
+  nnoremap [rails]l :Elayout<CR>
+  " Gemfile
+  nnoremap [rails]L :Elib<CR>
+  " config/locales/en.yml
+  nnoremap [rails]o :Elocale<CR>
+  " db/migrate/*****_create_xxxx.rb
+  nnoremap [rails]m :Emigration<CR>
+  " 
+  nnoremap [rails]M :Emailer<CR>
+  " db/schema.rb
+  nnoremap [rails]s :Eschema<CR>
+  " app/assets/stylesheets/xxxx.css.scss
+  nnoremap [rails]S :Estylesheet<CR>
+  " test/controllers/xxxx_controller_test.rb
+  nnoremap [rails]t :Efunctionaltest<CR>
+  " spec/spec_helper.rb
+  nnoremap [rails]T :Etask<CR>
+  " test/models/test_xxx.rb または spec/models/xxx_spec.rb
+  nnoremap [rails]u :Eunittest<CR>
+  " app/views/xxxx/yyy.html.erb
+  nnoremap [rails]v :Eview<CR>
 endif
 
 " --------------------
@@ -746,13 +810,14 @@ if dein#tap('coc.nvim')
   " Use `:Fold` to fold current buffer
   command! -nargs=? Fold :call CocAction('fold', <f-args>)
 
-  " fold
+  " foldmethod
   " manual 手動で折畳を定義する
   " indent インデントの数を折畳のレベル(深さ)とする
   " expr 折畳を定義する式を指定する
   " syntax 構文強調により折畳を定義する
   " diff 変更されていないテキストを折畳対象とする
   " marker テキスト中の印で折畳を定義する
+  " set foldmethod=indent
   set foldlevel=1
 
   " use `:OR` for organize import of current buffer
@@ -769,6 +834,7 @@ if dein#tap('coc.nvim')
         \ 'coc-emmet',
         \ 'coc-svg',
         \ 'coc-css',
+        \ 'coc-stylelintplus',
         \ '@yaegassy/coc-volar',
         \ '@yaegassy/coc-volar-tools',
         \ '@yaegassy/coc-tailwindcss3',
@@ -816,29 +882,178 @@ endif
 " nvim-treesitter/nvim-treesitter
 " --------------------
 if dein#tap('nvim-treesitter')
-lua << EOF
-require('nvim-treesitter.configs').setup({
-  ensure_installed = "all",
-  ignore_install = {"phpdoc", "markdown"},
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = {
+    -- "ada",
+    -- "agda",
+    -- "arduino",
+    -- "astro",
+    "awk",
+    "bash",
+    -- "beancount",
+    -- "bibtex",
+    -- "blueprint",
+    -- "c",
+    -- "c_sharp",
+    -- "capnp",
+    -- "chatito",
+    -- "clojure",
+    -- "cmake",
+    "comment",
+    "commonlisp",
+    -- "cooklang",
+    -- "cpp",
+    "css",
+    -- "cuda",
+    -- "d",
+    -- "dart",
+    -- "devicetree",
+    "diff",
+    "dockerfile",
+    -- "dot",
+    -- "ebnf",
+    -- "eex",
+    -- "elixir",
+    -- "elm",
+    -- "elsa",
+    -- "elvish",
+    -- "embedded_template",
+    -- "erlang",
+    -- "fennel",
+    -- "fish",
+    -- "foam",
+    -- "fortran",
+    -- "fsh",
+    -- "func",
+    -- "fusion",
+    -- "Godot",
+    "git_rebase",
+    "gitattributes",
+    "gitcommit",
+    "gitignore",
+    -- "gleam",
+    -- "GlimmerandEmber",
+    -- "glsl",
+    "go",
+    -- "GodotResources",
+    -- "gomod",
+    -- "gosum",
+    -- "gowork",
+    "graphql",
+    -- "hack",
+    "haskell",
+    -- "hcl",
+    -- "heex",
+    -- "help",
+    -- "hjson",
+    -- "hlsl",
+    -- "hocon",
+    -- "html",
+    -- "htmldjango",
+    "http",
+    "ini",
+    -- "java",
+    "javascript",
+    "jq",
+    "jsdoc",
+    "json",
+    "json5",
+    "jsonc",
+    -- "jsonnet",
+    -- "julia",
+    -- "kdl",
+    -- "kotlin",
+    -- "lalrpop",
+    -- "latex",
+    -- "ledger",
+    -- "llvm",
+    "lua",
+    -- "m68k",
+    -- "make",
+    "markdown",
+    "markdown_inline",
+    -- "menhir",
+    "mermaid",
+    "meson",
+    -- "nickel",
+    -- "ninja",
+    -- "nix",
+    -- "norg",
+    -- "ocaml",
+    -- "ocaml_interface",
+    -- "ocamllex",
+    -- "org",
+    -- "pascal",
+    "perl",
+    "php",
+    "phpdoc",
+    -- "pioasm",
+    -- "PathofExileitemfilter",
+    -- "prisma",
+    -- "proto",
+    -- "pug",
+    "python",
+    -- "ql",
+    -- "qmljs",
+    -- "tree-sitter-query",
+    -- "r",
+    -- "racket",
+    -- "rasi",
+    "regex",
+    -- "rego",
+    -- "rnoweb",
+    -- "ron",
+    -- "rst",
+    "ruby",
+    "rust",
+    -- "scala",
+    -- "scheme",
+    "scss",
+    -- "slint",
+    -- "smali",
+    -- "smithy",
+    -- "solidity",
+    -- "sparql",
+    "sql",
+    -- "supercollider",
+    -- "surface",
+    "svelte",
+    -- "swift",
+    -- "sxhkdrc",
+    -- "t32",
+    -- "teal",
+    -- "terraform",
+    -- "thrift",
+    -- "tiger",
+    -- "tlaplus",
+    "todotxt",
+    "toml",
+    "tsx",
+    -- "turtle",
+    -- "twig",
+    "typescript",
+    -- "v",
+    -- "vala",
+    -- "verilog",
+    -- "vhs",
+    "vim",
+    "vue",
+    -- "wgsl",
+    -- "wgsl_bevy",
+    "yaml",
+    -- "yang",
+    -- "zig",
+  },
   highlight = {
     enable = true,
   },
   indent = {
-    enable = true
+    enable = false
   },
   endwise = {
     enable = true
   },
-})
-EOF
-endif
-
-" --------------------
-" nvim-ts-context-commentstring
-" --------------------
-if dein#tap('nvim-ts-context-commentstring')
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
   context_commentstring = {
     enable = true
   }
@@ -1545,6 +1760,14 @@ endif
 "     endif
 "   endfunction
 " endif
+
+"--------------------
+" vim_codex
+"--------------------
+if dein#tap('vim_codex')
+  nnoremap <C-s> :CreateCompletion<CR>
+  inoremap <C-s> <Esc>:CreateCompletion<CR>
+endif
 
 "--------------------
 " setting ここまで

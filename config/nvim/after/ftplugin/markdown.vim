@@ -2,6 +2,8 @@ set sw=2
 let g:previm_open_cmd = 'open -a "Google Chrome"'
 let g:gfm_syntax_enable_always = 1
 let g:gfm_syntax_emoji_conceal = 1
+let g:vim_markdown_conceal = 0
+
 
 setlocal nofoldenable
 setlocal wrap

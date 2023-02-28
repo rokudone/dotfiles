@@ -32,8 +32,8 @@ repo = 'tpope/vim-commentary'
 # repo = 'preservim/nerdcommenter'
 # [[plugins]]
 # repo = 'tomtom/tcomment_vim'
-[[plugins]]
-repo = 'JoosepAlviste/nvim-ts-context-commentstring'
+# [[plugins]]
+# repo = 'JoosepAlviste/nvim-ts-context-commentstring'
 # [[plugins]]
 # repo = 'Shougo/context_filetype.vim'
 [[plugins]]
@@ -56,8 +56,8 @@ repo = 'tpope/vim-repeat'
 repo = 'tmhedberg/matchit'
 # [[plugins]]
 # repo = 'itchyny/vim-parenmatch'
-[[plugins]]
-repo = 'leafOfTree/vim-matchtag'
+# [[plugins]]
+# repo = 'leafOfTree/vim-matchtag' # なんかhtmlのタグの対応がおかしい
 [[plugins]]
 repo = 'deris/vim-rengbang'
 [[plugins]]
@@ -94,6 +94,12 @@ repo = 'osyo-manga/vim-over'
 repo = 'syui/airsave.vim'
 [[plugins]]
 repo = 'terryma/vim-expand-region'
+[[plugins]]
+repo = 'github/copilot.vim'
+[[plugins]]
+repo = 'tom-doerr/vim_codex'
+[[plugins]]
+repo = '0xStabby/chatgpt-vim'
 
 
 # git
@@ -143,11 +149,6 @@ repo = 'machakann/vim-textobj-delimited'  #ad aD
 repo = 'pocke/vim-textobj-markdown' #c
 [[plugins]]
 repo = 'osyo-manga/vim-textobj-multiblock' #sb
-[[plugins]]
-repo = 'github/copilot.vim'
-[[plugins]]
-repo = 'mattn/vim-chatgpt'
-
 
 # language server client
 [[plugins]]
@@ -182,6 +183,12 @@ on_ft = ["applescript"]
 [[plugins]]
 repo = 'jparise/vim-graphql'
 on_ft = ["graphql"]
+[[plugins]]
+repo = 'jlcrochet/vim-rbs'
+on_ft = ["rbs"]
+[[plugins]]
+repo = 'tpope/vim-rails'
+on_ft = ["ruby", "erb"]
 # [[plugins]]
 # repo = 'sheerun/vim-polyglot'
 # [[plugins]]
@@ -241,9 +248,9 @@ repo = 'godlygeek/tabular'
 repo = 'dhruvasagar/vim-table-mode'
 [[plugins]]
 repo = 'mattn/vim-maketable'
-[[plugins]]
-repo = 'rhysd/vim-gfm-syntax'
-on_ft = ['markdown', 'pandoc.markdown', 'rmd']
+# [[plugins]]
+# repo = 'rhysd/vim-gfm-syntax'
+# on_ft = ['markdown', 'pandoc.markdown', 'rmd']
 # [[plugins]]
 # repo = 'iamcco/markdown-preview.nvim'
 # on_ft = ['markdown', 'pandoc.markdown', 'rmd']
@@ -258,14 +265,17 @@ repo = 'vim-scripts/VOoM'
 repo = 'habamax/vim-asciidoctor'
 
 
-# syntax
+# # syntax
 [[plugins]]
 repo = 'nvim-treesitter/nvim-treesitter'
 merged = 0
+hook_post_update = 'TSUpdate'
 [[plugins]]
 repo = 'RRethy/nvim-treesitter-endwise'
+depends = ['nvim-treesitter']
 [[plugins]]
 repo = 'kat0h/vim-auto-color-switcher'
+depends = ['nvim-treesitter']
 hook_post_update = '''
 let g:dein#plugin.build = 'make'
 '''

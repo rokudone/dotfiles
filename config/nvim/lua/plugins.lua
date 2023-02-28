@@ -28,6 +28,10 @@ require'packer'.startup(function()
     "suketa/nvim-dap-ruby",
     requires = {"mfussenegger/nvim-dap"}
   }
+
+  -- use {
+  --   "0xStabby/chatgpt-vim"
+  -- }
 end)
 
 -- dap

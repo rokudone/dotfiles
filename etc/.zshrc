@@ -303,8 +303,8 @@ alias sf='php `git rev-parse --show-toplevel`/symfony'
 alias vim='nvim'
 
 # ruby 
-eval "$(rbenv init -)"
-
+# eval "$(rbenv init -)"
+path=(${ZDOTDIR:-$HOME}/.rbenv/shims $path)
 alias vg='vagrant'
 
 # java

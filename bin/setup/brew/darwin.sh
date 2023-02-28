@@ -96,7 +96,6 @@ brew install docker
 brew install docker-compose
 brew install evernote
 brew install firefox
-brew install franz
 brew install google-chrome
 brew install google-chrome-canary
 brew install google-japanese-ime
@@ -105,20 +104,14 @@ brew install insomnia
 brew install java
 brew install karabiner-elements
 brew install kindle
-brew install marshallofsound-google-play-music-player
-brew install popclip
 brew install postman
-brew install translate-tab
 brew install todoist
 brew install the-unarchiver
 brew install skim
 brew install slack
-brew install sublime-text
 brew install stoplight-studio
 brew install virtualbox
 brew install visual-studio-code
-brew install vmware fusion
-brew install vagrant
 brew install watchman
 
 # brew cask install objektiv
@@ -129,11 +122,7 @@ brew install geckodriver
 
 
 mas install 539883307 # LINE (5.15.0)
-mas install 585829637 # Todoist (7.1.2)
 mas install 497799835 # Xcode (10.2)
-mas install 417375580 # BetterSnapTool (1.9)
-mas install 458887729 # Translate Tab (2.0.3)
-
 
 brew cleanup
 
