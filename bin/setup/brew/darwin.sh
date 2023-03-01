@@ -94,7 +94,6 @@ brew install clickup
 brew install dropbox
 brew install docker
 brew install docker-compose
-brew install evernote
 brew install firefox
 brew install google-chrome
 brew install google-chrome-canary
@@ -110,7 +109,6 @@ brew install the-unarchiver
 brew install skim
 brew install slack
 brew install stoplight-studio
-brew install virtualbox
 brew install visual-studio-code
 brew install watchman
 
