@@ -23,10 +23,10 @@ alias gbm='git branch --move'
 alias gbM='git branch --move --force'
 # alias gbs='git show-branch'
 # alias gbS='git show-branch --all'
-# alias gbs='git switch'
-alias gbc='git checkout -b'
-# alias gbc='git switch -c'
-alias gbr="git branch --remote"
+alias gbs='git switch'
+alias gbc='git switch -c'
+# alias gbc='git checkout -b'
+# alias gbr="git branch --remote"
 
 # # Commit (c)
 # alias gc='git commit --verbose'
@@ -34,8 +34,8 @@ alias gc='git commit -m "[temp] $(date "+%Y/%m/%d %H:%M:%S")"'
 alias gcm='git commit --message'
 alias gca='git commit --verbose --amend'
 alias gcA='git commit --verbose --amend --reuse-message HEAD'
-alias gco='git checkout'
-alias gcop='git checkout --patch' # -p
+# alias gco='git checkout'
+# alias gcop='git checkout --patch' # -p
 alias gcp='git cherry-pick --ff'
 alias gcpn='git cherry-pick --no-commit'
 alias gcr='git reset "HEAD^"' # commitをリセット
@@ -144,17 +144,17 @@ alias ggv='git grep --invert-match'
 alias ggw='git grep --word-regexp'
 
 # Hub (h)
-# alias ghb='hub browse'         # Open a GitHub page in the default browser
-# alias ghc='hub create'         # Create this repository on GitHub and add GitHub as origin
-# alias ghd='hub compare'        # Open a compare page on GitHub
-# alias ghp='hub pr'             # List or checkout GitHub pull requests
-# alias ghP='hub pull-request'   # Open a pull request on GitHub
-# alias ghs='hub sync'           # Fetch git objects from upstream and update branches
-# alias ghci='hub ci-status'      # Show the status of GitHub checks for a commit
-# alias ghD='hub delete'         # Delete a repository on GitHub
-# alias ghf='hub fork'           # Make a fork of a remote repository on GitHub and add as remote
-# alias ghi='hub issue'          # List or create GitHub issues
-# alias ghr='hub release'        # List or create GitHub releases
+alias ghb='hub browse'         # Open a GitHub page in the default browser
+alias ghc='hub create'         # Create this repository on GitHub and add GitHub as origin
+alias ghd='hub compare'        # Open a compare page on GitHub
+alias ghp='hub pr'             # List or checkout GitHub pull requests
+alias ghP='hub pull-request'   # Open a pull request on GitHub
+alias ghs='hub sync'           # Fetch git objects from upstream and update branches
+alias ghci='hub ci-status'      # Show the status of GitHub checks for a commit
+alias ghD='hub delete'         # Delete a repository on GitHub
+alias ghf='hub fork'           # Make a fork of a remote repository on GitHub and add as remote
+alias ghi='hub issue'          # List or create GitHub issues
+alias ghr='hub release'        # List or create GitHub releases
 
 # Index (i)
 alias gia='git add'
