@@ -27,10 +27,6 @@ export HOMEBREW_REPOSITORY="$HOMEBREW_PREFIX/Homebrew";
 export MANPATH="$HOMEBREW_PREFIX/share/man:$MANPATH";
 export INFOPATH="$HOMEBREW_PREFIX/share/info:$INFOPATH";
 
-
-autoload -Uz compinit
-compinit
-
 # npm
 # .zshrcでpathを解決すると、vimがうまく読み取ってくれない
 # https://qiita.com/ktrysmt/items/4d8194b0f82bfa91bcdc

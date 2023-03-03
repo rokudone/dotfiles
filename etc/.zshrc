@@ -35,19 +35,19 @@ zinit light agkozak/zsh-z
 zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-history-substring-search
 
+zinit snippet PZT::modules/command-not-found/init.zsh
+zinit snippet PZT::modules/completion/init.zsh
+zinit snippet PZT::modules/directory/init.zsh
+# zinit snippet PZT::modules/docker/init.zsh
 zinit snippet PZT::modules/editor/init.zsh
+zinit snippet PZT::modules/helper/init.zsh
+zinit snippet PZT::modules/history/init.zsh
+zinit snippet PZT::modules/homebrew/init.zsh
+zinit snippet PZT::modules/osx/init.zsh
+zinit snippet PZT::modules/spectrum/init.zsh
 zinit snippet PZT::modules/syntax-highlighting/init.zsh
 zinit snippet PZT::modules/terminal/init.zsh
-zinit snippet PZT::modules/history/init.zsh
-zinit snippet PZT::modules/directory/init.zsh
-zinit snippet PZT::modules/spectrum/init.zsh
 zinit snippet PZT::modules/utility/init.zsh
-zinit snippet PZT::modules/completion/init.zsh
-zinit snippet PZT::modules/osx/init.zsh
-zinit snippet PZT::modules/homebrew/init.zsh
-zinit snippet PZT::modules/command-not-found/init.zsh
-# zinit snippet PZT::modules/docker/alias.zsh
-
 
 # Source OS-specific settings
 case $OSTYPE in
@@ -158,15 +158,6 @@ bindkey '^^' cdup
 
 bindkey -r '^q'
 bindkey '^q' beginning-of-line
-
-
-# screen
-autoload -Uz sr
-_sr_comp() {
-  compadd `screen_list`
-}
-compdef _sr_comp sr
-alias sl='screen_list'
 
 #tmux
 autoload -Uz til
@@ -292,9 +283,6 @@ if [ -e ~/.zsh.bundle/completion ]; then
   fpath=(~/.zsh.bundle/completion $fpath)
 fi
 
-autoload -U compinit
-compinit
-
 # artisan
 alias ar='php `git rev-parse --show-toplevel`/artisan'
 alias sf='php `git rev-parse --show-toplevel`/symfony'
@@ -342,17 +330,6 @@ function zgit()
 }
 # alias -g Z=zgit
 
-function zdk()
-{
-  echo $(cat ~/.zinit/snippets/PZT::modules--docker/alias.zsh/alias.zsh \
-    | grep --color=never '^alias' \
-    | grep -v 'alias -g'\
-    | perl -pe 's/alias ([^=]+)=(.*)/\1\t\2/' \
-    | fzf \
-    | perl -pe "s/.*['\"]([a-zA-Z \-]+)['\"].*/\1/g"
-  )
-}
-
 fpath=(${ZDOTDIR:-$HOME}/.zsh.d/**/functions $fpath)
 path=(${ZDOTDIR:-$HOME}/bin $path)
 
@@ -370,15 +347,6 @@ export PATH="$HOMEBREW_PREFIX/opt/grep/libexec/gnubin:$PATH"
 # alias -g Z=zgit
 export LESSCHARSET=utf-8
 
-### last
-# zsh プロファイリング
-# if (which zprof > /dev/null 2>&1) ;then
-#   zprof
-# fi
-### End of Zinit's installer chunk
-### End of Zinit's installer chunk
-### End of Zinit's installer chunk
-
 # Load a few important annexes, without Turbo
 # (this is currently required for annexes)
 zinit light-mode for \
@@ -387,4 +355,7 @@ zinit light-mode for \
     zdharma-continuum/zinit-annex-patch-dl \
     zdharma-continuum/zinit-annex-rust
 
-### End of Zinit's installer chunk
+# zsh プロファイリング
+# if (which zprof > /dev/null 2>&1) ;then
+#   zprof
+# fi
