@@ -79,8 +79,31 @@ if dein#check_install()
   call dein#install()
 endif
 
+" こいつら、重い
 " call dein#update()
-call dein#recache_runtimepath()
+" call dein#recache_runtimepath()
+
+"-------------------
+" plugin
+"-------------------
+let g:did_install_default_menus = 1
+let g:did_install_syntax_menu   = 1
+let g:did_indent_on             = 1
+let g:did_load_filetypes        = 1
+let g:did_load_ftplugin         = 1
+let g:loaded_2html_plugin       = 1
+let g:loaded_gzip               = 1
+let g:loaded_man                = 1
+let g:loaded_matchit            = 1
+let g:loaded_matchparen         = 1
+let g:loaded_netrwPlugin        = 1
+let g:loaded_remote_plugins     = 1
+let g:loaded_shada_plugin       = 1
+let g:loaded_spellfile_plugin   = 1
+let g:loaded_tarPlugin          = 1
+let g:loaded_tutor_mode_plugin  = 1
+let g:loaded_zipPlugin          = 1
+let g:skip_loading_mswin        = 1
 
 "-------------------
 " keymap
@@ -437,12 +460,8 @@ endif
 "   map <Leader>R <Plug>(operator-rengbang)
 " endif
 
-if dein#tap('vim-over')
-  " nnoremap <leader>s :<C-u>OverCommandLine<CR>%s/\v
-  " vnoremap <leader>s :<C-u>OverCommandLine<CR>'<,'>s/\v
-  nnoremap <leader>s :<C-u>%s/\v
-  vnoremap <leader>s :<C-u>'<,'>s/\v
-endif
+nnoremap <leader>s :<C-u>%s/\v
+vnoremap <leader>s :<C-u>'<,'>s/\v
 
 if dein#tap('vim-easymotion')
   map  f <Plug>(easymotion-fl)
@@ -457,10 +476,6 @@ if dein#tap('vim-easymotion')
   map <Leader>j <Plug>(easymotion-j)
   map <Leader>k <Plug>(easymotion-k)
 endif
-
-" if dein#tap('fuzzy-motion.vim')
-"   nnoremap <leader>F :<C-u>FuzzyMotion<CR>
-" endif
 
 if dein#tap('vim-choosewin')
   nmap <C-w>w  <Plug>(choosewin)
@@ -485,16 +500,8 @@ if dein#tap("vim-fugitive")
   " vnoremap [git]B :Gbrowse<CR>
 endif
 
-if dein#tap("blamer.nvim")
-  " nnoremap [git]B :BlamerToggle<CR>
-endif
-
 if dein#tap("agit.vim")
   nnoremap [git]l :Agit<CR>
-endif
-
-if dein#tap("vim-merginal")
-  nnoremap [git]b :Merginal<CR>
 endif
 
 if dein#tap('vim-gitgutter')
@@ -653,8 +660,6 @@ endif
 "--------------------
 
 if dein#tap('fzf.vim')
-  set rtp+=/usr/local/opt/fzf,/home/linuxbrew/.linuxbrew/opt/fzf,~/.fzf
-  " let g:fzf_command_prefix = 'Fzf'
 
   " TODO: 多分遅い
   function! s:build_quickfix_list(lines)
@@ -1161,17 +1166,6 @@ if dein#tap('vista.vim')
 endif
 
 "--------------------
-" auto-ctags
-" ------------------
-"  auto-ctagsはコマンドで全生成するのためだけに使う
-if dein#tap('auto-ctags.vim')
-  let g:auto_ctags = 0 "なんかファイルパーミッションがどうので怒られる
-  let g:auto_ctags_directory_list = ['.git', '.svn']
-  let g:auto_ctags_tags_args = ['--tag-relative=yes', '--recurse=yes', '--sort=yes', '--exclude=node_modules', '--exclude=vendor']
-  let g:auto_ctags_set_tags_option = 0
-endif
-
-"--------------------
 " majutsushi/tagbar
 "--------------------
 if dein#tap('tagbar')
@@ -1240,36 +1234,6 @@ if dein#tap('vim-over')
   let g:over_command_line_prompt = "> "
 endif
 
-" --------------------
-" matchit
-" --------------------
-if dein#tap('matchit')
-  let b:match_ignorecase = 1
-  nnoremap % %zz
-endif
-
-" --------------------
-" vim-expand-region
-" --------------------
-if dein#tap('vim-expand-region')
-  " vnoremap j <Plug>(expand_region_expand)
-  " vnoremap k <Plug>(expand_region_shrink)
-  let g:expand_region_text_objects = {
-        \ 'iw'  :0,
-        \ 'iW'  :0,
-        \ 'i"'  :1,
-        \ 'i''' :1,
-        \ 'i]'  :1,
-        \ 'ib'  :1,
-        \ 'iB'  :1,
-        \ 'il'  :1,
-        \ 'ii'  :1,
-        \ 'ip'  :1,
-        \ 'if'  :1,
-        \ 'ie'  :0,
-        \ }
-endif
-
 "------------
 " airline
 "------------
@@ -1312,7 +1276,6 @@ if dein#tap('vim-airline')
     endif
     return label
   endfunction
-
 endif
 
 "--------------------
@@ -1339,55 +1302,6 @@ endif
 "--------------------
 if dein#tap("vim-qfreplace")
   autocmd FileType qf nnoremap <silent> <buffer> r :Qfreplace<CR>
-endif
-
-"--------------------
-" indentLine
-"--------------------
-if dein#tap("indentLine")
-  let g:indentLine_enabled = 0
-  let g:indentLine_char = '¦'
-  let g:indentLine_color_term = 236
-  let g:indentLine_color_gui = '#708090'
-  let g:indentLine_setConceal = 1
-  let g:indentLine_fileTypeExclude = ['help', 'dein', 'denite', 'vaffle', 'defx']
-endif
-
-"--------------------
-" javascript-libraries-syntax.vim
-"--------------------
-
-if dein#tap('javascript-libraries-syntax.vim')
-  let g:used_javascript_libs = 'jquery, vue'
-endif
-
-"--------------------
-" vim-vue-plugin
-"--------------------
-if dein#tap('vim-vue-plugin')
-  let g:vim_vue_plugin_config = {
-        \'syntax': {
-        \   'template': ['html'],
-        \   'script': ['typescript', 'javascript'],
-        \   'style': ['scss'],
-        \   'i18n': ['json'],
-        \   'route': 'json',
-        \},
-        \'full_syntax': [],
-        \'initial_indent': [],
-        \'attribute': 0,
-        \'keyword': 0,
-        \'foldexpr': 0,
-        \'debug': 0,
-        \}
-endif
-
-"--------------------
-" leafOfTree/vim-matchtag
-"--------------------
-if dein#tap('vim-matchtag')
-  let g:vim_matchtag_enable_by_default = 1
-  let g:vim_matchtag_files = '*.html,*.xml,*.vue,*.html.twig'
 endif
 
 "--------------------
@@ -1454,59 +1368,6 @@ if dein#tap('vim-smartinput')
 endif
 
 "--------------------
-" vdebug
-"--------------------
-
-if dein#tap("vdebug")
-
-  if !exists('g:vdebug_options')
-    let g:vdebug_options = {}
-  endif
-
-  let g:vdebug_options['port'] = 9000
-  let g:vdebug_options['timeout'] = 20
-  let g:vdebug_options['server'] = ''
-  let g:vdebug_options['on_close'] = 'detach'
-  let g:vdebug_options['break_on_open'] = 0
-  let g:vdebug_options['ide_key'] = ''
-  let g:vdebug_options['debug_window_level'] = 0
-  let g:vdebug_options['debug_file_level'] = 0
-  let g:vdebug_options['debug_file'] = ''
-  let g:vdebug_options['path_maps'] = {'/home/vagrant/projects': $HOME.'/projects'}
-  let g:vdebug_options['watch_window_style'] = 'expanded'
-  let g:vdebug_options['marker_default'] = '⬦'
-  let g:vdebug_options['marker_closed_tree'] = '▸'
-  let g:vdebug_options['marker_open_tree'] = '▾'
-  let g:vdebug_options['sign_breakpoint'] = '▷'
-  let g:vdebug_options['sign_current'] = '▶'
-  let g:vdebug_options['sign_disabled'] = '='
-  let g:vdebug_options['continuous_mode'] = 1
-  let g:vdebug_options['simplified_status'] = 1
-  let g:vdebug_options['layout'] = 'vertical'
-
-  let g:vdebug_keymap = {
-        \    "step_over" : "<F2>",
-        \    "step_into" : "<F3>",
-        \    "step_out" : "<F4>",
-        \    "run" : "<F5>",
-        \    "close" : "<F6>",
-        \    "detach" : "<F7>",
-        \    "run_to_cursor" : "<F9>",
-        \    "set_breakpoint" : "<F10>",
-        \    "get_context" : "<F11>",
-        \    "eval_under_cursor" : "<F12>",
-        \    "eval_visual" : "<Leader>e"
-        \}
-
-  augroup vdebug
-    autocmd!
-    " autocmd ColorScheme * hi DbgBreakptLine term=reverse ctermfg=White ctermbg=Green guifg=#ffffff guibg=#00ff00
-    " autocmd ColorScheme * hi DbgBreakptSign term=reverse ctermfg=White ctermbg=Green guifg=#ffffff guibg=#0
-    " autocmd ColorScheme * hi clear DbgBreakptLine
-    " autocmd ColorScheme * hi clear DbgBreakptSign
-  augroup END
-endif
-"--------------------
 " docteurklein/vim-symfony
 "--------------------
 if dein#tap('vim-symfony')
@@ -1534,13 +1395,6 @@ if dein#tap('committia.vim')
   "   imap <buffer><C-n> <Plug>(committia-scroll-diff-down-half)
   "   imap <buffer><C-p> <Plug>(committia-scroll-diff-up-half)
   " endfunction
-endif
-
-"--------------------
-" vim-merginal
-"--------------------
-if dein#tap('vim-merginal')
-  let g:merginal_windowWidth = 50
 endif
 
 "--------------------
@@ -1575,21 +1429,6 @@ if dein#tap('vim-asciidoctor')
     au!
     au BufEnter *.adoc,*.asciidoc call AsciidoctorMappings()
   augroup END
-endif
-
-"--------------------
-" reireias/vim-cheatsheet
-"--------------------
-if dein#tap('vim-cheatsheet')
-  augroup cheatsheet
-    autocmd!
-    autocmd BufEnter,BufRead * call s:set_cheatsheet_path()
-  augroup END
-
-  function! s:set_cheatsheet_path()
-    let filetype = &filetype
-    let g:cheatsheet#cheat_file = $HOME.'/.config/nvim/cheatsheet/'.filetype.'.txt'
-  endfunction
 endif
 
 "--------------------
@@ -1640,13 +1479,6 @@ if dein#tap('vim-gitgutter')
 endif
 
 "--------------------
-" vim-json
-"--------------------
-if dein#tap('vim-json')
-  let g:vim_json_syntax_conceal = 1
-endif
-
-"--------------------
 " vim-php-cs-fixer
 "--------------------
 if dein#tap('vim-php-cs-fixer')
@@ -1668,30 +1500,6 @@ if dein#tap('vim-php-cs-fixer')
 endif
 
 "--------------------
-" php.vim
-"--------------------
-let g:php_version_id = 80000
-let g:php_html_load = 1
-let g:php_htmlInStrings = 1
-
-
-" "--------------------
-" " yoink
-" "--------------------
-" if dein#tap('vim-yoink')
-"   let g:yoinkMaxItems = 30
-"   let g:yoinkSyncNumberedRegisters = 0
-"   let g:yoinkIncludeDeleteOperations = 1
-"   " let g:yoinkSavePersistently = 1
-"   let g:yoinkAutoFormatPaste = 0
-"   let g:yoinkMoveCursorToEndOfPaste = 0
-"   let g:yoinkSwapClampAtEnds = 1
-"   let g:yoinkIncludeNamedRegisters = 1
-"
-"   set shada=!,'100,<50,s10,h
-" endif
-
-"--------------------
 " nvim-colorizer
 "--------------------
 if dein#tap('nvim-colorizer')
@@ -1699,13 +1507,7 @@ lua << EOF
 lua require'colorizer'.setup()
 EOF
 endif
-"--------------------
-" vim-chrome-devtools
-"--------------------
-if dein#tap('vim-chrome-devtools')
-  let g:ChromeDevTools_host = 'localhost'
-  let g:ChromeDevTools_port = 9222
-endif
+
 "--------------------
 " vim-sandwich
 "--------------------
@@ -1716,62 +1518,13 @@ if dein#tap('vim-sandwich')
         \  ]
 endif
 
-"--------------------
-" tigris.nvim
-"--------------------
-if dein#tap('tigris.nvim')
-  let g:tigris#enabled = 1
-  let g:tigris#on_the_fly_enabled = 1
-  let g:tigris#delay = 300
-endif
-
 if dein#tap('airsave.vim')
   let g:auto_write = 1
 endif
 
-" if dein#tap('nerdcommenter')
-"   let g:NERDCreateDefaultMappings = 0
-"   let g:NERDSpaceDelims = 1
-"
-"   let g:NERDCompactSexyComs = 0
-"   let g:NERDDefaultAlign = 'left'
-"   " let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
-"   let g:NERDCommentEmptyLines = 1
-"   let g:NERDTrimTrailingWhitespace = 1
-"   let g:NERDToggleCheckAllLines = 1
-"   let g:ft = ''
-"
-"   function! NERDCommenter_before()
-"     if &ft == 'vue'
-"       let g:ft = 'vue'
-"       let stack = synstack(line('.'), col('.'))
-"       if len(stack) > 0
-"         let syn = synIDattr((stack)[0], 'name')
-"         if len(syn) > 0
-"           exe 'setf ' . substitute(tolower(syn), '^vue_', '', '')
-"         endif
-"       endif
-"     endif
-"   endfunction
-"   function! NERDCommenter_after()
-"     if g:ft == 'vue'
-"       setf vue
-"       let g:ft = ''
-"     endif
-"   endfunction
-" endif
-
-"--------------------
-" vim_codex
-"--------------------
-if dein#tap('vim_codex')
-  nnoremap <C-s> :CreateCompletion<CR>
-  inoremap <C-s> <Esc>:CreateCompletion<CR>
-endif
-
-"--------------------
-" setting ここまで
-"--------------------
+""--------------------
+"" setting ここまで
+""--------------------
 
 
 
@@ -1781,7 +1534,7 @@ endif
 
 
 
-let g:python3_host_prog = substitute(system('which python3'),"\n","","")
+"let g:python3_host_prog = substitute(system('which python3'),"\n","","")
 
 "-----------------------
 " 表示系
@@ -1834,6 +1587,8 @@ command! SyntaxInfoAll source $VIMRUNTIME/syntax/hitest.vim
 
 set t_Co=256
 
+packadd! matchit 
+
 command! Reload call s:reload()
 function! s:reload()
   redraw
@@ -1849,10 +1604,6 @@ endfunction
 if !has('mac')
   set background=dark
   let g:auto_color_switcher#disable = v:true
-elseif system('defaults read -g AppleInterfaceStyle 2>/dev/null') =~ "Dark"
-  set background=dark
-else
-  set background=light
 endif
 
 augroup fzfcolorscheme
@@ -1869,137 +1620,28 @@ augroup fzfcolorscheme
   endif
 augroup end
 
-if (has("termguicolors"))
-  set termguicolors
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+set termguicolors
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
-  augroup mycolorscheme
-    autocmd!
-    autocmd ColorScheme * hi Normal term=none ctermbg=none guibg=none
+augroup mycolorscheme
+  autocmd!
+  autocmd ColorScheme * hi Normal term=none ctermbg=none guibg=none
+augroup END
+
+if (&background == 'dark')
+  let g:airline_theme="sonokai"
+  colorscheme sonokai
+else
+  augroup mycolorschemelight
+    autocmd ColorScheme * hi! link CursorLineNr CursorLine
+    autocmd ColorScheme * hi! link SignColumn CursorLine
+    autocmd ColorScheme * hi! link VertSplit CursorLine
+    autocmd ColorScheme * hi! Cursor guibg=#54b9d0
   augroup END
-
-  if (&background == 'dark')
-
-    " let g:airline_theme='ayu_mirage'
-    " let ayucolor="mirage"
-    " colorscheme ayu-mirage
-
-    " let ayucolor="dark"
-    " let g:airline_theme='ayu_dark'
-    " colorscheme ayu
-
-    " colorscheme nightfox
-
-    " let g:airline_theme="molokai"
-    " colorscheme monokai_pro
-
-    let g:airline_theme="sonokai"
-    colorscheme sonokai
-
-    " let g:airline_theme='base16_material_darker'
-    " let g:material_style='darker'
-    " " let g:material_style='oceanic'
-    " " let g:material_style='deep ocean'
-    " " let g:material_style='palenight'
-    " colorscheme material
-
-" lua << EOF
-" require('material').setup({
-" 
-"     contrast = {
-"         terminal = true, -- Enable contrast for the built-in terminal
-"         sidebars = true, -- Enable contrast for sidebar-like windows ( for example Nvim-Tree )
-"         floating_windows = true, -- Enable contrast for floating windows
-"         cursor_line = true, -- Enable darker background for the cursor line
-"         non_current_windows = false, -- Enable darker background for non-current windows
-"         filetypes = {}, -- Specify which filetypes get the contrasted (darker) background
-"     },
-" 
-"     styles = { -- Give comments style such as bold, italic, underline etc.
-"         comments = { --[[ italic = true ]] },
-"         strings = { --[[ bold = true ]] },
-"         keywords = { --[[ underline = true ]] },
-"         functions = { --[[ bold = true, undercurl = true ]] },
-"         variables = {},
-"         operators = {},
-"         types = {},
-"     },
-" 
-"     plugins = { -- Uncomment the plugins that you use to highlight them
-"         -- Available plugins:
-"         -- "dap",
-"         -- "dashboard",
-"         -- "gitsigns",
-"         -- "hop",
-"         -- "indent-blankline",
-"         -- "lspsaga",
-"         -- "mini",
-"         -- "neogit",
-"         -- "nvim-cmp",
-"         -- "nvim-navic",
-"         -- "nvim-tree",
-"         -- "nvim-web-devicons",
-"         -- "sneak",
-"         -- "telescope",
-"         -- "trouble",
-"         -- "which-key",
-"     },
-" 
-"     disable = {
-"         colored_cursor = false, -- Disable the colored cursor
-"         borders = false, -- Disable borders between verticaly split windows
-"         background = true, -- Prevent the theme from setting the background (NeoVim then uses your terminal background)
-"         term_colors = false, -- Prevent the theme from setting terminal colors
-"         eob_lines = false -- Hide the end-of-buffer lines
-"     },
-" 
-"     high_visibility = {
-"         lighter = true, -- Enable higher contrast text for lighter style
-"         darker = true -- Enable higher contrast text for darker style
-"     },
-" 
-"     lualine_style = "default", -- Lualine style ( can be 'stealth' or 'default' )
-" 
-"     async_loading = true, -- Load parts of the theme asyncronously for faster startup (turned on by default)
-" 
-"     custom_highlights = {}, -- Overwrite highlights with your own
-" 
-"     custom_colors = function(colors)
-"     end
-" })
-" EOF
-
-
-
-    " let g:airline_theme="everforest"
-    " colorscheme everforest
-
-    " let g:airline_theme="edge"
-    " colorscheme edge
-
-    " let g:airline_theme='onedark'
-    " colorscheme onenord
-    " augroup mycolorschemedark
-    "   autocmd ColorScheme * hi LineNr ctermbg=224 guibg=#F3F3F3
-    "   autocmd ColorScheme * hi! link SignColumn ColorColumn
-    "   autocmd ColorScheme * hi! link VertSplit ColorColumn
-    " augroup END
-  else
-
-    " onebuddy
-    augroup mycolorschemelight
-      autocmd ColorScheme * hi! link CursorLineNr CursorLine
-      autocmd ColorScheme * hi! link SignColumn CursorLine
-      autocmd ColorScheme * hi! link VertSplit CursorLine
-      autocmd ColorScheme * hi! Cursor guibg=#54b9d0
-    augroup END
-    " let g:airline_theme='base16_one_light'
-    " colorscheme onebuddy
-
-    let g:airline_theme='base16_material_lighter'
-    let g:material_style='lighter'
-    colorscheme material
+  let g:airline_theme='base16_material_lighter'
+  let g:material_style='lighter'
+  colorscheme material
 
 lua << EOF
 local colors = require 'material.colors'
@@ -2067,40 +1709,6 @@ require('material').setup({
     end
 })
 EOF
-
-    " ぼんやり
-    " let g:gruvbox_contrast_light = 'medium'
-    " colorscheme gruvbox
-
-    " ぼんやり
-    " colorscheme PaperColor
-    " let g:airline_theme='papercolor'
-    "
-    " colorscheme pencil
-    " let g:airline_theme='pencil'
-  endif
-else
-  " 256colorの場合
-  augroup mycolorscheme
-    autocmd!
-    "補完メニューの色
-    autocmd ColorScheme * hi Pmenu ctermfg=73 ctermbg=16 guifg=#66D9EF guibg=#000000
-    autocmd ColorScheme * hi PmenuSel ctermfg=252 ctermbg=23 guibg=#808080
-    autocmd ColorScheme * hi PmenuSbar ctermbg=232 guibg=#080808
-    autocmd ColorScheme * hi PmenuThumb ctermfg=103 ctermbg=15 guifg=#66D9EF guibg=White
-
-    " 選択
-    autocmd ColorScheme * hi Visual ctermbg=238
-
-    "行番号
-    " autocmd ColorScheme * hi LineNr ctermfg=239
-    " autocmd ColorScheme * hi CursorLineNr ctermfg=250
-
-    autocmd ColorScheme * hi Delimiter ctermfg=247
-    autocmd ColorScheme * hi Comment ctermfg=73
-  augroup END
-
-  colorscheme mopkai
 endif
 
 " let &colorcolumn="80,".join(range(120,999),",")

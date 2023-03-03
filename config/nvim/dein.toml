@@ -22,8 +22,6 @@ repo = 'junegunn/fzf.vim'
 repo = 'junegunn/vim-easy-align'
 [[plugins]]
 repo = 'vim-scripts/sudo.vim'
-[[plugins]]
-repo = 'vim-scripts/catn.vim'
 # [[plugins]]
 # repo = 'tyru/caw.vim'
 [[plugins]]
@@ -45,19 +43,9 @@ repo = 'machakann/vim-sandwich'
 [[plugins]]
 repo = 'deton/jasegment.vim'
 [[plugins]]
-repo = 'soramugi/auto-ctags.vim'
-[[plugins]]
 repo = 'haya14busa/incsearch.vim'
 [[plugins]]
-repo = 'haya14busa/incsearch-migemo.vim'
-[[plugins]]
 repo = 'tpope/vim-repeat'
-[[plugins]]
-repo = 'tmhedberg/matchit'
-# [[plugins]]
-# repo = 'itchyny/vim-parenmatch'
-# [[plugins]]
-# repo = 'leafOfTree/vim-matchtag' # なんかhtmlのタグの対応がおかしい
 [[plugins]]
 repo = 'deris/vim-rengbang'
 [[plugins]]
@@ -67,40 +55,21 @@ repo = 'kana/vim-smartinput'
 [[plugins]]
 repo = 'honza/vim-snippets'
 [[plugins]]
-repo = 'reireias/vim-cheatsheet'
-[[plugins]]
 repo = 'glidenote/memolist.vim'
 [[plugins]]
 repo = 'majutsushi/tagbar'
 [[plugins]]
 repo = 'editorconfig/editorconfig-vim'
-# [[plugins]]
-# repo = 'LeafCage/yankround.vim'
-[[plugins]]
-repo = 'MattesGroeger/vim-bookmarks'
 [[plugins]]
 repo = 'liuchengxu/vista.vim'
 [[plugins]]
 repo = 'easymotion/vim-easymotion'
 [[plugins]]
-repo = 'yuki-yano/fuzzy-motion.vim'
-[[plugins]]
 repo = 't9md/vim-choosewin'
-[[plugins]]
-repo = 'Yggdroot/indentLine'
-[[plugins]]
-repo = 'osyo-manga/vim-over'
 [[plugins]]
 repo = 'syui/airsave.vim'
 [[plugins]]
-repo = 'terryma/vim-expand-region'
-[[plugins]]
 repo = 'github/copilot.vim'
-[[plugins]]
-repo = 'tom-doerr/vim_codex'
-[[plugins]]
-repo = '0xStabby/chatgpt-vim'
-
 
 # git
 [[plugins]]
@@ -108,21 +77,15 @@ repo = 'tpope/vim-fugitive'
 # git logDefx
 [[plugins]]
 repo = 'cohama/agit.vim'
-# git branch管理
-[[plugins]]
-repo = 'idanarye/vim-merginal'
 # git commit
 [[plugins]]
 repo = 'rhysd/committia.vim'
+on_ft = ["git"]
 # git 差分表示
 [[plugins]]
 repo = 'airblade/vim-gitgutter'
-# git blame
-[[plugins]]
-repo = 'APZelos/blamer.nvim'
 
 
-#
 # textobj
 # https://github.com/kana/vim-textobj-user/wiki
 [[plugins]]
@@ -139,8 +102,6 @@ repo = 'kana/vim-textobj-indent' # ai / aI
 repo = 'kana/vim-textobj-jabraces' # aj{X}
 [[plugins]]
 repo = 'thinca/vim-textobj-comment' # ac
-[[plugins]]
-repo = 'lucapette/vim-textobj-underscore' #a_
 [[plugins]]
 repo = 'sgur/vim-textobj-parameter' #a,
 [[plugins]]
@@ -189,80 +150,26 @@ on_ft = ["rbs"]
 [[plugins]]
 repo = 'tpope/vim-rails'
 on_ft = ["ruby", "erb"]
-# [[plugins]]
-# repo = 'sheerun/vim-polyglot'
-# [[plugins]]
-# repo = 'stephpy/vim-yaml'
-# [[plugins]]
-# repo = 'cespare/vim-toml'
-# [[plugins]]
-# repo = 'neoclide/jsonc.vim'
-# on_ft = ["jsonc"]
-# [[plugins]]
-# repo='vim-scripts/php-annotations-syntax'
-# on_ft = ["php"]
-# [[plugins]]
-# repo = 'cakebaker/scss-syntax.vim'
-# on_ft = ["scss"]
-# [[plugins]]
-# repo = 'billyvg/tigris.nvim'
-# on_ft = ['javascript', 'typescript', 'vue']
-# hook_post_update = '''
-#   let g:dein#plugin.build = './install.sh'
-# '''
-# [[plugins]]
-# repo = "leafgarland/typescript-vim"
-# on_ft = ["javascript, typescript"]
-# [[plugins]]
-# repo = "evanleck/vim-svelte"
-# on_ft = ["svelte"]
-# [[plugins]]
-# repo = 'tbastos/vim-lua'
-# on_ft = ["lua"]
-# [[plugins]]
-# repo = 'rust-lang/rust.vim'
-# on_ft = ["rust"]
-# [[plugins]]
-# repo = 'mhinz/vim-crates'
-# on_ft = ["toml"]
-# repo = 'neovimhaskell/haskell-vim'
-# on_ft = ["hs"]
-# こいつらonにすると重い
-# [[plugins]]
-# repo = 'othree/yajs.vim'
-# on_ft = ["javascript, typescript"]
-# [[plugins]]
-# repo = 'othree/es.next.syntax.vim'
-# on_ft = ["javascript, typescript"]
-# [[plugins]]
-# repo = 'othree/javascript-libraries-syntax.vim'
-# on_ft = ["javascript, typescript"]
 
 # markdown
 [[plugins]]
 repo = 'preservim/vim-markdown'
 on_ft = ['markdown', 'pandoc.markdown', 'rmd']
 [[plugins]]
-repo = 'godlygeek/tabular'
-[[plugins]]
-repo = 'dhruvasagar/vim-table-mode'
-[[plugins]]
 repo = 'mattn/vim-maketable'
-# [[plugins]]
-# repo = 'rhysd/vim-gfm-syntax'
-# on_ft = ['markdown', 'pandoc.markdown', 'rmd']
-# [[plugins]]
-# repo = 'iamcco/markdown-preview.nvim'
-# on_ft = ['markdown', 'pandoc.markdown', 'rmd']
-# build = 'cd app & yarn install'
+on_ft = ['markdown', 'pandoc.markdown', 'rmd']
 [[plugins]]
 repo = 'previm/previm'
+on_ft = ['markdown', 'pandoc.markdown', 'rmd']
 [[plugins]]
 repo = 'tyru/open-browser.vim'
+on_ft = ['markdown', 'pandoc.markdown', 'rmd']
 [[plugins]]
 repo = 'vim-scripts/VOoM'
+on_ft = ['markdown', 'pandoc.markdown', 'rmd']
 [[plugins]]
 repo = 'habamax/vim-asciidoctor'
+on_ft = ['markdown', 'pandoc.markdown', 'rmd']
 
 
 # # syntax
@@ -275,39 +182,14 @@ repo = 'RRethy/nvim-treesitter-endwise'
 depends = ['nvim-treesitter']
 [[plugins]]
 repo = 'kat0h/vim-auto-color-switcher'
-depends = ['nvim-treesitter']
 hook_post_update = '''
 let g:dein#plugin.build = 'make'
 '''
 
-# [[plugins]]
-# repo = 'Shatur/neovim-ayu'
-# [[plugins]]
-# repo = 'Th3Whit3Wolf/one-nvim'
-# [[plugins]]
-# repo = 'olimorris/onedarkpro.nvim'
-# [[plugins]]
-# repo = 'tanvirtin/monokai.nvim'
 [[plugins]]
 repo = 'sainnhe/sonokai'
 [[plugins]]
-repo = 'ishan9299/nvim-solarized-lua'
-[[plugins]]
-repo = 'Th3Whit3Wolf/onebuddy'
-[[plugins]]
-repo = 'rakr/vim-one'
-[[plugins]]
 repo = 'marko-cerovac/material.nvim'
-# [[plugins]]
-# repo = 'sainnhe/everforest'
-# [[plugins]]
-# repo = 'sainnhe/edge'
-# [[plugins]]
-# repo = 'tiagovla/tokyodark.nvim'
-# [[plugins]]
-# repo = 'ayu-theme/ayu-vim'
-# [[plugins]]
-# repo = 'EdenEast/nightfox.nvim'
 
 
 [[plugins]]
