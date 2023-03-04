@@ -147,6 +147,6 @@ end
 dapui_setup();
 
 function dapui_reload()
-dapui_setup();
-require("dapui").open();
+        dapui_setup();
+        require("dapui").open();
 end

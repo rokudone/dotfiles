@@ -174,13 +174,6 @@ on_ft = ['markdown', 'pandoc.markdown', 'rmd']
 
 # # syntax
 [[plugins]]
-repo = 'nvim-treesitter/nvim-treesitter'
-merged = 0
-hook_post_update = 'TSUpdate'
-[[plugins]]
-repo = 'RRethy/nvim-treesitter-endwise'
-depends = ['nvim-treesitter']
-[[plugins]]
 repo = 'kat0h/vim-auto-color-switcher'
 hook_post_update = '''
 let g:dein#plugin.build = 'make'

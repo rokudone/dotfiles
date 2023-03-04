@@ -81,7 +81,7 @@ endif
 
 " こいつら、重い
 " call dein#update()
-" call dein#recache_runtimepath()
+call dein#recache_runtimepath()
 
 "-------------------
 " plugin
@@ -89,8 +89,6 @@ endif
 let g:did_install_default_menus = 1
 let g:did_install_syntax_menu   = 1
 let g:did_indent_on             = 1
-let g:did_load_filetypes        = 1
-let g:did_load_ftplugin         = 1
 let g:loaded_2html_plugin       = 1
 let g:loaded_gzip               = 1
 let g:loaded_man                = 1
@@ -222,6 +220,9 @@ nnoremap <silent> <Leader>es :<C-u>source ~/.config/nvim/init.vim<CR>
 nnoremap <silent> <Leader>ev :<C-u>e ~/.config/nvim/init.vim<CR>
 nnoremap <silent> <Leader>et :<C-u>e ~/.config/nvim/dein.toml<CR>
 nnoremap <silent> <Leader>ec :<C-u>CocConfig<CR>
+nnoremap <silent> <Leader>eu :<C-u>call dein#update()
+nnoremap <silent> <Leader>eu :<C-u>call dein#update()
+" call dein#recache_runtimepath()
 
 " reload file
 " nnoremap <silent> <Leader>R :<C-u>e<CR>
@@ -883,192 +884,9 @@ if dein#tap('coc.nvim')
   augroup end
 endif
 
-" --------------------
-" nvim-treesitter/nvim-treesitter
-" --------------------
-if dein#tap('nvim-treesitter')
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = {
-    -- "ada",
-    -- "agda",
-    -- "arduino",
-    -- "astro",
-    "awk",
-    "bash",
-    -- "beancount",
-    -- "bibtex",
-    -- "blueprint",
-    -- "c",
-    -- "c_sharp",
-    -- "capnp",
-    -- "chatito",
-    -- "clojure",
-    -- "cmake",
-    "comment",
-    "commonlisp",
-    -- "cooklang",
-    -- "cpp",
-    "css",
-    -- "cuda",
-    -- "d",
-    -- "dart",
-    -- "devicetree",
-    "diff",
-    "dockerfile",
-    -- "dot",
-    -- "ebnf",
-    -- "eex",
-    -- "elixir",
-    -- "elm",
-    -- "elsa",
-    -- "elvish",
-    -- "embedded_template",
-    -- "erlang",
-    -- "fennel",
-    -- "fish",
-    -- "foam",
-    -- "fortran",
-    -- "fsh",
-    -- "func",
-    -- "fusion",
-    -- "Godot",
-    "git_rebase",
-    "gitattributes",
-    "gitcommit",
-    "gitignore",
-    -- "gleam",
-    -- "GlimmerandEmber",
-    -- "glsl",
-    "go",
-    -- "GodotResources",
-    -- "gomod",
-    -- "gosum",
-    -- "gowork",
-    "graphql",
-    -- "hack",
-    "haskell",
-    -- "hcl",
-    -- "heex",
-    -- "help",
-    -- "hjson",
-    -- "hlsl",
-    -- "hocon",
-    -- "html",
-    -- "htmldjango",
-    "http",
-    "ini",
-    -- "java",
-    "javascript",
-    "jq",
-    "jsdoc",
-    "json",
-    "json5",
-    "jsonc",
-    -- "jsonnet",
-    -- "julia",
-    -- "kdl",
-    -- "kotlin",
-    -- "lalrpop",
-    -- "latex",
-    -- "ledger",
-    -- "llvm",
-    "lua",
-    -- "m68k",
-    -- "make",
-    "markdown",
-    "markdown_inline",
-    -- "menhir",
-    "mermaid",
-    "meson",
-    -- "nickel",
-    -- "ninja",
-    -- "nix",
-    -- "norg",
-    -- "ocaml",
-    -- "ocaml_interface",
-    -- "ocamllex",
-    -- "org",
-    -- "pascal",
-    "perl",
-    "php",
-    "phpdoc",
-    -- "pioasm",
-    -- "PathofExileitemfilter",
-    -- "prisma",
-    -- "proto",
-    -- "pug",
-    "python",
-    -- "ql",
-    -- "qmljs",
-    -- "tree-sitter-query",
-    -- "r",
-    -- "racket",
-    -- "rasi",
-    "regex",
-    -- "rego",
-    -- "rnoweb",
-    -- "ron",
-    -- "rst",
-    "ruby",
-    "rust",
-    -- "scala",
-    -- "scheme",
-    "scss",
-    -- "slint",
-    -- "smali",
-    -- "smithy",
-    -- "solidity",
-    -- "sparql",
-    "sql",
-    -- "supercollider",
-    -- "surface",
-    "svelte",
-    -- "swift",
-    -- "sxhkdrc",
-    -- "t32",
-    -- "teal",
-    -- "terraform",
-    -- "thrift",
-    -- "tiger",
-    -- "tlaplus",
-    "todotxt",
-    "toml",
-    "tsx",
-    -- "turtle",
-    -- "twig",
-    "typescript",
-    -- "v",
-    -- "vala",
-    -- "verilog",
-    -- "vhs",
-    "vim",
-    "vue",
-    -- "wgsl",
-    -- "wgsl_bevy",
-    "yaml",
-    -- "yang",
-    -- "zig",
-  },
-  highlight = {
-    enable = true,
-  },
-  indent = {
-    enable = false
-  },
-  endwise = {
-    enable = true
-  },
-  context_commentstring = {
-    enable = true
-  }
-}
-EOF
-endif
-
-" --------------------
-" vista.vim
-" --------------------
+"" --------------------
+"" vista.vim
+"" --------------------
 if dein#tap('vista.vim')
   let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
   let g:vista_fold_toggle_icons = ['▼', '▶']

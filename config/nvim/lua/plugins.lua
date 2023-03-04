@@ -29,9 +29,18 @@ require'packer'.startup(function()
     requires = {"mfussenegger/nvim-dap"}
   }
 
-  -- use {
-  --   "0xStabby/chatgpt-vim"
-  -- }
+  use {
+    "nvim-treesitter/nvim-treesitter",
+    run = function()
+        local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+        ts_update()
+    end,
+  }
+
+  use {
+        "RRethy/nvim-treesitter-endwise",
+requires = {"nvim-treesitter"}
+          }
 end)
 
 -- dap
@@ -45,3 +54,6 @@ vim.keymap.set('n', '<F9>', ':lua require"dap".toggle_breakpoint()<CR>');
 vim.keymap.set('n', '<F10>', ':lua require"dap".step_over()<CR>');
 vim.keymap.set('n', '<F11>', ':lua require"dap".step_into()<CR>');
 vim.keymap.set('n', '<S-F11>', ':lua require"dap".step_out()<CR>');
+
+-- treesitter
+require('plugins/treesitter')
