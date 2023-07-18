@@ -1,12 +1,10 @@
 #!/bin/zsh
 ghqroot=$(ghq root)
-hubroot="$ghqroot/github.com"
 
-bin_dir=$(cd $(dirname $0); pwd)
-repo_name=$((find $ghqroot -name ".git" -type d -maxdepth 2; find $hubroot -name ".git" -type d -maxdepth 3) \
+repo_name=$(find $ghqroot -maxdepth 2 -name ".git" -type d \
     | perl -pse 's/$root\/(.*)\/.git/\1/' -- -root=$ghqroot \
     | sort \
-    | fzf-tmux --preview-window=hidden --height=100%)
+    | fzf-tmux --reverse --preview-window=hidden --height=100%)
 
 if [ -n "$repo_name" ]; then
   session_name=$(echo $repo_name|perl -pe 's/github.com\///g'|perl -pse 's/\./_/g'|perl -pe 's/\//__/g')

@@ -75,7 +75,7 @@ require'nvim-treesitter.configs'.setup {
     -- "hjson",
     -- "hlsl",
     -- "hocon",
-    -- "html",
+    "html",
     -- "htmldjango",
     "http",
     "ini",
@@ -175,7 +175,8 @@ require'nvim-treesitter.configs'.setup {
     enable = true,
   },
   indent = {
-    enable = false
+    enable = true
+    -- enable = false,
   },
   endwise = {
     enable = true

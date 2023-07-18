@@ -1,7 +1,7 @@
 -- https://qiita.com/delphinus/items/8160d884d415d7425fcc
 vim.cmd.packadd "packer.nvim"
 
-require'packer'.startup(function()
+require'packer'.startup(function(use)
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
 
@@ -38,10 +38,25 @@ require'packer'.startup(function()
   }
 
   use {
-        "RRethy/nvim-treesitter-endwise",
-requires = {"nvim-treesitter"}
-          }
+    "RRethy/nvim-treesitter-endwise",
+    requires = {"nvim-treesitter"}
+  }
+
+  -- use { 'codota/tabnine-nvim', run = "./dl_binaries.sh" }
+
+  -- use { 'codota/tabnine-nvim', run = "pwsh.exe -file .\\dl_binaries.ps1" }
 end)
+
+-- tabnine
+-- require('tabnine').setup({
+--   disable_auto_comment=false,
+--   accept_keymap="<C-F>",
+--   dismiss_keymap = "<C-]>",
+--   debounce_ms = 800,
+--   suggestion_color = {gui = "#808080", cterm = 244},
+--   exclude_filetypes = {"TelescopePrompt"},
+--   log_file_path = nil, -- absolute path to Tabnine log file
+-- })
 
 -- dap
 require('plugins/nvim-dap')

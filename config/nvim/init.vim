@@ -15,9 +15,15 @@
 " |-----------------------------------------------------------------------------------|
 
 scriptencoding utf-8
-set encoding=UTF-8
 
-lang ja_JP.UTF-8
+set encoding=utf-8
+set fileencodings=utf-8
+set fileformats=unix,dos,mac
+
+
+let g:loaded_perl_provider = 0
+
+" lang en_US.UTF-8
 
 filetype off
 filetype plugin indent off
@@ -46,6 +52,7 @@ augroup packer
 
   " autocmd BufWritePost */lua/plugins.lua echo 'update plugins.lua'
   " autocmd BufWritePost */lua/plugins/*.lua echo 'update plugins/*.lua'
+
 augroup End
 
 "----------------------
@@ -75,13 +82,14 @@ if dein#load_state(s:dein_dir)
 endif
 
 " もし、未インストールものがあったらインストール
+" すると、めちゃ重い
 if dein#check_install()
   call dein#install()
 endif
 
 " こいつら、重い
 " call dein#update()
-call dein#recache_runtimepath()
+" call dein#recache_runtimepath()
 
 "-------------------
 " plugin
@@ -118,12 +126,15 @@ noremap <silent> k gk
 noremap <silent> gj j
 noremap <silent> gk k
 
+noremap gf gF
+noremap gF gf
+
 "挿入モード便利キー
 " noremap! <C-P> <Up>
 " noremap! <C-N> <Down>
 
-cnoremap <C-P> <Up>
-cnoremap <C-N> <Down>
+" cnoremap <C-P> <Up>
+" cnoremap <C-N> <Down>
 noremap! <C-F> <Right>
 noremap! <C-B> <Left>
 noremap! <C-[> <ESC>
@@ -132,18 +143,15 @@ noremap! <C-[> <ESC>
 nnoremap <C-O> <C-O>zz
 nnoremap <C-I> <C-I>zz
 
-"加算
-"screenと被るので、<C-A>を<C-Q>へ
-nnoremap <C-Q> <C-A>
-
-inoremap <C-C> <C-X>
+" この行がないと<C-c>のマッピングが効かない
+nnoremap <C-c> <Nop>
 
 
 "command line windowを表示
 "swap semicolon and colon
-noremap : ;
-noremap ; :
-set cedit=\<C-f>
+" noremap : ;
+" noremap ; :
+" set cedit=\<C-f>
 
 " 検索時語句を中心にする
 nnoremap * *zz
@@ -157,14 +165,16 @@ nnoremap Q <Nop>
 nnoremap g? :!open dict://<cword><CR>
 
 " clipboardにコピーする
-vnoremap Y "*y
-vnoremap D "*d
+vnoremap Y "+y
+vnoremap D "+d
 
 "fold
-nnoremap zl 2zo
+nnoremap zl zo
 nnoremap zL zO
-nnoremap zh 2zc
+nnoremap zh zc
 nnoremap zH zC
+
+nnoremap gf gF
 
 " ----------------------------------------
 " <m> commands
@@ -209,6 +219,8 @@ nnoremap <silent> <C-w>0 :<C-u>tabn 10<CR>
 
 nnoremap <silent> <C-w>c :<C-u>tabnew<CR>:tabmove<CR>
 nnoremap <silent> <C-w><C-c> :<C-u>tabnew<CR>:tabmove<CR>
+nnoremap <silent> <C-w>t :<C-u>tabnew<CR>:tabmove<CR>
+nnoremap <silent> <C-w><C-t> :<C-u>tabnew<CR>:tabmove<CR>
 nnoremap <silent> <C-w>Q :<C-u>tabclose<CR>
 
 nnoremap <silent> <C-w>\ <C-w>_<C-w><bar>
@@ -231,8 +243,8 @@ nnoremap <silent> <Leader>eu :<C-u>call dein#update()
 " nnoremap          <Leader>H :vert help<space>
 
 " save and quit
-nnoremap <silent> <Leader>w :w<CR>
-nnoremap <silent> <Leader>W :w sudo:%<CR>
+nnoremap <silent> <Leader>w :echo "noaction"<CR>
+nnoremap <silent> <Leader>W :echo "noaction"<CR>
 nnoremap <silent> <Leader>q :q<CR>
 nnoremap <silent> <Leader>Q :qa!<CR>
 
@@ -251,12 +263,13 @@ if dein#tap('fzf.vim')
   " nnoremap <silent> <Leader>b :<C-u>LoadedBuffers<CR>
   " nnoremap          <Leader>a :<C-u>Ag<Space>
   nnoremap          <Leader>a :<C-u>Rg<Space>
+  nnoremap          <Leader>A :<C-u>Rg<Space><C-r><C-w>
   nnoremap <silent> <Leader>/ :<C-u>BLines<CR>
   nnoremap <silent> <Leader>? :<C-u>Lines<CR>
   nnoremap <silent> <Leader>h :<C-u>History<CR>
   nnoremap <silent> <Leader>H :<C-u>Helptags<CR>
-  nnoremap <silent> <Leader>t :call fzf#vim#tags(expand('<cword>'))<CR>
-  nnoremap <silent> <Leader>T :<C-u>Tags<CR>
+  " nnoremap <silent> <Leader>t :call fzf#vim#tags(expand('<cword>'))<CR>
+  " nnoremap <silent> <Leader>T :<C-u>Tags<CR>
   nnoremap <silent> <Leader>J :<C-u>Jump<CR>
 endif
 
@@ -308,6 +321,13 @@ if dein#tap('coc.nvim')
     endif
   endfunction
 
+  nnoremap <silent><nowait><expr> <C-n> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-n>"
+  nnoremap <silent><nowait><expr> <C-p> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-p>"
+  inoremap <silent><nowait><expr> <C-n> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  inoremap <silent><nowait><expr> <C-p> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+  vnoremap <silent><nowait><expr> <C-n> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-n>"
+  vnoremap <silent><nowait><expr> <C-p> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-p>"
+
   " Introduce function text object
   " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
   xmap if <Plug>(coc-funcobj-i)
@@ -321,12 +341,12 @@ if dein#tap('coc.nvim')
 
   " Remap for format selected region
   " 整形
-  xmap <silent> gf <Plug>(coc-format-selected)
+  xmap <silent> gF <Plug>(coc-format-selected)
   " nmap <silent> gF <Plug>(coc-format-selected)
-  nnoremap <silent> gf :<C-u>Format<CR>
+  nnoremap <silent> gF :<C-u>Format<CR>
 
   " 折りたたみ
-  nnoremap <silent> gF :<C-u>Fold<CR>
+  " nnoremap <silent> gF :<C-u>Fold<CR>
 
   " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
   " 選択ファイルを関数化したり、別ファイルに書き出したり
@@ -397,13 +417,13 @@ endif
 " endif
 
 if dein#tap('copilot.vim')
-  imap <silent><script><expr> <right> copilot#Accept("\<CR>")
-  imap <silent><script><expr> <c-f> copilot#Accept("\<CR>")
-  " imap <silent><script><expr> <S-Space> copilot#Accept("\<CR>")
-  imap <silent><script><expr> <S-Space> <Nop>
+  imap <silent><script><expr> <right> copilot#Accept("\<right>")
+  imap <silent><script><expr> <c-f> copilot#Accept("\<c-f>")
   let g:copilot_no_tab_map = v:true
 endif
 
+nnoremap <silent> <Leader>t :TabnineEnable<CR>
+" nnoremap <silent> <Leader>T :<C-u>Tags<CR>
 
 if dein#tap('vista.vim')
   nnoremap <silent> <Leader>o :<C-u>Vista coc<CR>
@@ -432,9 +452,9 @@ endif
 
 if dein#tap('vim-easy-align')
   " Start interactive EasyAlign in visual mode (e.g. vipga)
-  xmap <Leader>A <Plug>(EasyAlign)
+  " xmap <Leader>A <Plug>(EasyAlign)
   " Start interactive EasyAlign for a motion/text object (e.g. gaip)
-  nmap <Leader>A <Plug>(EasyAlign)
+  " nmap <Leader>A <Plug>(EasyAlign)
 endif
 
 if dein#tap('caw.vim')
@@ -463,6 +483,7 @@ endif
 
 nnoremap <leader>s :<C-u>%s/\v
 vnoremap <leader>s :<C-u>'<,'>s/\v
+cnoreabbrev <expr> s getcmdtype() .. getcmdline() ==# ':s' ? [getchar(), ''][1] .. "%s///g<Left><Left>" : 's'
 
 if dein#tap('vim-easymotion')
   map  f <Plug>(easymotion-fl)
@@ -547,6 +568,8 @@ if dein#tap('memolist.vim')
   nnoremap <Leader>mn  :MemoNew<CR>
   nnoremap <Leader>ml  :MemoListFzf<CR>
   nnoremap <Leader>mg  :MemoGrepFzf<SPACE>
+  nnoremap <Leader>md  :MemoDaily<CR>
+  nnoremap <Leader>mi  :MemoNew<CR>
 endif
 
 if dein#tap('tagbar')
@@ -564,8 +587,8 @@ endif
 "   nmap <Buffer><C-n> <Plug>(yankround-next)
 " endif
 
-if dein#tap('vim-chatgpt')
-  nnoremap <Leader>c :ChatGPT<SPACE>
+if dein#tap('vim-openapi')
+  nnoremap <Leader>c :OpenAI<SPACE>
 endif
 
 if dein#tap('vim-markdown')
@@ -644,6 +667,11 @@ if dein#tap("vim-rails")
   " app/views/xxxx/yyy.html.erb
   nnoremap [rails]v :Eview<CR>
 endif
+
+augroup ruby
+  autocmd!
+  autocmd FileType ruby let b:did_ftplugin = 1
+augroup end
 
 " --------------------
 " Keymap ここまで
@@ -767,7 +795,7 @@ if dein#tap('fzf.vim')
   " function! s:fzf_statusline()
   "   set statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
   " endfunction
-  " autocmd! User FzfStatusLine call <SID>fzf_statusline()
+  " autocmd!  FzfStatusLine call <SID>fzf_statusline()
 
   let g:fzf_colors =
     \ { 'fg':      ['fg', 'Normal'],
@@ -804,9 +832,9 @@ if dein#tap('coc.nvim')
     autocmd FileType * let b:coc_additional_keywords = ["-"]
 
     " Setup formatexpr specified filetype(s).
-    autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+    " autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
     " Update signature help on jump placeholder
-    autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+    " autocmd  CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
     autocmd FileType vue let b:coc_root_patterns = ['.git', '.env', 'package.json', 'tsconfig.json', 'jsconfig.json', 'vite.config.ts', 'vue.config.js', 'nuxt.config.ts', 'tailwind.config.js', 'tailwind.config.ts']
   augroup end
 
@@ -845,8 +873,6 @@ if dein#tap('coc.nvim')
         \ '@yaegassy/coc-volar-tools',
         \ '@yaegassy/coc-tailwindcss3',
         \ 'coc-tsserver',
-        \ 'coc-eslint',
-        \ 'coc-graphql',
         \ 'coc-php-cs-fixer',
         \ 'coc-psalm',
         \ 'coc-solargraph',
@@ -859,10 +885,10 @@ if dein#tap('coc.nvim')
         \ 'coc-lua',
         \ 'coc-powershell',
         \ 'coc-explorer',
-        \ 'coc-copilot',
         \ 'coc-yank',
         \ ]
 
+        "\ 'coc-eslint',
         " \ 'coc-tailwindcss',
         "\ 'coc-vetur',
         "\ 'coc-yaml',
@@ -870,7 +896,7 @@ if dein#tap('coc.nvim')
         "\ 'coc-yaml',
         "\ 'coc-phpls',
 
-  let g:coc_disable_transparent_cursor = 1
+  let g:coc_disable_transparent_cursor = 0
 
   let g:coc_explorer_global_presets = {
     \   'floating': {
@@ -971,6 +997,11 @@ if dein#tap('vista.vim')
     autocmd ColorScheme * hi link VistaArgs        Comment
   augroup END
 
+  augroup tabninecolor
+    autocmd ColorScheme * hi link TabnineSuggestion  Comment
+  augroup END
+
+
   " CocListFgBlack	CocListFgBlack
   " CocListFgGrey	CocListFgGrey
   " CocListFgWhite	CocListFgWhite
@@ -1056,13 +1087,21 @@ endif
 " airline
 "------------
 if dein#tap('vim-airline')
-  " set ambiwidth=double  " 絵文字>
-  set ambiwidth=single  " 絵文字>
+  set ambiwidth=double  " 絵文字>
+  " set ambiwidth=single  " 絵文字>
   let g:airline_powerline_fonts = 1
   let g:airline_symbols_ascii = 1
 
   " let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
   " let g:airline#extensions#tabline#formatter = 'default'
+
+  "  let g:airline_section_a = airline#section#create(["mode", " crypt", " paste", " spell", " iminsert"])
+  "  let g:airline_section_b = airline#section#create(["bufferline or filename", " readonly"])
+  "  let g:airline_section_c = airline#section#create([])
+  "  let g:airline_section_gutter = airline#section#create(["csv"])
+  "  let g:airline_section_x = airline#section#create([])
+  "  let g:airline_section_y = airline#section#create(["tagbar", " filetype", " virtualenv"])
+  "  let g:airline_section_z = airline#section#create(["fileencoding", " fileformat", " 'bom'", " 'eol'"])
 
   let g:airline#extensions#tabline#enabled = 1
   let g:airline_filetype_overrides = {
@@ -1230,7 +1269,7 @@ if dein#tap('vim-asciidoctor')
   let g:asciidoctor_syntax_indented = 0
   let g:asciidoctor_fenced_languages = ['python', 'c', 'javascript']
   fun! AsciidoctorMappings()
-    noremap <Leader>A [Adoc]
+    " noremap <Leader>A [Adoc]
     " nnoremap <buffer> [Adoc]o :AsciidoctorOpenRAW<CR>
     " nnoremap <buffer> [Adoc]oh :AsciidoctorOpenHTML<CR>
     nnoremap <buffer> [Adoc] :AsciidoctorOpenPDF<CR>
@@ -1254,14 +1293,21 @@ endif
 "--------------------
 if dein#tap('memolist.vim')
   let g:memolist_memo_suffix = "md"
-  let g:memolist_path = $HOME."/posts/"
+  let g:memolist_path = $HOME."/memo/Inbox"
 
-  " let g:memolist_memo_date = "%Y-%m-%dT%H:%M:%S%z"
-  let g:memolist_template_dir_path = $HOME."/.config/nvim/template"
+  let g:memolist_memo_date = "%Y/%m/%d %H:%M:%S"
+  let g:memolist_filename_date = "%Y%m%d-"
+  let g:memolist_template_dir_path = $HOME."/memo/Templates/default.md"
 
   let g:memolist_prompt_tags = 1
   let g:memolist_prompt_categories = 0
   let g:memolist_fzf = 1
+
+  function! s:memo_daily()
+    let s:memo_path = system('memo daily')
+    execute 'edit '.s:memo_path
+  endfunction
+  command! MemoDaily call s:memo_daily()
 endif
 
 "--------------------
@@ -1337,7 +1383,7 @@ if dein#tap('vim-sandwich')
 endif
 
 if dein#tap('airsave.vim')
-  let g:auto_write = 1
+  let g:auto_write = 0
 endif
 
 ""--------------------
@@ -1573,6 +1619,8 @@ set winblend=10
 set fillchars=eob:\   " ファイル末尾以降の行頭は半角スペース
 " set iskeyword=@,48-57,_,192-255,#,$,-
 set iskeyword+=-,$,#
+" set clipboard+=unnamedplus
+set isfname-=:
 
 "------------------------------
 " 移動系
@@ -1729,6 +1777,15 @@ if &term =~ "xterm-256color"
   cnoremap <special> <Esc>[200~ <nop>
   cnoremap <special> <Esc>[201~ <nop>
 endif
+
+" if executable('zenhan')
+"   augroup zenhan
+"     autocmd!
+"     autocmd InsertLeave * :call system('zenhan 0')
+"     autocmd CmdlineLeave * :call system('zenhan 0')
+"   augroup END
+" endif
+
 "--------------------------------
 "ターミナル操作
 "--------------------------------
@@ -1756,7 +1813,7 @@ endif
 set expandtab
 set tabstop=4
 set softtabstop=-1
-" set shiftwidth=2
+set shiftwidth=2
 set autoindent
 set smartindent
 set smarttab

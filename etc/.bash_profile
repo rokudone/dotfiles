@@ -14,7 +14,4 @@ fi
 eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 if [ -e /Users/filriya/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/filriya/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
-eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 . "$HOME/.cargo/env"
-eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)

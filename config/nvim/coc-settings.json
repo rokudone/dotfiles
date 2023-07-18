@@ -1,9 +1,8 @@
 {
-  "coc.preferences.formatOnSaveFiletypes": ["vue"],
   "diagnostic.messageTarget": "float",
-  "diagnostic.checkCurrentLine": false,
+  "diagnostic.checkCurrentLine": true,
   "diagnostic.virtualText": false,
-  "diagnostic.virtualTextCurrentLineOnly": false,
+  "diagnostic.virtualTextCurrentLineOnly": true,
   "signature.target": "float",
   "snippets.priority": 100,
   "snippets.snipmate.enable": false,
@@ -35,7 +34,11 @@
     "vue",
     "wxss"
   ],
-  "eslint.autoFixOnSave": true,
+  "eslint.run": "onSave",
+  "eslint.autoFixOnSave": false,
+  "eslint.quiet": true,
+  "eslint.experimental.useFlatConfig": false,
+  "eslint.format.enable": false,
   "tsserver.enable": false,
   "typescript.format.enable": true,
   "volar.enable": true,
@@ -47,6 +50,7 @@
   "solargraph.autoformat": true,
   "solargraph.formatting": true,
   "solargraph.diagnostics": true,
+  "solargraph.commandPath": "~/.rbenv/versions/3.2.1/bin/solargraph",
   "graphql.watcherPattern": "**/*.{graphql,gql,js,ts}",
   "graphql.filetypes": [
     "graphql",
@@ -83,8 +87,11 @@
     "!Not",
     "!Or"
   ],
+  "diagnostic-languageserver.linters": {
+  },
   "diagnostic-languageserver.mergeConfig": true,
   "diagnostic-languageserver.filetypes": {
+    "ruby": "rubocop",
     "sh": "shellcheck",
     "bash": "shellcheck",
     "zsh": "shellcheck"

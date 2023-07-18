@@ -26,6 +26,8 @@ repo = 'vim-scripts/sudo.vim'
 # repo = 'tyru/caw.vim'
 [[plugins]]
 repo = 'tpope/vim-commentary'
+[[plugins]]
+repo = 'suy/vim-context-commentstring'
 # [[plugins]]
 # repo = 'preservim/nerdcommenter'
 # [[plugins]]
@@ -69,7 +71,13 @@ repo = 't9md/vim-choosewin'
 [[plugins]]
 repo = 'syui/airsave.vim'
 [[plugins]]
+repo = 'folke/which-key.nvim'
+
+[[plugins]]
 repo = 'github/copilot.vim'
+
+# [[plugins]]
+# repo = '~/projects/spzenhan.vim'
 
 # git
 [[plugins]]
@@ -110,6 +118,8 @@ repo = 'machakann/vim-textobj-delimited'  #ad aD
 repo = 'pocke/vim-textobj-markdown' #c
 [[plugins]]
 repo = 'osyo-manga/vim-textobj-multiblock' #sb
+[[plugins]]
+repo = 'fvictorio/vim-textobj-backticks' #a`
 
 # language server client
 [[plugins]]
@@ -120,6 +130,9 @@ rev = 'release'
 
 #
 # filetype
+[[plugins]]
+repo='mvolkmann/vim-js-arrow-function'
+on_ft = ["javascript", "typescript", "vue"]
 [[plugins]]
 repo='docteurklein/vim-symfony'
 on_ft = ["php"]
@@ -147,9 +160,14 @@ on_ft = ["graphql"]
 [[plugins]]
 repo = 'jlcrochet/vim-rbs'
 on_ft = ["rbs"]
+# [[plugins]]
+# repo = 'tpope/vim-rails'
+# on_ft = ["ruby", "erb"]
 [[plugins]]
-repo = 'tpope/vim-rails'
-on_ft = ["ruby", "erb"]
+repo = 'kchmck/vim-coffee-script'
+[[plugins]]
+repo = 'briancollins/vim-jst'
+on_ft = ["ejs"]
 
 # markdown
 [[plugins]]
@@ -157,7 +175,7 @@ repo = 'preservim/vim-markdown'
 on_ft = ['markdown', 'pandoc.markdown', 'rmd']
 [[plugins]]
 repo = 'mattn/vim-maketable'
-on_ft = ['markdown', 'pandoc.markdown', 'rmd']
+# on_ft = ['markdown', 'pandoc.markdown', 'rmd']
 [[plugins]]
 repo = 'previm/previm'
 on_ft = ['markdown', 'pandoc.markdown', 'rmd']
@@ -170,6 +188,18 @@ on_ft = ['markdown', 'pandoc.markdown', 'rmd']
 [[plugins]]
 repo = 'habamax/vim-asciidoctor'
 on_ft = ['markdown', 'pandoc.markdown', 'rmd']
+[[plugins]]
+repo = 'nikvdp/ejs-syntax'
+on_ft = ['ejs']
+[[plugins]]
+repo = 'neoclide/vim-jsx-improve'
+on_ft = ['javascriptreact', 'typescriptreact']
+[[plugins]]
+repo = 'yuezk/vim-js'
+on_ft = ['javascriptreact', 'typescriptreact']
+[[plugins]]
+repo = 'MaxMEllon/vim-jsx-pretty'
+on_ft = ['javascriptreact', 'typescriptreact']
 
 
 # # syntax

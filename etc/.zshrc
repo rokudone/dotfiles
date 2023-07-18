@@ -11,9 +11,11 @@ LANG="C.UTF-8" LC_CTYPE="en_US.UTF-8" LC_ALL="en_US.UTF-8" LANG=ja_JP.UTF-8
 # fi
 
 # if [ ! -e "$HOME"/.zsh.bundle/completion/_docker ]; then
-#   curl -L https://raw.githubusercontent.com/docker/cli/master/contrib/completion/zsh/_docker > "$HOME"/.zsh.bundle/completion/_docker
-#   curl -L https://raw.githubusercontent.com/docker/compose/master/contrib/completion/zsh/_docker-compose  > "$HOME"/.zsh.bundle/completion/_docker-compose
+#   curl -L https://raw.githubusercontent.com/docker/cli/master/contrib/completion/zsh/_docker > "$HOME"/.zsh.bundle/completion/_docker curl -L https://raw.githubusercontent.com/docker/compose/master/contrib/completion/zsh/_docker-compose  > "$HOME"/.zsh.bundle/completion/_docker-compose
 # fi
+
+# autoload -Uz compinit
+# compinit
 
 if [ ! -e "$HOME"/.tmux.bundle/tpm ]; then
     git clone https://github.com/tmux-plugins/tpm "${HOME}/.tmux.bundle/tpm"
@@ -68,9 +70,6 @@ case $OSTYPE in
     ;;
 esac
 
-# homebrew
-export PATH="$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin:$PATH";
-
 # Source *.zsh
 ZSHHOME="${HOME}/.zsh.d"
 
@@ -101,6 +100,8 @@ alias cl="clear"
 alias gosh='rlwrap gosh'
 alias phptags='ctags --tag-relative --recurse --sort=yes --exclude=*.js'
 alias -g F='| fzf'
+alias -g G='| grep'
+alias -g V='| grep -v'
 alias -g N='&& notify completed || notify error'
 alias -g P='| pbcopy'
 alias -g SJIS='| nkf'
@@ -160,22 +161,22 @@ bindkey -r '^q'
 bindkey '^q' beginning-of-line
 
 #tmux
-autoload -Uz til
+# autoload -Uz til
 autoload -Uz bk
 
 # リポジトリにcd
 
-function open_project () {
-  local command=$(echo-open-project-command)
-  if [ -n "$command" ]; then
-    BUFFER+=$command
-    zle accept-line
-  fi
-  zle clear-screen
-}
+# function open_project () {
+#   local command=$(echo-open-project-command)
+#   if [ -n "$command" ]; then
+#     BUFFER+=$command
+#     zle accept-line
+#   fi
+#   zle clear-screen
+# }
 
-zle -N open_project
-bindkey '^t' open_project
+# zle -N open_project
+# bindkey '^t' open_project
 
 setopt nonomatch
 setopt dotglob
@@ -237,12 +238,6 @@ path=(/usr/local/lib/ruby/gems/2.6.0 $path)
 # yarn
 path=($(yarn global bin) $path)
 
-# qt
-export PATH="$HOMEBREW_PREFIX/opt/qt/bin:$PATH"
-export LDFLAGS="-L$HOMEBREW_PREFIX/opt/qt/lib"
-export CPPFLAGS="-I$HOMEBREW_PREFIX/opt/qt/include"
-export PKG_CONFIG_PATH="$HOMEBREW_PREFIX/opt/qt/lib/pkgconfig"
-
 # SSH/SCP/RSYNC
 zstyle ':completion:*:(ssh|scp|rsync):*' tag-order 'hosts:-host:host hosts:-domain:domain hosts:-ipaddr:ip\ address *'
 zstyle ':completion:*:(scp|rsync):*' group-order files hosts-host all-files users hosts-domain hosts-ipaddr
@@ -291,15 +286,17 @@ alias sf='php `git rev-parse --show-toplevel`/symfony'
 alias vim='nvim'
 
 # ruby 
-# eval "$(rbenv init -)"
-path=(${ZDOTDIR:-$HOME}/.rbenv/shims $path)
-alias vg='vagrant'
-
-# java
-if [ -e /usr/libexec/java_home ];then
-  export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
-  # export JAVA_HOME="$(/usr/libexec/java_home -v 17)"
+if [ -e "${ZDOTDIR:-$HOME}/.rbenv" ]; then
+  path=(${ZDOTDIR:-$HOME}/.rbenv/bin ${ZDOTDIR:-$HOME}/.rbenv/shims $path)
+  eval "$(rbenv init -)"
+  # export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@3)"
 fi
+
+# # java
+# if [ -e /usr/libexec/java_home ];then
+#   export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
+#   # export JAVA_HOME="$(/usr/libexec/java_home -v 17)"
+# fi
 
 # test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
@@ -313,6 +310,11 @@ export RUST_BACKTRACE=1
 # if [[ ! -n $TMUX && -z $SSH_TTY ]]; then
 #   tm $(tmux list-sessions | grep attached | perl -pe "s/^([^:]*):.*/\1/g")
 # fi
+
+# orbstack
+[[ -f ~/.orbstack/shell/init.zsh ]] && . ~/.orbstack/shell/init.zsh 2>/dev/null || true
+
+
 
 if [ -e "${ZDOTDIR:-$HOME}/.zshrc.local" ]; then
   source "${ZDOTDIR:-$HOME}/.zshrc.local"
@@ -337,15 +339,26 @@ path=(${ZDOTDIR:-$HOME}/.symfony/bin $path)
 typeset -U PATH # 重複削除
 
 
-export PATH="$HOMEBREW_PREFIX/opt/findutils/libexec/gnubin:$PATH"
-export PATH="$HOMEBREW_PREFIX/opt/gnu-indent/libexec/gnubin:$PATH"
-export PATH="$HOMEBREW_PREFIX/opt/gnu-sed/libexec/gnubin:$PATH"
-export PATH="$HOMEBREW_PREFIX/opt/gnu-tar/libexec/gnubin:$PATH"
-export PATH="$HOMEBREW_PREFIX/opt/gnu-which/libexec/gnubin:$PATH"
-export PATH="$HOMEBREW_PREFIX/opt/grep/libexec/gnubin:$PATH"
-
 # alias -g Z=zgit
 export LESSCHARSET=utf-8
+
+# Windows
+if [ "$(uname)" == 'Linux' ]; then
+  if [[ "$(uname -r)" == *microsoft* ]]; then
+    export PATH=$PATH:/mnt/c/Windows/System32
+  fi
+fi
+
+export WINDOWSHOME="/mnt/c/Users/${USER}"
+# alias cdw="cd ${WINDOWSHOME}"
+alias -g W='$WINDOWSHOME'
+
+alias zenhan='/mnt/c/Users/arizo/scoop/apps/zenhan/current/zenhan.exe'
+
+keychain $HOME/.ssh/id_rsa
+source $HOME/.keychain/`hostname`-sh
+
+alias sparser='/home/arizo/.config/yarn/global/node_modules/sparser/bin/sparser'
 
 # Load a few important annexes, without Turbo
 # (this is currently required for annexes)
@@ -355,7 +368,15 @@ zinit light-mode for \
     zdharma-continuum/zinit-annex-patch-dl \
     zdharma-continuum/zinit-annex-rust
 
+if [ "$(uname)" == 'Linux' ]; then
+  if [[ "$(uname -r)" == *microsoft* ]]; then
+    source $HOME/.zshrc.wsl
+  fi
+fi
+
 # zsh プロファイリング
 # if (which zprof > /dev/null 2>&1) ;then
 #   zprof
 # fi
+
+### End of Zinit's installer chunk

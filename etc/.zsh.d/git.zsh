@@ -24,13 +24,15 @@ alias gbM='git branch --move --force'
 # alias gbs='git show-branch'
 # alias gbS='git show-branch --all'
 alias gbs='git switch'
+alias gbsd='git switch --detach'
 alias gbc='git switch -c'
 # alias gbc='git checkout -b'
 # alias gbr="git branch --remote"
 
 # # Commit (c)
 # alias gc='git commit --verbose'
-alias gc='git commit -m "[temp] $(date "+%Y/%m/%d %H:%M:%S")"'
+# alias gc='git commit -m "[temp] $(date "+%Y/%m/%d %H:%M:%S")"'
+alias gn='git now'
 alias gcm='git commit --message'
 alias gca='git commit --verbose --amend'
 alias gcA='git commit --verbose --amend --reuse-message HEAD'
@@ -46,6 +48,7 @@ alias gcy='git cherry -v --abbrev'
 alias gcY='git cherry -v'
 
 # Conflict (C)
+alias gC='git checkout'
 alias gCl='git --no-pager diff --name-only --diff-filter=U'
 alias gCa='git add $(gCl)'
 alias gCe='git mergetool $(gCl)'
@@ -67,6 +70,7 @@ alias gdi='git status --porcelain --short --ignored | sed -n "s/^!! //p"'
 alias gf='git fetch --prune'
 alias gfa='git fetch --all --prune'
 alias gfc='git clone --recurse-submodules'
+alias gfF='git fetch && git reset --hard origin/$(git branch --show-current)'
 alias gfp='git pull'
 alias gfr='git pull --rebase'
 alias gfR='git-pull-rebase-all'
@@ -184,9 +188,11 @@ alias glr='git reflog'
 
 # Merge (m)
 alias gm='git merge'
+alias gms='git merge --squash'
 alias gmC='git merge --no-commit'
 alias gmF='git merge --no-ff'
 alias gma='git merge --abort'
+alias gmc='git merge --continue'
 alias gmt='git mergetool'
 
 # Push (p)
@@ -257,15 +263,15 @@ alias gw='(git status --short; echo ""; git stash list)'
 alias gws='git status'
 alias gwd='git diff --no-ext-diff'
 alias gwD='git diff --no-ext-diff --word-diff'
-alias gwr='git reset'
-alias gwrs='git reset --hard'
+alias gwr='git restore'
+alias gwR='git reset'
+alias gwrs='git reset --soft'
 alias gwrm='git reset --mixed'
 alias gwrh='git reset --hard'
 # alias gwc='git clean -n'
 # alias gwC='git clean -f'
 alias gwx='git rm -r'
 alias gwX='git rm -rf'
-alias gwc='git restore'
 
 alias gwta='git worktree add'
 alias gwtl='git worktree list'
@@ -299,7 +305,7 @@ function git-branch-list()
   local local=$(git branch|perl -pe "s/\* /  /")
   local no_branch=$({
   echo $local;
-  echo $local; # localにあってリモートにない場合に、no_branchに残ってしまうのを防ぐため
+  echo $local;
   git branch -r | perl -pe "s/origin\///g" | perl -ne "print if ! /->/" ;
   } | sort | uniq -u)
   local remote=$(git branch -r|perl -ne "print if ! /->/")

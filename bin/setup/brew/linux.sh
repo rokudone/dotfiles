@@ -1,4 +1,9 @@
 #!/bin/bash 
+
+# sudo apt install make gcc
+# sudo apt install openssl
+# sudo apt-get install zlib1g-dev # for ruby-build
+
 # Make sure using latest Homebrew
 brew update
 brew upgrade
@@ -11,14 +16,23 @@ fi
 # nvim
 brew install nvim
 brew install ripgrep
-brew install yarn
 brew install nkf
 brew install exa
 brew install fzf
+brew install fd
+brew install ghq
+brew install keychain
+brew install gcc
 
-brew install gcc #ctags用
 brew install universal-ctags
 
+brew install python3
+brew install node
+brew install yarn
+brew install deno
+brew install rbenv
+brew install ruby-build
+brew install openssl
 
 brew cleanup -s
 chsh -s /home/linuxbrew/.linuxbrew/bin/zsh

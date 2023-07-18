@@ -26,11 +26,13 @@ brew install gnu-getopt
 brew install grep # --with-default-names
 
 brew tap z80oolong/tmux
-brew install z80oolong/tmux/tmux
+# brew install z80oolong/tmux/tmux
+brew install tmux
 
 brew tap kyoshidajp/ghkw
 brew install ghkw
 
+brew install --HEAD neovim
 brew install ansible
 brew install gzip
 brew install gcc #ctags用
@@ -61,6 +63,8 @@ brew install git
 brew install ripgrep
 brew install yarn
 brew install nkf
+brew install n
+brew install deno
 
 brew install php
 brew install sleepwatcher
@@ -104,6 +108,7 @@ brew install java
 brew install karabiner-elements
 brew install kindle
 brew install postman
+brew install rectangle
 brew install todoist
 brew install the-unarchiver
 brew install skim
@@ -111,6 +116,10 @@ brew install slack
 brew install stoplight-studio
 brew install visual-studio-code
 brew install watchman
+
+brew tap yakitrak/yakitrak
+brew install yakitrak/yakitrak/obs
+brew install obsidian
 
 # brew cask install objektiv
 

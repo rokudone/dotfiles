@@ -1,15 +1,15 @@
 #!/bin/bash
 cd `dirname $0` # scriptの位置に移動
 cd `pwd -P` # symlinkを無視した位置に移動
-cd ../../ # 2つ上がる
+cd ../../ # 2つ上がる = dotfilesの位置に移動
 
 src_dir=`pwd -P`
 
 # マシンを選択
 if [ $# -eq 0 ]; then
-  dest=$HOME
+  home=$HOME
 else
-  dest=$1
+  home=$1
 fi
 
 link_etc_files () {
@@ -53,26 +53,26 @@ place_template_file () {
 }
 
 # bin
-ln -nfs "$src_dir/bin" $dest
+ln -nfs "$src_dir/bin" $home
 
 # etc
-link_etc_files "$src_dir/etc" $dest
+link_etc_files "$src_dir/etc" $home
 
 # config
 config_dir="$src_dir/config"
 
-mkdir -p "$dest/.config"
-mkdir -p "$dest/.config/coc"
-ln -fs "$config_dir/coc/ultisnips" "$dest/.config/coc/"
+mkdir -p "$home/.config"
+mkdir -p "$home/.config/coc"
+ln -fs "$config_dir/coc/ultisnips" "$home/.config/coc/"
 
-ln -fs "$config_dir/alacritty" "$dest/.config/"
-ln -fs "$config_dir/karabiner" "$dest/.config/"
-ln -fs "$config_dir/kitty" "$dest/.config/"
-ln -fs "$config_dir/nvim" "$dest/.config/"
+ln -fs "$config_dir/alacritty" "$home/.config/"
+ln -fs "$config_dir/karabiner" "$home/.config/"
+ln -fs "$config_dir/kitty" "$home/.config/"
+ln -fs "$config_dir/nvim" "$home/.config/"
 
 # vim
-# ln -fs "$config_dir/nvim" "$dest/.vim"
-# ln -fs "$config_dir/nvim/init.vim" "$dest/.vimrc"
+# ln -fs "$config_dir/nvim" "$home/.vim"
+# ln -fs "$config_dir/nvim/init.vim" "$home/.vimrc"
 
 if [ "$(uname)" == 'Darwin' ]; then
   # link dropbox dir to home
@@ -84,3 +84,6 @@ if [ "$(uname)" == 'Darwin' ]; then
   ln -sf ${HOME}/Dropbox/アプリ/iTerm2/AutoLaunch ${HOME}/Library/ApplicationSupport/iTerm2/Scripts/
 fi
 
+# if [ -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then
+#   ln -sf $src_dir/wsl/settings.json $WINDOWSHOME/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/
+# fi

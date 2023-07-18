@@ -1,5 +1,7 @@
-# XXX: hardcode
-rootDir=${HOME}/til
+#!/bin/zsh
+
+# rootDir="$(ghq root)/til"
+rootDir="${TIL_DIR}"
 
 if [ ! -d ${rootDir} ]; then
   echo "tilディレクトリが存在しません"
@@ -7,12 +9,17 @@ if [ ! -d ${rootDir} ]; then
 fi
 
 if [ $# = 0 ] ; then
-  cd $rootDir
-  return 0
+  ext=$(ls $rootDir \
+      | grep -v README.md \
+      | sort \
+      | fzf-tmux --reverse --preview-window=hidden --height=100%)
+else
+  ext=$1
 fi
 
+echo ext
 
-ext=$1
+
 langDir=$rootDir/$ext
 filename=$(date "+%Y-%m-%d")
 file=$langDir/$filename.$ext

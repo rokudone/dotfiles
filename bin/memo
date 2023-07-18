@@ -1,55 +1,79 @@
 #!/usr/bin/env bash
-basepath="$HOME/posts"
-assetsdir="$HOME/images"
-extension='md'
-template="$HOME/.vim/template/md.txt"
-dateformat="%Y/%m/%d %H:%M:%S"
+basepath="$HOME/memo"
+inboxpath="$basepath/Inbox"
+dailypath="$basepath/Daily"
 
-showcmd="cat"
+assetsdir="$HOME/memo/Attachments"
+extension='md'
+template="$HOME/memo/Templates/default.md"
+dateformat="%Y/%m/%d-%H:%M:%S"
+
 selectcmd="fzf --reverse --tac"
 editcmd="nvim"
-grepcmd="ag {PATTERN} {DIR}"
+grepcmd="rg {PATTERN} {DIR}"
 
 # config, c  configure
 # publish, p publish
 # help, h    Shows a list of commands or help for one command
 
-new() {
-  date=$(date "+%Y-%m-%d")
+inbox() {
+  if [ -p /dev/stdin ]; then
+    title=$(cat - | cut -d " " -f 1)
+  else
+    title=$(echo $@ | cut -d " " -f 1)
+  fi
 
-  read -p "title > " title 
+  if [[ -z $title ]]; then
+    read -p "title > " title
+  fi
 
-  if [ -z $title ]; then
+  if [[ -z $title ]]; then
     echo 'cancel'
     exit 0
   fi
 
-  filename=$(echo "$date-$title.$extension" | perl -pe 's/[\\\/:*?<>|" ]/_/g')
-  cp -n $template $basepath/$filename
-
-  datetime=$(date +"$dateformat"|perl -pe "s/\//\\\\\//g")
-  perl -pi -e "s/{{_title_}}/$title/gi" $basepath/$filename
-  perl -pi -e "s/{{_date_}}/$datetime/gi" $basepath/$filename
-  perl -pi -e "s/{{_tags_}}//gi" $basepath/$filename
-  perl -pi -e "s/{{_categories_}}//gi" $basepath/$filename
-
-  $editcmd $basepath/$filename
+  filepath="$inboxpath/$(date "+%Y%m%d")-$title.$extension"
+  _create $filepath $title
+  echo $filepath
 }
 
-show() {
-  ls $basepath | $selectcmd |xargs -I{} $showcmd $basepath/{}
+daily() {
+  title=$(date "+%Y%m%d")
+  filepath="$dailypath/$title.$extension"
+  _create $filepath $title
+  echo $filepath
+}
+
+_create() {
+  filepath=$1
+  title=$2
+  if [ ! -e $filepath ]; then
+    cp -n $template $filepath
+  fi
+
+  datetime=$(date +"$dateformat" | perl -pe "s/\//\\\\\//g")
+
+  perl -pi -e "s/{{_title_}}/$title/gi" $filepath
+  perl -pi -e "s/{{_date_}}/$datetime/gi" $filepath
+  perl -pi -e "s/{{_tags_}}//gi" $filepath
+  perl -pi -e "s/{{_categories_}}//gi" $filepath
+}
+
+_open() {
+  filepath=$(echo $@)
+  $editcmd $filepath
 }
 
 edit() {
-  ls $basepath | $selectcmd |xargs -I{} $editcmd $basepath/{}
+  ls $inboxpath | $selectcmd |xargs -I{} $editcmd $basepath/{}
 }
 
 delete() {
-  ls $basepath | $selectcmd |xargs -I{} rm $basepath/{}
+  ls $inboxpath | $selectcmd |xargs -I{} rm $basepath/{}
 }
 
 list() {
-  ls $basepath | $selectcmd
+  ls $inboxpath | $selectcmd
 }
 
 grep() {
@@ -57,24 +81,26 @@ grep() {
     echo "pattern required"
     exit 1
   fi
-  basepath=$(echo $basepath|perl -pe "s/\//\\\\\//g")
+  inboxpath=$(echo $inboxpath|perl -pe "s/\//\\\\\//g")
   grepcmd=$(echo $grepcmd | perl -pe "s/{PATTERN}/$1/g" | perl -pe "s/{DIR}/$basepath/g")
   $grepcmd
 }
 
-n() {
-  new "$@"
+i() {
+  filepath=$(inbox "$@")
+  _open $filepath
 }
 
-s() {
-  show "$@"
+d() {
+  filepath=$(daily "$@")
+  _open $filepath
 }
 
 e() {
   edit "$@"
 }
 
-d() {
+D() {
   delete "$@"
 }
 
@@ -85,8 +111,6 @@ l() {
 g() {
   grep "$@"
 }
-
-
 
 # http://qiita.com/kitsuyui/items/4b204963e0ebec53fe3c
 --help() {

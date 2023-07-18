@@ -1,4 +1,4 @@
-set sw=2
+set sw=4
 let g:previm_open_cmd = 'open -a "Google Chrome"'
 let g:gfm_syntax_enable_always = 1
 let g:gfm_syntax_emoji_conceal = 1
