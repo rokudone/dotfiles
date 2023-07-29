@@ -25,14 +25,24 @@
   encoding = utf-8
 [interactive]
   singlekey = true
-  diffFilter = nkf -w
+  # diffFilter = nkf -w
+  diffFilter = delta --color-only
+[add.interactive]
+  useBuiltin = false
+[delta]
+  side-by-side = true
+  line-numbers = true
+  navigate = true
+  light = false
+  syntax-theme = Monokai Extended Origin
 [core]
-	editor = nvim
+  editor = nvim
   quotepath = false
   autocrlf = false
   safecrlf = false
   # pager = less=-R less
-  pager=LC_ALL=ja_JP.UTF-8 less -Sx4
+  # pager=LC_ALL=ja_JP.UTF-8 less -Sx4
+  pager = delta
   excludesfile = ~/.gitignore_global
 [i18n]
   commitencoding = UTF-8
@@ -40,6 +50,7 @@
   default = simple
 [merge]
   tool = vimdiff
+  conflictstyle = diff3
 [filter "lfs"]
   clean = git-lfs clean -- %f
   smudge = git-lfs smudge -- %f
@@ -47,6 +58,9 @@
   required = true
 [ghq]
   root = ~/projects
+[diff]
+  colorMoved = dimmed-zebra
+  # 'blocks', 'zebra', 'dimmed-zebra', 'plain
 [diff "cp932"]
   textconv=iconv -f cp932 -t utf-8
 [diff "sjis"]
