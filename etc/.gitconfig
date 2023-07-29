@@ -35,8 +35,8 @@
   navigate = true
   light = false
   syntax-theme = Monokai Extended Origin
-  plus-style = "syntax #000000"
-  minus-style = "syntax #000000"
+  # plus-style = "syntax #000000"
+  # minus-style = "syntax #000000"
 [core]
   editor = nvim
   quotepath = false
