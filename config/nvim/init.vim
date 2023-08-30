@@ -111,6 +111,8 @@ let g:loaded_tutor_mode_plugin  = 1
 let g:loaded_zipPlugin          = 1
 let g:skip_loading_mswin        = 1
 
+packadd matchit
+
 "-------------------
 " keymap
 "-------------------
@@ -130,11 +132,11 @@ noremap gf gF
 noremap gF gf
 
 "挿入モード便利キー
-" noremap! <C-P> <Up>
-" noremap! <C-N> <Down>
+" noremap <C-P> <Up>
+" noremap <C-N> <Down>
+noremap! <C-P> <Up>
+noremap! <C-N> <Down>
 
-" cnoremap <C-P> <Up>
-" cnoremap <C-N> <Down>
 noremap! <C-F> <Right>
 noremap! <C-B> <Left>
 noremap! <C-[> <ESC>
@@ -243,8 +245,8 @@ nnoremap <silent> <Leader>eu :<C-u>call dein#update()
 " nnoremap          <Leader>H :vert help<space>
 
 " save and quit
-nnoremap <silent> <Leader>w :echo "noaction"<CR>
-nnoremap <silent> <Leader>W :echo "noaction"<CR>
+nnoremap <silent> <Leader>w :w<CR>
+nnoremap <silent> <Leader>W :wa!<CR>
 nnoremap <silent> <Leader>q :q<CR>
 nnoremap <silent> <Leader>Q :qa!<CR>
 
@@ -321,12 +323,18 @@ if dein#tap('coc.nvim')
     endif
   endfunction
 
-  nnoremap <silent><nowait><expr> <C-n> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-n>"
-  nnoremap <silent><nowait><expr> <C-p> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-p>"
-  inoremap <silent><nowait><expr> <C-n> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-  inoremap <silent><nowait><expr> <C-p> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-  vnoremap <silent><nowait><expr> <C-n> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-n>"
-  vnoremap <silent><nowait><expr> <C-p> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-p>"
+  nnoremap <silent><nowait><expr> <Down> coc#float#has_scroll() ? coc#float#scroll(1) : "\<Down>"
+  nnoremap <silent><nowait><expr> <Up> coc#float#has_scroll() ? coc#float#scroll(0) : "\<Up>"
+  inoremap <silent><nowait><expr> <Down> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Down>"
+  inoremap <silent><nowait><expr> <Up> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Up>"
+  vnoremap <silent><nowait><expr> <Down> coc#float#has_scroll() ? coc#float#scroll(1) : "\<Down>"
+  vnoremap <silent><nowait><expr> <Up> coc#float#has_scroll() ? coc#float#scroll(0) : "\<Up>"
+
+  inoremap <silent><expr> <C-n> coc#pum#visible() ? coc#pum#next(1) : "\<C-n>"
+  inoremap <silent><expr> <C-p> coc#pum#visible() ? coc#pum#prev(1) : "\<C-p>"
+  " inoremap <silent><expr> <Enter> coc#pum#visible() ? coc#pum#confirm() : "\<Enter>"
+  " inoremap <silent><expr> <Esc> coc#pum#visible() ? coc#pum#cancel() : "\<Esc>"
+  " inoremap <silent><expr> <C-h> coc#pum#visible() ? coc#pum#cancel() : "\<C-h>"
 
   " Introduce function text object
   " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
@@ -513,13 +521,15 @@ endif
 
 map <Leader>g [git]
 if dein#tap("vim-fugitive")
+  nnoremap [git]g :<C-u>GFiles?<CR>
   nnoremap [git]f :<C-u>GFiles?<CR>
   nnoremap [git]w :Git status<CR>
   nnoremap [git]c :Git commit<CR>
   " nnoremap [git]d :Git diff<CR>
   nnoremap [git]d :Gdiff<CR>
-  nnoremap [git]B :Git blame<CR>
-  " vnoremap [git]B :Gbrowse<CR>
+  nnoremap [git]b :Git blame<CR>
+  nnoremap [git]B :GBrowse<CR>
+  vnoremap [git]B :'<,'>GBrowse<CR>
 endif
 
 if dein#tap("agit.vim")
@@ -667,6 +677,10 @@ if dein#tap("vim-rails")
   " app/views/xxxx/yyy.html.erb
   nnoremap [rails]v :Eview<CR>
 endif
+
+if dein#tap("cuculus.vim")
+  autocmd FileType ruby nnoremap <silent><buffer> % :<C-u>call cuculus#jump()<CR>
+end
 
 augroup ruby
   autocmd!
@@ -1184,12 +1198,12 @@ if dein#tap('vim-smartinput')
         \   'input': "<C-o>:call setline(line('.'), substitute(getline(line('.')), '\\s\\+$', '', ''))<CR><CR>",
         \   })
 
-  call smartinput#map_to_trigger('i', '<bar>', '<bar>', '<bar>')
-  call smartinput#define_rule({
-        \  'at': '^\%#',
-        \  'char': '<bar>',
-        \  'input': '<c-o>:TableModeEnable<cr><bar><space>',
-        \  })
+  " call smartinput#map_to_trigger('i', '<bar>', '<bar>', '<bar>')
+  " call smartinput#define_rule({
+  "       \  'at': '^\%#',
+  "       \  'char': '<bar>',
+  "       \  'input': '<c-o>:TableModeEnable<cr><bar><space>',
+  "       \  })
 
   call smartinput#map_to_trigger('i', '<Bar>', '<Bar>', '<Bar>')
   call smartinput#define_rule({
@@ -1382,9 +1396,16 @@ if dein#tap('vim-sandwich')
         \  ]
 endif
 
-if dein#tap('airsave.vim')
-  let g:auto_write = 0
-endif
+" if dein#tap('airsave.vim')
+"   let g:auto_write = 0
+" endif
+
+function! s:open_code()
+  let s:repo_path = system('cd '.expand('%:p:h').' && git rev-parse --show-toplevel')
+  call system('code -r '.s:repo_path)
+  call system('code -r '.expand('%:p'))
+endfunction
+command! Code call s:open_code()
 
 ""--------------------
 "" setting ここまで
@@ -1450,8 +1471,6 @@ command! SyntaxInfo call s:get_syn_info()
 command! SyntaxInfoAll source $VIMRUNTIME/syntax/hitest.vim
 
 set t_Co=256
-
-packadd! matchit 
 
 command! Reload call s:reload()
 function! s:reload()

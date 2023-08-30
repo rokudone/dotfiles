@@ -68,8 +68,8 @@ repo = 'liuchengxu/vista.vim'
 repo = 'easymotion/vim-easymotion'
 [[plugins]]
 repo = 't9md/vim-choosewin'
-[[plugins]]
-repo = 'syui/airsave.vim'
+# [[plugins]]
+# repo = 'syui/airsave.vim'
 [[plugins]]
 repo = 'folke/which-key.nvim'
 
@@ -82,6 +82,8 @@ repo = 'github/copilot.vim'
 # git
 [[plugins]]
 repo = 'tpope/vim-fugitive'
+[[plugins]]
+repo = 'tpope/vim-rhubarb'
 # git logDefx
 [[plugins]]
 repo = 'cohama/agit.vim'
@@ -162,6 +164,9 @@ repo = 'jlcrochet/vim-rbs'
 on_ft = ["rbs"]
 # [[plugins]]
 # repo = 'tpope/vim-rails'
+# on_ft = ["ruby", "erb"]
+# [[plugins]]
+# repo = 'pocke/cuculus.vim'
 # on_ft = ["ruby", "erb"]
 [[plugins]]
 repo = 'kchmck/vim-coffee-script'

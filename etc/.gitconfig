@@ -73,4 +73,8 @@
 [diff "sjis"]
   textconv=iconv -f sjis -t utf-8
 [init]
-	templatedir = ~/.git_template
+  templatedir = ~/.git_template
+[web]
+  broser = open
+[browser "edge"]
+  cmd = "open -a 'Microsoft Edge.app'"

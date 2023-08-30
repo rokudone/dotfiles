@@ -331,6 +331,17 @@ function zgit()
   )
 }
 # alias -g Z=zgit
+#
+function zdocker()
+{
+  echo $(cat ~/.zsh.d/docker.zsh \
+    | grep --color=never '^alias' \
+    | grep -v 'alias -g'\
+    | perl -pe 's/alias ([^=]+)=(.*)/\1\t\2/' \
+    | fzf \
+    | perl -pe "s/.*['\"]([a-zA-Z \-]+)['\"].*/\1/g"
+  )
+}
 
 fpath=(${ZDOTDIR:-$HOME}/.zsh.d/**/functions $fpath)
 path=(${ZDOTDIR:-$HOME}/bin $path)

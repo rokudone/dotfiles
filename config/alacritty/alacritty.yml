@@ -12,8 +12,8 @@ window:
 
   decorations: Full
 
-  startup_mode: Windowed
-  # startup_mode: Maximized
+  # startup_mode: Windowed
+  startup_mode: Maximized
   # startup_mode: Fullscreen
   # startup_mode: SimpleFullscreen
 
@@ -37,9 +37,9 @@ fonts:
     normal: {family: "S2GUniFont Nerd Font", style: Regular}
     bold: { family: "S2GUniFont Nerd Font", style: Regular }
     italic: { family: "S2GUniFont Nerd Font", style: Regular }
-    size: 22 
-    offset: {x: 0, y: 10}
-    glyph_offset: {x: 0, y: 5}
+    size: 24 
+    offset: {x: 0, y: 16}
+    glyph_offset: {x: 0, y: 8}
 
   ricty: &ricty
     normal: {family: "Ricty Discord for Powerline", style: Regular}
@@ -234,8 +234,8 @@ live_config_reload: true
 #     - -c
 #     - "tmux a -t $(basename ~ | perl -pe 's/\\./_/g') || tmux new -s $(basename ~ | perl -pe 's/\\./_/g')"
 
-shell:
-  program: 'C:\Windows\system32\wsl.exe'
+# shell:
+#   program: 'C:\Windows\system32\wsl.exe'
 
 working_directory: None
 
