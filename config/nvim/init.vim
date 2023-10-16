@@ -452,6 +452,7 @@ if dein#tap('copilot.vim')
   inoremap <silent> <c-\> :Copilot
 
   let g:copilot_no_tab_map = v:true
+  let g:copilot_enable = v:false
 endif
 
 nnoremap <silent> <Leader>t :TabnineEnable<CR>
