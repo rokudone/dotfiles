@@ -31,11 +31,14 @@ filetype plugin indent off
 "----------------------
 " packer
 "----------------------
-let s:packer_repo_dir = expand('~/.local/share/nvim/site/pack/packer/start/packer.nvim')
+if has('win32')
+  let s:packer_repo_dir = expand('~/AppData/Local/nvim-data/site/pack/packer/start/packer.nvim')
+else
+  let s:packer_repo_dir = expand('~/.local/share/nvim/site/pack/packer/start/packer.nvim')
+endif
 " packerが入っていなければinstall
 if !isdirectory(s:packer_repo_dir)
-  call system('mkdir -p ~/.local/share/nvim/site/pack/packer/start/')
-  call system('git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim')
+  call system('git clone https://github.com/wbthomason/packer.nvim ' . shellescape(s:packer_repo_dir))
 endif
 
 lua << EOF
@@ -58,8 +61,12 @@ augroup End
 "----------------------
 "dein
 "----------------------
-let g:dotfiles_path = substitute(system("cd $(dirname ".$MYVIMRC."); git rev-parse --show-toplevel"), "[\n\r]", "", "g")
-let s:dein_dir = expand('~/.config/nvim.bundle')
+if has('win32')
+  let s:dein_dir = expand('~/AppData/Local/nvim.bundle')
+else
+  let s:dein_dir = expand('~/.config/nvim.bundle')
+endif
+
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim' " dein.vim 本体
 let g:dein#install_process_timeout =  600
 
@@ -70,7 +77,11 @@ endif
 
 " 設定開始
 let &runtimepath = s:dein_repo_dir .",". &runtimepath
-let s:toml = '~/.config/nvim/dein.toml'
+if has('win32')
+  let s:toml = '~/AppData/Local/nvim/dein.toml'
+else
+  let s:toml = '~/.config/nvim/dein.toml'
+endif
 
 if dein#load_state(s:dein_dir)
   call dein#begin(s:dein_dir, [$MYVIMRC, s:toml])
@@ -134,9 +145,9 @@ noremap gF gf
 "挿入モード便利キー
 " noremap <C-P> <Up>
 " noremap <C-N> <Down>
-noremap! <C-P> <Up>
-noremap! <C-N> <Down>
 
+" cnoremap <C-P> <Up>
+" cnoremap <C-N> <Down>
 noremap! <C-F> <Right>
 noremap! <C-B> <Left>
 noremap! <C-[> <ESC>
@@ -247,6 +258,8 @@ nnoremap <silent> <Leader>eu :<C-u>call dein#update()
 " save and quit
 nnoremap <silent> <Leader>w :w<CR>
 nnoremap <silent> <Leader>W :wa!<CR>
+" nnoremap <silent> <Leader>w :echo "noaction"<CR>
+" nnoremap <silent> <Leader>W :echo "noaction"<CR>
 nnoremap <silent> <Leader>q :q<CR>
 nnoremap <silent> <Leader>Q :qa!<CR>
 
@@ -281,14 +294,23 @@ if dein#tap('coc.nvim')
   " 補完モードのコマンド(|popupmenu-keys| を参照)
   " <CR>で補完せず下の行
   " <Tab>で補完 スニペットのジャンプ
-  inoremap <silent><expr> <TAB>
-      \ coc#pum#visible() ?
-      \     coc#_select_confirm() :
-      \     coc#expandableOrJumpable() ?
-      \         "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \         <SID>check_back_space() ?
-      \             "\<TAB>" :
-      \             coc#refresh()
+  imap <silent><script><expr> <TAB> copilot#Accept(
+       \ coc#pum#visible() ?
+       \     coc#_select_confirm() :
+       \     coc#expandableOrJumpable() ?
+       \         "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+       \         <SID>check_back_space() ?
+       \             "\<TAB>" :
+       \             coc#refresh()
+       \ )
+  imap <silent><script><expr> <S-TAB> coc#pum#visible() ?
+       \     coc#_select_confirm() :
+       \     coc#expandableOrJumpable() ?
+       \         "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+       \         <SID>check_back_space() ?
+       \             "\<TAB>" :
+       \             coc#refresh()
+
   function! s:check_back_space() abort
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~# '\s'
@@ -296,8 +318,6 @@ if dein#tap('coc.nvim')
 
   nnoremap <silent> <C-l> :<C-u>source ~/.config/nvim/init.vim<CR>:<C-u>Reload<CR>
 
-
-  inoremap <silent><expr> <CR> coc#pum#visible() ? "\<right>\<CR>" : "\<CR>"
 
   " C-Sで0文字でもポップアップメニューを開く
   inoremap <silent><expr> <C-S> coc#refresh()
@@ -323,18 +343,19 @@ if dein#tap('coc.nvim')
     endif
   endfunction
 
-  nnoremap <silent><nowait><expr> <Down> coc#float#has_scroll() ? coc#float#scroll(1) : "\<Down>"
-  nnoremap <silent><nowait><expr> <Up> coc#float#has_scroll() ? coc#float#scroll(0) : "\<Up>"
-  inoremap <silent><nowait><expr> <Down> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Down>"
-  inoremap <silent><nowait><expr> <Up> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Up>"
-  vnoremap <silent><nowait><expr> <Down> coc#float#has_scroll() ? coc#float#scroll(1) : "\<Down>"
-  vnoremap <silent><nowait><expr> <Up> coc#float#has_scroll() ? coc#float#scroll(0) : "\<Up>"
+  nnoremap <silent><nowait><expr> <C-S-n> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-S-n>"
+  nnoremap <silent><nowait><expr> <C-S-p> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-S-p>"
+  inoremap <silent><nowait><expr> <C-S-n> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  inoremap <silent><nowait><expr> <C-S-p> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+  vnoremap <silent><nowait><expr> <C-S-n> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-S-n>"
+  vnoremap <silent><nowait><expr> <C-S-p> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-S-p>"
 
+  " autocomplete
   inoremap <silent><expr> <C-n> coc#pum#visible() ? coc#pum#next(1) : "\<C-n>"
   inoremap <silent><expr> <C-p> coc#pum#visible() ? coc#pum#prev(1) : "\<C-p>"
-  " inoremap <silent><expr> <Enter> coc#pum#visible() ? coc#pum#confirm() : "\<Enter>"
-  " inoremap <silent><expr> <Esc> coc#pum#visible() ? coc#pum#cancel() : "\<Esc>"
-  " inoremap <silent><expr> <C-h> coc#pum#visible() ? coc#pum#cancel() : "\<C-h>"
+  inoremap <silent><expr> <Enter> coc#pum#visible() ? coc#pum#confirm() : "\<Enter>"
+  inoremap <silent><expr> <Esc> coc#pum#visible() ? coc#pum#cancel() : "\<Esc>"
+  inoremap <silent><expr> <C-h> coc#pum#visible() ? coc#pum#cancel() : "\<C-h>"
 
   " Introduce function text object
   " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
@@ -426,7 +447,10 @@ endif
 
 if dein#tap('copilot.vim')
   imap <silent><script><expr> <right> copilot#Accept("\<right>")
-  imap <silent><script><expr> <c-f> copilot#Accept("\<c-f>")
+  imap <silent> <a-]> <Plug>(copilot-next)
+  imap <silent> <a-[> <Plug>(copilot-previous)
+  inoremap <silent> <c-\> :Copilot
+
   let g:copilot_no_tab_map = v:true
 endif
 
@@ -702,6 +726,7 @@ augroup end
 " fzf.vim
 "--------------------
 
+let g:dotfiles_path = substitute(system("cd $(dirname ".$MYVIMRC."); git rev-parse --show-toplevel"), "[\n\r]", "", "g")
 if dein#tap('fzf.vim')
 
   " TODO: 多分遅い
@@ -900,6 +925,7 @@ if dein#tap('coc.nvim')
         \ 'coc-powershell',
         \ 'coc-explorer',
         \ 'coc-yank',
+        \ 'coc-flutter',
         \ ]
 
         "\ 'coc-eslint',
@@ -1640,6 +1666,7 @@ set fillchars=eob:\   " ファイル末尾以降の行頭は半角スペース
 set iskeyword+=-,$,#
 " set clipboard+=unnamedplus
 set isfname-=:
+set synmaxcol=200
 
 "------------------------------
 " 移動系

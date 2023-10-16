@@ -26,18 +26,22 @@
 
 snippet paiza "Description" b
 const getData = () => {
-		if (typeof lines !== 'undefined') {
-				return lines;
-		}
-		return [
-		]
-}
-const data = getData()
+	if (typeof lines !== "undefined") {
+		return lines.map((line) => line.trim()).filter((line) => line !== "");
+	}
+	return \`
+	\`
+	.split("\n")
+	.map((line) => line.trim())
+	.filter((line) => line !== "");
+};
+
+const data = getData();
 
 const log = (msg) => {
-		if (typeof lines === 'undefined') {
-				console.log(msg);
-		}
-}
+	if (typeof lines === "undefined") {
+		console.log(msg);
+	}
+};
 
 endsnippet

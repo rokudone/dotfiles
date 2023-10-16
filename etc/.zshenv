@@ -55,4 +55,6 @@ if command -v nodenv &> /dev/null; then
   eval "$(nodenv init -)"
 fi
 
+export PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig/
+
 # eval `ssh-agent -s`

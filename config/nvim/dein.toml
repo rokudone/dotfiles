@@ -72,6 +72,8 @@ repo = 't9md/vim-choosewin'
 # repo = 'syui/airsave.vim'
 [[plugins]]
 repo = 'folke/which-key.nvim'
+[[plugins]]
+repo = 'blueyed/vim-diminactive'
 
 [[plugins]]
 repo = 'github/copilot.vim'
@@ -205,6 +207,12 @@ on_ft = ['javascriptreact', 'typescriptreact']
 [[plugins]]
 repo = 'MaxMEllon/vim-jsx-pretty'
 on_ft = ['javascriptreact', 'typescriptreact']
+[[plugins]]
+repo = 'dart-lang/dart-vim-plugin'
+on_ft = ['dart']
+[[plugins]]
+repo = 'thosakwe/vim-flutter'
+on_ft = ['dart']
 
 
 # # syntax

@@ -87,6 +87,9 @@
     "!Not",
     "!Or"
   ],
+  "flutter.sdk.path": "/home/arizo/flutter",
+  "copilot.enable": true,
+  "copilot.priority": 1000,
   "diagnostic-languageserver.linters": {
   },
   "diagnostic-languageserver.mergeConfig": true,

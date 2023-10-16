@@ -238,6 +238,40 @@ path=(/usr/local/lib/ruby/gems/2.6.0 $path)
 # yarn
 path=($(yarn global bin) $path)
 
+# snap
+path=(/snap/bin $path)
+
+# Windows
+export WINDOWSHOME="/mnt/c/Users/${USER}"
+
+if [ "$(uname)" == 'Linux' ]; then
+  if [[ "$(uname -r)" == *microsoft* ]]; then
+    export PATH=$PATH:/mnt/c/Windows/System32
+    export PATH=$PATH:/mnt/c/WINDOWS/
+    export PATH="$PATH:$WINDOWSHOME/AppData/Local/Programs/Microsoft VS Code/bin"
+  fi
+fi
+
+alias -g W='$WINDOWSHOME'
+
+# android
+export ANDROID_HOME=$HOME/Android/SDK
+export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+# flutter
+# export FLUTTER_HOME=$HOME/.asdf/installs/flutter/3.13.6-stable
+export FLUTTER_HOME=$HOME/flutter
+# path=($HOME/.local/share/flutter/bin $path)
+path=($HOME/flutter/bin $path)
+
+# export CHROME_EXECUTABLE="/mnt/c/Program Files/Google/Chrome/Application/chrome.exe"
+
+if [[ -d "$HOMEBREW_PREFIX/opt/dart/libexec" ]]; then
+  export DART_SDK="$HOMEBREW_PREFIX/opt/dart/libexec"
+  PATH="$DART_SDK:$PATH"
+fi
+
 # SSH/SCP/RSYNC
 zstyle ':completion:*:(ssh|scp|rsync):*' tag-order 'hosts:-host:host hosts:-domain:domain hosts:-ipaddr:ip\ address *'
 zstyle ':completion:*:(scp|rsync):*' group-order files hosts-host all-files users hosts-domain hosts-ipaddr
@@ -297,8 +331,8 @@ fi
 #   export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
 #   # export JAVA_HOME="$(/usr/libexec/java_home -v 17)"
 # fi
-
-# test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+export PATH=$PATH:$JAVA_HOME/bin
 
 # rust
 export RUST_BACKTRACE=1
@@ -352,17 +386,6 @@ typeset -U PATH # 重複削除
 
 # alias -g Z=zgit
 export LESSCHARSET=utf-8
-
-# Windows
-if [ "$(uname)" == 'Linux' ]; then
-  if [[ "$(uname -r)" == *microsoft* ]]; then
-    export PATH=$PATH:/mnt/c/Windows/System32
-  fi
-fi
-
-export WINDOWSHOME="/mnt/c/Users/${USER}"
-# alias cdw="cd ${WINDOWSHOME}"
-alias -g W='$WINDOWSHOME'
 
 alias zenhan='/mnt/c/Users/arizo/scoop/apps/zenhan/current/zenhan.exe'
 
