@@ -14,6 +14,8 @@ hs.hotkey.bind({"ctrl"}, "space", function()
     hs.application.launchOrFocus("/Applications/Cursor.app")
   elseif cursor:isFrontmost() then
     hs.application.launchOrFocus("/Applications/Alacritty.app")
+  else
+    hs.application.launchOrFocus("/Applications/Alacritty.app")
   end
 end)
 
