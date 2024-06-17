@@ -113,13 +113,13 @@ alias dYdf='docker system df'
 alias dYpr='docker system prune'
 
 ## Stack (K)
-alias dK='docker stack'
-alias dKls='docker stack ls'
-alias dKps='docker stack ps'
-alias dKrm='docker stack rm'
+# alias dK='docker stack'
+# alias dKls='docker stack ls'
+# alias dKps='docker stack ps'
+# alias dKrm='docker stack rm'
 
 ## Swarm (W)
-alias dW='docker swarm'
+# alias dW='docker swarm'
 
 ## CleanUp (rm)
 # Clean up exited containers (docker < 1.13)
@@ -131,25 +131,25 @@ alias drmV='docker volume rm $(docker volume ls -qf dangling=true)'
 
 
 # Docker Machine (m)
-alias dm='docker-machine'
-alias dma='docker-machine active'
-alias dmcp='docker-machine scp'
-alias dmin='docker-machine inspect'
-alias dmip='docker-machine ip'
-alias dmk='docker-machine kill'
-alias dmls='docker-machine ls'
-alias dmpr='docker-machine provision'
-alias dmps='docker-machine ps'
-alias dmrg='docker-machine regenerate-certs'
-alias dmrm='docker-machine rm'
-alias dms='docker-machine start'
-alias dmsh='docker-machine ssh'
-alias dmst='docker-machine status'
-alias dmS='docker-machine restart'
-alias dmu='docker-machine url'
-alias dmup='docker-machine upgrade'
-alias dmv='docker-machine version'
-alias dmx='docker-machine stop'
+# alias dm='docker-machine'
+# alias dma='docker-machine active'
+# alias dmcp='docker-machine scp'
+# alias dmin='docker-machine inspect'
+# alias dmip='docker-machine ip'
+# alias dmk='docker-machine kill'
+# alias dmls='docker-machine ls'
+# alias dmpr='docker-machine provision'
+# alias dmps='docker-machine ps'
+# alias dmrg='docker-machine regenerate-certs'
+# alias dmrm='docker-machine rm'
+# alias dms='docker-machine start'
+# alias dmsh='docker-machine ssh'
+# alias dmst='docker-machine status'
+# alias dmS='docker-machine restart'
+# alias dmu='docker-machine url'
+# alias dmup='docker-machine upgrade'
+# alias dmv='docker-machine version'
+# alias dmx='docker-machine stop'
 
 # Docker Compose (c)
 alias dc='docker compose'
@@ -175,3 +175,9 @@ alias dcu='docker compose up'
 alias dcU='docker compose up -d'
 alias dcv='docker compose version'
 alias dcx='docker compose stop'
+
+# dcS hoge && dcl -f hoge を行うコマンド
+function dcSl() {
+    local service_name="$1"
+    docker compose restart "$service_name" && docker compose logs -f "$service_name"
+}

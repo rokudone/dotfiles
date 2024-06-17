@@ -10,6 +10,8 @@
           "to": [
             { "key_code": "left_control" }
           ],
+          "to_if_held_down": [ { "key_code": "left_control" } ],
+          "to_if_alone": [ { "key_code": "japanese_eisuu" } ],
           "conditions": [
             {
               "type": "frontmost_application_unless",
@@ -35,6 +37,8 @@
           "to": [
             { "key_code": "right_control" }
           ],
+          "to_if_held_down": [ { "key_code": "right_control" } ],
+          "to_if_alone": [ { "key_code": "japanese_kana" } ],
           "conditions": [
             {
               "type": "frontmost_application_unless",
@@ -82,9 +86,7 @@
         {
           "type": "basic",
           "from": { "key_code": "right_control", "modifiers": { "optional": [ "any" ] } },
-          "to": [
-            { "key_code": "right_command" }
-          ],
+          "to": [ { "key_code": "right_control" } ],
           "conditions": [
             {
               "type": "frontmost_application_unless",
@@ -533,6 +535,63 @@
       ]
     },
     {
+      "description": "[windows] コマンドキーを単体で押したときに、英数・かなキーを送信する。（左コマンドキーは英数、右コマンドキーはかな） (rev 3)",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": { "key_code": "left_command", "modifiers": { "optional": [ "any" ] } },
+          "parameters": { "basic.to_if_held_down_threshold_milliseconds": 100 },
+          "to": [ { "key_code": "left_command", "lazy": true } ],
+          "to_if_held_down": [ { "key_code": "left_command" } ],
+          "to_if_alone": [ { "key_code": "japanese_eisuu" } ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.Terminal$",
+                "^com\\.googlecode\\.iterm2$",
+                "^com\\.jetbrains\\.rubymine$",
+                "^co\\.zeit\\.hyperterm$",
+                "^co\\.zeit\\.hyper$",
+                "^org\\.alacritty$",
+                "^dev\\.warp\\.Warp-Stable$",
+                "^net\\.kovidgoyal\\.kitty$",
+                "^com\\.vmware\\.fusion$",
+                "^com\\.vmware\\.horizon$",
+                "^com\\.vmware\\.view$"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": { "key_code": "right_command", "modifiers": { "optional": [ "any" ] } },
+          "parameters": { "basic.to_if_held_down_threshold_milliseconds": 100 },
+          "to": [ { "key_code": "right_command", "lazy": true } ],
+          "to_if_held_down": [ { "key_code": "right_command" } ],
+          "to_if_alone": [ { "key_code": "japanese_kana" } ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.Terminal$",
+                "^com\\.googlecode\\.iterm2$",
+                "^com\\.jetbrains\\.rubymine$",
+                "^co\\.zeit\\.hyperterm$",
+                "^co\\.zeit\\.hyper$",
+                "^org\\.alacritty$",
+                "^dev\\.warp\\.Warp-Stable$",
+                "^net\\.kovidgoyal\\.kitty$",
+                "^com\\.vmware\\.fusion$",
+                "^com\\.vmware\\.horizon$",
+                "^com\\.vmware\\.view$"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
       "description": "[windows] シフトキーを単体で押したときに、英数・かなキーを送信する。（左シフトキーは英数、右シフトキーはかな） (rev 3)",
       "manipulators": [
         {
@@ -560,61 +619,6 @@
           "to": [ { "key_code": "right_shift", "lazy": true } ],
           "to_if_held_down": [ { "key_code": "right_shift" } ],
           "to_if_alone": [ { "key_code": "japanese_kana" } ]
-        }
-      ]
-    },
-    {
-      "description": "[windows] windows like back and forward",
-      "manipulators": [
-        {
-          "type": "basic",
-          "from": { "key_code": "left_arrow", "modifiers": { "mandatory": [ "option" ] } },
-          "to": [
-            { "key_code": "open_bracket", "modifiers": [ "command" ] }
-          ],
-          "conditions": [
-            {
-              "type": "frontmost_application_unless",
-              "bundle_identifiers": [
-                "^com\\.apple\\.Terminal$",
-                "^com\\.googlecode\\.iterm2$",
-                "^com\\.jetbrains\\.rubymine$",
-                "^co\\.zeit\\.hyperterm$",
-                "^co\\.zeit\\.hyper$",
-                "^org\\.alacritty$",
-                "^dev\\.warp\\.Warp-Stable$",
-                "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.vmware\\.fusion$",
-                "^com\\.vmware\\.horizon$",
-                "^com\\.vmware\\.view$"
-              ]
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": { "key_code": "right_arrow", "modifiers": { "mandatory": [ "option" ] } },
-          "to": [
-            { "key_code": "close_bracket", "modifiers": [ "command" ] }
-          ],
-          "conditions": [
-            {
-              "type": "frontmost_application_unless",
-              "bundle_identifiers": [
-                "^com\\.apple\\.Terminal$",
-                "^com\\.googlecode\\.iterm2$",
-                "^com\\.jetbrains\\.rubymine$",
-                "^co\\.zeit\\.hyperterm$",
-                "^co\\.zeit\\.hyper$",
-                "^org\\.alacritty$",
-                "^dev\\.warp\\.Warp-Stable$",
-                "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.vmware\\.fusion$",
-                "^com\\.vmware\\.horizon$",
-                "^com\\.vmware\\.view$"
-              ]
-            }
-          ]
         }
       ]
     },

@@ -77,13 +77,7 @@ ln -fs "$config_dir/nvim" "$home/.config/"
 if [ "$(uname)" == 'Darwin' ]; then
   # link dropbox dir to home
   ln -sf ${HOME}/Dropbox/.ssh ${HOME}/
-  ln -sf ${HOME}/Dropbox/Downloads ${HOME}/
   ln -sf ${HOME}/Dropbox/アプリ/.hammerspoon ${HOME}/
-  ln -sf ${HOME}/Dropbox/VSCode/extensions ${HOME}/.vscode/
-  ln -sf ${HOME}/Dropbox/VSCode/User ${HOME}/Library/Application\ Support/Code/
   ln -sf ${HOME}/Dropbox/アプリ/iTerm2/AutoLaunch ${HOME}/Library/ApplicationSupport/iTerm2/Scripts/
+  # ln -sf ${HOME}/Dropbox/VSCode/User ${HOME}/Library/Application\ Support/Code/
 fi
-
-# if [ -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then
-#   ln -sf $src_dir/wsl/settings.json $WINDOWSHOME/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/
-# fi

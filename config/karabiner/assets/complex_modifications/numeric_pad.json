@@ -1,0 +1,104 @@
+{
+  "title": "numeric_pad",
+  "rules": [
+    {
+      "description": "[numeric] copy and paste",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": { "key_code": "keypad_1" },
+          "to": [ { "key_code": "c", "modifiers": ["command"]} ]
+        },
+        {
+          "type": "basic",
+          "from": { "key_code": "keypad_2" },
+          "to": [ { "key_code": "v", "modifiers": ["command"]} ]
+        },
+        {
+          "type": "basic",
+          "from": { "key_code": "keypad_3" },
+          "to": [ { "key_code": "v", "modifiers": ["command", "shift"]} ]
+        }
+      ]
+    },
+    {
+      "description": "[numeric] zoom",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": { "key_code": "keypad_0" },
+          "to": [
+            { "key_code": "a", "modifiers": ["command", "shift"]}
+          ]
+        },
+        {
+          "type": "basic",
+          "from": { "key_code": "keypad_period" },
+          "to": [
+            { "key_code": "v", "modifiers": ["command", "shift"]}
+          ]
+        }
+      ]
+    },
+    {
+      "description": "[numeric] demopro",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": { "key_code": "keypad_7" },
+          "to": [ { "key_code": "a", "modifiers": ["command", "shift", "control"]} ]
+        },
+        {
+          "type": "basic",
+          "from": { "key_code": "keypad_8" },
+          "to": [ { "key_code": "s", "modifiers": ["command", "shift", "control"]} ]
+        },
+        {
+          "type": "basic",
+          "from": { "key_code": "keypad_9" },
+          "to": [ { "key_code": "w", "modifiers": ["command", "shift", "control"]} ]
+        },
+        {
+          "type": "basic",
+          "from": { "key_code": "keypad_slash" },
+          "to": [ { "key_code": "z", "modifiers": ["command", "shift", "control"]} ]
+        },
+        {
+          "type": "basic",
+          "from": { "key_code": "keypad_asterisk" },
+          "to": [ { "key_code": "x", "modifiers": ["command", "shift", "control"]} ]
+        }
+      ]
+    },
+    {
+      "description": "[numeric] sound",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": { "key_code": "keypad_hyphen" },
+          "to": [ { "key_code": "volume_decrement"} ]
+        },
+        {
+          "type": "basic",
+          "from": { "key_code": "keypad_plus" },
+          "to": [ { "key_code": "volume_increment"} ]
+        },
+        {
+          "type": "basic",
+          "from": { "key_code": "keypad_4" },
+          "to": [ { "key_code": "rewind"} ]
+        },
+        {
+          "type": "basic",
+          "from": { "key_code": "keypad_5" },
+          "to": [ { "key_code": "play_or_pause" } ]
+        },
+        {
+          "type": "basic",
+          "from": { "key_code": "keypad_6" },
+          "to": [ { "key_code": "fastforward" } ]
+        }
+      ]
+    }
+  ]
+}

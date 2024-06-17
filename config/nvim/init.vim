@@ -111,7 +111,7 @@ let g:did_indent_on             = 1
 let g:loaded_2html_plugin       = 1
 let g:loaded_gzip               = 1
 let g:loaded_man                = 1
-let g:loaded_matchit            = 1
+" let g:loaded_matchit            = 1
 let g:loaded_matchparen         = 1
 let g:loaded_netrwPlugin        = 1
 let g:loaded_remote_plugins     = 1
@@ -122,7 +122,9 @@ let g:loaded_tutor_mode_plugin  = 1
 let g:loaded_zipPlugin          = 1
 let g:skip_loading_mswin        = 1
 
-packadd matchit
+" packadd matchit
+" source $VIMRUNTIME/macros/matchit.vim
+" runtime macros/matchit.vim
 
 "-------------------
 " keymap
@@ -219,19 +221,19 @@ nnoremap <silent> <C-w><C-n> :<C-u>tabnext<CR>
 nnoremap <silent> <C-w>p :<C-u>tabprevious<CR>
 nnoremap <silent> <C-w><C-p> :<C-u>tabprevious<CR>
 
-nnoremap <silent> <C-w>1 :<C-u>tabn 1<CR>
-nnoremap <silent> <C-w>2 :<C-u>tabn 2<CR>
-nnoremap <silent> <C-w>3 :<C-u>tabn 3<CR>
-nnoremap <silent> <C-w>4 :<C-u>tabn 4<CR>
-nnoremap <silent> <C-w>5 :<C-u>tabn 5<CR>
-nnoremap <silent> <C-w>6 :<C-u>tabn 6<CR>
-nnoremap <silent> <C-w>7 :<C-u>tabn 7<CR>
-nnoremap <silent> <C-w>8 :<C-u>tabn 8<CR>
-nnoremap <silent> <C-w>9 :<C-u>tabn 9<CR>
-nnoremap <silent> <C-w>0 :<C-u>tabn 10<CR>
+" nnoremap <silent> <C-w>1 :<C-u>tabn 1<CR>
+" nnoremap <silent> <C-w>2 :<C-u>tabn 2<CR>
+" nnoremap <silent> <C-w>3 :<C-u>tabn 3<CR>
+" nnoremap <silent> <C-w>4 :<C-u>tabn 4<CR>
+" nnoremap <silent> <C-w>5 :<C-u>tabn 5<CR>
+" nnoremap <silent> <C-w>6 :<C-u>tabn 6<CR>
+" nnoremap <silent> <C-w>7 :<C-u>tabn 7<CR>
+" nnoremap <silent> <C-w>8 :<C-u>tabn 8<CR>
+" nnoremap <silent> <C-w>9 :<C-u>tabn 9<CR>
+" nnoremap <silent> <C-w>0 :<C-u>tabn 10<CR>
 
-nnoremap <silent> <C-w>c :<C-u>tabnew<CR>:tabmove<CR>
-nnoremap <silent> <C-w><C-c> :<C-u>tabnew<CR>:tabmove<CR>
+" nnoremap <silent> <C-w>c :<C-u>tabnew<CR>:tabmove<CR>
+" nnoremap <silent> <C-w><C-c> :<C-u>tabnew<CR>:tabmove<CR>
 nnoremap <silent> <C-w>t :<C-u>tabnew<CR>:tabmove<CR>
 nnoremap <silent> <C-w><C-t> :<C-u>tabnew<CR>:tabmove<CR>
 nnoremap <silent> <C-w>Q :<C-u>tabclose<CR>
@@ -249,6 +251,10 @@ nnoremap <silent> <Leader>eu :<C-u>call dein#update()
 nnoremap <silent> <Leader>eu :<C-u>call dein#update()
 " call dein#recache_runtimepath()
 
+" cursor
+nnoremap <leader>c :execute '!cursor && cursor -g '.expand('%:S').':'.line('.')<CR>
+
+
 " reload file
 " nnoremap <silent> <Leader>R :<C-u>e<CR>
 
@@ -256,12 +262,27 @@ nnoremap <silent> <Leader>eu :<C-u>call dein#update()
 " nnoremap          <Leader>H :vert help<space>
 
 " save and quit
-nnoremap <silent> <Leader>w :w<CR>
-nnoremap <silent> <Leader>W :wa!<CR>
+" nnoremap <silent> <Leader>w :w<CR>
+" nnoremap <silent> <Leader>W :wa!<CR>
+" nnoremap <silent> <Leader>q :q<CR>
+" nnoremap <silent> <Leader>Q :qa!<CR>
 " nnoremap <silent> <Leader>w :echo "noaction"<CR>
 " nnoremap <silent> <Leader>W :echo "noaction"<CR>
 nnoremap <silent> <Leader>q :q<CR>
 nnoremap <silent> <Leader>Q :qa!<CR>
+nnoremap <silent> <C-s> :w<CR>
+nnoremap <silent> <C-w>w :q<CR>
+nnoremap <silent> <C-w><C-w> :q<CR>
+nnoremap <silent> <C-w>W :qa!<CR>
+
+
+function! InsertFilenameWithoutExtension()
+  let l:filename = expand('%:t:r')
+  call feedkeys(l:filename, 'n')
+  return ''
+endfunction
+
+cnoremap <C-R><C-E> <C-R>=InsertFilenameWithoutExtension()<CR>
 
 " jump same indent
 nnoremap <silent> <C-k> k:call search ("^". matchstr (getline (line (".")+ 1), '\(\s*\)') ."\\S", 'b')<CR>^
@@ -269,16 +290,18 @@ nnoremap <silent> <C-j> :call search ("^". matchstr (getline (line (".")), '\(\s
 
 if dein#tap('fzf.vim')
   " map <Leader>f [fzf]
-  nnoremap <silent> <Leader>f :<C-u>GFiles<CR>
-  nnoremap <silent> <Leader>F :<C-u>Files<CR>
+  nnoremap <silent> <Leader>p :<C-u>GFiles<CR>
+  nnoremap          <Leader>F :<C-u>GFilesWithPlaceholder <C-r><C-w><CR>
+  nnoremap <silent> <Leader>u :<C-u>Files<CR>
+  " nnoremap <silent> <Leader>u <Nop>
   nnoremap <silent> <Leader>ee :<C-u>Dotfiles<CR>
   nnoremap <silent> <Leader>b :<C-u>Buffers<CR>
-  nnoremap <silent> <Leader>u <Nop>
   nnoremap <silent> <Leader>m :<C-u>Marks<CR>
   " nnoremap <silent> <Leader>b :<C-u>LoadedBuffers<CR>
   " nnoremap          <Leader>a :<C-u>Ag<Space>
   nnoremap          <Leader>a :<C-u>Rg<Space>
-  nnoremap          <Leader>A :<C-u>Rg<Space><C-r><C-w>
+  nnoremap          <Leader>A :<C-u>Rg<Space><C-r><C-w><CR>
+
   nnoremap <silent> <Leader>/ :<C-u>BLines<CR>
   nnoremap <silent> <Leader>? :<C-u>Lines<CR>
   nnoremap <silent> <Leader>h :<C-u>History<CR>
@@ -294,15 +317,13 @@ if dein#tap('coc.nvim')
   " 補完モードのコマンド(|popupmenu-keys| を参照)
   " <CR>で補完せず下の行
   " <Tab>で補完 スニペットのジャンプ
-  imap <silent><script><expr> <TAB> copilot#Accept(
-       \ coc#pum#visible() ?
+  imap <silent><script><expr> <TAB> coc#pum#visible() ?
        \     coc#_select_confirm() :
        \     coc#expandableOrJumpable() ?
        \         "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
        \         <SID>check_back_space() ?
        \             "\<TAB>" :
        \             coc#refresh()
-       \ )
   imap <silent><script><expr> <S-TAB> coc#pum#visible() ?
        \     coc#_select_confirm() :
        \     coc#expandableOrJumpable() ?
@@ -446,16 +467,35 @@ endif
 " endif
 
 if dein#tap('copilot.vim')
-  imap <silent><script><expr> <right> copilot#Accept("\<right>")
+  " imap <silent><script><expr> <right> copilot#Accept("\<right>")
   imap <silent> <a-]> <Plug>(copilot-next)
   imap <silent> <a-[> <Plug>(copilot-previous)
-  inoremap <silent> <c-\> :Copilot
+  imap <silent> <c-/> <Plug>(copilot-suggest)
+  " nnoremap <Leader>c :Copilot disable<CR>
+  " nnoremap <Leader>C :Copilot enable<CR>
+
+  let g:copilot_filetypes = {
+    \ '*': v:false,
+    \ 'ruby': v:true,
+    \ 'typescript': v:true,
+    \ 'javascript': v:true,
+    \ 'typescriptreact': v:true,
+    \ 'javascriptreact': v:true,
+    \ }
+
+  " let g:copilot_filetypes = {
+  "   \ '*': v:false,
+  "   \ }
 
   let g:copilot_no_tab_map = v:true
-  let g:copilot_enable = v:false
+
+  " augroup copilot
+  "   autocmd!
+  "   autocmd VimEnter * Copilot disable
+  " augroup End
 endif
 
-nnoremap <silent> <Leader>t :TabnineEnable<CR>
+" nnoremap <silent> <Leader>t :TabnineEnable<CR>
 " nnoremap <silent> <Leader>T :<C-u>Tags<CR>
 
 if dein#tap('vista.vim')
@@ -533,8 +573,8 @@ if dein#tap('vim-easymotion')
 endif
 
 if dein#tap('vim-choosewin')
-  nmap <C-w>w  <Plug>(choosewin)
-  nmap <C-w><C-w>  <Plug>(choosewin)
+  " nmap <C-w>w  <Plug>(choosewin)
+  " nmap <C-w><C-w>  <Plug>(choosewin)
 endif
 
 
@@ -652,7 +692,8 @@ if dein#tap("vim-rails")
   map <Leader>r [rails]
 
   " alternate file (test)
-  nnoremap [rails]a :A<CR>
+  nnoremap [rails]r :A<CR>
+  " 以下はどの画面で開くか
   " nnoremap [rails]ae :AE<CR>
   " nnoremap [rails]as :AS<CR>
   " nnoremap [rails]av :AV<CR>
@@ -660,19 +701,24 @@ if dein#tap("vim-rails")
   " nnoremap [rails]ad :AD<CR>
 
   " related file (test)
-  nnoremap [rails]r :R<CR>
+  nnoremap [rails]R :R<CR>
+  " 以下はどの画面で開くか
   " nnoremap [rails]re :RE<CR>
   " nnoremap [rails]rs :RS<CR>
   " nnoremap [rails]rv :RV<CR>
   " nnoremap [rails]rt :RT<CR>
   " nnoremap [rails]rd :RD<CR>
 
+  nnoremap [rails]a :<C-u>Rg <C-R>=expand('%:t:r')<CR>
+  nnoremap [rails]f :<C-u>GFilesWithPlaceholder <C-R>=expand('%:t:r')<CR><CR>
+
   " app/contollers/xxx_controller.rb
   nnoremap [rails]c :Econtroller<CR>
   " config/application.rb
   nnoremap [rails]e :Eenvironment<CR>
+
   " test/fixture/xxx.yml
-  nnoremap [rails]f :Efixture<CR>
+  nnoremap [rails]F :Efixture<CR>
   " app/helpers/xxx_helper.rb
   nnoremap [rails]h :Ehelper<CR>
   " config/routes.rb
@@ -711,6 +757,8 @@ augroup ruby
   autocmd!
   autocmd FileType ruby let b:did_ftplugin = 1
 augroup end
+
+" let g:ruby_host_prog = $HOME."/.rbenv/shims/neovim-ruby-host"
 
 " --------------------
 " Keymap ここまで
@@ -786,6 +834,26 @@ if dein#tap('fzf.vim')
         \ })
   endfunction
 
+  command! Jump call s:fzf_jump()
+
+
+  function! s:GFilesWithPlaceholder(arg)
+    call fzf#run(fzf#wrap({
+        \ 'source': 'git ls-files',
+        \ 'options': '--query ' . a:arg
+        \ }))
+  endfunction
+
+  command! -nargs=? GFilesWithPlaceholder call s:GFilesWithPlaceholder(<q-args>)
+
+  function! s:FilesWithQuery()
+  call fzf#run(fzf#wrap({
+        \ 'source': 'find * -type f',
+        \ 'options': '--query test'
+        \ }))
+  endfunction
+
+  command! FilesWithQuery call s:FilesWithQuery()
 
   " This is the default extra key bindings
   let g:fzf_action = {
@@ -829,8 +897,6 @@ if dein#tap('fzf.vim')
   " Likewise, Files command with preview window
   command! -bang -nargs=? -complete=dir Files
         \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-
-  command! Jump call s:fzf_jump()
 
   " function! s:fzf_statusline()
   "   set statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
@@ -915,7 +981,6 @@ if dein#tap('coc.nvim')
         \ 'coc-tsserver',
         \ 'coc-php-cs-fixer',
         \ 'coc-psalm',
-        \ 'coc-solargraph',
         \ 'coc-xml',
         \ 'coc-json',
         \ 'coc-sql',
@@ -929,6 +994,7 @@ if dein#tap('coc.nvim')
         \ 'coc-flutter',
         \ ]
 
+        " \ 'coc-solargraph',
         "\ 'coc-eslint',
         " \ 'coc-tailwindcss',
         "\ 'coc-vetur',
@@ -1147,10 +1213,8 @@ if dein#tap('vim-airline')
   let g:airline#extensions#tabline#enabled = 1
   let g:airline_filetype_overrides = {
         \ 'coc-explorer':  [ 'CoC Explorer', '' ],
-        \ 'fugitive': ['fugitive', '%{airline#util#wrap(airline#extensions#branch#get_head(),80)}'],
-        \ 'gundo': [ 'Gundo', '' ],
-        \ 'help':  [ 'Help', '%f' ],
         \ }
+        " \ 'fugitive': ['fugitive', '%{airline#util#wrap(airline#extensions#branch#get_head(),80)}'],
   let g:airline_exclude_filetypes = [ 'dap-repl', 'dapui_console', 'dapui_scopes', 'dapui_breakpoints', 'dapui_stacks', 'dapui_watches' ]
 
   let g:airline#extensions#tabline#fnamemod = ':t' " タブに表示する名前（fnamemodifyの第二引数）
@@ -1540,8 +1604,33 @@ augroup mycolorscheme
 augroup END
 
 if (&background == 'dark')
-  let g:airline_theme="sonokai"
-  colorscheme sonokai
+  " let g:airline_theme="sonokai"
+  " colorscheme sonokai
+
+  let g:airline_theme="ayu"
+  let g:ayucolor="mirage" " for mirage version of theme
+  let g:ayucolor="dark"   " for dark version of theme
+  colorscheme ayu
+
+" lua << EOF
+" require('ayu').setup({
+"     mirage = false,
+"     overrides = {},
+" })
+" EOF
+" require('ayu').setup({
+"     overrides = {
+"         Normal = { bg = "None" },
+"         ColorColumn = { bg = "None" },
+"         SignColumn = { bg = "None" },
+"         Folded = { bg = "None" },
+"         FoldColumn = { bg = "None" },
+"         CursorLine = { bg = "None" },
+"         CursorColumn = { bg = "None" },
+"         WhichKeyFloat = { bg = "None" },
+"         VertSplit = { bg = "None" },
+"     },
+" })
 else
   augroup mycolorschemelight
     autocmd ColorScheme * hi! link CursorLineNr CursorLine
@@ -1708,6 +1797,8 @@ set smartcase       " 大文字ではじめたら大文字小文字無視しな�
 set incsearch       " インクリメンタルサーチ
 set matchpairs+=(:),{:},[:],<:>
 
+nnoremap * /<C-R><C-r><C-w><CR>N
+
 augroup vimrcincsearchhighlight
   autocmd!
   autocmd CmdlineEnter [/\?] :set hlsearch
@@ -1722,11 +1813,11 @@ set nofixeol
 " autocmd CursorHold * wall
 " autocmd CursorHoldI * wall
 
-augroup checktime
-  autocmd!
-  autocmd InsertLeave,TextChanged * silent! write
-  autocmd FocusGained,BufEnter * :silent! !
-augroup END
+" augroup checktime
+"   autocmd!
+"   autocmd InsertLeave,TextChanged * silent! write
+"   autocmd FocusGained,BufEnter * :silent! !
+" augroup END
 set autoread                        " 更新時自動再読込み
 set autowrite
 set autowriteall
@@ -1948,6 +2039,6 @@ endfunction
 
 " set helplang=en
 set helplang=ja,en
-syntax on
+set syntax=on
 filetype plugin on
 filetype indent on

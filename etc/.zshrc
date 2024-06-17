@@ -105,6 +105,8 @@ alias -g V='| grep -v'
 alias -g N='&& notify completed || notify error'
 alias -g P='| pbcopy'
 alias -g SJIS='| nkf'
+alias serve="python3 -m http.server"
+alias c="cursor"
 
 # 反cd
 # alias cd='nocd'
@@ -129,15 +131,26 @@ if type exa > /dev/null; then
   # alias lt="exa -lT --git --time-style=iso --group-directories-first -L"
   # alias lT="exa -lT --git --time-style=iso --group-directories-first"
 
-  alias l="exa --group-directories-first"
-  alias ll="exa -l --time-style=iso --group-directories-first"
-  alias la="exa -la --time-style=iso --group-directories-first"
-  alias lt="exa -lT --time-style=iso --group-directories-first -L"
-  alias lT="exa -lT --time-style=iso --group-directories-first"
+  # alias l="exa --group-directories-first"
+  # alias ll="exa -l --time-style=iso --group-directories-first"
+  # alias la="exa -la --time-style=iso --group-directories-first"
+  # alias lt="exa -lT --time-style=iso --group-directories-first -L"
+  # alias lT="exa -lT --time-style=iso --group-directories-first"
 fi
 
-if type exa > /dev/null; then
+if type lsd > /dev/null; then
+  alias ls='lsd'
+  alias ll='lsd -l'
+  alias la='lsd -la'
+  alias lt='lsd --tree'
+fi
+
+if type tldr > /dev/null; then
   alias man="tldr"
+fi
+
+if type cat > /dev/null; then
+  alias cat="bat"
 fi
 
 if [[ -f ~/dircolors/dircolors.solarized && -x `which dircolors` ]]; then
@@ -319,13 +332,6 @@ alias sf='php `git rev-parse --show-toplevel`/symfony'
 # vim
 alias vim='nvim'
 
-# ruby 
-if [ -e "${ZDOTDIR:-$HOME}/.rbenv" ]; then
-  path=(${ZDOTDIR:-$HOME}/.rbenv/bin ${ZDOTDIR:-$HOME}/.rbenv/shims $path)
-  eval "$(rbenv init -)"
-  # export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@3)"
-fi
-
 # # java
 # if [ -e /usr/libexec/java_home ];then
 #   export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
@@ -377,6 +383,24 @@ function zdocker()
   )
 }
 
+function r() {
+    local FILES=$(rg "$@" | fzf | awk -F ':' '{print $1}')
+    local COMMAND=$(echo $FILES | xargs -I XXX echo "code XXX" | tr '\n' ' ' | sed 's/ $//')
+
+    if [[ -n $COMMAND ]]; then
+        eval $COMMAND
+    fi
+}
+
+function rf() {
+    local FILES=$(rg --files | fzf | awk -F ':' '{print $1}')
+    local COMMAND=$(echo $FILES | xargs -I XXX echo "code XXX" | tr '\n' ' ' | sed 's/ $//')
+
+    if [[ -n $COMMAND ]]; then
+        eval $COMMAND
+    fi
+}
+
 fpath=(${ZDOTDIR:-$HOME}/.zsh.d/**/functions $fpath)
 path=(${ZDOTDIR:-$HOME}/bin $path)
 
@@ -408,9 +432,36 @@ if [ "$(uname)" == 'Linux' ]; then
   fi
 fi
 
+alias ap='aws --profile production'
+alias as='aws --profile staging'
+alias al='aws sso login --profile'
+alias alp='aws sso login --profile production'
+alias als='aws sso login --profile staging'
+
+function ae() {
+  local PROFILE=$1
+  shift
+  local SERVICE=$1
+  shift
+  local COMMAND="$@"
+  local TASK_ARN=$(aws --profile $PROFILE ecs list-tasks --cluster DX --service-name $SERVICE | jq -r .taskArns[0] | perl -pe "s/.*\/(.*)/\1/g")
+  aws --profile $PROFILE ecs execute-command --region ap-northeast-1 --cluster DX --container rails-batch --interactive --task $TASK_ARN --command "$COMMAND"
+}
+
+alias aep="ae production"
+alias aepb="ae production batch"
+alias aes="ae staging"
+alias aesb="ae staging batch"
+
+
+# if [ -z $TMUX ]; then
+#   tmux a -t $(basename ~ | perl -pe 's/\\./_/g') || tmux new -s $(basename ~ | perl -pe 's/\\./_/g')
+# fi
+
 # zsh プロファイリング
 # if (which zprof > /dev/null 2>&1) ;then
 #   zprof
 # fi
 
 ### End of Zinit's installer chunk
+eval "$(pyenv init --path)"

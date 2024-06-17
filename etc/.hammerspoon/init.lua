@@ -1,11 +1,21 @@
 -- hs.hotkey.bind({"ctrl"}, "space", function()
---   local alacritty = hs.application.find('alacritty')
---   if alacritty:isFrontmost() then
---     alacritty:hide()
+--   local iTerm = hs.application.find('iTerm')
+--   if iTerm:isFrontmost() then
+--     iTerm:hide()
 --   else
---     hs.application.launchOrFocus("/Applications/Alacritty.app")
+--     hs.application.launchOrFocus("/Applications/iTerm.app")
 --   end
 -- end)
+
+hs.hotkey.bind({"ctrl"}, "space", function()
+  local alacritty = hs.application.find('alacritty')
+  local cursor = hs.application.find('cursor')
+  if alacritty:isFrontmost() then
+    hs.application.launchOrFocus("/Applications/Cursor.app")
+  elseif cursor:isFrontmost() then
+    hs.application.launchOrFocus("/Applications/Alacritty.app")
+  end
+end)
 
 -- hs.hotkey.bind({"ctrl"}, "space", function()
 --   local warp = hs.application.find('warp')
@@ -17,20 +27,20 @@
 -- end)
 
 
-hs.hotkey.bind({"command"}, "space", function()
-  local obsidian = hs.application.find('obsidian')
-  if obsidian:isFrontmost() then
-    obsidian:hide()
-  else
-    hs.application.launchOrFocus("/Applications/Obsidian.app")
-  end
-end)
+-- hs.hotkey.bind({"command"}, "space", function()
+--   local obsidian = hs.application.find('obsidian')
+--   if obsidian:isFrontmost() then
+--     obsidian:hide()
+--   else
+--     hs.application.launchOrFocus("/Applications/Obsidian.app")
+--   end
+-- end)
 
-hs.hotkey.bind({"ctrl", "shift"}, "space", function()
-  local alacritty = hs.application.find('rubymine')
-  if alacritty:isFrontmost() then
-    alacritty:hide()
-  else
-    hs.application.launchOrFocus("/Applications/RubyMine.app")
-  end
-end)
+-- hs.hotkey.bind({"ctrl", "shift"}, "space", function()
+--   local cursor = hs.application.find('cursor')
+--   if cursor:isFrontmost() then
+--     cursor:hide()
+--   else
+--     hs.application.launchOrFocus("/Applications/Cursor.app")
+--   end
+-- end)

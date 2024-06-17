@@ -25,7 +25,8 @@ alias gbM='git branch --move --force'
 # alias gbS='git show-branch --all'
 alias gbs='git switch'
 alias gbsd='git switch --detach'
-alias gbc='git switch -c'
+alias gbc='git switch --create'
+alias gbC='hub sync && git switch --track'
 # alias gbc='git checkout -b'
 # alias gbr="git branch --remote"
 
@@ -49,6 +50,7 @@ alias gcY='git cherry -v'
 
 # Conflict (C)
 alias gC='git checkout'
+alias gCb='git checkout -b'
 alias gCl='git --no-pager diff --name-only --diff-filter=U'
 alias gCa='git add $(gCl)'
 alias gCe='git mergetool $(gCl)'
@@ -109,7 +111,6 @@ alias gfR='git-pull-rebase-all'
 # alias gFll='git flow release list'
 # alias gFls='git flow release start'
 # alias gFlf='git flow release finish'
-# alias gFlp='git flow release publish'
 # alias gFlt='git flow release track'
 # alias gFld='git flow release diff'
 # alias gFlr='git flow release rebase'
@@ -141,31 +142,50 @@ alias gfR='git-pull-rebase-all'
 
 # Grep (g)
 # alias gg='git grep'
-alias gg='git grep --ignore-case'
-alias ggl='git grep --files-with-matches'
-alias ggL='git grep --files-without-matches'
-alias ggv='git grep --invert-match'
-alias ggw='git grep --word-regexp'
+# alias gg='git grep --ignore-case'
+# alias ggl='git grep --files-with-matches'
+# alias ggL='git grep --files-without-matches'
+# alias ggv='git grep --invert-match'
+# alias ggw='git grep --word-regexp'
 
 # Hub (h)
+function notify-github-actions-ci-finish() {
+  gh run watch -i10 && osascript -e 'display notification "run is done!" with title "Terminal"'
+}
+
+
 alias ghb='hub browse'         # Open a GitHub page in the default browser
 alias ghc='hub create'         # Create this repository on GitHub and add GitHub as origin
 alias ghd='hub compare'        # Open a compare page on GitHub
-alias ghp='hub pr'             # List or checkout GitHub pull requests
-alias ghP='hub pull-request'   # Open a pull request on GitHub
+# alias ghp='hub pr'             # List or checkout GitHub pull requests
+# alias ghP='hub pull-request'   # Open a pull request on GitHub
 alias ghs='hub sync'           # Fetch git objects from upstream and update branches
 alias ghci='hub ci-status'      # Show the status of GitHub checks for a commit
 alias ghD='hub delete'         # Delete a repository on GitHub
 alias ghf='hub fork'           # Make a fork of a remote repository on GitHub and add as remote
 alias ghi='hub issue'          # List or create GitHub issues
 alias ghr='hub release'        # List or create GitHub releases
+alias ghn='notify-github-actions-ci-finish'
+
+# alias gha='gh auth'        # Authenticate gh and git with GitHub
+# alias ghb='gh browse'      # Open the repository in the browser
+# alias ghc='gh codespace'   # Connect to and manage codespaces
+# alias ghg='gh gist'        # Manage gists
+# alias ghi='gh issue'       # Manage issues
+# alias gho'gh org'         # Manage organizations
+alias ghp='gh pr'          # Manage pull requests
+alias ghv='gh pr view --web'          # Manage pull requests
+alias ghV='gh pr view'          # Manage pull requests
+# alias ghP='gh project'     # Work with GitHub Projects.
+# alias ghr='gh release'     # Manage releases
+alias ghR='gh repo'        # Manage repositories
 
 # Index (i)
 alias gia='git add'
 alias giap='git add --patch'
 alias giu='git add --update'
-alias gid='git diff --no-ext-diff --cached'
-alias giD='git diff --no-ext-diff --cached --word-diff'
+alias gid='git diff --cached'
+# alias giD='git diff --cached --word-diff'
 alias gii='git update-index --assume-unchanged'
 alias giI='git update-index --no-assume-unchanged'
 alias gir='git restore --staged'
@@ -241,16 +261,16 @@ alias gsS='git stash save --patch --no-keep-index'
 alias gsw='git stash save --include-untracked --keep-index'
 
 # Submodule (S)
-alias gS='git submodule'
-alias gSa='git submodule add'
-alias gSf='git submodule foreach'
-alias gSi='git submodule init'
-alias gSI='git submodule update --init --recursive'
-alias gSl='git submodule status'
-alias gSm='git-submodule-move'
-alias gSs='git submodule sync'
-alias gSu='git submodule foreach git pull origin master'
-alias gSx='git-submodule-remove'
+# alias gS='git submodule'
+# alias gSa='git submodule add'
+# alias gSf='git submodule foreach'
+# alias gSi='git submodule init'
+# alias gSI='git submodule update --init --recursive'
+# alias gSl='git submodule status'
+# alias gSm='git-submodule-move'
+# alias gSs='git submodule sync'
+# alias gSu='git submodule foreach git pull origin master'
+# alias gSx='git-submodule-remove'
 
 # Tag (t)
 alias gt='git tag'
@@ -261,8 +281,8 @@ alias gtv='git verify-tag'
 # Working Copy (w)
 alias gw='(git status --short; echo ""; git stash list)'
 alias gws='git status'
-alias gwd='git diff --no-ext-diff'
-alias gwD='git diff --no-ext-diff --word-diff'
+alias gwd='git diff'
+# alias gwD='git diff --word-diff'
 alias gwr='git restore'
 alias gwrp='git restore -p'
 alias gwR='git reset'
@@ -274,11 +294,11 @@ alias gwrh='git reset --hard'
 alias gwx='git rm -r'
 alias gwX='git rm -rf'
 
-alias gwta='git worktree add'
-alias gwtl='git worktree list'
-alias gwtm='git worktree move'
-alias gwtp='git worktree prune'
-alias gwtx='git worktree remove'
+# alias gwta='git worktree add'
+# alias gwtl='git worktree list'
+# alias gwtm='git worktree move'
+# alias gwtp='git worktree prune'
+# alias gwtx='git worktree remove'
 # alias gwtu='git worktree unlock'
 # alias gwtl='git worktree lock'
 

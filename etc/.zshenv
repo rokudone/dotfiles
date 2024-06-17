@@ -20,6 +20,19 @@ case $OSTYPE in
     ;;
 esac
 
+if [ -e "${ZDOTDIR:-$HOME}/.rbenv" ]; then
+  path=(${ZDOTDIR:-$HOME}/.rbenv/bin ${ZDOTDIR:-$HOME}/.rbenv/shims $path)
+  eval "$(rbenv init -)"
+  # export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@3)"
+fi
+
+# ruby 
+if [ -e "${ZDOTDIR:-$HOME}/.rbenv" ]; then
+  path=(${ZDOTDIR:-$HOME}/.rbenv/bin ${ZDOTDIR:-$HOME}/.rbenv/shims $path)
+  eval "$(rbenv init -)"
+  # export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@3)"
+fi
+
 # homebrew
 export PATH="$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin:$PATH";
 export HOMEBREW_CELLAR="$HOMEBREW_PREFIX/Cellar";

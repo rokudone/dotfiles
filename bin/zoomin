@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Required parameters:
+# @raycast.schemaVersion 1
+# @raycast.title zoomin
+# @raycast.mode compact
+
+# Optional parameters:
+# @raycast.icon 🤖
+
+displayplacer "id:B1F3D2EF-D634-381D-5B5A-C62F957055E6 res:1680x1050 color_depth:4 enabled:true scaling:off origin:(0,0) degree:0" "id:6D6FAA17-F9C1-1981-3646-F06F9EA6A103 res:1920x1080 hz:30 color_depth:4 enabled:true scaling:off origin:(769,-1080) degree:0" "id:FB0EC5D9-FE40-9DCF-12EC-E4FD227636BE res:1920x1080 hz:30 color_depth:4 enabled:true scaling:off origin:(-1151,-1080) degree:0"
+displayplacer "id:B1F3D2EF-D634-381D-5B5A-C62F957055E6 res:1680x1050 color_depth:4 enabled:true scaling:off origin:(0,0) degree:0" "id:6D6FAA17-F9C1-1981-3646-F06F9EA6A103 res:1920x1080 hz:30 color_depth:4 enabled:true scaling:off origin:(769,-1080) degree:0" "id:FB0EC5D9-FE40-9DCF-12EC-E4FD227636BE res:1920x1080 hz:30 color_depth:4 enabled:true scaling:off origin:(-1151,-1080) degree:0"

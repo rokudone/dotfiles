@@ -3,14 +3,14 @@ env:
 
 window:
   dimensions:
-    columns: 0
-    lines: 0
+    columns: 80
+    lines: 30
 
   position:
     x: 0
     y: 0
 
-  decorations: Full
+  decorations: full
 
   # startup_mode: Windowed
   startup_mode: Maximized
@@ -24,20 +24,20 @@ scrolling:
 
 fonts:
   default: &default
-    size: 22.0
+    size: 20.0
 
   uni: &uni
     normal: {family: "S2G Uni font", style: Regular}
     bold: { family: "S2G Uni font", style: Regular }
     italic: { family: "S2G Uni font", style: Regular }
-    size: 22
+    size: 20
     offset: {x: 0, y: 0}
 
   uni_nerd: &uni_nerd
     normal: {family: "S2GUniFont Nerd Font", style: Regular}
     bold: { family: "S2GUniFont Nerd Font", style: Regular }
     italic: { family: "S2GUniFont Nerd Font", style: Regular }
-    size: 18
+    size: 22
     offset: {x: 0, y: 10}
     glyph_offset: {x: 0, y: 5}
 
@@ -45,58 +45,64 @@ fonts:
     normal: {family: "Ricty Discord for Powerline", style: Regular}
     bold: { family: "Ricty Discord for Powerline", style: Bold }
     italic: { family: "Ricty Discord for Powerline", style: Oblique }
-    size: 24
+    size: 26
     offset: {x: 0, y: 10}
 
   moon: &moon
     normal: { family: "S2G Moon Font", style: Regular }
     bold: { family: "S2G Moon Font", style: Regular }
     italic: { family: "S2G Moon Font", style: Regular }
-    size: 22
+    size: 26
     offset: {x: 0, y: 15}
 
   luna: &luna
     normal: { family: "S2G Luna Font", style: Regular }
     bold: { family: "S2G Luna Font", style: Regular }
     italic: { family: "S2G Luna Font", style: Regular }
-    size: 22
+    size: 26
     offset: {x: 0, y: 15}
 
   sea: &sea
     normal: { family: "S2G Sea Font", style: Regular }
     bold: { family: "S2G Sea Font", style: Regular }
     italic: { family: "S2G Sea Font", style: Regular }
-    size: 22
+    size: 26
     offset: {x: 0, y: 15}
 
   jetbrains: &jetbrains
     normal: { family: "JetBrains Mono", style: "Regular" }
     bold: { family: "JetBrains Mono", style: "Bold" }
     italic: { family: "JetBrains Mono", style: "Italic" }
-    size: 22.0
+    size: 26.0
     offset: {x: 0, y: 7}
 
   sarasa: &sarasa
     normal: { family: "更紗等幅ゴシック J", style: Regular }
     bold: { family: "更紗等幅ゴシック J", style: Bold }
     italic: { family: "更紗等幅ゴシック J", style: Italic }
-    size: 22.0
+    size: 26.0
     offset: {x: 1, y: 2}
 
   sourcehan: &sourcehan
     normal: { family: "源ノ角ゴシック Code JP", style: N }
     bold: { family: "源ノ角ゴシック Code JP", style: B }
     italic: { family: "源ノ角ゴシック Code JP", style: N It }
-    size: 22.0
+    size: 26.0
     offset: {x: 0, y: 5}
 
   yutapon: &yutapon
     normal: { family: "ゆたぽん（コーディング）", style: Regular }
     bold: { family: "ゆたぽん（コーディング）Bold", style: Bold }
     italic: { family: "ゆたぽん（コーディング）Bold", style: Bold }
-    size: 22.0
+    size: 26.0
     offset: {x: 0, y: 15}
 
+  yomogi: &yomogi
+    normal: {family: "yomogi Nerd Font", style: Regular}
+    bold: { family: "yomogi Nerd Font", style: Regular }
+    italic: { family: "yomogi Nerd Font", style: Regular }
+    size: 20
+    offset: {x: 0, y: 0}
 
 # `defaults write -g CGFontRenderingFontSmoothingDisabled -bool NO`
 # !@#$%^&*()-_=
@@ -105,7 +111,7 @@ fonts:
 # ;:'",./<>?
 
 # font: *default
-font: *uni_nerd
+# font: *uni_nerd
 # font: *ricty
 # font: *moon
 # font: *luna
@@ -114,8 +120,44 @@ font: *uni_nerd
 # font: *sarasa
 # font: *sourcehan
 # font: *yutapon
+font: *yomogi
 
 schemes:
+  ayu-dark: &ayu-dark
+    cursor:
+      text: '0x1E222A'
+      cursor: '0xF6CD76'
+
+    selection:
+      text: '0x2E323B'
+      background: '0x171E29'
+
+    primary:
+      background: '0x0A0D13'
+      foreground: '0xB2B1AD'
+
+    # Normal colors
+    normal:
+      black:   '0x02050c'
+      red:     '0xe0787a'
+      green:   '0xc6d863'
+      yellow:  '0xf3b765'
+      blue:    '0x75bff9'
+      magenta: '0xfceea3'
+      cyan:    '0xa7e3cc'
+      white:   '0xc7c7c7'
+
+    # Bright colors
+    bright:
+      black:   '0xc7c7c7'
+      red:     '0xff3333'
+      green:   '0xc2d94c'
+      yellow:  '0xe7c547'
+      blue:    '0x59c2ff'
+      magenta: '0xb77ee0'
+      cyan:    '0x5ccfe6'
+      white:   '0xffffff'
+
   ayu-mirage: &ayu-mirage
     primary:
       # background: '0x243742'
@@ -151,6 +193,33 @@ schemes:
       magenta: '0xD4BFFF'
       cyan: '0x95E6CB'
       white: '0xFFFFFF'
+
+  ayu-light: &ayu-light
+    primary:
+      background: '0xfafafa'
+      foreground: '0x5b6672'
+
+    # Normal colors
+    normal:
+      black: '0x000000' #0
+      red: '0xf2590b' #1
+      green: '0x76cc00' #2
+      yellow: '0xf29717' #3
+      blue: '0x41a5d9' #4
+      magenta: '0x9965cc' #5
+      cyan: '0x4dbf98' #6
+      white: '0xc7c7c7' #7
+
+    # Bright colors
+    bright:
+      black: '0x676767'
+      red: '0xd6646a' #9
+      green: '0xa3d900' #10
+      yellow: '0xe7c446' #11
+      blue: '0x6871ff' #12
+      magenta: '0xa37acc' #13
+      cyan: '0x56d9ad' #14
+      white: '0xfeffff' #15
 
   palenight: &palenight
     primary:
@@ -206,7 +275,8 @@ schemes:
       cyan: "0xf39660"
       white: "0xe2e2e3"
 
-colors: *sonokai
+colors: *ayu-dark
+# colors: *ayu-light
 # colors: *palenight
 
 draw_bold_text_with_bright_colors: true
@@ -432,3 +502,30 @@ key_bindings:
   # - { key: PageDown,  mods: Shift,   action: ScrollPageDown, mode: ~Alt       }
   # - { key: Home,      mods: Shift,   action: ScrollToTop,    mode: ~Alt       }
   # - { key: End,       mods: Shift,   action: ScrollToBottom, mode: ~Alt       }
+
+  - {key: A, mods: Alt, chars: "\x1ba"}
+  - {key: B, mods: Alt, chars: "\x1bb"}
+  - {key: C, mods: Alt, chars: "\x1bc"}
+  - {key: D, mods: Alt, chars: "\x1bd"}
+  - {key: E, mods: Alt, chars: "\x1be"}
+  - {key: F, mods: Alt, chars: "\x1bf"}
+  - {key: G, mods: Alt, chars: "\x1bg"}
+  - {key: H, mods: Alt, chars: "\x1bh"}
+  - {key: I, mods: Alt, chars: "\x1bi"}
+  - {key: J, mods: Alt, chars: "\x1bj"}
+  - {key: K, mods: Alt, chars: "\x1bk"}
+  - {key: L, mods: Alt, chars: "\x1bl"}
+  - {key: M, mods: Alt, chars: "\x1bm"}
+  - {key: N, mods: Alt, chars: "\x1bn"}
+  - {key: O, mods: Alt, chars: "\x1bo"}
+  - {key: P, mods: Alt, chars: "\x1bp"}
+  - {key: Q, mods: Alt, chars: "\x1bq"}
+  - {key: R, mods: Alt, chars: "\x1br"}
+  - {key: S, mods: Alt, chars: "\x1bs"}
+  - {key: T, mods: Alt, chars: "\x1bt"}
+  - {key: U, mods: Alt, chars: "\x1bu"}
+  - {key: V, mods: Alt, chars: "\x1bv"}
+  - {key: W, mods: Alt, chars: "\x1bw"}
+  - {key: X, mods: Alt, chars: "\x1bx"}
+  - {key: Y, mods: Alt, chars: "\x1by"}
+  - {key: Z, mods: Alt, chars: "\x1bz"}

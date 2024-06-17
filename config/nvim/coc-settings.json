@@ -49,8 +49,9 @@
   "psalm.enable": false,
   "solargraph.autoformat": true,
   "solargraph.formatting": true,
-  "solargraph.diagnostics": true,
-  "solargraph.commandPath": "~/.rbenv/versions/3.2.1/bin/solargraph",
+  "solargraph.diagnostics": false,
+  "solargraph.completion": true,
+  "solargraph.definitions": true,
   "graphql.watcherPattern": "**/*.{graphql,gql,js,ts}",
   "graphql.filetypes": [
     "graphql",
@@ -195,6 +196,11 @@
   },
 
   "languageserver": {
+    "rubocop": {
+      "command": "rubocop",
+      "args": ["--lsp"],
+      "filetypes": ["ruby"]
+    },
     "intelephense": {
       "command": "intelephense",
       "args": ["--stdio"],

@@ -29,6 +29,20 @@
   diffFilter = delta --color-only
 [add.interactive]
   useBuiltin = false
+; [diff]
+;   tool = difftastic
+;   external = difft
+; [difftool]
+;   prompt = false
+; [difftool "difftastic"]
+;   cmd = difft "$LOCAL" "$REMOTE"
+; [pager]
+;   difftool = true
+[pager]
+  diff = delta
+  log = delta
+  reflog = delta
+  show = delta
 [delta]
   side-by-side = true
   line-numbers = true
@@ -44,13 +58,7 @@
   safecrlf = false
   # pager = less=-R less
   # pager=LC_ALL=ja_JP.UTF-8 less -Sx4
-  pager = delta
-  excludesfile = ~/.gitignore_global
-[pager]
-  diff = delta
-  show = delta
-  log = delta
-  reflog = delta
+	excludesfile = ~/.gitignore_global
 [i18n]
   commitencoding = UTF-8
 [push]
@@ -65,13 +73,6 @@
   required = true
 [ghq]
   root = ~/projects
-[diff]
-  colorMoved = dimmed-zebra
-  # 'blocks', 'zebra', 'dimmed-zebra', 'plain
-[diff "cp932"]
-  textconv=iconv -f cp932 -t utf-8
-[diff "sjis"]
-  textconv=iconv -f sjis -t utf-8
 [init]
   templatedir = ~/.git_template
 [web]

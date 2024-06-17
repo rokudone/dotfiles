@@ -1,1 +1,4 @@
-,*
+.devcontainer/
+.ruby_lsp/
+.index.yml
+.solargraph.yml

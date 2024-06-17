@@ -1,12 +1,12 @@
 #!/usr/bin/env zsh
 
-
 # 名前が完全一致したものをattachする
 # $1 session name
 # -c dirpath
+# -n オプションが指定されたときは3をスキップ
 
 local -A opthash
-zparseopts -D -A opthash -- c:
+zparseopts -D -A opthash -- c: n
 
 if [[ -n "${opthash[(i)-c]}" ]]; then
   local currentdir=${opthash[-c]}
@@ -28,10 +28,12 @@ if [[ $? -ne 0 ]]; then
   TMUX='' tmux new-session -d -s "$sessionname" -c $currentdir
 fi
 
-# 3. Attach if outside of tmux, switch if you're in tmux.
-if [[ -z $TMUX ]]; then # tmuxの中にいるとき
-  tmux attach -t "$sessionname"
-else #tmuxの中にいないとき
-  tmux switch-client -t "$sessionname"
+# 3. Attach if outside of tmux, switch if you're in tmux (unless -n is specified).
+if [[ -z ${opthash[(i)-n]} ]]; then
+  if [[ -z $TMUX ]]; then # tmuxの中にいるとき
+    tmux attach -t "$sessionname"
+  else # tmuxの中にいないとき
+    tmux switch-client -t "$sessionname"
+  fi
 fi
 

@@ -39,11 +39,23 @@ if [ -f "${HOMEBREW_PREFIX}/opt/fzf/shell/key-bindings.zsh" ]; then
 fi
 
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --no-ignore'
-export FZF_DEFAULT_OPTS="
-  -m
-  --height 30%
-  --reverse
-  --bind ctrl-q:beginning-of-line,ctrl-o:toggle-up,ctrl-i:toggle-down,ctrl-r:toggle-all,ctrl-g:toggle-sort,?:preview:'bat --style=numbers --line-range :500 {}'
-  --preview-window=hidden
-"
+if [[ $FIND_IT_FASTER_ACTIVE -eq 1 ]]; then
+  export FZF_DEFAULT_OPTS="
+    --height 100%
+    --reverse
+  "
+  # export FZF_DEFAULT_OPTS="
+  #   -m
+  #   --height 100%
+  #   --reverse
+  #   --bind ctrl-q:beginning-of-line,ctrl-o:toggle-up,ctrl-i:toggle-down,ctrl-r:toggle-all,ctrl-g:toggle-sort,?:preview:'bat --style=numbers --line-range :500 {}'
+  # "
+else
+  export FZF_DEFAULT_OPTS="
+    -m
+    --height 30%
+    --reverse
+    --bind ctrl-q:beginning-of-line,ctrl-o:toggle-up,ctrl-i:toggle-down,ctrl-r:toggle-all,ctrl-g:toggle-sort,?:preview:'bat --style=numbers --line-range :500 {}'
+  "
+fi
 export FZF_COMPLETION_TRIGGER=','
