@@ -92,6 +92,7 @@ brew install 1password
 brew install alfred
 brew install alt-tab
 brew install appcleaner
+brew install arc
 brew install bettertouchtool
 brew install brave-browser
 brew install clickup
@@ -116,6 +117,7 @@ brew install slack
 brew install stoplight-studio
 brew install visual-studio-code
 brew install watchman
+brew install warp
 
 brew tap yakitrak/yakitrak
 brew install yakitrak/yakitrak/obs
