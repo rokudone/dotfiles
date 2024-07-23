@@ -24,11 +24,171 @@ alias gbM='git branch --move --force'
 # alias gbs='git show-branch'
 # alias gbS='git show-branch --all'
 alias gbs='git switch'
+alias gbS='git_multi_switch'
 alias gbsd='git switch --detach'
 alias gbc='git switch --create'
-alias gbC='hub sync && git switch --track'
+alias gbC='git_multi_create'
+# alias gbC='hub sync && git switch --track'
 # alias gbc='git checkout -b'
 # alias gbr="git branch --remote"
+
+git_multi_switch() {
+  # 使用方法をチェック
+  if [ $# -lt 2 ]; then
+    echo "使用方法: git_multi_switch <ブランチ名> <プロジェクト1> [<プロジェクト2> ...]"
+    return 1
+  fi
+
+  # 現在のディレクトリを保存
+  local original_dir=$(pwd)
+
+  # プロジェクトのベースディレクトリを設定
+  local base_dir="$HOME/projects"
+
+  # 第1引数をブランチ名として取得し、シフト
+  local branch="$1"
+  shift
+
+  # 残りの引数をプロジェクトとして処理
+  for project in "$@"; do
+    local dir="$base_dir/$project"
+    if [ -d "$dir" ]; then
+      echo "プロジェクト $project 処理中..."
+      (
+        cd "$dir" || return
+        if git rev-parse --git-dir > /dev/null 2>&1; then
+          # コミットされていない変更をチェック
+          if ! git diff-index --quiet HEAD --; then
+            echo "コミットされていない変更があります。git now を実行します..."
+            git now
+          fi
+
+          if git show-ref --verify --quiet "refs/heads/$branch"; then
+            git switch "$branch"
+            echo "ブランチを $branch に切り替えました"
+          else
+            echo "ブランチ $branch が存在しません"
+          fi
+        else
+          echo "$project はGitリポジトリではありません"
+        fi
+
+        echo "originを同期します"
+        hub sync
+      )
+    else
+      echo "プロジェクト $project が見つかりません（パス: $dir）"
+    fi
+    echo
+  done
+
+  # 元のディレクトリに戻る
+  cd "$original_dir"
+  echo "元のディレクトリ $(pwd) に戻りました"
+}
+
+# zsh補完機能
+_git_multi_switch() {
+  local state
+
+  _arguments \
+    '1: :->branch' \
+    '*: :->projects'
+
+  case $state in
+    branch)
+      local branches
+      branches=($(git branch --format='%(refname:short)' 2>/dev/null))
+      _describe 'branch' branches
+      ;;
+    projects)
+      local projects
+      projects=($(ls -d $HOME/projects/* 2>/dev/null | xargs -n 1 basename))
+      _describe 'projects' projects
+      ;;
+  esac
+}
+
+compdef _git_multi_switch git_multi_switch
+
+git_multi_branch_create() {
+  # 使用方法をチェック
+  if [ $# -lt 2 ]; then
+    echo "使用方法: git_multi_branch_create <ブランチ名> <プロジェクト1> [<プロジェクト2> ...]"
+    return 1
+  fi
+
+  # 現在のディレクトリを保存
+  local original_dir=$(pwd)
+
+  # プロジェクトのベースディレクトリを設定
+  local base_dir="$HOME/projects"
+
+  # 第1引数をブランチ名として取得し、シフト
+  local branch="$1"
+  shift
+
+  # 残りの引数をプロジェクトとして処理
+  for project in "$@"; do
+    local dir="$base_dir/$project"
+    if [ -d "$dir" ]; then
+      echo "プロジェクト $project 処理中..."
+      (
+        cd "$dir" || return
+        if git rev-parse --git-dir > /dev/null 2>&1; then
+          # コミットされていない変更をチェック
+          if ! git diff-index --quiet HEAD --; then
+            echo "コミットされていない変更があります。git now を実行します..."
+            git now
+          fi
+
+          # originにブランチが存在するかチェック
+          if git ls-remote --exit-code --heads origin "$branch" > /dev/null 2>&1; then
+            echo "origin に $branch が存在します。tracking branchを作成します..."
+            git switch -c "$branch" --track "origin/$branch"
+          else
+            echo "新しいブランチ $branch を作成します..."
+            git switch -c "$branch"
+          fi
+          echo "ブランチ $branch を作成しました"
+        else
+          echo "$project はGitリポジトリではありません"
+        fi
+      )
+    else
+      echo "プロジェクト $project が見つかりません（パス: $dir）"
+    fi
+    echo
+  done
+
+  # 元のディレクトリに戻る
+  cd "$original_dir"
+  echo "元のディレクトリ $(pwd) に戻りました"
+}
+
+# zsh補完機能
+_git_multi_branch_create() {
+  local state
+
+  _arguments \
+    '1: :->branch' \
+    '*: :->projects'
+
+  case $state in
+    branch)
+      local branches
+      branches=($(git branch -r --format='%(refname:lstrip=3)' 2>/dev/null))
+      _describe 'remote branches' branches
+      ;;
+    projects)
+      local projects
+      projects=($(ls -d $HOME/projects/* 2>/dev/null | xargs -n 1 basename))
+      _describe 'projects' projects
+      ;;
+  esac
+}
+
+compdef _git_multi_branch_create git_multi_branch_create
 
 # # Commit (c)
 # alias gc='git commit --verbose'

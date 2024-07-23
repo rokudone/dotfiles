@@ -51,6 +51,7 @@ export PATH="$HOMEBREW_PREFIX/opt/gnu-tar/libexec/gnubin:$PATH"
 export PATH="$HOMEBREW_PREFIX/opt/gnu-which/libexec/gnubin:$PATH"
 export PATH="$HOMEBREW_PREFIX/opt/grep/libexec/gnubin:$PATH"
 
+export HOMEBREW_NO_INSTALL_CLEANUP=1
 
 
 # npm

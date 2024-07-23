@@ -257,4 +257,9 @@
     "workbench.iconTheme": "seti",
     "cursor.cpp.enablePartialAccepts": true,
     "cursor.chat.defaultNoContext": true,
+    "workbench.colorCustomizations": {
+        "[Ayu Dark Lighter]": {
+            "statusBar.foreground": "#e0e0e0"
+        }
+    }
 }

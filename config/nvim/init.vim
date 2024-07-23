@@ -236,9 +236,21 @@ nnoremap <silent> <C-w><C-p> :<C-u>tabprevious<CR>
 " nnoremap <silent> <C-w><C-c> :<C-u>tabnew<CR>:tabmove<CR>
 nnoremap <silent> <C-w>t :<C-u>tabnew<CR>:tabmove<CR>
 nnoremap <silent> <C-w><C-t> :<C-u>tabnew<CR>:tabmove<CR>
-nnoremap <silent> <C-w>Q :<C-u>tabclose<CR>
+nnoremap <silent> <C-w><C-w> :<C-u>tabclose<CR>
 
-nnoremap <silent> <C-w>\ <C-w>_<C-w><bar>
+nnoremap <silent> <C-n> :<C-u>tabnew<CR>:tabmove<CR>
+" nnoremap <silent> <C-w> :echo noaction<CR>
+" nnoremap <silent> <C-w>\ <C-w>_<C-w><bar>
+
+nnoremap <a-1> <C-w>1w
+nnoremap <a-2> <C-w>2w
+nnoremap <a-3> <C-w>3w
+nnoremap <a-4> <C-w>4w
+nnoremap <a-5> <C-w>5w
+nnoremap <a-6> <C-w>6w
+nnoremap <a-7> <C-w>7w
+nnoremap <a-8> <C-w>8w
+nnoremap <a-9> <C-w>9w
 
 " nnoremap <C-z> `.zz
 
@@ -290,7 +302,8 @@ nnoremap <silent> <C-j> :call search ("^". matchstr (getline (line (".")), '\(\s
 
 if dein#tap('fzf.vim')
   " map <Leader>f [fzf]
-  nnoremap <silent> <Leader>p :<C-u>GFiles<CR>
+  " nnoremap <silent> <Leader>p :<C-u>GFiles<CR>
+  nnoremap <silent> <C-p>     :<C-u>GFiles<CR>
   nnoremap          <Leader>F :<C-u>GFilesWithPlaceholder <C-r><C-w><CR>
   nnoremap <silent> <Leader>u :<C-u>Files<CR>
   " nnoremap <silent> <Leader>u <Nop>
@@ -980,6 +993,7 @@ if dein#tap('coc.nvim')
         \ '@yaegassy/coc-tailwindcss3',
         \ 'coc-tsserver',
         \ 'coc-php-cs-fixer',
+        \ 'coc-solargraph',
         \ 'coc-psalm',
         \ 'coc-xml',
         \ 'coc-json',
@@ -994,7 +1008,6 @@ if dein#tap('coc.nvim')
         \ 'coc-flutter',
         \ ]
 
-        " \ 'coc-solargraph',
         "\ 'coc-eslint',
         " \ 'coc-tailwindcss',
         "\ 'coc-vetur',
@@ -1511,6 +1524,8 @@ command! Code call s:open_code()
 
 
 "let g:python3_host_prog = substitute(system('which python3'),"\n","","")
+let g:python3_host_prog = expand("~/.pyenv/versions/3.12.0/bin/python")
+
 
 "-----------------------
 " 表示系

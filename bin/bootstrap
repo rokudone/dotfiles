@@ -1,19 +1,49 @@
 #!/bin/bash
 
-# osascript ~/bin/connect_vpn.scpt
+open -a "slack.app"
+open -a "arc.app"
+# open -a "warp.app"
+open -a "obsidian.app"
+open -a "cursor.app"
+open -a "brave browser.app"
+
+osascript ~/bin/fullscreen.scpt "Brave"
+# osascript ~/bin/fullscreen.scpt "Warp"
+osascript ~/bin/fullscreen.scpt "Obsidian"
+osascript ~/bin/fullscreen.scpt "Slack"
+
+osascript ~/bin/connect_vpn.scpt
 
 # cd ~/projects/casy-repo/docker-development && docker-compose up -d
 # cd ~/projects/dx-environment && docker-compose up -d
 
-# cd ~/projects/casy-api && tm -n
-# cd ~/projects/casy-ruby && tm -n
-# cd ~/projects/casy-repo && tm -n
-# cd ~/projects/casy-daemon && tm -n
-# cd ~/projects/dx-api && tm -n
-# cd ~/projects/dx-environment && tm -n
-# cd ~/projects/dx-hp && tm -n
-# cd ~/projects/dx-user && tm -n
-# cd ~/projects/dx-staff && tm -n
+cd ~ && tmux new-session -s t_furuya -d
+
+new_session() {
+    local session_name=$1
+    local project_path="$HOME/projects/$1"
+
+    # セッションが存在するかどうかを確認
+    tmux has-session -t $session_name 2>/dev/null
+
+    if [ $? != 0 ]; then
+        # セッションが存在しない場合、新しいセッションを作成
+        tmux new-session -s $session_name -c $project_path -d
+        tmux send-keys -t $session_name 'nvim' C-m
+        tmux new-window -t $session_name -c $project_path
+        tmux select-window -t "$session_name:$project_path"
+    fi
+}
+
+new_session casy-api
+new_session casy-ruby
+new_session casy-repo
+new_session casy-daemon
+new_session dx-api
+new_session dx-environment
+new_session dx-hp
+new_session dx-user
+new_session dx-staff
 
 SESSION_NAME="_logs"
 
@@ -22,14 +52,13 @@ tmux has-session -t $SESSION_NAME 2>/dev/null
 
 if [ $? != 0 ]; then
     # セッションが存在しない場合、新しいセッションを作成
-    tmux new-session -s $SESSION_NAME \; \
-        split-window -h \; \
-        split-window -h \; \
-        select-layout even-horizontal \; \
-        send-keys -t $SESSION_NAME:1.1 'cd ~/projects/dx-environment && docker-compose logs hp -f' C-m \; \
-        send-keys -t $SESSION_NAME:1.2 'cd ~/projects/dx-environment && docker-compose logs api -f' C-m \; \
-        send-keys -t $SESSION_NAME:1.3 'cd ~/projects/casy-repo/docker-development && docker-compose logs api -f' C-m \; \
-        detach-client \;
+    tmux new-session -s $SESSION_NAME -d
+    tmux split-window -h -t $SESSION_NAME
+    tmux split-window -h -t $SESSION_NAME
+    tmux select-layout even-horizontal -t $SESSION_NAME
+    tmux send-keys -t $SESSION_NAME:1.1 'cd ~/projects/dx-environment && docker-compose logs hp -f' C-m
+    tmux send-keys -t $SESSION_NAME:1.2 'cd ~/projects/dx-environment && docker-compose logs api -f' C-m
+    tmux send-keys -t $SESSION_NAME:1.3 'cd ~/projects/casy-repo/docker-development && docker-compose logs api -f' C-m
 fi
 
 tm _logs

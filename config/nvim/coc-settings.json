@@ -39,7 +39,7 @@
   "eslint.quiet": true,
   "eslint.experimental.useFlatConfig": false,
   "eslint.format.enable": false,
-  "tsserver.enable": false,
+  "tsserver.enable": true,
   "typescript.format.enable": true,
   "volar.enable": true,
   "volar.takeOverMode.enabled": true,

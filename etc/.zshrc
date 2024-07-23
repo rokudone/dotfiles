@@ -433,27 +433,29 @@ if [ "$(uname)" == 'Linux' ]; then
   fi
 fi
 
-alias ap='aws --profile production'
-alias as='aws --profile staging'
-alias al='aws sso login --profile'
-alias alp='aws sso login --profile production'
-alias als='aws sso login --profile staging'
+alias ml='aws sso login --profile'
+alias mlp='aws sso login --profile production'
+alias mls='aws sso login --profile staging'
 
-function ae() {
+function me() {
   local PROFILE=$1
   shift
   local SERVICE=$1
   shift
   local COMMAND="$@"
   local TASK_ARN=$(aws --profile $PROFILE ecs list-tasks --cluster DX --service-name $SERVICE | jq -r .taskArns[0] | perl -pe "s/.*\/(.*)/\1/g")
-  aws --profile $PROFILE ecs execute-command --region ap-northeast-1 --cluster DX --container rails-batch --interactive --task $TASK_ARN --command "$COMMAND"
+  echo $TASK_ARN
+  aws --profile $PROFILE ecs execute-command --region ap-northeast-1 --cluster DX --container "rails-$SERVICE" --interactive --task $TASK_ARN --command "$COMMAND"
 }
 
-alias aep="ae production"
-alias aepb="ae production batch"
-alias aes="ae staging"
-alias aesb="ae staging batch"
-
+alias mep="me production"
+alias mepb="me production batch"
+alias mepa="me production api"
+alias mepw="me production worker"
+alias mes="me staging"
+alias mesb="me staging batch"
+alias mesa="me staging api"
+alias mesw="me staging worker"
 
 # if [ -z $TMUX ]; then
 #   tmux a -t $(basename ~ | perl -pe 's/\\./_/g') || tmux new -s $(basename ~ | perl -pe 's/\\./_/g')
@@ -465,6 +467,8 @@ alias aesb="ae staging batch"
 # fi
 
 ### End of Zinit's installer chunk
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init --path)"
 
 # Load a few important annexes, without Turbo
@@ -479,3 +483,6 @@ zinit light-mode for \
 
 # Created by `pipx` on 2024-06-17 17:35:34
 export PATH="$PATH:/Users/filriya/.local/bin"
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+export PATH="$HOME/.orbstack/bin:$PATH"

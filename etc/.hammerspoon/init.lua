@@ -1,48 +1,36 @@
--- hs.hotkey.bind({"ctrl"}, "space", function()
---   local iTerm = hs.application.find('iTerm')
---   if iTerm:isFrontmost() then
---     iTerm:hide()
---   else
---     hs.application.launchOrFocus("/Applications/iTerm.app")
---   end
--- end)
-
 hs.hotkey.bind({"ctrl"}, "space", function()
   local alacritty = hs.application.find('alacritty')
-  local cursor = hs.application.find('cursor')
   if alacritty:isFrontmost() then
-    hs.application.launchOrFocus("/Applications/Cursor.app")
-  elseif cursor:isFrontmost() then
-    hs.application.launchOrFocus("/Applications/Alacritty.app")
+    if alacritty then alacritty:hide() end
   else
     hs.application.launchOrFocus("/Applications/Alacritty.app")
   end
 end)
 
 -- hs.hotkey.bind({"ctrl"}, "space", function()
---   local warp = hs.application.find('warp')
---   if warp:isFrontmost() then
---     warp:hide()
+--   local alacritty = hs.application.find('warp')
+--   if alacritty:isFrontmost() then
+--     if alacritty then alacritty:hide() end
 --   else
 --     hs.application.launchOrFocus("/Applications/Warp.app")
 --   end
 -- end)
 
-
--- hs.hotkey.bind({"command"}, "space", function()
---   local obsidian = hs.application.find('obsidian')
---   if obsidian:isFrontmost() then
---     obsidian:hide()
+-- hs.hotkey.bind({"ctrl"}, "space", function()
+--   local alacritty = hs.application.find('iterm')
+--   if alacritty:isFrontmost() then
+--     if alacritty then alacritty:hide() end
 --   else
---     hs.application.launchOrFocus("/Applications/Obsidian.app")
+--     hs.application.launchOrFocus("/Applications/iTerm.app")
 --   end
 -- end)
 
--- hs.hotkey.bind({"ctrl", "shift"}, "space", function()
---   local cursor = hs.application.find('cursor')
---   if cursor:isFrontmost() then
---     cursor:hide()
---   else
---     hs.application.launchOrFocus("/Applications/Cursor.app")
---   end
--- end)
+hs.hotkey.bind({"cmd"}, "space", function()
+  local brave = hs.application.find('brave')
+  if brave:isFrontmost() then
+    if brave then brave:hide() end
+  else
+    hs.application.launchOrFocus("/Applications/Brave Browser.app")
+  end
+end)
+

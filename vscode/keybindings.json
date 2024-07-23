@@ -4,7 +4,7 @@
         "command": "workbench.action.nextEditorInGroup"
     },
     {
-        "key": "ctrl+shift+tab",
+        "key": "cmd+w cmd+p",
         "command": "workbench.action.previousEditorInGroup"
     },
     {
@@ -240,10 +240,6 @@
         "key": "ctrl+`",
         "command": "-workbench.action.terminal.toggleTerminal",
         "when": "terminal.active"
-    },
-    {
-        "key": "cmd+f12",
-        "command": "editor.action.goToTypeDefinition"
     },
     {
         "key": "alt+f12",
@@ -582,7 +578,7 @@
         "when": "editorHasImplementationProvider && editorTextFocus && !isInEmbeddedEditor"
     },
     {
-        "key": "ctrl+f12",
+        "key": "cmd+f12",
         "command": "editor.action.goToTypeDefinition"
     },
     {
@@ -954,5 +950,83 @@
     {
         "key": "cmd+[",
         "command": "extension.vim_escape",
+    },
+    {
+        "key": "ctrl+f12",
+        "command": "editor.action.goToImplementation",
+        "when": "editorHasImplementationProvider && editorTextFocus"
+    },
+    {
+        "key": "cmd+f12",
+        "command": "-editor.action.goToImplementation",
+        "when": "editorHasImplementationProvider && editorTextFocus"
+    },
+    {
+        "key": "alt+1",
+        "command": "workbench.action.focusFirstEditorGroup"
+    },
+    {
+        "key": "cmd+1",
+        "command": "-workbench.action.focusFirstEditorGroup"
+    },
+    {
+        "key": "alt+8",
+        "command": "workbench.action.focusEighthEditorGroup"
+    },
+    {
+        "key": "cmd+8",
+        "command": "-workbench.action.focusEighthEditorGroup"
+    },
+    {
+        "key": "alt+5",
+        "command": "workbench.action.focusFifthEditorGroup"
+    },
+    {
+        "key": "cmd+5",
+        "command": "-workbench.action.focusFifthEditorGroup"
+    },
+    {
+        "key": "alt+4",
+        "command": "workbench.action.focusFourthEditorGroup"
+    },
+    {
+        "key": "cmd+4",
+        "command": "-workbench.action.focusFourthEditorGroup"
+    },
+    {
+        "key": "alt+2",
+        "command": "workbench.action.focusSecondEditorGroup"
+    },
+    {
+        "key": "cmd+2",
+        "command": "-workbench.action.focusSecondEditorGroup"
+    },
+    {
+        "key": "alt+7",
+        "command": "workbench.action.focusSeventhEditorGroup"
+    },
+    {
+        "key": "cmd+7",
+        "command": "-workbench.action.focusSeventhEditorGroup"
+    },
+    {
+        "key": "alt+6",
+        "command": "workbench.action.focusSixthEditorGroup"
+    },
+    {
+        "key": "cmd+6",
+        "command": "-workbench.action.focusSixthEditorGroup"
+    },
+    {
+        "key": "alt+3",
+        "command": "workbench.action.focusThirdEditorGroup"
+    },
+    {
+        "key": "cmd+3",
+        "command": "-workbench.action.focusThirdEditorGroup"
+    },
+    {
+        "key": "cmd+w cmd+n",
+        "command": "workbench.action.nextEditorInGroup"
     }
 ]
