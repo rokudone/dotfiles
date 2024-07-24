@@ -54,10 +54,6 @@ zinit snippet PZT::modules/utility/init.zsh
 # Source OS-specific settings
 case $OSTYPE in
   darwin*)
-    # system-wide environment settings for zsh(1)
-    if [ -x /usr/libexec/path_helper ]; then
-      eval `/usr/libexec/path_helper -s`
-    fi
     if [ -f "${ZDOTDIR:-$HOME}/.zsh.d/.zshrc.darwin" ]; then
       source "${ZDOTDIR:-$HOME}/.zsh.d/.zshrc.darwin"
     fi
@@ -413,7 +409,12 @@ export LESSCHARSET=utf-8
 
 alias zenhan='/mnt/c/Users/arizo/scoop/apps/zenhan/current/zenhan.exe'
 
-keychain $HOME/.ssh/id_rsa
+if [ -e "${ZDOTDIR:-$HOME}/.ssh/id_rsa" ]; then
+  keychain $HOME/.ssh/id_rsa
+fi
+if [ -e "${ZDOTDIR:-$HOME}/.ssh/id_ed25519" ]; then
+  keychain $HOME/.ssh/id_ed25519
+fi
 source $HOME/.keychain/`hostname`-sh
 
 alias sparser='/home/arizo/.config/yarn/global/node_modules/sparser/bin/sparser'
@@ -465,3 +466,16 @@ alias aesb="ae staging batch"
 
 ### End of Zinit's installer chunk
 eval "$(pyenv init --path)"
+
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zdharma-continuum/zinit-annex-as-monitor \
+    zdharma-continuum/zinit-annex-bin-gem-node \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-rust
+
+### End of Zinit's installer chunk
+
+# Created by `pipx` on 2024-06-17 17:35:34
+export PATH="$PATH:/Users/filriya/.local/bin"

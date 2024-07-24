@@ -1,0 +1,28 @@
+{
+  "title": "doio",
+  "rules": [
+    {
+      "description": "[doio] 0 zoom",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": { "key_code": "0" },
+          "to": [
+            { "key_code": "a", "modifiers": ["command", "shift"]}
+          ],
+          "conditions": [
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "vendor_id": 65261,
+                  "product_id": 24672
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

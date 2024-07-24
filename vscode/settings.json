@@ -1,6 +1,6 @@
 {
     "editor.fontSize": 18,
-    "editor.fontFamily": "\"S2GUniFont Nerd Font\", \"Yomogi Nerd Font\"",
+    "editor.fontFamily": "\"S2GNerdFontCompleteNerdFontNerdFontComplete-font\", \"S2GUniFont Nerd Font\", \"Yomogi Nerd Font\"",
     "editor.insertSpaces": true,
     "editor.rulers": [
         120
@@ -55,7 +55,6 @@
     },
     "rubyLsp.rubyVersionManager": "rbenv",
     "rubyLsp.formatter": "rubocop",
-    // "rubyLsp.bundleGemfile": ".ruby-lsp/Gemfile",
     "rubyLsp.enabledFeatures": {
         "codeActions": true,
         "diagnostics": true,
@@ -252,8 +251,10 @@
     "editor.quickSuggestionsDelay": 500,
     "debug.enableStatusBarColor": false,
     "editor.experimentalWhitespaceRendering": "off",
-    "workbench.preferredDarkColorTheme": "Ayu Dark Lighter",
+    "workbench.preferredDarkColorTheme": "Ayu Dark Bordered",
     "workbench.preferredLightColorTheme": "Ayu Light",
     "window.autoDetectColorScheme": true,
     "workbench.iconTheme": "seti",
+    "cursor.cpp.enablePartialAccepts": true,
+    "cursor.chat.defaultNoContext": true,
 }

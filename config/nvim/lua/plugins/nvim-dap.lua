@@ -1,4 +1,4 @@
--- require("mason").setup()
+--aaa require("mason").setup()
 -- require("mason-nvim-dap").setup({
 --   ensure_installed = {"chrome", "node2", "php"},
 --   automatic_installation = true,
@@ -12,52 +12,59 @@ dap.adapters.node2 = {
   args = {os.getenv('HOME') .. '/dev/microsoft/vscode-node-debug2/out/src/nodeDebug.js'},
 }
 
-dap.adapters.chrome = {
-  type = "executable",
-  command = "node",
-  args = {os.getenv("HOME") .. "/dev/microsoft/vscode-chrome-debug/out/src/chromeDebug.js"}
-}
+-- dap.adapters.chrome = {
+--   type = "executable",
+--   command = "node",
+--   args = {os.getenv("HOME") .. "/dev/microsoft/vscode-chrome-debug/out/src/chromeDebug.js"}
+-- }
 
-dap.configurations.javascript = {
-  {
-    name = 'Launch',
-    type = 'node2',
-    request = 'launch',
-    program = '${file}',
-    cwd = vim.fn.getcwd(),
-    sourceMaps = true,
-  },
-  {
-    -- For this to work you need to make sure the node process is started with the `--inspect` flag.
-    name = 'Attach to process',
-    type = 'node2',
-    request = 'attach',
-    processId = require'dap.utils'.pick_process,
-  },
-}
+local dap = require("dap")
 
--- https://qiita.com/murasuke/items/9ce3eeeee949324f32b7
-dap.configurations.typescript = {
-  {
-    name = 'Launch',
-    type = 'node2',
-    request = 'launch',
-    runtimeArgs = {"--nolazy", "-r", "ts-node/register"},
-    args = {"${file}", "--transpile-only"},
-    skipFiles = {"<node_internals>/**", "node_modules/**"},
-    env = {
-      TS_NODE_PROJECT = "${workspaceFolder}/tsconfig.json"
+require('dap').set_log_level('DEBUG')
+
+require("dap-vscode-js").setup({
+  debugger_path = vim.fn.stdpath("data") .. "/site/pack/packer/opt/vscode-js-debug",
+  debugger_cmd = { "node", vim.fn.stdpath("data") .. "/site/pack/packer/opt/vscode-js-debug/dist/src/vsDebugServer.js" },
+  adapters = { 'pwa-node', 'pwa-chrome', 'pwa-msedge', 'node-terminal', 'pwa-extensionHost' }
+})
+
+for _, language in ipairs({ "typescript", "javascript", "typescriptreact" }) do
+  dap.configurations[language] = {
+    {
+      type = "pwa-node",
+      request = "launch",
+      name = "Launch file (TypeScript)",
+      program = "${file}",
+      cwd = "${workspaceFolder}",
+      sourceMaps = true,  -- これを追加
+      protocol = "inspector",  -- これを追加
+      runtimeExecutable = "node",  -- これを追加
+      runtimeArgs = {  -- これを追加
+        "--nolazy",  -- これを追加
+        "-r", "ts-node/register"  -- これを追加
+      },
+      outFiles = { "${workspaceFolder}/dist/**/*.js" },  -- これを追加
+      console = "integratedTerminal",
+      internalConsoleOptions = "openOnSessionStart",
     },
-    sourceMaps = true,
-  },
-  {
-    -- For this to work you need to make sure the node process is started with the `--inspect` flag.
-    name = 'Attach to process',
-    type = 'node2',
-    request = 'attach',
-    processId = require'dap.utils'.pick_process,
-  },
-}
+    {
+      type = "pwa-node",
+      request = "attach",
+      name = "Attach to Process (TypeScript)",
+      processId = require("dap.utils").pick_process,
+      cwd = "${workspaceFolder}",
+      sourceMaps = true,  -- これを追加
+      protocol = "inspector",  -- これを追加
+      runtimeExecutable = "node",  -- これを追加
+      runtimeArgs = {  -- これを追加
+        "--nolazy",  -- これを追加
+        "-r", "ts-node/register"  -- これを追加
+      },
+      console = "integratedTerminal",
+      internalConsoleOptions = "openOnSessionStart",
+    },
+  }
+end
 
 require('dap-ruby').setup();
 

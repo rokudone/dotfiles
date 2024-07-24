@@ -56,6 +56,7 @@ brew install keychain
 brew install rbenv
 brew install ruby-build
 # brew install rdiff-backup
+brew install pyenv
 brew install python3
 brew install lua
 brew install luajit
@@ -89,13 +90,15 @@ brew install rlwrap
 
 brew install xquartz
 brew install 1password
-brew install alfred
+brew install alacritty
 brew install alt-tab
 brew install appcleaner
 brew install arc
 brew install bettertouchtool
 brew install brave-browser
 brew install clickup
+brew install cursor
+brew install cursorsense
 brew install dropbox
 brew install docker
 brew install docker-compose
@@ -103,12 +106,14 @@ brew install firefox
 brew install google-chrome
 brew install google-chrome-canary
 brew install google-japanese-ime
+brew install hammerspoon
 brew install iterm2
 brew install insomnia
 brew install java
 brew install karabiner-elements
 brew install kindle
 brew install postman
+brew install raycast
 brew install rectangle
 brew install todoist
 brew install the-unarchiver

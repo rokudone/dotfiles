@@ -4,8 +4,9 @@ cd `dirname $0` # scriptの位置に移動
 if [ "$(uname)" == 'Darwin' ]; then
 
   if ! type "brew" > /dev/null 2>&1; then
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   fi
+  eval "$(/opt/homebrew/bin/brew shellenv)"
   ./brew/darwin.sh
 elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
   if ! type "brew" > /dev/null 2>&1; then
@@ -17,5 +18,6 @@ elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
     test -r ~/.bash_profile && echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.bash_profile
     echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.profile
   fi
+  eval "$(/opt/homebrew/bin/brew shellenv)"
   ./brew/linux.sh
 fi

@@ -12,5 +12,5 @@ fi
 
 cat ~/projects/dotfiles/vscode/extensions | while read line
 do
- code --install-extension $line
+ cursor --install-extension $line
 done

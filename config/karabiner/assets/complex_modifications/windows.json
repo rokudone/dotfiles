@@ -23,10 +23,16 @@
                 "^co\\.zeit\\.hyper$",
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
-                "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.vmware\\.fusion$",
-                "^com\\.vmware\\.horizon$",
-                "^com\\.vmware\\.view$"
+                "^net\\.kovidgoyal\\.kitty$"
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 65261,
+                  "product_id": 24672
+                }
               ]
             }
           ]
@@ -50,10 +56,16 @@
                 "^co\\.zeit\\.hyper$",
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
-                "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.vmware\\.fusion$",
-                "^com\\.vmware\\.horizon$",
-                "^com\\.vmware\\.view$"
+                "^net\\.kovidgoyal\\.kitty$"
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 65261,
+                  "product_id": 24672
+                }
               ]
             }
           ]
@@ -75,10 +87,16 @@
                 "^co\\.zeit\\.hyper$",
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
-                "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.vmware\\.fusion$",
-                "^com\\.vmware\\.horizon$",
-                "^com\\.vmware\\.view$"
+                "^net\\.kovidgoyal\\.kitty$"
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 65261,
+                  "product_id": 24672
+                }
               ]
             }
           ]
@@ -98,10 +116,16 @@
                 "^co\\.zeit\\.hyper$",
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
-                "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.vmware\\.fusion$",
-                "^com\\.vmware\\.horizon$",
-                "^com\\.vmware\\.view$"
+                "^net\\.kovidgoyal\\.kitty$"
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 65261,
+                  "product_id": 24672
+                }
               ]
             }
           ]
@@ -128,10 +152,16 @@
                 "^co\\.zeit\\.hyper$",
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
-                "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.vmware\\.fusion$",
-                "^com\\.vmware\\.horizon$",
-                "^com\\.vmware\\.view$"
+                "^net\\.kovidgoyal\\.kitty$"
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 65261,
+                  "product_id": 24672
+                }
               ]
             }
           ]
@@ -153,10 +183,16 @@
                 "^co\\.zeit\\.hyper$",
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
-                "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.vmware\\.fusion$",
-                "^com\\.vmware\\.horizon$",
-                "^com\\.vmware\\.view$"
+                "^net\\.kovidgoyal\\.kitty$"
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 65261,
+                  "product_id": 24672
+                }
               ]
             }
           ]
@@ -183,10 +219,7 @@
                 "^co\\.zeit\\.hyper$",
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
-                "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.vmware\\.fusion$",
-                "^com\\.vmware\\.horizon$",
-                "^com\\.vmware\\.view$"
+                "^net\\.kovidgoyal\\.kitty$"
               ]
             }
           ]
@@ -208,65 +241,16 @@
                 "^co\\.zeit\\.hyper$",
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
-                "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.vmware\\.fusion$",
-                "^com\\.vmware\\.horizon$",
-                "^com\\.vmware\\.view$"
+                "^net\\.kovidgoyal\\.kitty$"
               ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "description": "[windows] reswap ctrl-m and cmd-m",
-      "manipulators": [
-        {
-          "type": "basic",
-          "from": { "key_code": "m", "modifiers": { "mandatory": [ "control" ] } },
-          "to": [
-            { "key_code": "m", "modifiers": [ "command" ] }
-          ],
-          "conditions": [
+            },
             {
-              "type": "frontmost_application_unless",
-              "bundle_identifiers": [
-                "^com\\.apple\\.Terminal$",
-                "^com\\.googlecode\\.iterm2$",
-                "^com\\.jetbrains\\.rubymine$",
-                "^co\\.zeit\\.hyperterm$",
-                "^co\\.zeit\\.hyper$",
-                "^org\\.alacritty$",
-                "^dev\\.warp\\.Warp-Stable$",
-                "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.vmware\\.fusion$",
-                "^com\\.vmware\\.horizon$",
-                "^com\\.vmware\\.view$"
-              ]
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": { "key_code": "m", "modifiers": { "mandatory": [ "command" ] } },
-          "to": [
-            { "key_code": "m", "modifiers": [ "control" ] }
-          ],
-          "conditions": [
-            {
-              "type": "frontmost_application_unless",
-              "bundle_identifiers": [
-                "^com\\.apple\\.Terminal$",
-                "^com\\.googlecode\\.iterm2$",
-                "^com\\.jetbrains\\.rubymine$",
-                "^co\\.zeit\\.hyperterm$",
-                "^co\\.zeit\\.hyper$",
-                "^org\\.alacritty$",
-                "^dev\\.warp\\.Warp-Stable$",
-                "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.vmware\\.fusion$",
-                "^com\\.vmware\\.horizon$",
-                "^com\\.vmware\\.view$"
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 65261,
+                  "product_id": 24672
+                }
               ]
             }
           ]
@@ -293,10 +277,16 @@
                 "^co\\.zeit\\.hyper$",
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
-                "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.vmware\\.fusion$",
-                "^com\\.vmware\\.horizon$",
-                "^com\\.vmware\\.view$"
+                "^net\\.kovidgoyal\\.kitty$"
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 65261,
+                  "product_id": 24672
+                }
               ]
             }
           ]
@@ -319,10 +309,16 @@
                 "^co\\.zeit\\.hyper$",
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
-                "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.vmware\\.fusion$",
-                "^com\\.vmware\\.horizon$",
-                "^com\\.vmware\\.view$"
+                "^net\\.kovidgoyal\\.kitty$"
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 65261,
+                  "product_id": 24672
+                }
               ]
             }
           ]
@@ -349,10 +345,16 @@
                 "^co\\.zeit\\.hyper$",
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
-                "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.vmware\\.fusion$",
-                "^com\\.vmware\\.horizon$",
-                "^com\\.vmware\\.view$"
+                "^net\\.kovidgoyal\\.kitty$"
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 65261,
+                  "product_id": 24672
+                }
               ]
             }
           ]
@@ -374,10 +376,16 @@
                 "^co\\.zeit\\.hyper$",
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
-                "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.vmware\\.fusion$",
-                "^com\\.vmware\\.horizon$",
-                "^com\\.vmware\\.view$"
+                "^net\\.kovidgoyal\\.kitty$"
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 65261,
+                  "product_id": 24672
+                }
               ]
             }
           ]
@@ -399,10 +407,16 @@
                 "^co\\.zeit\\.hyper$",
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
-                "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.vmware\\.fusion$",
-                "^com\\.vmware\\.horizon$",
-                "^com\\.vmware\\.view$"
+                "^net\\.kovidgoyal\\.kitty$"
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 65261,
+                  "product_id": 24672
+                }
               ]
             }
           ]
@@ -424,10 +438,16 @@
                 "^co\\.zeit\\.hyper$",
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
-                "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.vmware\\.fusion$",
-                "^com\\.vmware\\.horizon$",
-                "^com\\.vmware\\.view$"
+                "^net\\.kovidgoyal\\.kitty$"
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 65261,
+                  "product_id": 24672
+                }
               ]
             }
           ]
@@ -449,10 +469,16 @@
                 "^co\\.zeit\\.hyper$",
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
-                "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.vmware\\.fusion$",
-                "^com\\.vmware\\.horizon$",
-                "^com\\.vmware\\.view$"
+                "^net\\.kovidgoyal\\.kitty$"
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 65261,
+                  "product_id": 24672
+                }
               ]
             }
           ]
@@ -474,10 +500,16 @@
                 "^co\\.zeit\\.hyper$",
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
-                "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.vmware\\.fusion$",
-                "^com\\.vmware\\.horizon$",
-                "^com\\.vmware\\.view$"
+                "^net\\.kovidgoyal\\.kitty$"
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 65261,
+                  "product_id": 24672
+                }
               ]
             }
           ]
@@ -499,10 +531,16 @@
                 "^co\\.zeit\\.hyper$",
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
-                "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.vmware\\.fusion$",
-                "^com\\.vmware\\.horizon$",
-                "^com\\.vmware\\.view$"
+                "^net\\.kovidgoyal\\.kitty$"
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 65261,
+                  "product_id": 24672
+                }
               ]
             }
           ]
@@ -524,10 +562,16 @@
                 "^co\\.zeit\\.hyper$",
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
-                "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.vmware\\.fusion$",
-                "^com\\.vmware\\.horizon$",
-                "^com\\.vmware\\.view$"
+                "^net\\.kovidgoyal\\.kitty$"
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 65261,
+                  "product_id": 24672
+                }
               ]
             }
           ]
@@ -555,10 +599,16 @@
                 "^co\\.zeit\\.hyper$",
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
-                "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.vmware\\.fusion$",
-                "^com\\.vmware\\.horizon$",
-                "^com\\.vmware\\.view$"
+                "^net\\.kovidgoyal\\.kitty$"
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 65261,
+                  "product_id": 24672
+                }
               ]
             }
           ]
@@ -581,10 +631,7 @@
                 "^co\\.zeit\\.hyper$",
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
-                "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.vmware\\.fusion$",
-                "^com\\.vmware\\.horizon$",
-                "^com\\.vmware\\.view$"
+                "^net\\.kovidgoyal\\.kitty$"
               ]
             }
           ]
@@ -642,10 +689,16 @@
                 "^co\\.zeit\\.hyper$",
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
-                "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.vmware\\.fusion$",
-                "^com\\.vmware\\.horizon$",
-                "^com\\.vmware\\.view$"
+                "^net\\.kovidgoyal\\.kitty$"
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 65261,
+                  "product_id": 24672
+                }
               ]
             }
           ]

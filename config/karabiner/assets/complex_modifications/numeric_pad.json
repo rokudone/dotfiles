@@ -1,8 +1,8 @@
 {
-  "title": "numeric_pad",
+  "title": "doio_pad",
   "rules": [
     {
-      "description": "[numeric] copy and paste",
+      "description": "[doio] copy and paste",
       "manipulators": [
         {
           "type": "basic",
@@ -22,26 +22,7 @@
       ]
     },
     {
-      "description": "[numeric] zoom",
-      "manipulators": [
-        {
-          "type": "basic",
-          "from": { "key_code": "keypad_0" },
-          "to": [
-            { "key_code": "a", "modifiers": ["command", "shift"]}
-          ]
-        },
-        {
-          "type": "basic",
-          "from": { "key_code": "keypad_period" },
-          "to": [
-            { "key_code": "v", "modifiers": ["command", "shift"]}
-          ]
-        }
-      ]
-    },
-    {
-      "description": "[numeric] demopro",
+      "description": "[doio] demopro",
       "manipulators": [
         {
           "type": "basic",
@@ -71,7 +52,7 @@
       ]
     },
     {
-      "description": "[numeric] sound",
+      "description": "[doio] sound",
       "manipulators": [
         {
           "type": "basic",

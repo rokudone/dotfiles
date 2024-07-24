@@ -10,20 +10,23 @@ require'packer'.startup(function(use)
   use {
     "mfussenegger/nvim-dap",
     "rcarriga/nvim-dap-ui",
+    "nvim-neotest/nvim-nio",
+    "theHamsta/nvim-dap-virtual-text",
   }
   -- use {
     -- "williamboman/mason.nvim",
     -- "jayp0521/mason-nvim-dap.nvim",
   -- }
-  -- use {
-  --   "mxsdev/nvim-dap-vscode-js",
-  --   requires = {"mfussenegger/nvim-dap"}
-  -- }
-  -- use {
-  --   "microsoft/vscode-js-debug",
-  --   opt = true,
-  --   run = "npm install --legacy-peer-deps && npm run compile",
-  -- }
+  use {
+    "mxsdev/nvim-dap-vscode-js",
+    requires = {"mfussenegger/nvim-dap"}
+  }
+  use {
+    "microsoft/vscode-js-debug",
+    opt = true,
+    run = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && npm run compile",
+    requires = {"mxsdev/nvim-dap-vscode-js"},
+  }
   use {
     "suketa/nvim-dap-ruby",
     requires = {"mfussenegger/nvim-dap"}

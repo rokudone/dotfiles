@@ -8,11 +8,15 @@ setopt no_global_rcs # avoid loading /etc/profile (not to execute /usr/libexec/p
 #   eval `/usr/libexec/path_helper -s`
 # fi
 
-export PATH="/usr/local/bin:/usr/local/sbin:$PATH";
+export PATH="/usr/local/bin:/usr/local/sbin:/opt/homebrew/bin:$PATH";
 
 # brew
 case $OSTYPE in
   darwin*)
+    # system-wide environment settings for zsh(1)
+    if [ -x /usr/libexec/path_helper ]; then
+      eval `/usr/libexec/path_helper -s`
+    fi
     export HOMEBREW_PREFIX=$(brew --prefix);
     ;;
   linux*)
