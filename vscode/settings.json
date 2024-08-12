@@ -162,6 +162,10 @@
             "before": [ "g", "k" ],
             "after": [ "k" ]
         },
+        {
+            "before": ["g", "h"],
+            "commands": ["editor.action.showHover"]
+        }
     ],
     "vim.insertModeKeyBindings": [
         {
@@ -261,5 +265,8 @@
         "[Ayu Dark Lighter]": {
             "statusBar.foreground": "#e0e0e0"
         }
-    }
+    },
+    "cursor.cmdk.useThemedDiffBackground": true,
+    "cursor.cmdk.ghostTextAtSymbols": true,
+    "cursor.chat.ghostTextAtSymbols": true
 }

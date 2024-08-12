@@ -14,8 +14,8 @@ osascript ~/bin/fullscreen.scpt "Slack"
 
 osascript ~/bin/connect_vpn.scpt
 
-# cd ~/projects/casy-repo/docker-development && docker-compose up -d
-# cd ~/projects/dx-environment && docker-compose up -d
+cd ~/projects/casy-repo/docker-development && docker-compose up -d
+cd ~/projects/dx-environment && docker-compose up -d
 
 cd ~ && tmux new-session -s t_furuya -d
 

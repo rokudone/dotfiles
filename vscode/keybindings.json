@@ -111,21 +111,6 @@
         "when": "editorTextFocus && vim.active && !inDebugRepl && vim.mode != 'Insert' && isMac"
     },
     {
-        "key": "cmd+i",
-        "command": "extension.vim_ctrl+i",
-        "when": "editorTextFocus && vim.active && !inDebugRepl && vim.mode != 'Insert' && isMac"
-    },
-    {
-        "key": "cmd+i",
-        "command": "extension.vim_ctrl+i",
-        "when": "editorTextFocus && vim.active && !inDebugRepl && vim.mode != 'Insert' && isMac"
-    },
-    {
-        "key": "cmd+i",
-        "command": "extension.vim_ctrl+i",
-        "when": "editorTextFocus && vim.active && !inDebugRepl && vim.mode != 'Insert' && isMac"
-    },
-    {
         "key": "cmd+m",
         "command": "extension.vim_ctrl+m",
         "when": "editorTextFocus && vim.active && !inDebugRepl && vim.mode != 'Insert' && isMac"
@@ -1028,5 +1013,5 @@
     {
         "key": "cmd+w cmd+n",
         "command": "workbench.action.nextEditorInGroup"
-    }
+    },
 ]

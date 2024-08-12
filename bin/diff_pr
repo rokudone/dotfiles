@@ -1,0 +1,71 @@
+#!/usr/bin/env ruby
+
+require 'json'
+require 'open3'
+
+# 使用方法: ruby pr_diff_stats.rb <PR番号> <フォルダ1> <フォルダ2> ...
+
+if ARGV.length < 2
+  puts "使用方法: #{$0} <PR番号> <フォルダ1> <フォルダ2> ..."
+  exit 1
+end
+
+PR_NUMBER = ARGV[0]
+FOLDERS = ARGV[1..]
+
+# 除外するファイルのパターン
+EXCLUDE_PATTERN = /package\.json|Gemfile\.lock/
+
+# PRに含まれるコミットハッシュの一覧を取得
+def get_commits(pr_number)
+  output, status = Open3.capture2("gh pr view #{pr_number} --json commits --jq '.commits[].oid'")
+  raise "Failed to get commits" unless status.success?
+  output.split
+end
+
+# 追加された行数をカウントする関数
+def count_additions(commit, prev_commit, folder)
+  diff, status = Open3.capture2("git diff #{prev_commit}..#{commit} -- #{folder}")
+  raise "Failed to get diff" unless status.success?
+
+  additions = 0
+  current_file = nil
+
+  diff.each_line do |line|
+    if line.start_with?('diff --git')
+      current_file = line.split.last.sub(/^b\//, '')
+    elsif line.start_with?('+') && !line.start_with?('+++')
+      additions += 1 unless current_file =~ EXCLUDE_PATTERN
+    end
+  end
+
+  additions
+end
+
+commits = get_commits(PR_NUMBER)
+total_additions = Hash.new(0)
+commit_additions = {}
+
+commits.each_cons(2) do |prev_commit, commit|
+  puts "コミット: #{commit[0..6]}"
+  commit_total = 0
+
+  FOLDERS.each do |folder|
+    additions = count_additions(commit, prev_commit, folder)
+    total_additions[folder] += additions
+    commit_additions[[commit, folder]] = additions
+    commit_total += additions
+    puts "  #{folder}: #{additions} 行追加"
+  end
+
+  total_additions['TOTAL'] += commit_total
+  commit_additions[[commit, 'TOTAL']] = commit_total
+  puts "  全フォルダ合計: #{commit_total} 行追加"
+  puts
+end
+
+puts "PR全体の統計（追加行数）:"
+FOLDERS.each do |folder|
+  puts "#{folder}: #{total_additions[folder]} 行追加"
+end
+puts "全フォルダ合計: #{total_additions['TOTAL']} 行追加"
