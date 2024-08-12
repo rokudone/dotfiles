@@ -6,11 +6,14 @@ open -a "arc.app"
 open -a "obsidian.app"
 open -a "cursor.app"
 open -a "brave browser.app"
+osascript ~/bin/connect_vpn.scpt
 
 osascript ~/bin/fullscreen.scpt "Brave"
 # osascript ~/bin/fullscreen.scpt "Warp"
 osascript ~/bin/fullscreen.scpt "Obsidian"
 osascript ~/bin/fullscreen.scpt "Slack"
+cd ~/projects/casy-repo/docker-development && docker-compose up -d
+cd ~/projects/dx-environment && docker-compose up -d
 
 osascript ~/bin/connect_vpn.scpt
 
@@ -44,6 +47,15 @@ new_session dx-environment
 new_session dx-hp
 new_session dx-user
 new_session dx-staff
+cd ~/projects/casy-api && tm -n
+cd ~/projects/casy-ruby && tm -n
+cd ~/projects/casy-repo && tm -n
+cd ~/projects/casy-daemon && tm -n
+cd ~/projects/dx-api && tm -n
+cd ~/projects/dx-environment && tm -n
+cd ~/projects/dx-hp && tm -n
+cd ~/projects/dx-user && tm -n
+cd ~/projects/dx-staff && tm -n
 
 SESSION_NAME="_logs"
 

@@ -488,3 +488,5 @@ export PATH="$PATH:/Users/filriya/.local/bin"
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 export PATH="$HOME/.orbstack/bin:$PATH"
+
+### End of Zinit's installer chunk

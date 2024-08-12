@@ -88,7 +88,6 @@ brew install rlwrap
 
 
 
-brew install xquartz
 brew install 1password
 brew install alacritty
 brew install alt-tab
@@ -96,11 +95,12 @@ brew install appcleaner
 brew install arc
 brew install bettertouchtool
 brew install brave-browser
+brew install chatgpt
 brew install clickup
 brew install cursor
 brew install cursorsense
 brew install dropbox
-brew install docker
+# brew install docker
 brew install docker-compose
 brew install firefox
 brew install google-chrome
@@ -117,12 +117,14 @@ brew install raycast
 brew install rectangle
 brew install todoist
 brew install the-unarchiver
+brew install orbstack
 brew install skim
 brew install slack
 brew install stoplight-studio
 brew install visual-studio-code
 brew install watchman
 brew install warp
+brew install xquartz
 
 brew tap yakitrak/yakitrak
 brew install yakitrak/yakitrak/obs
