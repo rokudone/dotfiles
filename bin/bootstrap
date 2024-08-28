@@ -8,10 +8,10 @@ open -a "cursor.app"
 open -a "brave browser.app"
 osascript ~/bin/connect_vpn.scpt
 
-osascript ~/bin/fullscreen.scpt "Brave"
+# osascript ~/bin/fullscreen.scpt "Brave"
 # osascript ~/bin/fullscreen.scpt "Warp"
-osascript ~/bin/fullscreen.scpt "Obsidian"
-osascript ~/bin/fullscreen.scpt "Slack"
+# osascript ~/bin/fullscreen.scpt "Obsidian"
+# osascript ~/bin/fullscreen.scpt "Slack"
 cd ~/projects/casy-repo/docker-development && docker-compose up -d
 cd ~/projects/dx-environment && docker-compose up -d
 
@@ -20,7 +20,7 @@ osascript ~/bin/connect_vpn.scpt
 cd ~/projects/casy-repo/docker-development && docker-compose up -d
 cd ~/projects/dx-environment && docker-compose up -d
 
-cd ~ && tmux new-session -s t_furuya -d
+tmux new-session -s takuma -d -c ~
 
 new_session() {
     local session_name=$1
@@ -33,8 +33,6 @@ new_session() {
         # セッションが存在しない場合、新しいセッションを作成
         tmux new-session -s $session_name -c $project_path -d
         tmux send-keys -t $session_name 'nvim' C-m
-        tmux new-window -t $session_name -c $project_path
-        tmux select-window -t "$session_name:$project_path"
     fi
 }
 
@@ -45,25 +43,13 @@ new_session casy-daemon
 new_session dx-api
 new_session dx-environment
 new_session dx-hp
-new_session dx-user
-new_session dx-staff
-cd ~/projects/casy-api && tm -n
-cd ~/projects/casy-ruby && tm -n
-cd ~/projects/casy-repo && tm -n
-cd ~/projects/casy-daemon && tm -n
-cd ~/projects/dx-api && tm -n
-cd ~/projects/dx-environment && tm -n
-cd ~/projects/dx-hp && tm -n
-cd ~/projects/dx-user && tm -n
-cd ~/projects/dx-staff && tm -n
+# new_session dx-user
+# new_session dx-staff
 
 SESSION_NAME="_logs"
-
-# セッションが存在するかどうかを確認
 tmux has-session -t $SESSION_NAME 2>/dev/null
 
 if [ $? != 0 ]; then
-    # セッションが存在しない場合、新しいセッションを作成
     tmux new-session -s $SESSION_NAME -d
     tmux split-window -h -t $SESSION_NAME
     tmux split-window -h -t $SESSION_NAME

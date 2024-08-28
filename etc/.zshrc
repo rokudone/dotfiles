@@ -147,9 +147,9 @@ if type tldr > /dev/null; then
   alias man="tldr"
 fi
 
-if type cat > /dev/null; then
-  alias cat="bat"
-fi
+# if type cat > /dev/null; then
+#   alias cat="bat"
+# fi
 
 if [[ -f ~/dircolors/dircolors.solarized && -x `which dircolors` ]]; then
   eval `dircolors ${HOME}/dircolors/dircolors.solarized`
@@ -487,6 +487,20 @@ zinit light-mode for \
 export PATH="$PATH:/Users/filriya/.local/bin"
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
+export PATH="$HOME/.nodenv/bin:$PATH"
+eval "$(nodenv init -)"
+export PATH="$HOME/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
 export PATH="$HOME/.orbstack/bin:$PATH"
+
+### End of Zinit's installer chunk
+
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zdharma-continuum/zinit-annex-as-monitor \
+    zdharma-continuum/zinit-annex-bin-gem-node \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-rust
 
 ### End of Zinit's installer chunk

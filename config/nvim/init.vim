@@ -179,9 +179,9 @@ nnoremap Q <Nop>
 " macの辞書を開く
 nnoremap g? :!open dict://<cword><CR>
 
-" clipboardにコピーする
-vnoremap Y "+y
-vnoremap D "+d
+" " clipboardにコピーする
+" vnoremap Y "+y
+" vnoremap D "+d
 
 "fold
 nnoremap zl zo
@@ -1523,9 +1523,6 @@ command! Code call s:open_code()
 
 
 
-"let g:python3_host_prog = substitute(system('which python3'),"\n","","")
-let g:python3_host_prog = expand("~/.pyenv/versions/3.12.0/bin/python")
-
 
 "-----------------------
 " 表示系
@@ -1617,6 +1614,9 @@ augroup mycolorscheme
   autocmd!
   autocmd ColorScheme * hi Normal term=none ctermbg=none guibg=none
 augroup END
+
+" let g:python3_host_prog = substitute(system('which python3'),"\n","","")
+let g:loaded_python3_provider = 0
 
 if (&background == 'dark')
   " let g:airline_theme="sonokai"
@@ -1769,7 +1769,7 @@ set winblend=10
 set fillchars=eob:\   " ファイル末尾以降の行頭は半角スペース
 " set iskeyword=@,48-57,_,192-255,#,$,-
 set iskeyword+=-,$,#
-" set clipboard+=unnamedplus
+set clipboard=unnamed,unnamedplus
 set isfname-=:
 set synmaxcol=200
 

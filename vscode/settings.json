@@ -1,6 +1,6 @@
 {
     "editor.fontSize": 18,
-    "editor.fontFamily": "\"S2GNerdFontCompleteNerdFontNerdFontComplete-font\", \"S2GUniFont Nerd Font\", \"Yomogi Nerd Font\"",
+    "editor.fontFamily": "\"HackGen Console NF\", \"きろ字\", \"ゆたココ\", \"Yomogi\", \"S2GUniFont Nerd Font\"",
     "editor.insertSpaces": true,
     "editor.rulers": [
         120
@@ -108,19 +108,19 @@
     "vim.normalModeKeyBindingsNonRecursive": [
         {
             "before": [ "f" ],
-            "after": [ "leader", "leader", "f" ]
+            "after": [ "<leader>", "<leader>", "f" ]
         },
         {
             "before": [ "F" ],
-            "after": [ "leader", "leader", "F" ]
+            "after": [ "<leader>", "<leader>", "F" ]
         },
         {
             "before": [ "t" ],
-            "after": [ "leader", "leader", "t" ]
+            "after": [ "<leader>", "<leader>", "t" ]
         },
         {
             "before": [ "T" ],
-            "after": [ "leader", "leader", "T" ]
+            "after": [ "<leader>", "<leader>", "T" ]
         },
         {
             "before": [ "leader", "s" ],
@@ -145,6 +145,10 @@
         {
             "before": [ "leader", "Q" ],
             "after": [ ":", "q", "a", "<CR>" ]
+        },
+        {
+            "before": [ "leader", "s" ],
+            "after": [ ":", "%", "s", "/" ]
         },
         {
             "before": [ "j" ],
@@ -188,6 +192,12 @@
             "before": ["<D-[>"],
             "after": ["<Esc>"]
         }
+    ],
+    "vim.visualModeKeyBindings": [
+        {
+            "before": [ "leader", "s" ],
+            "after": [ ":", "s", "/" ]
+        },
     ],
     "vim.statusBarColorControl": false,
     "vim.surround": true,
@@ -255,7 +265,7 @@
     "editor.quickSuggestionsDelay": 500,
     "debug.enableStatusBarColor": false,
     "editor.experimentalWhitespaceRendering": "off",
-    "workbench.preferredDarkColorTheme": "Ayu Dark Lighter",
+    "workbench.preferredDarkColorTheme": "Ayu Monokai",
     "workbench.preferredLightColorTheme": "Ayu Dark Bordered",
     "window.autoDetectColorScheme": true,
     "workbench.iconTheme": "seti",
@@ -268,5 +278,14 @@
     },
     "cursor.cmdk.useThemedDiffBackground": true,
     "cursor.cmdk.ghostTextAtSymbols": true,
-    "cursor.chat.ghostTextAtSymbols": true
+    "cursor.chat.ghostTextAtSymbols": true,
+    "[css]": {
+        "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+    },
+    "css.lint.validProperties": [
+        "composes"
+    ],
+    "files.associations": {
+        "*.jbuilder": "ruby"
+    }
 }
