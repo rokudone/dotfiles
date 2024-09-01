@@ -991,6 +991,7 @@ if dein#tap('coc.nvim')
         \ '@yaegassy/coc-volar',
         \ '@yaegassy/coc-volar-tools',
         \ '@yaegassy/coc-tailwindcss3',
+        \ 'coc-solargraph',
         \ 'coc-tsserver',
         \ 'coc-php-cs-fixer',
         \ 'coc-solargraph',
