@@ -152,7 +152,27 @@ alias drmV='docker volume rm $(docker volume ls -qf dangling=true)'
 # alias dmx='docker-machine stop'
 
 # Docker Compose (c)
+docker-compose-attach() {
+    local service
+    if [[ $# -eq 0 ]]; then
+        service=$(docker-compose config --services | sort | fzf --height 40% --reverse)
+    else
+        service="$1"
+    fi
+    if [[ -n $service ]]; then
+        echo "Attaching to $service..."
+
+        # コンテナにアタッチ
+        docker-compose attach --detach-keys="ctrl-c" $service
+
+        echo "Detached from $service. The container is still running."
+    else
+        echo "No service selected or specified."
+    fi
+}
+
 alias dc='docker compose'
+alias dca='docker-compose-attach'
 alias dcb='docker compose build'
 alias dcB='docker compose build --no-cache'
 alias dcd='docker compose down'

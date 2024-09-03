@@ -84,6 +84,14 @@ unsetopt FLOW_CONTROL
 stty stop undef
 stty start undef
 
+# 全ての割り込み信号を無効化
+# stty intr undef  # Ctrl+C
+# stty quit undef  # Ctrl+\
+# stty susp undef  # Ctrl+Z
+# stty stop undef  # Ctrl+S
+# stty start undef # Ctrl+Q
+
+
 # fzf
 if [ -f ~/.zsh.d/fzf.zsh ]; then
   source ~/.zsh.d/fzf.zsh

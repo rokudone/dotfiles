@@ -307,6 +307,11 @@ action = "Copy"
 key = "C"
 mods = "Command"
 
+# [[keyboard.bindings]]
+# chars = "\u0000"
+# key = "C"
+# mods = "Control"
+
 [[keyboard.bindings]]
 action = "Quit"
 key = "Q"

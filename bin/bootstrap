@@ -23,8 +23,8 @@ cd ~/projects/dx-environment && docker-compose up -d
 tmux new-session -s takuma -d -c ~
 
 new_session() {
-    local session_name=$1
     local project_path="$HOME/projects/$1"
+    local session_name=$(basename $1)
 
     # セッションが存在するかどうかを確認
     tmux has-session -t $session_name 2>/dev/null
@@ -36,10 +36,10 @@ new_session() {
     fi
 }
 
-new_session casy-api
-new_session casy-ruby
+new_session casy-hub/casy-api
+new_session casy-hub/casy-ruby
+new_session casy-hub/casy-daemon
 new_session casy-repo
-new_session casy-daemon
 new_session dx-api
 new_session dx-environment
 new_session dx-hp

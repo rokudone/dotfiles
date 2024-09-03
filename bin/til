@@ -1,7 +1,7 @@
 #!/bin/zsh
 
-# rootDir="$(ghq root)/til"
-rootDir="${TIL_DIR}"
+rootDir="$(ghq root)/til"
+# rootDir="${TIL_DIR}"
 
 if [ ! -d ${rootDir} ]; then
   echo "tilディレクトリが存在しません"

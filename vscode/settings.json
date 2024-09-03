@@ -265,7 +265,7 @@
     "editor.quickSuggestionsDelay": 500,
     "debug.enableStatusBarColor": false,
     "editor.experimentalWhitespaceRendering": "off",
-    "workbench.preferredDarkColorTheme": "Ayu Monokai",
+    "workbench.preferredDarkColorTheme": "Ayu Dark Lighter",
     "workbench.preferredLightColorTheme": "Ayu Dark Bordered",
     "window.autoDetectColorScheme": true,
     "workbench.iconTheme": "seti",
