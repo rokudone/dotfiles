@@ -163,7 +163,7 @@ docker-compose-attach() {
         echo "Attaching to $service..."
 
         # コンテナにアタッチ
-        docker-compose attach --detach-keys="ctrl-c" $service
+        docker-compose attach $service
 
         echo "Detached from $service. The container is still running."
     else
