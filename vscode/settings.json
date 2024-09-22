@@ -287,6 +287,5 @@
     ],
     "files.associations": {
         "*.jbuilder": "ruby"
-    },
-    "window.zoomLevel": 1
+    }
 }

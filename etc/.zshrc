@@ -16,8 +16,8 @@ export LC_CTYPE=ja_JP.UTF-8
 #   curl -L https://raw.githubusercontent.com/docker/cli/master/contrib/completion/zsh/_docker > "$HOME"/.zsh.bundle/completion/_docker curl -L https://raw.githubusercontent.com/docker/compose/master/contrib/completion/zsh/_docker-compose  > "$HOME"/.zsh.bundle/completion/_docker-compose
 # fi
 
-# autoload -Uz compinit
-# compinit
+autoload -Uz compinit
+compinit
 
 if [ ! -e "$HOME"/.tmux.bundle/tpm ]; then
     git clone https://github.com/tmux-plugins/tpm "${HOME}/.tmux.bundle/tpm"

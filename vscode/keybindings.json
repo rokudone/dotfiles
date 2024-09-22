@@ -1037,5 +1037,15 @@
     {
         "key": "ctrl+shift+tab",
         "command": "workbench.action.previousEditorInGroup"
+    },
+    {
+        "key": "cmd+enter",
+        "command": "renameFile",
+        "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+    },
+    {
+        "key": "enter",
+        "command": "-renameFile",
+        "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
     }
 ]

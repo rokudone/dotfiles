@@ -1,0 +1,23 @@
+#!/bin/bash
+
+cd ~/projects/casy-repo/docker-development
+
+echo "docker-compose run bo cp ./tmp/mask_db.fin ."
+docker-compose run bo cp ./tmp/mask_db.fin .
+echo "docker-compose run bo cp ./tmp/mask_db_large.fin ."
+docker-compose run bo cp ./tmp/mask_db_large.fin .
+echo "docker-compose run bo cp ./tmp/casy_stats.dmp ."
+docker-compose run bo cp ./tmp/casy_stats.dmp .
+
+cd ~/projects/casy-hub/casy-ruby
+
+echo "cp ./mask_db.fin /Volumes/WD\ 2TB/c/"
+cp ./mask_db.fin /Volumes/WD\ 2TB/c/
+echo "cp ./mask_db_large.fin /Volumes/WD\ 2TB/c/"
+cp ./mask_db_large.fin /Volumes/WD\ 2TB/c/
+echo "cp ./casy_stats.dmp /Volumes/WD\ 2TB/c/"
+cp ./casy_stats.dmp /Volumes/WD\ 2TB/c/
+
+rm ./mask_db.fin
+rm ./mask_db_large.fin
+rm ./casy_stats.dmp

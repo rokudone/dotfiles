@@ -190,10 +190,34 @@ _git_multi_branch_create() {
 
 compdef _git_multi_branch_create git_multi_branch_create
 
+function git_now() {
+    if [ $# -eq 0 ]; then
+        git add -A && git commit -m "[from now] $(date '+%Y-%m-%d %H:%M:%S')"
+    else
+        git add -A && git commit -m "[from now] $*"
+    fi
+}
+
+function git_now_reset() {
+  EXEC_CMD='git commit --amend --no-edit --date="$(date -R)" && if git log -1 --pretty=%B | grep -q "^\[from now\] "; then git commit --amend -m "$(git log -1 --pretty=%B | sed "s/^\[from now\] //")"; fi'
+  git rebase -i $1 --exec "$EXEC_CMD"
+}
+
+# git_now_reset の補完関数
+_git_now_reset() {
+  local -a branches
+  branches=($(git branch --format='%(refname:short)' 2>/dev/null))
+  _describe 'branches' branches
+}
+
+# git_now_reset に補完を設定
+compdef _git_now_reset git_now_reset
+
 # # Commit (c)
 # alias gc='git commit --verbose'
 # alias gc='git commit -m "[temp] $(date "+%Y/%m/%d %H:%M:%S")"'
-alias gn='git now'
+alias gn='git_now'
+alias gnr='git_now_reset'
 alias gcm='git commit --message'
 alias gca='git commit --verbose --amend'
 alias gcA='git commit --verbose --amend --reuse-message HEAD'
@@ -389,11 +413,26 @@ alias gpc='git push --set-upstream origin "$(git-branch-current 2> /dev/null)"'
 alias gpp='git pull --rebase origin "$(git-branch-current 2> /dev/null)" && git push origin "$(git-branch-current 2> /dev/null)"'
 alias gP='git lfs push'
 
+git_rebase_interactive() {
+    local current_branch=$(git rev-parse --abbrev-ref HEAD)
+    if [[ $# -eq 0 ]]; then
+        # 引数がない場合、現在のブランチのoriginに対してrebase
+        local target_branch="origin/$current_branch"
+        echo "Rebasing interactively onto $target_branch"
+        git rebase -i "$target_branch"
+    else
+        # 引数がある場合、指定されたブランチに対してrebase
+        local target_branch="$1"
+        echo "Rebasing interactively onto $target_branch"
+        git rebase -i "$target_branch"
+    fi
+}
+
 # Rebase (r)
 alias gr='git rebase'
 alias gra='git rebase --abort'
 alias grc='git rebase --continue'
-alias gri='git rebase --interactive'
+alias gri='git_rebase_interactive'
 alias grs='git rebase --skip'
 alias gro='git rebase --onto'
 alias grf='git_rebase_root_all'
@@ -505,9 +544,9 @@ alias -g B='`git-branch-list| fzf --query="* "| perl -pe "s/^  . //g"`'
 function git-stash-pop()
 {
   stash=$(git stash list|grep "on $(git name-rev --name-only HEAD):"| head -n 1 | perl -lne 'print $1 if /(stash\@\{[0-9]*\})/')
-  if [[ $stash != '' ]]; then 
+  if [[ $stash != '' ]]; then
     git stash pop $stash
-  else 
+  else
     echo 'no stash on this branch'
   fi
 }
@@ -527,7 +566,7 @@ function git-pull-rebase-all()
     local remotes=$(git branch -r)
 
     # originが存在すれば実行
-    if echo $remotes | grep -q $br; then 
+    if echo $remotes | grep -q $br; then
 
       echo -e "\033[0;36mgit checkout $br && git pull --rebase origin $br\033[0;m"
       git pull --rebase origin $br
@@ -564,7 +603,7 @@ function git-align-branch()
   # rebase --onto
   local branch_point=$(git show-branch --merge-base $newbase $branch) # 分岐点
   echo -e "\033[0;36mgit rebase --onto $newbase $branch_point [$branch]\033[0;m"
-  git checkout $branch && git rebase --onto $newbase $branch_point 
+  git checkout $branch && git rebase --onto $newbase $branch_point
 
   # conflict したら そこで終了
   local conflict_count=$(git diff --name-only --diff-filter=U | wc -l)
@@ -590,4 +629,3 @@ function git-align-branch-all()
     git-align-branch "$newbase" "$branch" || return 1
   done
 }
-

@@ -7,16 +7,7 @@ hs.hotkey.bind({"ctrl"}, "space", function()
   end
 end)
 
--- hs.hotkey.bind({"alt", "shift"}, "space", function()
---   local brave = hs.application.find('brave')
---   if brave:isFrontmost() then
---     if brave then brave:hide() end
---   else
---     hs.application.launchOrFocus("/Applications/Brave Browser.app")
---   end
--- end)
-
-hs.hotkey.bind({"cmd"}, "space", function()
+hs.hotkey.bind({"cmd", "space"}, "space", function()
   local brave = hs.application.find('brave')
   if brave:isFrontmost() then
     if brave then brave:hide() end

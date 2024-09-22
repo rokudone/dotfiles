@@ -65,6 +65,7 @@ brew install ripgrep
 brew install yarn
 brew install nkf
 brew install n
+brew install nodenv
 brew install deno
 
 brew install php

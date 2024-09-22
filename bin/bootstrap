@@ -1,20 +1,5 @@
 #!/bin/bash
 
-open -a "slack.app"
-open -a "arc.app"
-# open -a "warp.app"
-open -a "obsidian.app"
-open -a "cursor.app"
-open -a "brave browser.app"
-osascript ~/bin/connect_vpn.scpt
-
-# osascript ~/bin/fullscreen.scpt "Brave"
-# osascript ~/bin/fullscreen.scpt "Warp"
-# osascript ~/bin/fullscreen.scpt "Obsidian"
-# osascript ~/bin/fullscreen.scpt "Slack"
-cd ~/projects/casy-repo/docker-development && docker-compose up -d
-cd ~/projects/dx-environment && docker-compose up -d
-
 osascript ~/bin/connect_vpn.scpt
 
 cd ~/projects/casy-repo/docker-development && docker-compose up -d
