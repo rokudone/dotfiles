@@ -1,6 +1,6 @@
 {
     "editor.fontSize": 18,
-    "editor.fontFamily": "\"HackGen Console NF\", \"きろ字\", \"ゆたココ\", \"Yomogi\", \"S2GUniFont Nerd Font\"",
+    "editor.fontFamily": "\"S2GUniFont Nerd Font\", \"Yomogi\", \"ゆたココ\", \"HackGen Console NF\"",
     "editor.insertSpaces": true,
     "editor.rulers": [
         120

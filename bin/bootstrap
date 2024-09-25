@@ -18,6 +18,7 @@ new_session() {
         # セッションが存在しない場合、新しいセッションを作成
         tmux new-session -s $session_name -c $project_path -d
         tmux send-keys -t $session_name 'nvim' C-m
+        tmux split-window -h -t $session_name
     fi
 }
 

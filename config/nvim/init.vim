@@ -302,10 +302,9 @@ nnoremap <silent> <C-j> :call search ("^". matchstr (getline (line (".")), '\(\s
 
 if dein#tap('fzf.vim')
   " map <Leader>f [fzf]
-  " nnoremap <silent> <Leader>p :<C-u>GFiles<CR>
   nnoremap <silent> <C-p>     :<C-u>GFiles<CR>
   nnoremap          <Leader>F :<C-u>GFilesWithPlaceholder <C-r><C-w><CR>
-  nnoremap <silent> <Leader>u :<C-u>Files<CR>
+  " nnoremap <silent> <C-p>     :<C-u>Files<CR>
   " nnoremap <silent> <Leader>u <Nop>
   nnoremap <silent> <Leader>ee :<C-u>Dotfiles<CR>
   nnoremap <silent> <Leader>b :<C-u>Buffers<CR>

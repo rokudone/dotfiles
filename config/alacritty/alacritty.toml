@@ -457,6 +457,16 @@ chars = "\u001Bz"
 key = "Z"
 mods = "Alt"
 
+[[keyboard.bindings]]
+action = "SelectNextTab"
+key = "Tab"
+mods = "Control"
+
+[[keyboard.bindings]]
+action = "SelectPreviousTab"
+key = "Tab"
+mods = "Control|Shift"
+
 [mouse]
 hide_when_typing = true
 

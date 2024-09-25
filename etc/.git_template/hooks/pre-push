@@ -40,6 +40,8 @@ do
             range="$remote_sha..$local_sha"
         fi
 
+        git rev-list -n 1 "$range"
+
         # Check for WIP commit
         commit=`git rev-list -n 1 --grep '^\[from now\]' "$range"`
         if [ -n "$commit" ]

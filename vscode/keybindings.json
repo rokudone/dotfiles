@@ -131,11 +131,6 @@
     //     "when": "editorTextFocus && vim.active && !inDebugRepl && vim.mode != 'Insert' && isMac"
     // },
     {
-        "key": "cmd+q",
-        "command": "extension.vim_ctrl+q",
-        "when": "editorTextFocus && vim.active && !inDebugRepl && vim.mode != 'Insert' && isMac"
-    },
-    {
         "key": "cmd+r",
         "command": "extension.vim_ctrl+r",
         "when": "editorTextFocus && vim.active && !inDebugRepl && vim.mode != 'Insert' && isMac"
@@ -715,14 +710,6 @@
         "command": "-workbench.action.focusRightGroup"
     },
     {
-        "key": "cmd+w shift+q",
-        "command": "workbench.action.closeAllGroups"
-    },
-    {
-        "key": "cmd+r shift+cmd+w",
-        "command": "-workbench.action.closeAllGroups"
-    },
-    {
         "key": "cmd+w ctrl+shift+\\",
         "command": "workbench.action.joinEditorInGroup",
         "when": "sideBySideEditorActive"
@@ -819,10 +806,6 @@
         "key": "cmd+r cmd+m",
         "command": "-workbench.action.toggleMaximizeEditorGroup",
         "when": "editorPartMaximizedEditorGroup || editorPartMultipleEditorGroups"
-    },
-    {
-        "key": "cmd+w shift+w",
-        "command": "workbench.action.closeEditorsInGroup"
     },
     {
         "key": "cmd+r w",
@@ -1047,5 +1030,13 @@
         "key": "enter",
         "command": "-renameFile",
         "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+    },
+    {
+        "key": "cmd+q",
+        "command": "workbench.action.closeWindow"
+    },
+    {
+        "key": "shift+cmd+w",
+        "command": "workbench.action.closeEditorsInGroup"
     }
 ]
