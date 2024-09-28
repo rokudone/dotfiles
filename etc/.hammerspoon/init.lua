@@ -7,7 +7,6 @@ hs.hotkey.bind({"ctrl"}, "space", function()
   end
 end)
 
-
 -- hs.hotkey.bind({"alt", "shift"}, "space", function()
 --   local brave = hs.application.find('brave')
 --   if brave:isFrontmost() then
@@ -16,8 +15,8 @@ end)
 --     hs.application.launchOrFocus("/Applications/Brave Browser.app")
 --   end
 -- end)
-
-hs.hotkey.bind({"cmd"}, "space", function()
+--
+hs.hotkey.bind({"cmd", "space"}, "space", function()
   local edge = hs.application.find('edge')
   if edge:isFrontmost() then
     if edge then edge:hide() end
@@ -52,8 +51,4 @@ hs.hotkey.bind({"alt", "shift"}, "t", function()
   if not tableplus or not tableplus:isFrontmost() then
     hs.application.launchOrFocus("/Applications/TablePlus.app")
   end
-end)
-
-hs.hotkey.bind({"alt", "shift"}, "r", function()
-  hs.reload()
 end)
