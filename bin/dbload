@@ -18,6 +18,8 @@ docker-compose run bo cp ./mask_db.fin ./tmp/
 echo "docker-compose run bo cp ./casy_stats.dmp ./tmp/"
 docker-compose run bo cp ./casy_stats.dmp ./tmp/
 
+docker compose run bo tools/refresh_db.sh
+
 cd ~/projects/casy-hub/casy-ruby
 
 rm ./mask_db.fin
