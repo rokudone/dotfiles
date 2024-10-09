@@ -1032,11 +1032,15 @@
         "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
     },
     {
-        "key": "cmd+q",
-        "command": "workbench.action.closeWindow"
-    },
-    {
         "key": "shift+cmd+w",
         "command": "workbench.action.closeEditorsInGroup"
+    },
+    {
+        "key": "cmd+q",
+        "command": "-workbench.action.quit"
+    },
+    {
+        "key": "ctrl+shift+cmd+q",
+        "command": "workbench.action.closeWindow"
     }
 ]

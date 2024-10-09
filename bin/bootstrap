@@ -14,11 +14,15 @@ new_session() {
     # セッションが存在するかどうかを確認
     tmux has-session -t $session_name 2>/dev/null
 
+    cd $project_path
+
     if [ $? != 0 ]; then
         # セッションが存在しない場合、新しいセッションを作成
         tmux new-session -s $session_name -c $project_path -d
         tmux send-keys -t $session_name 'nvim' C-m
         tmux split-window -h -t $session_name
+        tmux new-window -t $session_name
+        tmux previous-window -t $session_name
     fi
 }
 
@@ -31,6 +35,9 @@ new_session dx-environment
 new_session dx-hp
 # new_session dx-user
 # new_session dx-staff
+
+
+cd ~
 
 SESSION_NAME="_logs"
 tmux has-session -t $SESSION_NAME 2>/dev/null

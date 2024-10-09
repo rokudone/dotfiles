@@ -279,6 +279,8 @@
     "cursor.cmdk.useThemedDiffBackground": true,
     "cursor.cmdk.ghostTextAtSymbols": true,
     "cursor.chat.ghostTextAtSymbols": true,
+    "cursor.general.gitGraphIndexing": "enabled",
+    "cursor.chat.alwaysSearchWeb": true,
     "[css]": {
         "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
     },

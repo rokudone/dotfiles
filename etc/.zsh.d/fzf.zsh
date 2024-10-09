@@ -55,7 +55,7 @@ else
     -m
     --height 30%
     --reverse
-    --bind ctrl-q:beginning-of-line,ctrl-o:toggle-up,ctrl-i:toggle-down,ctrl-r:toggle-all,ctrl-g:toggle-sort,?:preview:'bat --style=numbers --line-range :500 {}'
+    --bind ctrl-q:beginning-of-line,ctrl-o:toggle-up,ctrl-i:toggle-down,ctrl-r:toggle-all,ctrl-g:toggle-sort
   "
 fi
 export FZF_COMPLETION_TRIGGER=','

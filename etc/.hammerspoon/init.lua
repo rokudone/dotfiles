@@ -16,7 +16,8 @@ end)
 --   end
 -- end)
 --
-hs.hotkey.bind({"cmd", "space"}, "space", function()
+
+hs.hotkey.bind({}, "home", function()
   local edge = hs.application.find('edge')
   if edge:isFrontmost() then
     if edge then edge:hide() end
@@ -25,30 +26,42 @@ hs.hotkey.bind({"cmd", "space"}, "space", function()
   end
 end)
 
-hs.hotkey.bind({"alt", "shift"}, "s", function()
-  local slack = hs.application.find('slack')
-  if not slack or not slack:isFrontmost() then
-    hs.application.launchOrFocus("/Applications/Slack.app")
-  end
-end)
+local function bindAppHotkey(key, appName)
+  local appPath = "/Applications/" .. appName .. ".app"
+  hs.hotkey.bind({"alt", "shift"}, key, function()
+    local app = hs.application.find(appName)
+    if not app or not app:isFrontmost() then
+      hs.application.launchOrFocus(appPath)
+    end
+  end)
+end
 
-hs.hotkey.bind({"alt", "shift"}, "a", function()
-  local arc = hs.application.find('Arc')
-  if not arc or not arc:isFrontmost() then
-    hs.application.launchOrFocus("/Applications/Arc.app")
-  end
-end)
+-- bindAppHotkey('q', '')
+-- bindAppHotkey('w', '')
+-- bindAppHotkey('e', '')
+-- bindAppHotkey('r', '')
+-- bindAppHotkey('t', 'TablePlus')
+-- bindAppHotkey('y', '')
+-- bindAppHotkey('u', '')
+-- bindAppHotkey('i', '')
+-- bindAppHotkey('o', '')
+-- bindAppHotkey('p', '')
 
-hs.hotkey.bind({"alt", "shift"}, "d", function()
-  local obsidian = hs.application.find('Obsidian')
-  if not obsidian or not obsidian:isFrontmost() then
-    hs.application.launchOrFocus("/Applications/Obsidian.app")
-  end
-end)
+bindAppHotkey('a', 'Arc')
+bindAppHotkey('s', 'Slack')
+-- bindAppHotkey('d', '')
+-- bindAppHotkey('f', '')
+-- bindAppHotkey('g', '')
+-- bindAppHotkey('h', '')
+-- bindAppHotkey('j', '')
+-- bindAppHotkey('k', '')
+-- bindAppHotkey('l', '')
 
-hs.hotkey.bind({"alt", "shift"}, "t", function()
-  local tableplus = hs.application.find('TablePlus')
-  if not tableplus or not tableplus:isFrontmost() then
-    hs.application.launchOrFocus("/Applications/TablePlus.app")
-  end
-end)
+
+-- bindAppHotkey('z', '')
+bindAppHotkey('x', 'Obsidian')
+bindAppHotkey('c', 'Cursor')
+-- bindAppHotkey('v', '')
+-- bindAppHotkey('b', '')
+-- bindAppHotkey('n', '')
+-- bindAppHotkey('m', '')

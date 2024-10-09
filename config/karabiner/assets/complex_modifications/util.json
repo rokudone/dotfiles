@@ -94,7 +94,23 @@
             "to_if_invoked": [ { "set_variable": { "name": "command-q", "value": 0 } }
             ],
             "to_if_canceled": [ { "set_variable": { "name": "command-q", "value": 0 } } ]
-          }
+          },
+          "conditions": [
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.apple\\.Terminal$",
+                "^com\\.googlecode\\.iterm2$",
+                "^com\\.jetbrains\\.rubymine$",
+                "^co\\.zeit\\.hyperterm$",
+                "^co\\.zeit\\.hyper$",
+                "^org\\.alacritty$",
+                "^dev\\.warp\\.Warp-Stable$",
+                "^net\\.kovidgoyal\\.kitty$",
+                "^com\\.todesktop\\.230313mzl4w4u92$"
+              ]
+            }
+          ]
         }
       ]
     }
