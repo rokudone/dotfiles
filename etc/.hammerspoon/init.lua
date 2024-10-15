@@ -40,7 +40,7 @@ end
 -- bindAppHotkey('w', '')
 -- bindAppHotkey('e', '')
 -- bindAppHotkey('r', '')
--- bindAppHotkey('t', 'TablePlus')
+bindAppHotkey('t', 'TablePlus')
 -- bindAppHotkey('y', '')
 -- bindAppHotkey('u', '')
 -- bindAppHotkey('i', '')

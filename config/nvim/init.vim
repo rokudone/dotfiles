@@ -1238,6 +1238,13 @@ if dein#tap('vim-airline')
   let g:airline#extensions#tabline#switch_buffers_and_tabs = 1
   let airline#extensions#tabline#current_first = 0
 
+  let g:airline_section_x = ''
+  let g:airline_section_y = ''
+
+ " let g:airline_section_a = ' ✚ %L'    " 例: 現在のバッファ番号を表示
+" let g:airline_section_b = '  %m'    " 例: ファイルの状態を表示
+" let g:airline_section_c = ' %f'       " 例: ファイル名を表示 let g:airline_section_z = ''
+
   let g:airline#extensions#tabline#tabtitle_formatter = 'MyTabTitleFormatter'
   function MyTabTitleFormatter(n)
     let buflist = tabpagebuflist(a:n)
