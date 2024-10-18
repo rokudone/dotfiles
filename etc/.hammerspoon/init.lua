@@ -49,7 +49,7 @@ bindAppHotkey('t', 'TablePlus')
 
 bindAppHotkey('a', 'Arc')
 bindAppHotkey('s', 'Slack')
--- bindAppHotkey('d', '')
+bindAppHotkey('d', 'Obsidian')
 -- bindAppHotkey('f', '')
 -- bindAppHotkey('g', '')
 -- bindAppHotkey('h', '')
@@ -59,7 +59,7 @@ bindAppHotkey('s', 'Slack')
 
 
 -- bindAppHotkey('z', '')
-bindAppHotkey('x', 'Obsidian')
+-- bindAppHotkey('x', '')
 bindAppHotkey('c', 'Cursor')
 -- bindAppHotkey('v', '')
 -- bindAppHotkey('b', '')

@@ -46,6 +46,7 @@
     },
     "[ruby]": {
         "editor.defaultFormatter": "castwide.solargraph",
+        // "editor.defaultFormatter": "Shopify.ruby-lsp", // Use the Ruby LSP as the default formatter
         "editor.formatOnSave": false,
         "editor.tabSize": 2,
         "editor.insertSpaces": true,
@@ -53,7 +54,7 @@
         "editor.formatOnType": true,
         "editor.wordSeparators": "`~@#$%^&*()-=+[{]}\\|;:'\",.<>/",
     },
-    "rubyLsp.rubyVersionManager": "rbenv",
+    // "rubyLsp.rubyVersionManager": "rbenv",
     "rubyLsp.formatter": "rubocop",
     "rubyLsp.enabledFeatures": {
         "codeActions": true,
@@ -87,7 +88,7 @@
     "solargraph.rename": true, // シンボルの名前変更を有効にするかどうか
     "solargraph.references": true, // 参照検索を有効にするかどうか
     "solargraph.folding": true, // 折りたたみ範囲を有効にするかどうか
-    "solargraph.transport": "socket", // 通信方法（socket、stdio、externalから選択）
+    "solargraph.transport": "stdio", // 通信方法（socket、stdio、externalから選択）
     "solargraph.logLevel": "warn",
     "editor.inlineSuggest.enabled": true,
     "editor.tabSize": 2,
@@ -280,7 +281,6 @@
     "cursor.cmdk.ghostTextAtSymbols": true,
     "cursor.chat.ghostTextAtSymbols": true,
     "cursor.general.gitGraphIndexing": "enabled",
-    "cursor.chat.alwaysSearchWeb": true,
     "[css]": {
         "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
     },
@@ -290,5 +290,6 @@
     "files.associations": {
         "*.jbuilder": "ruby"
     },
-    "workbench.editor.splitSizing": "distribute"
+    "workbench.editor.splitSizing": "distribute",
+    "window.zoomLevel": 1
 }

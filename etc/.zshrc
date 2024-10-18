@@ -68,6 +68,9 @@ case $OSTYPE in
     ;;
 esac
 
+export LDFLAGS="-L/opt/homebrew/lib"
+export CPPFLAGS="-I/opt/homebrew/include"
+
 # Source *.zsh
 ZSHHOME="${HOME}/.zsh.d"
 
