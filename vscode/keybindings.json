@@ -554,11 +554,6 @@
     },
     {
         "key": "cmd+f12",
-        "command": "-editor.action.goToImplementation",
-        "when": "editorHasImplementationProvider && editorTextFocus && !isInEmbeddedEditor"
-    },
-    {
-        "key": "cmd+f12",
         "command": "editor.action.goToTypeDefinition"
     },
     {
@@ -844,10 +839,6 @@
         "when": "terminalEditorFocus && terminalFocus && terminalHasBeenCreated || terminalEditorFocus && terminalFocus && terminalProcessSupported"
     },
     {
-        "key": "alt+f12",
-        "command": "editor.action.goToImplementation"
-    },
-    {
         "key": "shift+cmd+w",
         "command": "-workbench.action.closeWindow"
     },
@@ -908,16 +899,6 @@
     {
         "key": "cmd+[",
         "command": "extension.vim_escape",
-    },
-    {
-        "key": "ctrl+f12",
-        "command": "editor.action.goToImplementation",
-        "when": "editorHasImplementationProvider && editorTextFocus"
-    },
-    {
-        "key": "cmd+f12",
-        "command": "-editor.action.goToImplementation",
-        "when": "editorHasImplementationProvider && editorTextFocus"
     },
     {
         "key": "alt+1",

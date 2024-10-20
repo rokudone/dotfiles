@@ -27,9 +27,9 @@ new_session() {
     fi
 }
 
-new_session casy-hub/casy-api
-new_session casy-hub/casy-ruby
-new_session casy-hub/casy-daemon
+# new_session casy-hub/casy-api
+# new_session casy-hub/casy-ruby
+# new_session casy-hub/casy-daemon
 new_session casy-hub
 # new_session casy-repo
 new_session dx-api

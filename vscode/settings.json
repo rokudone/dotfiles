@@ -45,8 +45,8 @@
         "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
     },
     "[ruby]": {
-        "editor.defaultFormatter": "castwide.solargraph",
-        // "editor.defaultFormatter": "Shopify.ruby-lsp", // Use the Ruby LSP as the default formatter
+        // "editor.defaultFormatter": "castwide.solargraph",
+        "editor.defaultFormatter": "Shopify.ruby-lsp", // Use the Ruby LSP as the default formatter
         "editor.formatOnSave": false,
         "editor.tabSize": 2,
         "editor.insertSpaces": true,
@@ -54,8 +54,8 @@
         "editor.formatOnType": true,
         "editor.wordSeparators": "`~@#$%^&*()-=+[{]}\\|;:'\",.<>/",
     },
-    // "rubyLsp.rubyVersionManager": "rbenv",
     "rubyLsp.formatter": "rubocop",
+    "rubyLsp.bundleGemfile": "/Users/filriya/.ruby-lsp/Gemfile",
     "rubyLsp.enabledFeatures": {
         "codeActions": true,
         "diagnostics": true,
@@ -291,5 +291,6 @@
         "*.jbuilder": "ruby"
     },
     "workbench.editor.splitSizing": "distribute",
-    "window.zoomLevel": 1
+    "window.zoomLevel": 1,
+    "window.confirmSaveUntitledWorkspace": false
 }
