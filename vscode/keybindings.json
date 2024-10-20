@@ -1023,5 +1023,9 @@
     {
         "key": "shift+cmd+q",
         "command": "workbench.action.closeWindow"
+    },
+    {
+        "key": "ctrl+f12",
+        "command": "editor.action.goToTypeDefinition"
     }
 ]

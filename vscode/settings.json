@@ -55,7 +55,8 @@
         "editor.wordSeparators": "`~@#$%^&*()-=+[{]}\\|;:'\",.<>/",
     },
     "rubyLsp.formatter": "rubocop",
-    "rubyLsp.bundleGemfile": "/Users/filriya/.ruby-lsp/Gemfile",
+    "rubyLsp.enableExperimentalFeatures": true,
+    "rubyLsp.bundleGemfile": "/usr/local/.ruby-lsp/Gemfile",
     "rubyLsp.enabledFeatures": {
         "codeActions": true,
         "diagnostics": true,
