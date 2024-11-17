@@ -20,7 +20,9 @@ end)
 hs.hotkey.bind({}, "home", function()
   local edge = hs.application.find('edge')
   if edge:isFrontmost() then
-    if edge then edge:hide() end
+    if edge then
+      edge:hide()
+    end
   else
     hs.application.launchOrFocus("/Applications/Microsoft Edge.app")
   end
@@ -28,9 +30,11 @@ end)
 
 local function bindAppHotkey(key, appName)
   local appPath = "/Applications/" .. appName .. ".app"
-  hs.hotkey.bind({"alt", "shift"}, key, function()
+  hs.hotkey.bind({"alt"}, key, function()
     local app = hs.application.find(appName)
-    if not app or not app:isFrontmost() then
+    if app:isFrontmost() then
+      app:hide()
+    else
       hs.application.launchOrFocus(appPath)
     end
   end)
@@ -44,12 +48,12 @@ bindAppHotkey('t', 'TablePlus')
 -- bindAppHotkey('y', '')
 -- bindAppHotkey('u', '')
 -- bindAppHotkey('i', '')
--- bindAppHotkey('o', '')
+bindAppHotkey('o', 'Obsidian')
 -- bindAppHotkey('p', '')
 
 bindAppHotkey('a', 'Arc')
 bindAppHotkey('s', 'Slack')
-bindAppHotkey('d', 'Obsidian')
+-- bindAppHotkey('d',)
 -- bindAppHotkey('f', '')
 -- bindAppHotkey('g', '')
 -- bindAppHotkey('h', '')
@@ -58,7 +62,7 @@ bindAppHotkey('d', 'Obsidian')
 -- bindAppHotkey('l', '')
 
 
--- bindAppHotkey('z', '')
+bindAppHotkey('z', 'zoom.us')
 -- bindAppHotkey('x', '')
 bindAppHotkey('c', 'Cursor')
 -- bindAppHotkey('v', '')

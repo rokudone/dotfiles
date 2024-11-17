@@ -1,0 +1,76 @@
+#!/usr/bin/env ruby
+
+# frozen_string_literal: true
+
+require 'date'
+
+# rubocop:disable Naming/VariableName
+# rubocop:disable Naming/AsciiIdentifiers
+
+if ARGV.length < 3
+  puts 'Usage: ruby calc.rb <年> <月> <祝日> (<有休>) (<既に働いた日数>) (<既に働いた時間>)'
+  exit
+end
+
+year = ARGV[0].to_i
+month = ARGV[1].to_i
+display_month = ARGV[1].length == 1 ? "0#{ARGV[1]}" : ARGV[1]
+祝日数 = ARGV[2].to_i
+有休数 = ARGV[3] ? ARGV[3].to_i : 0
+既に働いた日数 = ARGV[4] ? ARGV[4].to_i : 0
+既に働いた時間 = ARGV[5] ? ARGV[5].to_f : 0
+
+月の日数 = Date.new(year, month, -1).day.to_i
+休日数 = 0
+(1..Date.new(year, month, -1).day).each do |day|
+  date = Date.new(year, month, day)
+  休日数 += 1 if date.saturday? || date.sunday?
+end
+休日数 += 祝日数
+所定就業日数 = 月の日数 - 休日数
+
+所定労働時間 = 所定就業日数 * 8
+所定外労働時間 = [(月の日数.to_f / 7 * 40) - 所定労働時間, 0].max
+有休時間 = 有休数 * 8
+時間外労働時間（45時間） = 45 + 有休時間 + 所定外労働時間 # 有休は所定労働時間としてカウントされるが、36協定には含まれない 時間外として働くことができる
+総労働時間（45時間） = 所定労働時間 + 時間外労働時間（45時間）
+時間外労働時間（80時間） = 80 + 有休時間 + 所定外労働時間 # 有休は所定労働時間としてカウントされるが、36協定には含まれない 時間外として働くことができる
+総労働時間（80時間） = 所定労働時間 + 時間外労働時間（80時間）
+
+所定外相当時間 = 既に働いた時間 - (既に働いた日数 * 8)
+残り日数 = 所定就業日数 - 既に働いた日数
+残り労働時間（45時間） = 総労働時間（45時間） - 既に働いた時間
+残り労働時間（80時間） = 総労働時間（80時間） - 既に働いた時間
+
+puts '-------------------- 日数 ---------------------'
+puts "#{year}/#{display_month} 月の日数: #{月の日数}"
+puts "#{year}/#{display_month} 休日数: #{休日数}"
+puts "#{year}/#{display_month} 有休数: #{有休数}"
+puts "#{year}/#{display_month} 所定就業日数: #{所定就業日数}"
+puts "#{year}/#{display_month} 既に働いた日数: #{既に働いた日数}"
+puts '-------------------- 時間 ---------------------'
+puts "#{year}/#{display_month} 所定労働時間: #{所定労働時間}"
+puts "#{year}/#{display_month} 所定外労働時間: #{所定外労働時間}"
+puts "#{year}/#{display_month} 有休時間: #{有休時間}"
+puts "#{year}/#{display_month} 時間外労働時間（45時間）: #{時間外労働時間（45時間）}"
+puts "#{year}/#{display_month} 総労働時間（45時間）: #{総労働時間（45時間）}"
+puts "#{year}/#{display_month} 時間外労働時間（80時間）: #{時間外労働時間（80時間）}"
+puts "#{year}/#{display_month} 総労働時間（80時間）: #{総労働時間（80時間）}"
+puts '-------------------- 平均 ----------------------'
+puts "#{year}/#{display_month} 平均残業時間（45時間）: #{時間外労働時間（45時間）.to_f / 所定就業日数}"
+puts "#{year}/#{display_month} 平均労働時間（45時間）: #{総労働時間（45時間）.to_f / 所定就業日数}"
+puts "#{year}/#{display_month} 平均残業時間（80時間）: #{時間外労働時間（80時間）.to_f / 所定就業日数}"
+puts "#{year}/#{display_month} 平均労働時間（80時間）: #{総労働時間（80時間）.to_f / 所定就業日数}"
+if 既に働いた日数.positive?
+  puts '-------------------- 現在 ----------------------'
+  puts "#{year}/#{display_month} 既に働いた時間 : #{既に働いた時間}"
+  puts "#{year}/#{display_month} 所定外相当時間 : #{所定外相当時間}"
+  puts "#{year}/#{display_month} 平均所定外相当時間 : #{所定外相当時間 / 既に働いた日数}"
+  puts "#{year}/#{display_month} 残り労働時間（45時間）: #{残り労働時間（45時間）}"
+  puts "#{year}/#{display_month} 残り平均労働時間（45時間）: #{残り労働時間（45時間）.to_f / 残り日数}"
+  puts "#{year}/#{display_month} 残り労働時間（80時間）: #{残り労働時間（80時間）}"
+  puts "#{year}/#{display_month} 残り平均労働時間（80時間）: #{残り労働時間（80時間）.to_f / 残り日数}"
+end
+
+# rubocop:enable Naming/VariableName
+# rubocop:enable Naming/AsciiIdentifiers

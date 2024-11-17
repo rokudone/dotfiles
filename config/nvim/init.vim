@@ -264,8 +264,8 @@ nnoremap <silent> <Leader>eu :<C-u>call dein#update()
 " call dein#recache_runtimepath()
 
 " cursor
-nnoremap <leader>c :execute '!cursor . && cursor -g '.expand('%:S').':'.line('.')<CR>
-" nnoremap <leader>c :execute '!cursor -g '.expand('%:S').':'.line('.')<CR>
+" nnoremap <leader>c :execute '!cursor . && cursor -g '.expand('%:S').':'.line('.')<CR>
+nnoremap <leader>c :execute '!cursor -g '.expand('%:S').':'.line('.')<CR>
 
 
 " reload file
@@ -1010,7 +1010,7 @@ if dein#tap('coc.nvim')
         \ ]
 
         "\ 'coc-eslint',
-        " \ 'coc-tailwindcss',
+        "\ 'coc-tailwindcss',
         "\ 'coc-vetur',
         "\ 'coc-yaml',
         "\ 'coc-tabnine',

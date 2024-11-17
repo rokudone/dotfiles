@@ -1,0 +1,10 @@
+#! /bin/bash
+
+find . -type f -not -path "*/\.*" |
+  grep -v -E "^(\./tmp|\./log|\./public/assets|\./public/packs|\./coverage)/" |
+  grep -v -E "\.(log|sqlite3|sqlite3-journal)$" |
+  grep -v -E "\.(lock|svg|png|jpg|jpeg|gif|ico|woff|woff2|ttf|eot|pdf|zip|tar|gz|mp3|mp4|avi|mov)$" |
+  grep -v -E "(package-lock\.json|yarn\.lock)$" |
+  grep -v -E "config/(master\.key|credentials\.yml\.enc)$" |
+  xargs cat |
+  wc -l

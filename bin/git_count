@@ -1,0 +1,11 @@
+#! /bin/bash
+
+# git ls-files |
+#   grep -v -E "\.(log|sqlite3|sqlite3-journal)$" |
+#   grep -v -E "^(tmp|log|public/assets|public/packs|node_modules)/|^coverage/" |
+#   grep -v -E "^db/(schema\.rb|structure\.sql)$" |
+#   grep -v -E "\.(lock|svg|png|jpg|jpeg|gif|ico|woff|woff2|ttf|eot|pdf|zip|tar|gz|mp3|mp4|avi|mov)$" |
+#   grep -v -E "(package-lock\.json|yarn\.lock)$" |
+#   grep -v -E "config/(master\.key|credentials\.yml\.enc)$" |
+#   xargs wc -l |
+#   sort -n

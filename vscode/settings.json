@@ -292,6 +292,6 @@
         "*.jbuilder": "ruby"
     },
     "workbench.editor.splitSizing": "distribute",
-    "window.zoomLevel": 1,
-    "window.confirmSaveUntitledWorkspace": false
+    "window.confirmSaveUntitledWorkspace": false,
+    "window.zoomLevel": 1
 }

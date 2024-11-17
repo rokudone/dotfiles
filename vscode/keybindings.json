@@ -873,7 +873,7 @@
         "when": "notificationFocus || notificationToastsVisible"
     },
     {
-        "key": "ctrl+\\",
+        "key": "cmd+q cmd+e",
         "command": "projectManager.listProjectsNewWindow"
     },
     {
