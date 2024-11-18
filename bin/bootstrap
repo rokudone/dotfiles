@@ -5,7 +5,7 @@ osascript ~/bin/connect_vpn.scpt
 cd ~/projects/casy-repo/docker-development && docker-compose up -d
 cd ~/projects/dx-environment && docker-compose up -d
 
-tmux new-session -s takuma -d -c ~
+tmux new-session -d -c ~
 
 new_session() {
     echo $1
