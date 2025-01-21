@@ -23,7 +23,8 @@
                 "^co\\.zeit\\.hyper$",
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
-                "^net\\.kovidgoyal\\.kitty$"
+                "^net\\.kovidgoyal\\.kitty$",
+                "^com\\.mitchellh\\.ghostty$"
               ]
             },
             {
@@ -56,7 +57,8 @@
                 "^co\\.zeit\\.hyper$",
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
-                "^net\\.kovidgoyal\\.kitty$"
+                "^net\\.kovidgoyal\\.kitty$",
+                "^com\\.mitchellh\\.ghostty$"
               ]
             },
             {
@@ -87,7 +89,8 @@
                 "^co\\.zeit\\.hyper$",
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
-                "^net\\.kovidgoyal\\.kitty$"
+                "^net\\.kovidgoyal\\.kitty$",
+                "^com\\.mitchellh\\.ghostty$"
               ]
             },
             {
@@ -116,7 +119,8 @@
                 "^co\\.zeit\\.hyper$",
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
-                "^net\\.kovidgoyal\\.kitty$"
+                "^net\\.kovidgoyal\\.kitty$",
+                "^com\\.mitchellh\\.ghostty$"
               ]
             },
             {
@@ -152,7 +156,8 @@
                 "^co\\.zeit\\.hyper$",
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
-                "^net\\.kovidgoyal\\.kitty$"
+                "^net\\.kovidgoyal\\.kitty$",
+                "^com\\.mitchellh\\.ghostty$"
               ]
             },
             {
@@ -183,7 +188,8 @@
                 "^co\\.zeit\\.hyper$",
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
-                "^net\\.kovidgoyal\\.kitty$"
+                "^net\\.kovidgoyal\\.kitty$",
+                "^com\\.mitchellh\\.ghostty$"
               ]
             },
             {
@@ -219,7 +225,8 @@
                 "^co\\.zeit\\.hyper$",
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
-                "^net\\.kovidgoyal\\.kitty$"
+                "^net\\.kovidgoyal\\.kitty$",
+                "^com\\.mitchellh\\.ghostty$"
               ]
             }
           ]
@@ -241,7 +248,8 @@
                 "^co\\.zeit\\.hyper$",
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
-                "^net\\.kovidgoyal\\.kitty$"
+                "^net\\.kovidgoyal\\.kitty$",
+                "^com\\.mitchellh\\.ghostty$"
               ]
             },
             {
@@ -277,7 +285,8 @@
                 "^co\\.zeit\\.hyper$",
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
-                "^net\\.kovidgoyal\\.kitty$"
+                "^net\\.kovidgoyal\\.kitty$",
+                "^com\\.mitchellh\\.ghostty$"
               ]
             },
             {
@@ -309,7 +318,8 @@
                 "^co\\.zeit\\.hyper$",
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
-                "^net\\.kovidgoyal\\.kitty$"
+                "^net\\.kovidgoyal\\.kitty$",
+                "^com\\.mitchellh\\.ghostty$"
               ]
             },
             {
@@ -345,7 +355,8 @@
                 "^co\\.zeit\\.hyper$",
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
-                "^net\\.kovidgoyal\\.kitty$"
+                "^net\\.kovidgoyal\\.kitty$",
+                "^com\\.mitchellh\\.ghostty$"
               ]
             },
             {
@@ -376,7 +387,8 @@
                 "^co\\.zeit\\.hyper$",
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
-                "^net\\.kovidgoyal\\.kitty$"
+                "^net\\.kovidgoyal\\.kitty$",
+                "^com\\.mitchellh\\.ghostty$"
               ]
             },
             {
@@ -407,7 +419,8 @@
                 "^co\\.zeit\\.hyper$",
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
-                "^net\\.kovidgoyal\\.kitty$"
+                "^net\\.kovidgoyal\\.kitty$",
+                "^com\\.mitchellh\\.ghostty$"
               ]
             },
             {
@@ -438,7 +451,8 @@
                 "^co\\.zeit\\.hyper$",
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
-                "^net\\.kovidgoyal\\.kitty$"
+                "^net\\.kovidgoyal\\.kitty$",
+                "^com\\.mitchellh\\.ghostty$"
               ]
             },
             {
@@ -469,7 +483,8 @@
                 "^co\\.zeit\\.hyper$",
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
-                "^net\\.kovidgoyal\\.kitty$"
+                "^net\\.kovidgoyal\\.kitty$",
+                "^com\\.mitchellh\\.ghostty$"
               ]
             },
             {
@@ -500,7 +515,8 @@
                 "^co\\.zeit\\.hyper$",
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
-                "^net\\.kovidgoyal\\.kitty$"
+                "^net\\.kovidgoyal\\.kitty$",
+                "^com\\.mitchellh\\.ghostty$"
               ]
             },
             {
@@ -531,7 +547,8 @@
                 "^co\\.zeit\\.hyper$",
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
-                "^net\\.kovidgoyal\\.kitty$"
+                "^net\\.kovidgoyal\\.kitty$",
+                "^com\\.mitchellh\\.ghostty$"
               ]
             },
             {
@@ -562,7 +579,8 @@
                 "^co\\.zeit\\.hyper$",
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
-                "^net\\.kovidgoyal\\.kitty$"
+                "^net\\.kovidgoyal\\.kitty$",
+                "^com\\.mitchellh\\.ghostty$"
               ]
             },
             {
@@ -599,7 +617,8 @@
                 "^co\\.zeit\\.hyper$",
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
-                "^net\\.kovidgoyal\\.kitty$"
+                "^net\\.kovidgoyal\\.kitty$",
+                "^com\\.mitchellh\\.ghostty$"
               ]
             },
             {
@@ -631,7 +650,8 @@
                 "^co\\.zeit\\.hyper$",
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
-                "^net\\.kovidgoyal\\.kitty$"
+                "^net\\.kovidgoyal\\.kitty$",
+                "^com\\.mitchellh\\.ghostty$"
               ]
             }
           ]
@@ -689,7 +709,8 @@
                 "^co\\.zeit\\.hyper$",
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
-                "^net\\.kovidgoyal\\.kitty$"
+                "^net\\.kovidgoyal\\.kitty$",
+                "^com\\.mitchellh\\.ghostty$"
               ]
             },
             {

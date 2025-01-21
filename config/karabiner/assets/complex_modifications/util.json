@@ -107,7 +107,8 @@
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
                 "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.todesktop\\.230313mzl4w4u92$"
+                "^com\\.todesktop\\.230313mzl4w4u92$",
+                "^com\\.mitchellh\\.ghostty$"
               ]
             }
           ]

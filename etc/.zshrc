@@ -53,6 +53,9 @@ zinit snippet PZT::modules/syntax-highlighting/init.zsh
 zinit snippet PZT::modules/terminal/init.zsh
 zinit snippet PZT::modules/utility/init.zsh
 
+
+PROMPT="%F{242}[%*]%f "$PROMPT
+
 # Source OS-specific settings
 case $OSTYPE in
   darwin*)
@@ -67,9 +70,6 @@ case $OSTYPE in
     fi
     ;;
 esac
-
-export LDFLAGS="-L/opt/homebrew/lib"
-export CPPFLAGS="-I/opt/homebrew/include"
 
 # Source *.zsh
 ZSHHOME="${HOME}/.zsh.d"
@@ -334,10 +334,6 @@ if [ -e ~/.zsh.bundle/completion ]; then
   fpath=(~/.zsh.bundle/completion $fpath)
 fi
 
-# artisan
-alias ar='php `git rev-parse --show-toplevel`/artisan'
-alias sf='php `git rev-parse --show-toplevel`/symfony'
-
 # vim
 alias vim='nvim'
 
@@ -413,9 +409,7 @@ function rf() {
 fpath=(${ZDOTDIR:-$HOME}/.zsh.d/**/functions $fpath)
 path=(${ZDOTDIR:-$HOME}/bin $path)
 
-path=(${ZDOTDIR:-$HOME}/.symfony/bin $path)
 typeset -U PATH # 重複削除
-
 
 # alias -g Z=zgit
 export LESSCHARSET=utf-8
@@ -492,8 +486,6 @@ zinit light-mode for \
     zdharma-continuum/zinit-annex-patch-dl \
     zdharma-continuum/zinit-annex-rust
 
-### End of Zinit's installer chunk
-
 # Created by `pipx` on 2024-06-17 17:35:34
 export PATH="$PATH:/Users/filriya/.local/bin"
 export PATH="$HOME/.rbenv/bin:$PATH"
@@ -503,8 +495,6 @@ eval "$(nodenv init -)"
 export PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 export PATH="$HOME/.orbstack/bin:$PATH"
-
-### End of Zinit's installer chunk
 
 # Load a few important annexes, without Turbo
 # (this is currently required for annexes)

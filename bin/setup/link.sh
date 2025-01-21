@@ -69,6 +69,7 @@ ln -fs "$config_dir/alacritty" "$home/.config/"
 ln -fs "$config_dir/karabiner" "$home/.config/"
 ln -fs "$config_dir/kitty" "$home/.config/"
 ln -fs "$config_dir/nvim" "$home/.config/"
+ln -fs "$config_dir/ghostty" "$home/.config/"
 
 # vim
 # ln -fs "$config_dir/nvim" "$home/.vim"

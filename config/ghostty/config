@@ -1,0 +1,9 @@
+shell-integration = zsh
+theme = ayu
+
+font-family = "S2GUniFont Nerd Font"
+font-size = 20
+font-feature = -dlig
+font-thicken = true
+
+adjust-cell-height = 14

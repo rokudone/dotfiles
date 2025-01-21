@@ -55,7 +55,6 @@
         "editor.wordSeparators": "`~@#$%^&*()-=+[{]}\\|;:'\",.<>/",
     },
     "rubyLsp.formatter": "rubocop",
-    "rubyLsp.enableExperimentalFeatures": true,
     "rubyLsp.bundleGemfile": "/usr/local/.ruby-lsp/Gemfile",
     "rubyLsp.enabledFeatures": {
         "codeActions": true,
@@ -293,5 +292,8 @@
     },
     "workbench.editor.splitSizing": "distribute",
     "window.confirmSaveUntitledWorkspace": false,
+    "rubyLsp.featureFlags": {
+        "all": true
+    },
     "window.zoomLevel": 1
 }
