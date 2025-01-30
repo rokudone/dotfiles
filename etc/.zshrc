@@ -338,12 +338,8 @@ fi
 alias vim='nvim'
 
 # # java
-# if [ -e /usr/libexec/java_home ];then
-#   export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
-#   # export JAVA_HOME="$(/usr/libexec/java_home -v 17)"
-# fi
-export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
-export PATH=$PATH:$JAVA_HOME/bin
+export JAVA_HOME=$(/usr/libexec/java_home -v 23)
+export PATH=$JAVA_HOME/bin:$PATH
 
 # rust
 export RUST_BACKTRACE=1

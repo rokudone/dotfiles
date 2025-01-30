@@ -267,7 +267,7 @@
     "debug.enableStatusBarColor": false,
     "editor.experimentalWhitespaceRendering": "off",
     "workbench.preferredDarkColorTheme": "Ayu Dark Lighter",
-    "workbench.preferredLightColorTheme": "Ayu Dark Bordered",
+    "workbench.preferredLightColorTheme": "Material Theme Lighter",
     "window.autoDetectColorScheme": true,
     "workbench.iconTheme": "seti",
     "cursor.cpp.enablePartialAccepts": true,
@@ -295,5 +295,6 @@
     "rubyLsp.featureFlags": {
         "all": true
     },
+    "editor.unicodeHighlight.nonBasicASCII": false,
     "window.zoomLevel": 1
 }

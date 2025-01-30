@@ -1595,10 +1595,11 @@ function! s:reload()
   endif
 endfunction
 
-if !has('mac')
-  set background=dark
-  let g:auto_color_switcher#disable = v:true
-endif
+" if !has('mac')
+"   set background=dark
+"   let g:auto_color_switcher#disable = v:true
+" endif
+set background=light
 
 augroup fzfcolorscheme
   autocmd!
@@ -1659,10 +1660,10 @@ else
     autocmd ColorScheme * hi! link CursorLineNr CursorLine
     autocmd ColorScheme * hi! link SignColumn CursorLine
     autocmd ColorScheme * hi! link VertSplit CursorLine
-    autocmd ColorScheme * hi! Cursor guibg=#54b9d0
+    " autocmd ColorScheme * hi! Cursor guibg=#54b9d0
   augroup END
   let g:airline_theme='base16_material_lighter'
-  let g:material_style='lighter'
+  " let g:material_style='lighter'
   colorscheme material
 
 lua << EOF

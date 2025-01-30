@@ -1,9 +1,9 @@
 hs.hotkey.bind({"ctrl"}, "space", function()
-  local alacritty = hs.application.find('ghostty')
+  local alacritty = hs.application.find('iTerm')
   if alacritty:isFrontmost() then
     if alacritty then alacritty:hide() end
   else
-    hs.application.launchOrFocus("/Applications/Ghostty.app")
+    hs.application.launchOrFocus("/Applications/iTerm.app")
   end
 end)
 
@@ -44,7 +44,7 @@ bindAppHotkey('o', 'Obsidian')
 bindAppHotkey('a', 'Arc')
 bindAppHotkey('s', 'Slack')
 -- bindAppHotkey('d',)
--- bindAppHotkey('f', '')
+bindAppHotkey('f', 'Figma')
 -- bindAppHotkey('g', '')
 -- bindAppHotkey('h', '')
 -- bindAppHotkey('j', '')
