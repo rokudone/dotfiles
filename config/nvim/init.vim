@@ -304,14 +304,11 @@ nnoremap <silent> <C-j> :call search ("^". matchstr (getline (line (".")), '\(\s
 if dein#tap('fzf.vim')
   " map <Leader>f [fzf]
   nnoremap <silent> <C-p>     :<C-u>GFiles<CR>
-  nnoremap          <Leader>F :<C-u>GFilesWithPlaceholder <C-r><C-w><CR>
-  " nnoremap <silent> <C-p>     :<C-u>Files<CR>
-  " nnoremap <silent> <Leader>u <Nop>
+  nnoremap          <Leader>F :<C-u>GFilesWithQuery <C-R>=expand('%:t:r')<CR><CR>
+  nnoremap          <Leader>f :<C-u>Files<CR>
   nnoremap <silent> <Leader>ee :<C-u>Dotfiles<CR>
   nnoremap <silent> <Leader>b :<C-u>Buffers<CR>
   nnoremap <silent> <Leader>m :<C-u>Marks<CR>
-  " nnoremap <silent> <Leader>b :<C-u>LoadedBuffers<CR>
-  " nnoremap          <Leader>a :<C-u>Ag<Space>
   nnoremap          <Leader>a :<C-u>Rg<Space>
   nnoremap          <Leader>A :<C-u>Rg<Space><C-r><C-w><CR>
 
@@ -723,7 +720,7 @@ if dein#tap("vim-rails")
   " nnoremap [rails]rd :RD<CR>
 
   nnoremap [rails]a :<C-u>Rg <C-R>=expand('%:t:r')<CR>
-  nnoremap [rails]f :<C-u>GFilesWithPlaceholder <C-R>=expand('%:t:r')<CR><CR>
+  " nnoremap [rails]f :<C-u>GFilesWithQuery <C-R>=expand('%:t:r')<CR><CR>
 
   " app/contollers/xxx_controller.rb
   nnoremap [rails]c :Econtroller<CR>
@@ -746,7 +743,7 @@ if dein#tap("vim-rails")
   nnoremap [rails]o :Elocale<CR>
   " db/migrate/*****_create_xxxx.rb
   nnoremap [rails]m :Emigration<CR>
-  " 
+  "
   nnoremap [rails]M :Emailer<CR>
   " db/schema.rb
   nnoremap [rails]s :Eschema<CR>
@@ -850,20 +847,26 @@ if dein#tap('fzf.vim')
   command! Jump call s:fzf_jump()
 
 
-  function! s:GFilesWithPlaceholder(arg)
-    call fzf#run(fzf#wrap({
-        \ 'source': 'git ls-files',
-        \ 'options': '--query ' . a:arg
-        \ }))
+  " function! s:GFilesWithPlaceholder(arg)
+  "   call fzf#run(fzf#wrap({
+  "       \ 'source': 'git ls-files',
+  "       \ 'options': '--query ' . a:arg
+  "       \ }))
+  " endfunction
+
+  function! s:GFilesWithQuery(query)
+      call fzf#vim#gitfiles('', fzf#vim#with_preview({
+          \ 'options': ['--query', a:query]
+      \}))
   endfunction
 
-  command! -nargs=? GFilesWithPlaceholder call s:GFilesWithPlaceholder(<q-args>)
+  command! -nargs=? GFilesWithQuery call s:GFilesWithQuery(<q-args>)
 
   function! s:FilesWithQuery()
-  call fzf#run(fzf#wrap({
-        \ 'source': 'find * -type f',
-        \ 'options': '--query test'
-        \ }))
+      call fzf#run(fzf#wrap({
+            \ 'source': 'find * -type f',
+            \ 'options': '--query test'
+            \ }))
   endfunction
 
   command! FilesWithQuery call s:FilesWithQuery()
@@ -916,6 +919,7 @@ if dein#tap('fzf.vim')
   " endfunction
   " autocmd!  FzfStatusLine call <SID>fzf_statusline()
 
+  let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Todo' } }
   let g:fzf_colors =
     \ { 'fg':      ['fg', 'Normal'],
       \ 'bg':      ['bg', 'Normal'],
@@ -1367,12 +1371,12 @@ if dein#tap('committia.vim')
   " function! g:committia_hooks.edit_open(info)
   "   " Additional settings
   "   setlocal spell
-  " 
+  "
   "   " If no commit message, start with insert mode
   "   if a:info.vcs ==# 'git' && getline(1) ==# ''
   "     startinsert
   "   endif
-  " 
+  "
   "   " Scroll the diff window from insert mode
   "   " Map <C-n> and <C-p>
   "   imap <buffer><C-n> <Plug>(committia-scroll-diff-down-half)
@@ -1595,24 +1599,21 @@ function! s:reload()
   endif
 endfunction
 
-" if !has('mac')
-"   set background=dark
-"   let g:auto_color_switcher#disable = v:true
-" endif
+" set background=dark
 set background=light
 
 augroup fzfcolorscheme
   autocmd!
-  if (&background == 'dark')
-    " Override statusline as you like
-    autocmd ColorScheme * hi! fzf1 ctermfg=161 ctermbg=251
-    autocmd ColorScheme * hi! fzf2 ctermfg=23 ctermbg=251
-    autocmd ColorScheme * hi! fzf3 ctermfg=237 ctermbg=251
-  else
-    autocmd ColorScheme * hi! fzf1 ctermfg=161 ctermbg=7
-    autocmd ColorScheme * hi! fzf1 ctermfg=23 ctermbg=7
-    autocmd ColorScheme * hi! fzf1 ctermfg=237 ctermbg=7
-  endif
+  " if (&background == 'dark')
+  "   " Override statusline as you like
+  "   autocmd ColorScheme * hi! fzf1 ctermfg=161 ctermbg=251
+  "   autocmd ColorScheme * hi! fzf2 ctermfg=23 ctermbg=251
+  "   autocmd ColorScheme * hi! fzf3 ctermfg=237 ctermbg=251
+  " else
+  "   autocmd ColorScheme * hi! fzf1 ctermfg=161 ctermbg=7
+  "   autocmd ColorScheme * hi! fzf1 ctermfg=23 ctermbg=7
+  "   autocmd ColorScheme * hi! fzf1 ctermfg=237 ctermbg=7
+  " endif
 augroup end
 
 set termguicolors
@@ -1635,36 +1636,18 @@ if (&background == 'dark')
   let g:ayucolor="mirage" " for mirage version of theme
   let g:ayucolor="dark"   " for dark version of theme
   colorscheme ayu
-
-" lua << EOF
-" require('ayu').setup({
-"     mirage = false,
-"     overrides = {},
-" })
-" EOF
-" require('ayu').setup({
-"     overrides = {
-"         Normal = { bg = "None" },
-"         ColorColumn = { bg = "None" },
-"         SignColumn = { bg = "None" },
-"         Folded = { bg = "None" },
-"         FoldColumn = { bg = "None" },
-"         CursorLine = { bg = "None" },
-"         CursorColumn = { bg = "None" },
-"         WhichKeyFloat = { bg = "None" },
-"         VertSplit = { bg = "None" },
-"     },
-" })
 else
   augroup mycolorschemelight
+    autocmd!
     autocmd ColorScheme * hi! link CursorLineNr CursorLine
     autocmd ColorScheme * hi! link SignColumn CursorLine
     autocmd ColorScheme * hi! link VertSplit CursorLine
     " autocmd ColorScheme * hi! Cursor guibg=#54b9d0
   augroup END
-  let g:airline_theme='base16_material_lighter'
-  " let g:material_style='lighter'
-  colorscheme material
+
+  let g:airline_theme='one'
+  let g:material_style='lighter'
+  colorscheme one
 
 lua << EOF
 local colors = require 'material.colors'

@@ -35,7 +35,7 @@ new_session casy-hub
 new_session dx-api
 # new_session dx-environment
 new_session dx-hp
-# new_session dx-user
+new_session dx-user
 # new_session dx-staff
 
 
@@ -49,7 +49,7 @@ if [ $? != 0 ]; then
     tmux split-window -h -t $SESSION_NAME
     tmux split-window -h -t $SESSION_NAME
     tmux select-layout even-horizontal -t $SESSION_NAME
-    tmux send-keys -t $SESSION_NAME:1.1 'cd ~/projects/dx-environment && docker-compose logs hp -f' C-m
+    tmux send-keys -t $SESSION_NAME:1.1 'cd ~/projects/dx-environment && docker-compose logs user -f' C-m
     tmux send-keys -t $SESSION_NAME:1.2 'cd ~/projects/dx-environment && docker-compose logs api -f' C-m
     tmux send-keys -t $SESSION_NAME:1.3 'cd ~/projects/casy-repo/docker-development && docker-compose logs api -f' C-m
 fi

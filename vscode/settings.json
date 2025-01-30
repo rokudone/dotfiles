@@ -1,6 +1,6 @@
 {
     "editor.fontSize": 18,
-    "editor.fontFamily": "\"S2GUniFont Nerd Font\", \"Yomogi\", \"ゆたココ\", \"HackGen Console NF\"",
+    "editor.fontFamily": "\"Yomogi\", \"S2GUniFont Nerd Font\", \"ゆたココ\", \"HackGen Console NF\"",
     "editor.insertSpaces": true,
     "editor.rulers": [
         120
@@ -207,7 +207,7 @@
     "vim.useSystemClipboard": true,
     "vim.visualstar": true,
     "vim.matchpairs": "(:),{:},[:],<:>",
-    "workbench.colorTheme": "Ayu Dark Lighter",
+    "workbench.colorTheme": "Ayu Light",
     "git.openRepositoryInParentFolders": "never",
     "[typescriptreact]": {
         "editor.defaultFormatter": "vscode.typescript-language-features"
@@ -267,7 +267,7 @@
     "debug.enableStatusBarColor": false,
     "editor.experimentalWhitespaceRendering": "off",
     "workbench.preferredDarkColorTheme": "Ayu Dark Lighter",
-    "workbench.preferredLightColorTheme": "Material Theme Lighter",
+    "workbench.preferredLightColorTheme": "Atom One Light",
     "window.autoDetectColorScheme": true,
     "workbench.iconTheme": "seti",
     "cursor.cpp.enablePartialAccepts": true,
@@ -296,5 +296,11 @@
         "all": true
     },
     "editor.unicodeHighlight.nonBasicASCII": false,
-    "window.zoomLevel": 1
+    "window.zoomLevel": 1,
+    "scm.inputFontFamily": "editor",
+    "editor.experimentalInlineEdit.fontFamily": "\"Yomogi\", \"S2GUniFont Nerd Font\", \"ゆたココ\", \"HackGen Console NF\"",
+    "editor.inlineSuggest.fontFamily": "\"Yomogi\", \"S2GUniFont Nerd Font\", \"ゆたココ\", \"HackGen Console NF\"",
+    "debug.console.fontFamily": "\"Yomogi\", \"S2GUniFont Nerd Font\", \"ゆたココ\", \"HackGen Console NF\"",
+    "chat.editor.fontFamily": "\"Yomogi\", \"S2GUniFont Nerd Font\", \"ゆたココ\", \"HackGen Console NF\"",
+    "markdown.preview.fontFamily": "\"Yomogi\", \"S2GUniFont Nerd Font\", \"ゆたココ\", \"HackGen Console NF\""
 }

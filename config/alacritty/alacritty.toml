@@ -4,37 +4,61 @@ working_directory = "None"
 [colors]
 draw_bold_text_with_bright_colors = true
 
-[colors.bright]
-black = "0xc7c7c7"
-blue = "0x59c2ff"
-cyan = "0x5ccfe6"
-green = "0xc2d94c"
-magenta = "0xb77ee0"
-red = "0xff3333"
-white = "0xffffff"
-yellow = "0xe7c547"
-
 [colors.cursor]
 cursor = "0xF6CD76"
 text = "0x1E222A"
 
-[colors.normal]
-black = "0x02050c"
-blue = "0x75bff9"
-cyan = "0xa7e3cc"
-green = "0xc6d863"
-magenta = "0xfceea3"
-red = "0xe0787a"
-white = "0xc7c7c7"
-yellow = "0xf3b765"
+# [colors.bright]
+# black = "0xc7c7c7"
+# blue = "0x59c2ff"
+# cyan = "0x5ccfe6"
+# green = "0xc2d94c"
+# magenta = "0xb77ee0"
+# red = "0xff3333"
+# white = "0xffffff"
+# yellow = "0xe7c547"
+
+# [colors.normal]
+# black = "0x02050c"
+# blue = "0x75bff9"
+# cyan = "0xa7e3cc"
+# green = "0xc6d863"
+# magenta = "0xfceea3"
+# red = "0xe0787a"
+# white = "0xc7c7c7"
+# yellow = "0xf3b765"
+
+# [colors.primary]
+# background = "0x0A0D13"
+# foreground = "0xB2B1AD"
+
+# [colors.selection]
+# background = "0x171E29"
+# text = "0x2E323B"
 
 [colors.primary]
-background = "0x0A0D13"
-foreground = "0xB2B1AD"
+background = '#f8f8f8'
+foreground = '#2a2b33'
 
-[colors.selection]
-background = "0x171E29"
-text = "0x2E323B"
+[colors.normal]
+black   = '#000000'
+red     = '#de3d35'
+green   = '#3e953a'
+yellow  = '#d2b67b'
+blue    = '#2f5af3'
+magenta = '#a00095'
+cyan    = '#3e953a'
+white   = '#bbbbbb'
+
+[colors.bright]
+black   = '#000000'
+red     = '#de3d35'
+green   = '#3e953a'
+yellow  = '#d2b67b'
+blue    = '#2f5af3'
+magenta = '#a00095'
+cyan    = '#3e953a'
+white   = '#ffffff'
 
 [cursor]
 unfocused_hollow = true
@@ -43,46 +67,43 @@ unfocused_hollow = true
 TERM = "xterm-256color"
 
 [font]
-size = 20
+size = 22
 
 [font.glyph_offset]
 x = 0
 y = 5
 
+# [font.bold]
+# family = "S2GUniFont Nerd Font"
+# style = "Regular"
+
+# [font.italic]
+# family = "S2GUniFont Nerd Font"
+# style = "Regular"
+
+# [font.normal]
+# family = "S2GUniFont Nerd Font"
+# style = "Regular"
+
+# [font.offset]
+# x = 0
+# y = 10
+
 [font.bold]
-family = "S2GUniFont Nerd Font"
+family = "Yomogi"
 style = "Regular"
 
 [font.italic]
-family = "S2GUniFont Nerd Font"
+family = "Yomogi"
 style = "Regular"
 
 [font.normal]
-family = "S2GUniFont Nerd Font"
+family = "Yomogi"
 style = "Regular"
 
 [font.offset]
 x = 0
-y = 10
-
-# [fonts.yomogi]
-# size = 20
-
-# [fonts.yomogi.bold]
-# family = "yomogi Nerd Font"
-# style = "Regular"
-
-# [fonts.yomogi.italic]
-# family = "yomogi Nerd Font"
-# style = "Regular"
-
-# [fonts.yomogi.normal]
-# family = "yomogi Nerd Font"
-# style = "Regular"
-
-# [fonts.yomogi.offset]
-# x = 0
-# y = 0
+y = 0
 
 [[hints.enabled]]
 command = "open"

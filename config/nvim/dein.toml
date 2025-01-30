@@ -229,6 +229,8 @@ repo = 'sainnhe/sonokai'
 repo = 'Luxed/ayu-vim'
 [[plugins]]
 repo = 'marko-cerovac/material.nvim'
+[[plugins]]
+repo = 'rakr/vim-one'
 
 
 [[plugins]]
