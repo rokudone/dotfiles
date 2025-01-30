@@ -353,7 +353,8 @@ export RUST_BACKTRACE=1
 # fi
 
 # orbstack
-[[ -f ~/.orbstack/shell/init.zsh ]] && . ~/.orbstack/shell/init.zsh 2>/dev/null || true
+# [[ -f ~/.orbstack/shell/init.zsh ]] && . ~/.orbstack/shell/init.zsh 2>/dev/null || true
+path=(${ZDOTDIR:-$HOME}/.orbstack/bin $path)
 
 
 
