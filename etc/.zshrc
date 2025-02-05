@@ -110,19 +110,7 @@ if [[ "$(defaults read -g AppleInterfaceStyle 2>/dev/null)" == "Dark" ]]; then
     --color=info:#98c379,prompt:#61afef,pointer:#be5046 \
     --color=marker:#e5c07b,spinner:#61afef,header:#61afef"
 
-# ayu mirage
-# echo " \
-#   --color=fg:#cbccc6,bg:#1f2430,hl:#707a8c \
-#   --color=fg+:#707a8c,bg+:#191e2a,hl+:#ffcc66 \
-#   --color=info:#73d0ff,prompt:#707a8c,pointer:#cbccc6 \
-#   --color=marker:#73d0ff,spinner:#73d0ff,header:#d4bfff"
-# gruvbox
-#     echo " \
-# --color=dark \
-# --color fg:#ebdbb2,bg:#282828,hl:#fabd2f,fg+:#ebdbb2,bg+:#3c3836,hl+:#fabd2f \
-# --color info:#83a598,prompt:#bdae93,spinner:#fabd2f,pointer:#83a598,marker:#fe8019,header:#665c54"
-
-  # git config --global delta.syntax-theme "OneHalfDark"
+  git config --global delta.syntax-theme "OneHalfDark"
 else
   # ayu light
   FZF_COLOR=" \
@@ -131,7 +119,7 @@ else
     --color=info:#4271ae,prompt:#8959a8,pointer:#d7005f \
     --color=marker:#4271ae,spinner:#4271ae,header:#4271ae"
 
-  # git config --global delta.syntax-theme "OneHalfLight"
+  git config --global delta.syntax-theme "OneHalfLight"
 fi
 
 export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_COLOR"

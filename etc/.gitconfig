@@ -32,11 +32,11 @@
   side-by-side = true
   line-numbers = true
   navigate = true
-  minus-style = brightred reverse
-  plus-style = green reverse
-  zero-style = auto
-  minus-emph-style = auto
-  plus-emph-style = auto
+  ; minus-style = brightred reverse
+  ; plus-style = green reverse
+  ; zero-style = auto
+  ; minus-emph-style = auto
+  ; plus-emph-style = auto
 [core]
   editor = nvim
   quotepath = false
