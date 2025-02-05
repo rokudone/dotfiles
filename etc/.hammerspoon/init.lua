@@ -1,10 +1,10 @@
-require('window')
+-- require('window')
 hs.hotkey.bind({"ctrl"}, "space", function()
-  local app = hs.application.find('warp')
+  local app = hs.application.find('alacritty')
   if app:isFrontmost() then
     if app then app:hide() end
   else
-    hs.application.launchOrFocus("/Applications/Warp.app")
+    hs.application.launchOrFocus("/Applications/Alacritty.app")
   end
 end)
 

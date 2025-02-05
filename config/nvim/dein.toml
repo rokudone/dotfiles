@@ -74,6 +74,13 @@ repo = 't9md/vim-choosewin'
 repo = 'folke/which-key.nvim'
 [[plugins]]
 repo = 'blueyed/vim-diminactive'
+# [[plugins]]
+# repo = 'kat0h/vim-auto-color-switcher'
+# hook_post_update = '''
+# let g:dein#plugin.build = 'make'
+# '''
+[[plugins]]
+repo = 'vimpostor/vim-lumen'
 
 # [[plugins]]
 # repo = 'github/copilot.vim'

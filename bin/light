@@ -1,0 +1,19 @@
+#!/bin/bash
+
+if [[ "$(defaults read -g AppleInterfaceStyle 2>/dev/null)" == "Dark" ]]; then
+  # ライトモードに切り替え
+  osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to false'
+fi
+
+FZF_COLOR=" \
+  --color=fg:-1,bg:-1,hl:-1 \
+  --color=fg+:-1,bg+:-1,hl+:-1 \
+  --color=info:#4271ae,prompt:#8959a8,pointer:#d7005f \
+  --color=marker:#4271ae,spinner:#4271ae,header:#4271ae"
+export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_COLOR"
+
+# delta
+git config --global delta.syntax-theme "OneHalfLight"
+
+# alcritty
+cat ~/.config/alacritty/common.toml ~/.config/alacritty/light.toml >| ~/.config/alacritty/alacritty.toml

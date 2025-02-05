@@ -103,26 +103,10 @@ EXTRA_FZF_COMPLETIONS_FZF_PREFIX=,
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 if [[ "$(defaults read -g AppleInterfaceStyle 2>/dev/null)" == "Dark" ]]; then
-  #one dark
-  FZF_COLOR=" \
-    --color=fg:-1,bg:-1,hl:-1 \
-    --color=fg+:-1,bg+:-1,hl+:-1 \
-    --color=info:#98c379,prompt:#61afef,pointer:#be5046 \
-    --color=marker:#e5c07b,spinner:#61afef,header:#61afef"
-
-  git config --global delta.syntax-theme "OneHalfDark"
+  dark
 else
-  # ayu light
-  FZF_COLOR=" \
-    --color=fg:-1,bg:-1,hl:-1 \
-    --color=fg+:-1,bg+:-1,hl+:-1 \
-    --color=info:#4271ae,prompt:#8959a8,pointer:#d7005f \
-    --color=marker:#4271ae,spinner:#4271ae,header:#4271ae"
-
-  git config --global delta.syntax-theme "OneHalfLight"
+  light
 fi
-
-export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_COLOR"
 
 # gruvbox
 # echo " \
