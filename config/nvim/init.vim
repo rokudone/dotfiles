@@ -1599,8 +1599,17 @@ function! s:reload()
   endif
 endfunction
 
-" set background=dark
-set background=light
+if &term =~ "xterm"
+    set t_RB=[?2004h
+    set t_RF=[?2004l
+endif
+
+" macOSのダークモード検出
+if system("defaults read -g AppleInterfaceStyle 2>/dev/null") =~ '^Dark'
+    set background=dark
+else
+    set background=light
+endif
 
 augroup fzfcolorscheme
   autocmd!
@@ -1639,9 +1648,9 @@ if (&background == 'dark')
 else
   augroup mycolorschemelight
     autocmd!
-    autocmd ColorScheme * hi! link CursorLineNr CursorLine
-    autocmd ColorScheme * hi! link SignColumn CursorLine
-    autocmd ColorScheme * hi! link VertSplit CursorLine
+    " autocmd ColorScheme * hi! link CursorLineNr CursorLine
+    " autocmd ColorScheme * hi! link SignColumn CursorLine
+    " autocmd ColorScheme * hi! link VertSplit CursorLine
     " autocmd ColorScheme * hi! Cursor guibg=#54b9d0
   augroup END
 

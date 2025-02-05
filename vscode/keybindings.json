@@ -1027,5 +1027,15 @@
     {
         "key": "ctrl+f12",
         "command": "editor.action.goToTypeDefinition"
+    },
+    {
+        "key": "cmd+n",
+        "command": "workbench.action.quickOpenNavigateNext",
+        "when": "inQuickOpen"
+    },
+    {
+        "key": "cmd+p",
+        "command": "workbench.action.quickOpenNavigatePrevious",
+        "when": "inQuickOpen"
     }
 ]

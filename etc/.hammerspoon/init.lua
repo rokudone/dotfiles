@@ -1,11 +1,34 @@
+require('window')
 hs.hotkey.bind({"ctrl"}, "space", function()
-  local alacritty = hs.application.find('iTerm')
-  if alacritty:isFrontmost() then
-    if alacritty then alacritty:hide() end
+  local app = hs.application.find('warp')
+  if app:isFrontmost() then
+    if app then app:hide() end
   else
-    hs.application.launchOrFocus("/Applications/iTerm.app")
+    hs.application.launchOrFocus("/Applications/Warp.app")
   end
 end)
+
+hs.hotkey.bind({"ctrl", "shift"}, "space", function()
+  local cursor = hs.application.find('cursor')
+  if cursor:isFrontmost() then
+    if cursor then cursor:hide() end
+  else
+    hs.application.launchOrFocus("/Applications/Cursor.app")
+  end
+end)
+
+-- hs.hotkey.bind({"ctrl"}, "space", function()
+--   local iTerm = hs.application.find('iTerm')
+--   local cursor = hs.application.find('Cursor')
+--   if iTerm:isFrontmost() then
+--     if cursor then hs.application.launchOrFocus("/Applications/Cursor.app") end
+--     if iTerm then iTerm:hide() end
+--   elseif cursor:isFrontmost() then
+--     if cursor then cursor:hide() end
+--   else
+--     if iTerm then hs.application.launchOrFocus("/Applications/iTerm.app") end
+--   end
+-- end)
 
 hs.hotkey.bind({}, "home", function()
   local edge = hs.application.find('edge')
@@ -59,3 +82,4 @@ bindAppHotkey('c', 'Cursor')
 -- bindAppHotkey('b', '')
 -- bindAppHotkey('n', '')
 bindAppHotkey('m', 'YouTube Music')
+

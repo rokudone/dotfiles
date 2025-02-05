@@ -214,12 +214,12 @@ repo = 'thosakwe/vim-flutter'
 on_ft = ['dart']
 
 
-# # syntax
-[[plugins]]
-repo = 'kat0h/vim-auto-color-switcher'
-hook_post_update = '''
-let g:dein#plugin.build = 'make'
-'''
+# # # syntax
+# [[plugins]]
+# repo = 'kat0h/vim-auto-color-switcher'
+# hook_post_update = '''
+# let g:dein#plugin.build = 'make'
+# '''
 
 [[plugins]]
 repo = 'sainnhe/sonokai'
@@ -231,7 +231,6 @@ repo = 'Luxed/ayu-vim'
 repo = 'marko-cerovac/material.nvim'
 [[plugins]]
 repo = 'rakr/vim-one'
-
 
 [[plugins]]
 repo = 'norcalli/nvim-colorizer.lua'

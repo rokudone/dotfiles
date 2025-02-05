@@ -1,6 +1,6 @@
 {
-    "editor.fontSize": 18,
-    "editor.fontFamily": "\"Yomogi\", \"S2GUniFont Nerd Font\", \"ゆたココ\", \"HackGen Console NF\"",
+    "editor.fontSize": 20,
+    "editor.fontFamily": " \"S2GUniFont Nerd Font\", \"Yomogi\", \"ゆたココ\", \"あんずもじ等幅\", \"きろ字\", \"Myrica M\", \"JetBrainsMono Nerd Font\", \"HackGen Console NF\"",
     "editor.insertSpaces": true,
     "editor.rulers": [
         120
@@ -207,7 +207,6 @@
     "vim.useSystemClipboard": true,
     "vim.visualstar": true,
     "vim.matchpairs": "(:),{:},[:],<:>",
-    "workbench.colorTheme": "Ayu Light",
     "git.openRepositoryInParentFolders": "never",
     "[typescriptreact]": {
         "editor.defaultFormatter": "vscode.typescript-language-features"
@@ -226,7 +225,6 @@
     "search.showLineNumbers": true,
     "terminal.external.osxExec": "iTerm.app",
     "terminal.integrated.allowChords": false,
-    "terminal.integrated.fontSize": 16,
     "terminal.integrated.profiles.linux": {
         "bash": {
             "path": "bash",
@@ -265,18 +263,11 @@
     "javascript.updateImportsOnFileMove.enabled": "always",
     "editor.quickSuggestionsDelay": 500,
     "debug.enableStatusBarColor": false,
-    "editor.experimentalWhitespaceRendering": "off",
     "workbench.preferredDarkColorTheme": "Ayu Dark Lighter",
-    "workbench.preferredLightColorTheme": "Atom One Light",
     "window.autoDetectColorScheme": true,
     "workbench.iconTheme": "seti",
     "cursor.cpp.enablePartialAccepts": true,
     "cursor.chat.defaultNoContext": true,
-    "workbench.colorCustomizations": {
-        "[Ayu Dark Lighter]": {
-            "statusBar.foreground": "#e0e0e0"
-        }
-    },
     "cursor.cmdk.useThemedDiffBackground": true,
     "cursor.cmdk.ghostTextAtSymbols": true,
     "cursor.chat.ghostTextAtSymbols": true,
@@ -299,8 +290,24 @@
     "window.zoomLevel": 1,
     "scm.inputFontFamily": "editor",
     "editor.experimentalInlineEdit.fontFamily": "\"Yomogi\", \"S2GUniFont Nerd Font\", \"ゆたココ\", \"HackGen Console NF\"",
-    "editor.inlineSuggest.fontFamily": "\"Yomogi\", \"S2GUniFont Nerd Font\", \"ゆたココ\", \"HackGen Console NF\"",
-    "debug.console.fontFamily": "\"Yomogi\", \"S2GUniFont Nerd Font\", \"ゆたココ\", \"HackGen Console NF\"",
-    "chat.editor.fontFamily": "\"Yomogi\", \"S2GUniFont Nerd Font\", \"ゆたココ\", \"HackGen Console NF\"",
-    "markdown.preview.fontFamily": "\"Yomogi\", \"S2GUniFont Nerd Font\", \"ゆたココ\", \"HackGen Console NF\""
+    "markdown.preview.fontFamily": " \"S2GUniFont Nerd Font\", \"Yomogi\", \"ゆたココ\", \"あんずもじ等幅\", \"きろ字\", \"Myrica M\", \"JetBrainsMono Nerd Font\", \"HackGen Console NF\"",
+    "chat.editor.fontFamily": " \"S2GUniFont Nerd Font\", \"Yomogi\", \"ゆたココ\", \"あんずもじ等幅\", \"きろ字\", \"Myrica M\", \"JetBrainsMono Nerd Font\", \"HackGen Console NF\"",
+    "debug.console.fontFamily": " \"S2GUniFont Nerd Font\", \"Yomogi\", \"ゆたココ\", \"あんずもじ等幅\", \"きろ字\", \"Myrica M\", \"JetBrainsMono Nerd Font\", \"HackGen Console NF\"",
+    "editor.inlineSuggest.fontFamily": " \"S2GUniFont Nerd Font\", \"Yomogi\", \"ゆたココ\", \"あんずもじ等幅\", \"きろ字\", \"Myrica M\", \"JetBrainsMono Nerd Font\", \"HackGen Console NF\"",
+    "editor.fontLigatures": true,
+    "editor.fontWeight": "bold",
+    "terminal.integrated.fontLigatures": true,
+    "editor.lineHeight": 1.65,
+    "workbench.colorCustomizations": {
+        "[Ayu Dark Lighter]": {
+            "statusBar.foreground": "#e0e0e0"
+        },
+        "[Atom One Light]": {  // または使用している他のライトテーマ名
+            "editor.background": "#fafafa",
+            "editor.foreground": "#383a42",
+        }
+    },
+    "base16.generator.activatedThemes": [],
+    "workbench.preferredHighContrastLightColorTheme": "Default Light+",
+    "workbench.preferredLightColorTheme": "Atom One Light"
 }
