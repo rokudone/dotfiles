@@ -287,7 +287,6 @@
         "all": true
     },
     "editor.unicodeHighlight.nonBasicASCII": false,
-    "window.zoomLevel": 1,
     "scm.inputFontFamily": "editor",
     "editor.experimentalInlineEdit.fontFamily": "\"Yomogi\", \"S2GUniFont Nerd Font\", \"ゆたココ\", \"HackGen Console NF\"",
     "markdown.preview.fontFamily": " \"S2GUniFont Nerd Font\", \"Yomogi\", \"ゆたココ\", \"あんずもじ等幅\", \"きろ字\", \"Myrica M\", \"JetBrainsMono Nerd Font\", \"HackGen Console NF\"",
@@ -299,4 +298,5 @@
     "terminal.integrated.fontLigatures": true,
     "editor.lineHeight": 1.65,
     "workbench.preferredLightColorTheme": "Atom One Light",
+    "window.zoomLevel": 1,
 }
