@@ -32,7 +32,7 @@
   side-by-side = true
   line-numbers = true
   navigate = true
-	syntax-theme = OneHalfLight
+	syntax-theme = OneHalfDark
   ; minus-style = brightred reverse
   ; plus-style = green reverse
   ; zero-style = auto

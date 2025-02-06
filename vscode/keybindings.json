@@ -681,14 +681,6 @@
         "command": "-workbench.action.focusAboveGroup"
     },
     {
-        "key": "cmd+w h",
-        "command": "workbench.action.focusLeftGroup"
-    },
-    {
-        "key": "cmd+r cmd+left",
-        "command": "-workbench.action.focusLeftGroup"
-    },
-    {
         "key": "cmd+w j",
         "command": "workbench.action.focusBelowGroup"
     },
@@ -713,11 +705,6 @@
         "key": "cmd+r shift+cmd+\\",
         "command": "-workbench.action.joinEditorInGroup",
         "when": "sideBySideEditorActive"
-    },
-    {
-        "key": "cmd+w shift+\\",
-        "command": "workbench.action.splitEditorInGroup",
-        "when": "activeEditorCanSplitInGroup"
     },
     {
         "key": "cmd+r shift+cmd+\\",
@@ -1037,5 +1024,29 @@
         "key": "cmd+p",
         "command": "workbench.action.quickOpenNavigatePrevious",
         "when": "inQuickOpen"
+    },
+    {
+        "key": "cmd+w h",
+        "command": "workbench.action.focusLeftGroup"
+    },
+    {
+        "key": "cmd+r cmd+left",
+        "command": "-workbench.action.focusLeftGroup"
+    },
+    {
+        "key": "cmd+w shift+\\",
+        "command": "workbench.action.duplicateActiveEditorGroupLeft"
+    },
+    {
+        "key": "cmd+w shift+\\",
+        "command": "workbench.action.splitEditorToRightGroup"
+    },
+    {
+        "key": "shift+cmd+k",
+        "command": "-composer.openAsBar"
+    },
+    {
+        "key": "shift+cmd+k",
+        "command": "composer.openAsEditor"
     }
 ]

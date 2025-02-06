@@ -1,4 +1,4 @@
--- require('window')
+require('window')
 hs.hotkey.bind({"ctrl"}, "space", function()
   local app = hs.application.find('alacritty')
   if app:isFrontmost() then

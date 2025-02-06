@@ -32,6 +32,7 @@ config/coc/*
 config/karabiner/automatic_backups/*
 config/nvim/sessions/*
 config/nvim/plugin/*
+config/alacritty/alacritty.toml
 
 etc/.tmux/plugins/*
 etc/.tmux/resurrect

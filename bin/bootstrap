@@ -24,6 +24,7 @@ new_session() {
         tmux split-window -h -t $session_name
         tmux new-window -t $session_name
         tmux previous-window -t $session_name
+        tmux select-pane -L
     fi
 }
 
