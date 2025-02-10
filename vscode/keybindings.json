@@ -1046,7 +1046,44 @@
         "command": "-composer.openAsBar"
     },
     {
+        "key": "cmd+ctrl",
+        "command": "-editor.action.inlineDiffs.rejectAllAcrossAllEditors",
+        "when": "editorHasPromptBar && editorTextFocus || editorTextFocus && hasDisplayedDiff"
+    },
+    {
+        "key": "cmd+backspace",
+        "command": "editor.action.inlineDiffs.rejectAllAcrossAllEditors"
+    },
+    {
+        "key": "cmd+backspace",
+        "command": "-editor.action.inlineDiffs.rejectAll",
+        "when": "editorTextFocus && (arbitrary function)"
+    },
+    {
+        "key": "shift+cmd+r",
+        "command": "quickOpenRelatedFiles.show",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "cmd+.",
+        "command": "-quickOpenRelatedFiles.show",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+\\",
+        "command": "workbench.action.splitEditor"
+    },
+    {
+        "key": "cmd+\\",
+        "command": "-workbench.action.splitEditor"
+    },
+    {
         "key": "shift+cmd+k",
-        "command": "composer.openAsPane"
+        "command": "-aipopup.action.modal.generate",
+        "when": "editorFocus && !composerBarIsVisible"
+    },
+    {
+        "key": "shift+cmd+k",
+        "command": "cline.openInNewTab"
     }
 ]

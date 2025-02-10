@@ -107,12 +107,23 @@
   },
   "powershell.integratedConsole.showOnStartup": false,
   "explorer.width": 60,
-  "explorer.root.strategies": [
-    "sourceBuffer",
-    "workspace",
-    "cwd",
-    "reveal"
-  ],
+  "explorer.file.hiddenRules": {
+    "extensions": [
+      "o",
+      "a",
+      "obj",
+      "pyc",
+      ".css.d.ts",
+      ".css.d.ts.map",
+    ],
+    "filenames": [
+      "node_modules",
+      ".cache"
+    ],
+    "patternMatches": [
+      "^\\."
+    ]
+  },
   "explorer.keyMappings.global": {
     "i": false,
     "<c-o>": "noop",

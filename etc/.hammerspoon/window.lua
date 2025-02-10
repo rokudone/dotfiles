@@ -108,6 +108,7 @@ hs.hotkey.bind({"alt"}, "right", function()
     local f = win:frame()
     local screen = win:screen()
     local max = screen:frame()
+    local nextScreen = screen:next()
 
     local currentState = getCurrentWindowState(win)
 

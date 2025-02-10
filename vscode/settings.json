@@ -263,7 +263,7 @@
     "javascript.updateImportsOnFileMove.enabled": "always",
     "editor.quickSuggestionsDelay": 500,
     "debug.enableStatusBarColor": false,
-    "workbench.preferredDarkColorTheme": "Ayu Dark Lighter",
+    "workbench.preferredDarkColorTheme": "Ayu One",
     "window.autoDetectColorScheme": true,
     "workbench.iconTheme": "seti",
     "cursor.cpp.enablePartialAccepts": true,
@@ -298,5 +298,6 @@
     "terminal.integrated.fontLigatures": true,
     "editor.lineHeight": 1.65,
     "workbench.preferredLightColorTheme": "Atom One Light",
-    "window.zoomLevel": 1,
+    "explorer.excludeGitIgnore": true,
+    "terminal.integrated.fontSize": 18,
 }
