@@ -140,6 +140,7 @@ alias -g P='| pbcopy'
 alias -g SJIS='| nkf'
 alias serve="python3 -m http.server"
 alias c="cursor"
+alias -g C="| xargs cursor"
 
 # 反cd
 # alias cd='nocd'

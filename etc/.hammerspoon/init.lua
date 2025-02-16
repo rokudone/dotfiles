@@ -82,3 +82,28 @@ bindAppHotkey('c', 'Cursor')
 -- bindAppHotkey('n', '')
 bindAppHotkey('m', 'YouTube Music')
 
+local muteAlert = nil
+local lastMutedState = nil
+
+local function updateMuteAlert()
+  local audio = hs.audiodevice.defaultInputDevice()
+  local muted = audio:inputMuted()
+
+  if muted ~= lastMutedState then
+    lastMutedState = muted
+
+    if muteAlert then
+      hs.alert.closeSpecific(muteAlert)
+      muteAlert = nil
+    end
+
+    if muted then
+      muteAlert = hs.alert.show("📵 Microphone muted", { textSize = 24 }, true, hs.screen.primaryScreen())
+    end
+  end
+end
+
+-- 定期的に状態を更新
+hs.timer.doEvery(0.5, updateMuteAlert)
+
+-- hs.alert.show("このアラートも手動で閉じるまで表示されます", hs.alert.defaultStyle, hs.screen.mainScreen(), math.huge)

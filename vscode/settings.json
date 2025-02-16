@@ -1,5 +1,5 @@
 {
-    "editor.fontSize": 20,
+    "editor.fontSize": 16,
     "editor.fontFamily": " \"S2GUniFont Nerd Font\", \"Yomogi\", \"ゆたココ\", \"あんずもじ等幅\", \"きろ字\", \"Myrica M\", \"JetBrainsMono Nerd Font\", \"HackGen Console NF\"",
     "editor.insertSpaces": true,
     "editor.rulers": [
@@ -299,5 +299,7 @@
     "editor.lineHeight": 1.65,
     "workbench.preferredLightColorTheme": "Atom One Light",
     "explorer.excludeGitIgnore": true,
-    "terminal.integrated.fontSize": 18,
+    "terminal.integrated.fontSize": 16,
+    "window.zoomLevel": 2,
+    "workbench.editor.enablePreview": false,
 }

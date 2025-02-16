@@ -1060,16 +1060,6 @@
         "when": "editorTextFocus && (arbitrary function)"
     },
     {
-        "key": "shift+cmd+r",
-        "command": "quickOpenRelatedFiles.show",
-        "when": "editorTextFocus"
-    },
-    {
-        "key": "cmd+.",
-        "command": "-quickOpenRelatedFiles.show",
-        "when": "editorTextFocus"
-    },
-    {
         "key": "ctrl+\\",
         "command": "workbench.action.splitEditor"
     },
@@ -1083,7 +1073,15 @@
         "when": "editorFocus && !composerBarIsVisible"
     },
     {
-        "key": "shift+cmd+k",
+        "key": "shift+cmd+c",
         "command": "cline.openInNewTab"
+    },
+    {
+        "key": "shift+cmd+k",
+        "command": "composer.openAsPane"
+    },
+    {
+        "key": "shift+cmd+r",
+        "command": "extension.showDirectoryFiles"
     }
 ]
