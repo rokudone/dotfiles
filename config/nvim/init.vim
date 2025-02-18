@@ -238,7 +238,7 @@ nnoremap <silent> <C-w>t :<C-u>tabnew<CR>:tabmove<CR>
 nnoremap <silent> <C-w><C-t> :<C-u>tabnew<CR>:tabmove<CR>
 nnoremap <silent> <C-w><C-w> :<C-u>tabclose<CR>
 
-nnoremap <silent> <C-n> :<C-u>tabnew<CR>:tabmove<CR>
+" nnoremap <silent> <C-n> :<C-u>tabnew<CR>:tabmove<CR>
 " nnoremap <silent> <C-w> :echo noaction<CR>
 " nnoremap <silent> <C-w>\ <C-w>_<C-w><bar>
 
