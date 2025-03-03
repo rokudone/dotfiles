@@ -212,11 +212,6 @@
         "when": "textInputFocus"
     },
     {
-        "key": "cmd+`",
-        "command": "workbench.action.terminal.toggleTerminal",
-        "when": "terminal.active"
-    },
-    {
         "key": "ctrl+`",
         "command": "-workbench.action.terminal.toggleTerminal",
         "when": "terminal.active"
@@ -860,7 +855,7 @@
         "when": "notificationFocus || notificationToastsVisible"
     },
     {
-        "key": "cmd+q cmd+e",
+        "key": "cmd+`",
         "command": "projectManager.listProjectsNewWindow"
     },
     {
@@ -1008,7 +1003,7 @@
         "command": "-workbench.action.quit"
     },
     {
-        "key": "shift+cmd+q",
+        "key": "cmd+q cmd+q",
         "command": "workbench.action.closeWindow"
     },
     {
@@ -1073,10 +1068,6 @@
         "when": "editorFocus && !composerBarIsVisible"
     },
     {
-        "key": "shift+cmd+c",
-        "command": "cline.openInNewTab"
-    },
-    {
         "key": "shift+cmd+k",
         "command": "composer.openAsPane"
     },
@@ -1103,5 +1094,9 @@
         "key": "alt+cmd+]",
         "command": "-editor.unfold",
         "when": "editorTextFocus && foldingEnabled"
+    },
+    {
+        "key": "shift+cmd+c",
+        "command": "roo-cline.openInNewTab"
     }
 ]

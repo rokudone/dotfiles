@@ -300,7 +300,16 @@
     "workbench.preferredLightColorTheme": "Atom One Light",
     "explorer.excludeGitIgnore": true,
     "terminal.integrated.fontSize": 16,
-    "window.zoomLevel": 2,
+    "window.zoomLevel": 1.5,
     "workbench.editor.enablePreview": false,
-    "workbench.activityBar.orientation": "vertical"
+    "workbench.activityBar.orientation": "vertical",
+    "roo-cline.allowedCommands": [
+        "npm test",
+        "npm install",
+        "tsc",
+        "git log",
+        "git diff",
+        "git show"
+    ],
+    "git.confirmSync": false
 }

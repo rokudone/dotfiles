@@ -142,6 +142,14 @@ alias serve="python3 -m http.server"
 alias c="cursor"
 alias -g C="| xargs cursor"
 
+function rc() {
+  rg --no-heading --line-number "$1" | fzf | awk -F: '{print $1":"$2}' | xargs cursor -g
+}
+
+function fc() {
+  fzf | xargs cursor
+}
+
 # 反cd
 # alias cd='nocd'
 symbols() {
@@ -426,6 +434,38 @@ function rf() {
     if [[ -n $COMMAND ]]; then
         eval $COMMAND
     fi
+}
+
+function casy_table() {
+  # 使用法:
+  #   casy_table <テーブル名>          # 1つのテーブル定義を抽出
+  #   casy_table <テーブル名1> <テーブル名2> ... # 複数のテーブル定義を抽出
+  #   casy_table                      # fzf を使用して対話的にテーブルを選択 (引数なし)
+  #
+  # スキーマファイルのパスは以下に固定されています:
+  #   $HOME/projects/casy-ruby/db/schema.rb
+  #
+  # 依存関係:
+  #   この関数は fzf コマンドに依存しています。
+  #   fzf がインストールされていない場合は、動作しません。
+
+  local file_path="$HOME/projects/casy-ruby/db/schema.rb"
+  local table_name="$1"
+
+  if [ -z "$table_name" ]; then
+    table_name=$(grep '^  create_table' "$file_path" | awk '{print $2}' | sed 's/[,"]//g' | fzf)
+    if [ -z "$table_name" ]; then
+      return 0
+    fi
+  fi
+
+  if [ $# -gt 1 ]; then
+    for table_name in "$@"; do
+      sed -n "/^  create_table \"$table_name\"/,/^  end\$/p" "$file_path"
+    done
+  else
+    sed -n "/^  create_table \"$table_name\"/,/^  end\$/p" "$file_path"
+  fi
 }
 
 fpath=(${ZDOTDIR:-$HOME}/.zsh.d/**/functions $fpath)
