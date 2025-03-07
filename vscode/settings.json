@@ -55,7 +55,6 @@
         "editor.wordSeparators": "`~@#$%^&*()-=+[{]}\\|;:'\",.<>/",
     },
     "rubyLsp.formatter": "rubocop",
-    "rubyLsp.bundleGemfile": "/usr/local/.ruby-lsp/Gemfile",
     "rubyLsp.enabledFeatures": {
         "codeActions": true,
         "diagnostics": true,
@@ -300,9 +299,14 @@
     "workbench.preferredLightColorTheme": "Atom One Light",
     "explorer.excludeGitIgnore": true,
     "terminal.integrated.fontSize": 16,
-    "window.zoomLevel": 1.5,
+    "window.zoomLevel": 1,
     "workbench.editor.enablePreview": false,
     "workbench.activityBar.orientation": "vertical",
+    "diffEditor.ignoreTrimWhitespace": false,
+    "rubyLsp.rubyVersionManager": {
+        "identifier": "rbenv"
+    },
+    "indentRainbow.errorColor": "rgba(32,32,32,0.6)",
     "roo-cline.allowedCommands": [
         "npm test",
         "npm install",

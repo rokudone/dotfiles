@@ -102,11 +102,11 @@ fi
 EXTRA_FZF_COMPLETIONS_FZF_PREFIX=,
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-if [[ "$(defaults read -g AppleInterfaceStyle 2>/dev/null)" == "Dark" ]]; then
-  dark
-else
-  light
-fi
+# if [[ "$(defaults read -g AppleInterfaceStyle 2>/dev/null)" == "Dark" ]]; then
+#   dark
+# else
+#   light
+# fi
 
 # gruvbox
 # echo " \
@@ -478,13 +478,16 @@ export LESSCHARSET=utf-8
 
 alias zenhan='/mnt/c/Users/arizo/scoop/apps/zenhan/current/zenhan.exe'
 
-if [ -e "${ZDOTDIR:-$HOME}/.ssh/id_rsa" ]; then
-  keychain $HOME/.ssh/id_rsa
+# VSCode以外の環境でのみ適用する設定
+if [[ $TERM_PROGRAM != "vscode" ]]; then
+  if [ -e "${ZDOTDIR:-$HOME}/.ssh/id_rsa" ]; then
+    keychain $HOME/.ssh/id_rsa
+  fi
+  if [ -e "${ZDOTDIR:-$HOME}/.ssh/id_ed25519" ]; then
+    keychain $HOME/.ssh/id_ed25519
+  fi
+  source $HOME/.keychain/`hostname`-sh
 fi
-if [ -e "${ZDOTDIR:-$HOME}/.ssh/id_ed25519" ]; then
-  keychain $HOME/.ssh/id_ed25519
-fi
-source $HOME/.keychain/`hostname`-sh
 
 alias sparser='/home/arizo/.config/yarn/global/node_modules/sparser/bin/sparser'
 

@@ -192,9 +192,9 @@ compdef _git_multi_branch_create git_multi_branch_create
 
 function git_now() {
     if [ $# -eq 0 ]; then
-        git add -A && git commit -m "[from now] $(date '+%Y-%m-%d %H:%M:%S')"
+        git commit -m "[from now] $(date '+%Y-%m-%d %H:%M:%S')"
     else
-        git add -A && git commit -m "[from now] $*"
+        git commit -m "[from now] $*"
     fi
 }
 
