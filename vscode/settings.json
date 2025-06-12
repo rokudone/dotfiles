@@ -299,7 +299,7 @@
     "workbench.preferredLightColorTheme": "Atom One Light",
     "explorer.excludeGitIgnore": true,
     "terminal.integrated.fontSize": 16,
-    "window.zoomLevel": 1,
+    "window.zoomLevel": 2,
     "workbench.editor.enablePreview": false,
     "workbench.activityBar.orientation": "vertical",
     "diffEditor.ignoreTrimWhitespace": false,
@@ -313,7 +313,11 @@
         "tsc",
         "git log",
         "git diff",
-        "git show"
+        "git show",
+        "raills *",
+        "bundle exec rspec *"
     ],
-    "git.confirmSync": false
+    "git.confirmSync": false,
+    "hediet.vscode-drawio.zoomFactor": 1.5,
+    "cursor.composer.collapsePaneInputBoxPills": true
 }

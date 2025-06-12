@@ -2,19 +2,6 @@
 export LANG=ja_JP.UTF-8
 export LC_ALL=ja_JP.UTF-8
 export LC_CTYPE=ja_JP.UTF-8
-# TERM=screen-256color
-
-# if [ ! -e "$HOME"/.zsh.bundle/completion ]; then
-#   mkdir -p "$HOME"/.zsh.bundle/completion
-# fi
-
-# if [ ! -e "$HOME"/.zsh.bundle/enhancd ]; then
-#   git clone https://github.com/b4b4r07/enhancd "${HOME}/.zsh.bundle/enhancd"
-# fi
-
-# if [ ! -e "$HOME"/.zsh.bundle/completion/_docker ]; then
-#   curl -L https://raw.githubusercontent.com/docker/cli/master/contrib/completion/zsh/_docker > "$HOME"/.zsh.bundle/completion/_docker curl -L https://raw.githubusercontent.com/docker/compose/master/contrib/completion/zsh/_docker-compose  > "$HOME"/.zsh.bundle/completion/_docker-compose
-# fi
 
 autoload -Uz compinit
 compinit
@@ -218,20 +205,6 @@ bindkey '^q' beginning-of-line
 #tmux
 # autoload -Uz til
 autoload -Uz bk
-
-# リポジトリにcd
-
-# function open_project () {
-#   local command=$(echo-open-project-command)
-#   if [ -n "$command" ]; then
-#     BUFFER+=$command
-#     zle accept-line
-#   fi
-#   zle clear-screen
-# }
-
-# zle -N open_project
-# bindkey '^t' open_project
 
 setopt nonomatch
 setopt dotglob
@@ -487,6 +460,8 @@ if [[ $TERM_PROGRAM != "vscode" ]]; then
     keychain $HOME/.ssh/id_ed25519
   fi
   source $HOME/.keychain/`hostname`-sh
+else
+  alias rm="rm"
 fi
 
 alias sparser='/home/arizo/.config/yarn/global/node_modules/sparser/bin/sparser'
