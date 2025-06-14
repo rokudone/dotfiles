@@ -17,6 +17,8 @@
   lgg = log --stat --pretty=format:'%Cblue%h %Cgreen%ar %Cred%an %Creset%s %Cred%d'
   lgs = log --stat --abbrev-commit --date=relative
   fix = commit --amend -C HEAD
+	diffcount = "!f() { git diff \"$1\"..\"$2\" --shortstat -- . \":!*lock*\" \":!package.json\" \":!dist/*\" \":!build/*\"; }; f"
+	diffdetail = "!f() { git diff \"$1\"..\"$2\" --numstat -- . \":!*lock*\" \":!package.json\" \":!dist/*\" \":!build/*\" \":!node_modules/*\" \":!*.min.*\" | awk \"{add+=\\$1; del+=\\$2; files++} END {printf \\\"ファイル: %d, 追加: +%d, 削除: -%d, 純増減: %+d行\\n\\\", files, add, del, add-del}\"; }; f"
 [gui]
   encoding = utf-8
 [pager]
@@ -27,6 +29,7 @@
   merge = delta
 [interactive]
   diffFilter = delta --color-only
+	singleKey = true
 [delta]
   features = side-by-side line-numbers decorations
   side-by-side = true

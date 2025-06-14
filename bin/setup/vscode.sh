@@ -8,9 +8,16 @@ defaults write com.microsoft.VSCodeExploration ApplePressAndHoldEnabled -bool fa
 if [ "$(uname)" == 'Darwin' ]; then
   ln -sf ~/projects/dotfiles/vscode/settings.json ~/Library/Application\ Support/Cursor/User
   ln -sf ~/projects/dotfiles/vscode/keybindings.json ~/Library/Application\ Support/Cursor/User
+  ln -sf ~/projects/dotfiles/vscode/settings.json ~/Library/Application\ Support/Code/User
+  ln -sf ~/projects/dotfiles/vscode/keybindings.json ~/Library/Application\ Support/Code/User
 fi
 
 cat ~/projects/dotfiles/vscode/extensions | while read line
 do
  cursor --install-extension $line
+done
+
+cat ~/projects/dotfiles/vscode/extensions | while read line
+do
+ code --install-extension $line
 done

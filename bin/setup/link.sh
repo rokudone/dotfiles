@@ -63,13 +63,15 @@ config_dir="$src_dir/config"
 
 mkdir -p "$home/.config"
 mkdir -p "$home/.config/coc"
-ln -fs "$config_dir/coc/ultisnips" "$home/.config/coc/"
 
+ln -fs "$config_dir/coc/ultisnips" "$home/.config/coc/"
 ln -fs "$config_dir/alacritty" "$home/.config/"
 ln -fs "$config_dir/karabiner" "$home/.config/"
 ln -fs "$config_dir/kitty" "$home/.config/"
 ln -fs "$config_dir/nvim" "$home/.config/"
 ln -fs "$config_dir/ghostty" "$home/.config/"
+ln -fs "$config_dir/vscode/mcp.json" "$home/Library/Application Support/Claude/claude_desktop_config.json"
+ln -fs "$config_dir/vscode/mcp.json" "$home/.cursor/"
 
 # vim
 # ln -fs "$config_dir/nvim" "$home/.vim"

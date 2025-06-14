@@ -199,8 +199,12 @@ function git_now() {
 }
 
 function git_now_reset() {
-  EXEC_CMD='git commit --amend --no-edit --date="$(date -R)" && if git log -1 --pretty=%B | grep -q "^\[from now\] "; then git commit --amend -m "$(git log -1 --pretty=%B | sed "s/^\[from now\] //")"; fi'
-  git rebase -i $1 --exec "$EXEC_CMD"
+  git rebase -i "$1" --exec '
+    git commit --amend --no-edit --date="$(date -R)"
+    if git log -1 --pretty=%B | grep -q "^\[from now\] "; then
+      git commit --amend -m "$(git log -1 --pretty=%B | sed "s/^\[from now\] //")"
+    fi
+  '
 }
 
 # git_now_reset の補完関数
@@ -219,6 +223,7 @@ compdef _git_now_reset git_now_reset
 alias gn='git_now'
 alias gnr='git_now_reset'
 alias gcm='git commit --message'
+alias gcc='git commit -m "$(claude -p "Look at the stashed git changes and create a summarizing git commit title. Only respond with the title and no affirmation.")"'
 alias gca='git commit --verbose --amend'
 alias gcA='git commit --verbose --amend --reuse-message HEAD'
 # alias gco='git checkout'
@@ -327,12 +332,12 @@ alias gfR='git-pull-rebase-all'
 # alias gFsx='git flow support delete'
 
 # Grep (g)
-# alias gg='git grep'
-# alias gg='git grep --ignore-case'
-# alias ggl='git grep --files-with-matches'
-# alias ggL='git grep --files-without-matches'
-# alias ggv='git grep --invert-match'
-# alias ggw='git grep --word-regexp'
+alias gg='git grep'
+alias gg='git grep --ignore-case'
+alias ggl='git grep --files-with-matches'
+alias ggL='git grep --files-without-matches'
+alias ggv='git grep --invert-match'
+alias ggw='git grep --word-regexp'
 
 # Hub (h)
 function notify-github-actions-ci-finish() {
@@ -450,6 +455,25 @@ alias gRp='git remote prune'
 alias gRs='git remote show'
 
 # Stash (s)
+function git-skip-slack() {
+  git stash pop
+  git update-index --skip-worktree casy-api/app/services/slack_notify.rb casy-ruby/app/services/slack_notify.rb
+  git-skip-status
+  echo "スキップ設定完了"
+}
+
+# スキップを解除する関数
+function git-unskip-slack() {
+  git update-index --no-skip-worktree casy-api/app/services/slack_notify.rb casy-ruby/app/services/slack_notify.rb
+  git stash -m "skip slack notify"
+  git-skip-status
+  echo "スキップ解除完了"
+}
+
+# スキップ状態を確認する関数
+function git-skip-status() {
+  git ls-files -v | grep "^S" | grep "slack_notify.rb"
+}
 alias gs='git stash'
 alias gsa='git stash apply'
 alias gsx='git stash drop'
@@ -457,9 +481,12 @@ alias gsl='git stash list'
 alias gsd='git stash show --patch --stat'
 alias gsp='git-stash-pop'
 alias gsP='git stash pop'
-alias gss='git stash save --include-untracked'
-alias gsS='git stash save --patch --no-keep-index'
-alias gsw='git stash save --include-untracked --keep-index'
+# alias gss='git stash save --include-untracked'
+# alias gsS='git stash save --patch --no-keep-index'
+# alias gsw='git stash save --include-untracked --keep-index'
+alias gss='git-skip-slack'
+alias gsu='git-unskip-slack'
+alias gsS='git-skip-status'
 
 # Submodule (S)
 # alias gS='git submodule'
@@ -474,13 +501,13 @@ alias gsw='git stash save --include-untracked --keep-index'
 # alias gSx='git-submodule-remove'
 
 # Tag (t)
-alias gt='git tag'
-alias gtl='git tag -l'
-alias gts='git tag -s'
-alias gtv='git verify-tag'
+# alias gt='git tag'
+# alias gtl='git tag -l'
+# alias gts='git tag -s'
+# alias gtv='git verify-tag'
 
 # Working Copy (w)
-alias gw='(git status --short; echo ""; git stash list)'
+alias gw='(git status --short; echo ""; git stash list; git-skip-status)'
 alias gws='git status'
 alias gwd='git diff'
 # alias gwD='git diff --word-diff'
@@ -495,14 +522,95 @@ alias gwrh='git reset --hard'
 alias gwx='git rm -r'
 alias gwX='git rm -rf'
 
-# alias gwta='git worktree add'
-# alias gwtl='git worktree list'
-# alias gwtm='git worktree move'
-# alias gwtp='git worktree prune'
+alias gwt='git worktree'
+#alias gwta='git worktree add'
+alias gwta='create_project_worktree'
+alias gwtl='git worktree list'
+alias gwtm='git worktree move'
+alias gwtp='git worktree prune'
 # alias gwtx='git worktree remove'
-# alias gwtu='git worktree unlock'
-# alias gwtl='git worktree lock'
+alias gwtr='remove_project_worktree'
+alias gwtX='git worktree remove --force'
+alias gwtu='git worktree unlock'
+alias gwtL='git worktree lock'
 
+create_project_worktree() {
+    local branch_name="$1"
+
+    # 引数チェック
+    if [[ -z "$branch_name" ]]; then
+        echo "Usage: gwta <branch-name>"
+        return 1
+    fi
+
+    # Gitリポジトリ内かチェック
+    if ! git rev-parse --git-dir > /dev/null 2>&1; then
+        echo "Error: Not in a git repository"
+        return 1
+    fi
+
+    # 現在のブランチをworktreeに追加しようとしているかチェック
+    local current_branch="$(git rev-parse --abbrev-ref HEAD)"
+    if [[ "$branch_name" == "$current_branch" ]]; then
+        echo "Error: Branch '$branch_name' is already checked out in the current directory"
+        echo "Tip: Specify a different branch name"
+        return 1
+    fi
+
+    # .git/worktreeディレクトリを作成
+    local git_dir="$(git rev-parse --show-toplevel)"
+    local worktree_base="$git_dir/.wt"
+    local worktree_path="$worktree_base/$branch_name"
+
+    # 親ディレクトリを作成（feature/ など）
+    mkdir -p "$(dirname "$worktree_path")"
+
+    # ブランチが既に存在するかチェック
+    if git show-ref --verify --quiet "refs/heads/$branch_name"; then
+        git worktree add "$worktree_path" "$branch_name"
+    else
+        git worktree add "$worktree_path" -b "$branch_name"
+    fi
+
+    if [[ $? -eq 0 ]]; then
+        cd "$worktree_path"
+        ailn
+    fi
+}
+
+# プロジェクト内worktree削除関数
+# プロジェクト内worktree削除関数
+remove_project_worktree() {
+    local branch_name="$1"
+
+    if [[ -z "$branch_name" ]]; then
+        echo "Usage: gwtr <branch-name>"
+        return 1
+    fi
+
+    local repo_root="$(git rev-parse --show-toplevel)"
+    local worktree_base="$repo_root/.wt"
+    local worktree_path="$worktree_base/$branch_name"
+
+    if [[ -d "$worktree_path" ]]; then
+        git worktree remove "$worktree_path"
+
+        # 空になった親ディレクトリを削除
+        local parent_dir="$(dirname "$worktree_path")"
+        while [[ "$parent_dir" != "$worktree_base" ]]; do
+            if rmdir "$parent_dir" 2>/dev/null; then
+                echo "Removed empty directory: $parent_dir"
+                parent_dir="$(dirname "$parent_dir")"
+            else
+                # ディレクトリが空でない場合は終了
+                break
+            fi
+        done
+    else
+        echo "Error: Worktree not found at $worktree_path"
+        return 1
+    fi
+}
 
 function git-branch-current {
 
@@ -524,7 +632,7 @@ function git-branch-current {
 
 function git-branch-list()
 {
-  local local=$(git branch|perl -pe "s/\* /  /")
+  local local=$(git branch|perl -pe "s/[*+] /  /")
   local no_branch=$({
   echo $local;
   echo $local;

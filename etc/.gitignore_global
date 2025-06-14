@@ -2,4 +2,21 @@
 .ruby_lsp/
 .index.yml
 .solargraph.yml
+
+# worktree
+.wt
+
+# cline
 .clinerules
+.cline
+.roomodes
+
+# cursor
+.cursorrules
+
+# claude
+CLAUDE.md
+CLAUDE.local.md
+CLAUDE/
+.claude/*
+!**/dotfiles/etc/.claude/*

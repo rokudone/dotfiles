@@ -34,3 +34,5 @@
 
 export TIL_DIR="${HOME}/Dropbox/App/til"
 export OBSIDIAN_DIR="${HOME}/Dropbox/obsidian/memo"
+export FIGMA_API_KEY=
+export GITHUB_PERSONAL_ACCESS_TOKEN=

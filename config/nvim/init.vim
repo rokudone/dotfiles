@@ -303,14 +303,14 @@ nnoremap <silent> <C-j> :call search ("^". matchstr (getline (line (".")), '\(\s
 
 if dein#tap('fzf.vim')
   " map <Leader>f [fzf]
-  nnoremap <silent> <C-p>     :<C-u>GFiles<CR>
-  nnoremap          <Leader>F :<C-u>GFilesWithQuery '<C-R>=expand('%:t:r:r:r')<CR><CR>
-  nnoremap          <Leader>f :<C-u>Files<CR>
+  nnoremap <silent> <C-p>     :<C-u>Files<CR>
+  nnoremap <silent> <Leader>f :<C-u>FilesWithQuery <C-R>=expand('%:t:r')<CR><CR>
+  nnoremap          <Leader>F :<C-u>FilesWithQuery '<C-R><C-W><CR>
   nnoremap <silent> <Leader>ee :<C-u>Dotfiles<CR>
   nnoremap <silent> <Leader>b :<C-u>Buffers<CR>
   nnoremap <silent> <Leader>m :<C-u>Marks<CR>
   nnoremap          <Leader>a :<C-u>Rg<Space>
-  nnoremap          <Leader>A :<C-u>Rg<Space><C-r><C-w><CR>
+  nnoremap          <Leader>A :<C-u>Rg <C-r><C-w>
 
   nnoremap <silent> <Leader>/ :<C-u>BLines<CR>
   nnoremap <silent> <Leader>? :<C-u>Lines<CR>
@@ -327,13 +327,13 @@ if dein#tap('coc.nvim')
   " 補完モードのコマンド(|popupmenu-keys| を参照)
   " <CR>で補完せず下の行
   " <Tab>で補完 スニペットのジャンプ
-  imap <silent><script><expr> <TAB> coc#pum#visible() ?
-       \     coc#_select_confirm() :
-       \     coc#expandableOrJumpable() ?
-       \         "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-       \         <SID>check_back_space() ?
-       \             "\<TAB>" :
-       \             coc#refresh()
+  " imap <silent><script><expr> <TAB> coc#pum#visible() ?
+  "      \     coc#_select_confirm() :
+  "      \     coc#expandableOrJumpable() ?
+  "      \         "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+  "      \         <SID>check_back_space() ?
+  "      \             "\<TAB>" :
+  "      \             coc#refresh()
   imap <silent><script><expr> <S-TAB> coc#pum#visible() ?
        \     coc#_select_confirm() :
        \     coc#expandableOrJumpable() ?
@@ -477,7 +477,7 @@ endif
 " endif
 
 if dein#tap('copilot.vim')
-  " imap <silent><script><expr> <right> copilot#Accept("\<right>")
+  imap <silent><script><expr> <Tab> copilot#Accept("\<Tab>")
   imap <silent> <a-]> <Plug>(copilot-next)
   imap <silent> <a-[> <Plug>(copilot-previous)
   imap <silent> <c-/> <Plug>(copilot-suggest)
@@ -505,12 +505,9 @@ if dein#tap('copilot.vim')
   " augroup End
 endif
 
-" nnoremap <silent> <Leader>t :TabnineEnable<CR>
-" nnoremap <silent> <Leader>T :<C-u>Tags<CR>
-
-if dein#tap('vista.vim')
-  nnoremap <silent> <Leader>o :<C-u>Vista coc<CR>
-endif
+" if dein#tap('vista.vim')
+"   nnoremap <silent> <Leader>o :<C-u>Vista coc<CR>
+" endif
 
 
 if dein#tap('PDV--phpDocumentor-for-Vim')
@@ -719,8 +716,7 @@ if dein#tap("vim-rails")
   " nnoremap [rails]rt :RT<CR>
   " nnoremap [rails]rd :RD<CR>
 
-  nnoremap [rails]a :<C-u>Rg <C-R>=expand('%:t:r')<CR>
-  " nnoremap [rails]f :<C-u>GFilesWithQuery <C-R>=expand('%:t:r')<CR><CR>
+  " nnoremap [rails]a :<C-u>Rg <C-R>=expand('%:t:r')<CR>
 
   " app/contollers/xxx_controller.rb
   nnoremap [rails]c :Econtroller<CR>
@@ -846,30 +842,13 @@ if dein#tap('fzf.vim')
 
   command! Jump call s:fzf_jump()
 
-
-  " function! s:GFilesWithPlaceholder(arg)
-  "   call fzf#run(fzf#wrap({
-  "       \ 'source': 'git ls-files',
-  "       \ 'options': '--query ' . a:arg
-  "       \ }))
-  " endfunction
-
-  function! s:GFilesWithQuery(query)
-      call fzf#vim#gitfiles('', fzf#vim#with_preview({
+  function! s:FilesWithQuery(query)
+    call fzf#run(fzf#wrap({
+          \ 'source': 'fd',
           \ 'options': ['--query', a:query]
-      \}))
+          \ }))
   endfunction
-
-  command! -nargs=? GFilesWithQuery call s:GFilesWithQuery(<q-args>)
-
-  function! s:FilesWithQuery()
-      call fzf#run(fzf#wrap({
-            \ 'source': 'find * -type f',
-            \ 'options': '--query test'
-            \ }))
-  endfunction
-
-  command! FilesWithQuery call s:FilesWithQuery()
+  command! -nargs=? FilesWithQuery call s:FilesWithQuery(<q-args>)
 
   " This is the default extra key bindings
   let g:fzf_action = {
@@ -879,9 +858,6 @@ if dein#tap('fzf.vim')
         \ 'ctrl-s': 'split',
         \ 'ctrl-v': 'vsplit'}
 
-  " Default fzf layout
-  " - down / up / left / right
-  let g:fzf_layout = { 'down': '40%' }
 
   let g:fzf_buffers_jump = 1
   " let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
@@ -919,7 +895,8 @@ if dein#tap('fzf.vim')
   " endfunction
   " autocmd!  FzfStatusLine call <SID>fzf_statusline()
 
-  let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Todo' } }
+  " let g:fzf_layout = { 'window': { 'width': 1.0, 'height': 0.6, 'highlight': 'Todo' } }
+  let g:fzf_layout = { 'down': "70%" }
   let g:fzf_colors =
     \ { 'fg':      ['fg', 'Normal'],
       \ 'bg':      ['bg', 'Normal'],
@@ -1220,13 +1197,13 @@ if dein#tap('vim-airline')
   " let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
   " let g:airline#extensions#tabline#formatter = 'default'
 
-  "  let g:airline_section_a = airline#section#create(["mode", " crypt", " paste", " spell", " iminsert"])
-  "  let g:airline_section_b = airline#section#create(["bufferline or filename", " readonly"])
-  "  let g:airline_section_c = airline#section#create([])
-  "  let g:airline_section_gutter = airline#section#create(["csv"])
-  "  let g:airline_section_x = airline#section#create([])
-  "  let g:airline_section_y = airline#section#create(["tagbar", " filetype", " virtualenv"])
-  "  let g:airline_section_z = airline#section#create(["fileencoding", " fileformat", " 'bom'", " 'eol'"])
+  " let g:airline_section_a = airline#section#create(["mode", " crypt", " paste", " spell", " iminsert"])
+  let g:airline_section_b = airline#section#create([])
+  " let g:airline_section_c = airline#section#create([])
+  " let g:airline_section_gutter = airline#section#create([])
+  let g:airline_section_x = airline#section#create([])
+  let g:airline_section_y = airline#section#create([])
+  let g:airline_section_z = airline#section#create([])
 
   let g:airline#extensions#tabline#enabled = 1
   let g:airline_filetype_overrides = {
@@ -1523,6 +1500,14 @@ function! s:open_code()
 endfunction
 command! Code call s:open_code()
 
+"--------------------
+" vim-sandwich
+"--------------------
+
+if dein#tap('vim-auto-save')
+  let g:auto_save = 1
+endif
+
 ""--------------------
 "" setting ここまで
 ""--------------------
@@ -1681,7 +1666,7 @@ let g:is_bash = 1
 
 set redrawtime=5000
 set number
-set nomore
+set more
 set showmode          " モード表示
 set title             " 編集中のファイル名を表示
 set ruler             " ルーラーの表示

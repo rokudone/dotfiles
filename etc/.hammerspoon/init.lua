@@ -1,9 +1,18 @@
+-- hs.hotkey.bind({"ctrl"}, "space", function()
+--   local app = hs.application.find('alacritty')
+--   if app:isFrontmost() then
+--     if app then app:hide() end
+--   else
+--     hs.application.launchOrFocus("/Applications/Alacritty.app")
+--   end
+-- end)
+
 hs.hotkey.bind({"ctrl"}, "space", function()
-  local app = hs.application.find('alacritty')
+  local app = hs.application.find('wezterm')
   if app:isFrontmost() then
     if app then app:hide() end
   else
-    hs.application.launchOrFocus("/Applications/Alacritty.app")
+    hs.application.launchOrFocus("/Applications/WezTerm.app")
   end
 end)
 
@@ -15,19 +24,6 @@ hs.hotkey.bind({"ctrl", "shift"}, "space", function()
     hs.application.launchOrFocus("/Applications/Cursor.app")
   end
 end)
-
--- hs.hotkey.bind({"ctrl"}, "space", function()
---   local iTerm = hs.application.find('iTerm')
---   local cursor = hs.application.find('Cursor')
---   if iTerm:isFrontmost() then
---     if cursor then hs.application.launchOrFocus("/Applications/Cursor.app") end
---     if iTerm then iTerm:hide() end
---   elseif cursor:isFrontmost() then
---     if cursor then cursor:hide() end
---   else
---     if iTerm then hs.application.launchOrFocus("/Applications/iTerm.app") end
---   end
--- end)
 
 hs.hotkey.bind({}, "home", function()
   local edge = hs.application.find('edge')
@@ -63,10 +59,10 @@ bindAppHotkey('t', 'TablePlus')
 bindAppHotkey('o', 'Obsidian')
 -- bindAppHotkey('p', '')
 
-bindAppHotkey('a', 'Arc')
+-- bindAppHotkey('a', 'Arc')
 bindAppHotkey('s', 'Slack')
 -- bindAppHotkey('d',)
-bindAppHotkey('f', 'Figma')
+bindAppHotkey('f', 'Finder')
 -- bindAppHotkey('g', '')
 -- bindAppHotkey('h', '')
 -- bindAppHotkey('j', '')
@@ -75,35 +71,17 @@ bindAppHotkey('f', 'Figma')
 
 
 bindAppHotkey('z', 'zoom.us')
--- bindAppHotkey('x', '')
+bindAppHotkey('x', 'Xcode')
 bindAppHotkey('c', 'Cursor')
 -- bindAppHotkey('v', '')
--- bindAppHotkey('b', '')
+bindAppHotkey('b', 'Floorp')
 -- bindAppHotkey('n', '')
 bindAppHotkey('m', 'YouTube Music')
 
-local muteAlert = nil
-local lastMutedState = nil
+-- Window Management
+local windowManagement = require("window-management")
 
-local function updateMuteAlert()
-  local audio = hs.audiodevice.defaultInputDevice()
-  local muted = audio:inputMuted()
-
-  if muted ~= lastMutedState then
-    lastMutedState = muted
-
-    if muteAlert then
-      hs.alert.closeSpecific(muteAlert)
-      muteAlert = nil
-    end
-
-    if muted then
-      muteAlert = hs.alert.show("📵 Microphone muted", { textSize = 24 }, true, hs.screen.primaryScreen())
-    end
-  end
-end
-
--- 定期的に状態を更新
-hs.timer.doEvery(0.5, updateMuteAlert)
-
--- hs.alert.show("このアラートも手動で閉じるまで表示されます", hs.alert.defaultStyle, hs.screen.mainScreen(), math.huge)
+-- Window positioning hotkeys (Rectangleと同じキーバインド)
+hs.hotkey.bind({"alt"}, "left", windowManagement.moveLeft)
+hs.hotkey.bind({"alt"}, "right", windowManagement.moveRight)
+hs.hotkey.bind({"alt"}, "up", windowManagement.maximize)

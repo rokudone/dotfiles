@@ -15,7 +15,7 @@ else
 fi
 
 if [ $# -eq 0 ]; then
-  local sessionname=$(basename $PWD | perl -pe "s/\./_/g") 
+  local sessionname=$(basename $PWD | perl -pe "s/\./_/g")
 else
   local sessionname=$(echo $1 | perl -pe "s/\./_/g")
 fi
@@ -36,4 +36,3 @@ if [[ -z ${opthash[(i)-n]} ]]; then
     tmux switch-client -t "$sessionname"
   fi
 fi
-

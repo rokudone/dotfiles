@@ -1,5 +1,5 @@
 {
-    "editor.fontSize": 16,
+    "editor.fontSize": 18,
     "editor.fontFamily": " \"S2GUniFont Nerd Font\", \"Yomogi\", \"ゆたココ\", \"あんずもじ等幅\", \"きろ字\", \"Myrica M\", \"JetBrainsMono Nerd Font\", \"HackGen Console NF\"",
     "editor.insertSpaces": true,
     "editor.rulers": [
@@ -8,6 +8,7 @@
     "editor.semanticHighlighting.enabled": true,
     "editor.accessibilitySupport": "off",
     "editor.acceptSuggestionOnEnter": "off",
+    "editor.foldingStrategy": "indentation",
     "explorer.confirmDragAndDrop": false,
     "explorer.confirmDelete": false,
     "files.autoSave": "afterDelay",
@@ -105,99 +106,232 @@
     "vim.hlsearch": true,
     "vim.incsearch": true,
     "vim.leader": "<space>",
+    "vim.foldfix": true,
     "vim.normalModeKeyBindingsNonRecursive": [
         {
-            "before": [ "f" ],
-            "after": [ "<leader>", "<leader>", "f" ]
+            "before": [
+                "f"
+            ],
+            "after": [
+                "<leader>",
+                "<leader>",
+                "f"
+            ]
         },
         {
-            "before": [ "F" ],
-            "after": [ "<leader>", "<leader>", "F" ]
+            "before": [
+                "F"
+            ],
+            "after": [
+                "<leader>",
+                "<leader>",
+                "F"
+            ]
         },
         {
-            "before": [ "t" ],
-            "after": [ "<leader>", "<leader>", "t" ]
+            "before": [
+                "t"
+            ],
+            "after": [
+                "<leader>",
+                "<leader>",
+                "t"
+            ]
         },
         {
-            "before": [ "T" ],
-            "after": [ "<leader>", "<leader>", "T" ]
+            "before": [
+                "T"
+            ],
+            "after": [
+                "<leader>",
+                "<leader>",
+                "T"
+            ]
         },
         {
-            "before": [ "leader", "s" ],
-            "after": [ ":", "%", "s", "/" ]
+            "before": [
+                "leader",
+                "s"
+            ],
+            "after": [
+                ":",
+                "%",
+                "s",
+                "/"
+            ]
         },
         {
-            "before": [ "leader", "[" ],
-            "after": [ "leader", "leader", "leader", "b", "d", "w" ]
+            "before": [
+                "leader",
+                "["
+            ],
+            "after": [
+                "leader",
+                "leader",
+                "leader",
+                "b",
+                "d",
+                "w"
+            ]
         },
         {
-            "before": [ "leader", "w" ],
-            "after": [ ":", "w", "<CR>" ]
+            "before": [
+                "leader",
+                "w"
+            ],
+            "after": [
+                ":",
+                "w",
+                "<CR>"
+            ]
         },
         {
-            "before": [ "leader", "W" ],
-            "after": [ ":", "w", "a", "<CR>" ]
+            "before": [
+                "leader",
+                "W"
+            ],
+            "after": [
+                ":",
+                "w",
+                "a",
+                "<CR>"
+            ]
         },
         {
-            "before": [ "leader", "q" ],
-            "after": [ ":", "q", "<CR>" ]
+            "before": [
+                "leader",
+                "q"
+            ],
+            "after": [
+                ":",
+                "q",
+                "<CR>"
+            ]
         },
         {
-            "before": [ "leader", "Q" ],
-            "after": [ ":", "q", "a", "<CR>" ]
+            "before": [
+                "leader",
+                "Q"
+            ],
+            "after": [
+                ":",
+                "q",
+                "a",
+                "<CR>"
+            ]
         },
         {
-            "before": [ "leader", "s" ],
-            "after": [ ":", "%", "s", "/" ]
+            "before": [
+                "leader",
+                "s"
+            ],
+            "after": [
+                ":",
+                "%",
+                "s",
+                "/"
+            ]
         },
         {
-            "before": [ "j" ],
-            "after": [ "g", "j" ]
+            "before": [
+                "j"
+            ],
+            "after": [
+                "g",
+                "j"
+            ]
         },
         {
-            "before": [ "g", "j" ],
-            "after": [ "j" ]
+            "before": [
+                "g",
+                "j"
+            ],
+            "after": [
+                "j"
+            ]
         },
         {
-            "before": [ "k" ],
-            "after": [ "g", "k" ]
+            "before": [
+                "k"
+            ],
+            "after": [
+                "g",
+                "k"
+            ]
         },
         {
-            "before": [ "g", "k" ],
-            "after": [ "k" ]
+            "before": [
+                "g",
+                "k"
+            ],
+            "after": [
+                "k"
+            ]
         },
         {
-            "before": ["g", "h"],
-            "commands": ["editor.action.showHover"]
+            "before": [
+                "g",
+                "h"
+            ],
+            "commands": [
+                "editor.action.showHover"
+            ]
         }
     ],
     "vim.insertModeKeyBindings": [
         {
-            "before": [ "<C-f>" ],
-            "after": [ "<right>" ]
+            "before": [
+                "<C-f>"
+            ],
+            "after": [
+                "<right>"
+            ]
         },
         {
-            "before": [ "<C-b>" ],
-            "after": [ "left" ]
+            "before": [
+                "<C-b>"
+            ],
+            "after": [
+                "left"
+            ]
         },
         {
-            "before": [ "<C-p>" ],
-            "after": [ "up" ]
+            "before": [
+                "<C-p>"
+            ],
+            "after": [
+                "up"
+            ]
         },
         {
-            "before": [ "<C-n>" ],
-            "after": [ "down" ]
+            "before": [
+                "<C-n>"
+            ],
+            "after": [
+                "down"
+            ]
         },
         {
-            "before": ["<D-[>"],
-            "after": ["<Esc>"]
+            "before": [
+                "<D-[>"
+            ],
+            "after": [
+                "<Esc>"
+            ]
         }
     ],
     "vim.visualModeKeyBindings": [
         {
-            "before": [ "leader", "s" ],
-            "after": [ ":", "s", "/" ]
-        },
+            "before": [
+                "leader",
+                "s"
+            ],
+            "after": [
+                ":",
+                "s",
+                "/"
+            ]
+        }
     ],
     "vim.statusBarColorControl": false,
     "vim.surround": true,
@@ -255,14 +389,12 @@
     "fzf-quick-open.findDirectoriesCmd": "fd --type d",
     "fzf-quick-open.ripgrepOptions": "--max-columns 640",
     "csv-edit.fontSizeInPx": 20,
-    "window.zoomPerWindow": false,
     "editor.wordWrap": "on",
     "githubPullRequests.pullBranch": "never",
     "typescript.updateImportsOnFileMove.enabled": "always",
     "javascript.updateImportsOnFileMove.enabled": "always",
     "editor.quickSuggestionsDelay": 500,
     "debug.enableStatusBarColor": false,
-    "workbench.preferredDarkColorTheme": "Ayu One",
     "window.autoDetectColorScheme": true,
     "workbench.iconTheme": "seti",
     "cursor.cpp.enablePartialAccepts": true,
@@ -299,7 +431,7 @@
     "workbench.preferredLightColorTheme": "Atom One Light",
     "explorer.excludeGitIgnore": true,
     "terminal.integrated.fontSize": 16,
-    "window.zoomLevel": 2,
+    "window.zoomLevel": 1.5,
     "workbench.editor.enablePreview": false,
     "workbench.activityBar.orientation": "vertical",
     "diffEditor.ignoreTrimWhitespace": false,
@@ -315,9 +447,30 @@
         "git diff",
         "git show",
         "raills *",
-        "bundle exec rspec *"
+        "bundle exec rspec *",
+        "poetry *",
+        "npm run check"
     ],
     "git.confirmSync": false,
     "hediet.vscode-drawio.zoomFactor": 1.5,
-    "cursor.composer.collapsePaneInputBoxPills": true
+    "cursor.composer.collapsePaneInputBoxPills": true,
+    "editor.mouseWheelZoom": true,
+    "window.commandCenter": true,
+    "workbench.preferredDarkColorTheme": "Ayu One",
+    "svg.preview.zoomOptions": [
+        "25%",
+        "100%",
+        "200%",
+        "400%",
+        "800%"
+    ],
+    "editor.showFoldingControls": "always",
+    "notebook.showFoldingControls": "always",
+    "workbench.panel.defaultLocation": "right",
+    "terminal.integrated.fontWeight": "normal",
+    "terminal.integrated.lineHeight": 1.3,
+    "terminal.integrated.letterSpacing": 1.1,
+    "terminal.integrated.copyOnSelection": true,
+    "terminal.integrated.rightClickBehavior": "paste",
+    "workbench.colorTheme": "Spinel"
 }

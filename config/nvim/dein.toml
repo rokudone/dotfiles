@@ -62,8 +62,8 @@ repo = 'glidenote/memolist.vim'
 repo = 'majutsushi/tagbar'
 [[plugins]]
 repo = 'editorconfig/editorconfig-vim'
-[[plugins]]
-repo = 'liuchengxu/vista.vim'
+# [[plugins]]
+# repo = 'liuchengxu/vista.vim'
 [[plugins]]
 repo = 'easymotion/vim-easymotion'
 [[plugins]]
@@ -81,9 +81,11 @@ repo = 'blueyed/vim-diminactive'
 # '''
 [[plugins]]
 repo = 'vimpostor/vim-lumen'
+[[plugins]]
+repo = '907th/vim-auto-save'
 
-# [[plugins]]
-# repo = 'github/copilot.vim'
+[[plugins]]
+repo = 'github/copilot.vim'
 
 # [[plugins]]
 # repo = '~/projects/spzenhan.vim'
@@ -97,9 +99,9 @@ repo = 'tpope/vim-rhubarb'
 [[plugins]]
 repo = 'cohama/agit.vim'
 # git commit
-[[plugins]]
-repo = 'rhysd/committia.vim'
-on_ft = ["git"]
+# [[plugins]]
+# repo = 'rhysd/committia.vim'
+# on_ft = ["git"]
 # git 差分表示
 [[plugins]]
 repo = 'airblade/vim-gitgutter'

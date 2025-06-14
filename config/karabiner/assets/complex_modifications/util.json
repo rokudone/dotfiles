@@ -83,7 +83,9 @@
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
                 "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.mitchellh\\.ghostty$"
+                "^com\\.mitchellh\\.ghostty$",
+                "^com\\.github\\.wez\\.wezterm$"
+
               ]
             }
           ]
@@ -136,7 +138,9 @@
                 "^dev\\.warp\\.Warp-Stable$",
                 "^net\\.kovidgoyal\\.kitty$",
                 "^com\\.todesktop\\.230313mzl4w4u92$",
-                "^com\\.mitchellh\\.ghostty$"
+                "^com\\.mitchellh\\.ghostty$",
+                "^com\\.github\\.wez\\.wezterm$"
+
               ]
             }
           ]

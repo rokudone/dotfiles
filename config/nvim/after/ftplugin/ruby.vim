@@ -1,4 +1,4 @@
 setlocal shiftwidth=2
-setlocal foldmethod=manual
+setlocal foldmethod=indent
 
 set commentstring=#%s

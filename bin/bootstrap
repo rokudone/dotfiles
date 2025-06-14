@@ -32,6 +32,7 @@ new_session() {
 # new_session casy-hub/casy-ruby
 # new_session casy-hub/casy-daemon
 new_session casy-hub
+new_session casy-hub/casy-user
 # new_session casy-repo
 new_session dx-api
 # new_session dx-environment

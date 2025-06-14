@@ -126,7 +126,7 @@ alias -g N='&& notify completed || notify error'
 alias -g P='| pbcopy'
 alias -g SJIS='| nkf'
 alias serve="python3 -m http.server"
-alias c="cursor"
+alias c='env -u TMUX cursor'
 alias -g C="| xargs cursor"
 
 function rc() {
@@ -513,18 +513,7 @@ alias mesw="me staging worker"
 #   zprof
 # fi
 
-### End of Zinit's installer chunk
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
-
-# Load a few important annexes, without Turbo
-# (this is currently required for annexes)
-zinit light-mode for \
-    zdharma-continuum/zinit-annex-as-monitor \
-    zdharma-continuum/zinit-annex-bin-gem-node \
-    zdharma-continuum/zinit-annex-patch-dl \
-    zdharma-continuum/zinit-annex-rust
+alias yolo="claude --dangerously-skip-permissions"
 
 # Created by `pipx` on 2024-06-17 17:35:34
 export PATH="$PATH:/Users/filriya/.local/bin"
@@ -536,6 +525,8 @@ export PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 export PATH="$HOME/.orbstack/bin:$PATH"
 
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="/Library/TeX/texbin:$PATH"
 # Load a few important annexes, without Turbo
 # (this is currently required for annexes)
 zinit light-mode for \

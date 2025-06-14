@@ -138,6 +138,7 @@ brew install selenium-server-standalone
 brew install chromedriver
 brew install geckodriver
 
+brew install ollama
 
 mas install 539883307 # LINE (5.15.0)
 mas install 497799835 # Xcode (10.2)

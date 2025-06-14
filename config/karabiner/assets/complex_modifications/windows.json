@@ -24,7 +24,8 @@
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
                 "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.mitchellh\\.ghostty$"
+                "^com\\.mitchellh\\.ghostty$",
+                "^com\\.github\\.wez\\.wezterm$"
               ]
             },
             {
@@ -58,7 +59,8 @@
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
                 "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.mitchellh\\.ghostty$"
+                "^com\\.mitchellh\\.ghostty$",
+                "^com\\.github\\.wez\\.wezterm$"
               ]
             },
             {
@@ -90,7 +92,9 @@
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
                 "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.mitchellh\\.ghostty$"
+                "^com\\.mitchellh\\.ghostty$",
+                "^com\\.github\\.wez\\.wezterm$"
+
               ]
             },
             {
@@ -120,7 +124,9 @@
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
                 "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.mitchellh\\.ghostty$"
+                "^com\\.mitchellh\\.ghostty$",
+                "^com\\.github\\.wez\\.wezterm$"
+
               ]
             },
             {
@@ -157,7 +163,9 @@
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
                 "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.mitchellh\\.ghostty$"
+                "^com\\.mitchellh\\.ghostty$",
+                "^com\\.github\\.wez\\.wezterm$"
+
               ]
             },
             {
@@ -189,7 +197,9 @@
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
                 "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.mitchellh\\.ghostty$"
+                "^com\\.mitchellh\\.ghostty$",
+                "^com\\.github\\.wez\\.wezterm$"
+
               ]
             },
             {
@@ -226,7 +236,9 @@
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
                 "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.mitchellh\\.ghostty$"
+                "^com\\.mitchellh\\.ghostty$",
+                "^com\\.github\\.wez\\.wezterm$"
+
               ]
             }
           ]
@@ -249,7 +261,9 @@
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
                 "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.mitchellh\\.ghostty$"
+                "^com\\.mitchellh\\.ghostty$",
+                "^com\\.github\\.wez\\.wezterm$"
+
               ]
             },
             {
@@ -286,7 +300,9 @@
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
                 "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.mitchellh\\.ghostty$"
+                "^com\\.mitchellh\\.ghostty$",
+                "^com\\.github\\.wez\\.wezterm$"
+
               ]
             },
             {
@@ -319,7 +335,9 @@
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
                 "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.mitchellh\\.ghostty$"
+                "^com\\.mitchellh\\.ghostty$",
+                "^com\\.github\\.wez\\.wezterm$"
+
               ]
             },
             {
@@ -356,7 +374,9 @@
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
                 "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.mitchellh\\.ghostty$"
+                "^com\\.mitchellh\\.ghostty$",
+                "^com\\.github\\.wez\\.wezterm$"
+
               ]
             },
             {
@@ -388,7 +408,9 @@
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
                 "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.mitchellh\\.ghostty$"
+                "^com\\.mitchellh\\.ghostty$",
+                "^com\\.github\\.wez\\.wezterm$"
+
               ]
             },
             {
@@ -420,7 +442,9 @@
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
                 "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.mitchellh\\.ghostty$"
+                "^com\\.mitchellh\\.ghostty$",
+                "^com\\.github\\.wez\\.wezterm$"
+
               ]
             },
             {
@@ -452,7 +476,9 @@
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
                 "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.mitchellh\\.ghostty$"
+                "^com\\.mitchellh\\.ghostty$",
+                "^com\\.github\\.wez\\.wezterm$"
+
               ]
             },
             {
@@ -484,7 +510,9 @@
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
                 "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.mitchellh\\.ghostty$"
+                "^com\\.mitchellh\\.ghostty$",
+                "^com\\.github\\.wez\\.wezterm$"
+
               ]
             },
             {
@@ -516,7 +544,9 @@
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
                 "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.mitchellh\\.ghostty$"
+                "^com\\.mitchellh\\.ghostty$",
+                "^com\\.github\\.wez\\.wezterm$"
+
               ]
             },
             {
@@ -548,7 +578,9 @@
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
                 "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.mitchellh\\.ghostty$"
+                "^com\\.mitchellh\\.ghostty$",
+                "^com\\.github\\.wez\\.wezterm$"
+
               ]
             },
             {
@@ -580,7 +612,9 @@
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
                 "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.mitchellh\\.ghostty$"
+                "^com\\.mitchellh\\.ghostty$",
+                "^com\\.github\\.wez\\.wezterm$"
+
               ]
             },
             {
@@ -618,7 +652,9 @@
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
                 "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.mitchellh\\.ghostty$"
+                "^com\\.mitchellh\\.ghostty$",
+                "^com\\.github\\.wez\\.wezterm$"
+
               ]
             },
             {
@@ -651,7 +687,9 @@
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
                 "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.mitchellh\\.ghostty$"
+                "^com\\.mitchellh\\.ghostty$",
+                "^com\\.github\\.wez\\.wezterm$"
+
               ]
             }
           ]
@@ -710,7 +748,9 @@
                 "^org\\.alacritty$",
                 "^dev\\.warp\\.Warp-Stable$",
                 "^net\\.kovidgoyal\\.kitty$",
-                "^com\\.mitchellh\\.ghostty$"
+                "^com\\.mitchellh\\.ghostty$",
+                "^com\\.github\\.wez\\.wezterm$"
+
               ]
             },
             {
