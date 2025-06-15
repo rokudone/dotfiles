@@ -1,0 +1,10 @@
+alias yolo="claude --dangerously-skip-permissions"
+
+gci() {
+    local prompt=$(cat <<'EOF'
+stageされたgitの変更内容を確認し、要約したgitコミットタイトルを日本語で作成してください。タイトルのみを返答し、肯定や確認の言葉は不要です。
+EOF
+    )
+    git commit -m "$(claude -p "$prompt")"
+}
+

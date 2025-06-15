@@ -1,0 +1,9 @@
+Dotfiles
+
+# Claude関連
+
+- ./etc/.claude
+- ./etc/.CLAUDE.md
+- ./etc/.zshrc.claude
+- ./bin/claude-monitor
+- ./bin/swiftbar/claude-swiftbar.5s.sh

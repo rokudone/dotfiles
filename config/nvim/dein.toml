@@ -1,0 +1,257 @@
+[[plugins]]
+repo = 'Shougo/dein.vim'
+[[plugins]]
+repo = 'vim-denops/denops.vim'
+
+[[plugins]]
+repo = 'vim-jp/vimdoc-ja'
+
+
+#
+# development:general
+[[plugins]]
+repo = 'junegunn/fzf'
+build = './install --all'
+[[plugins]]
+repo = 'junegunn/fzf.vim'
+# [[plugins]]
+# repo = 'Shougo/defx.nvim'
+# [[plugins]]
+# repo = 'lambdalisue/fern.vim'
+[[plugins]]
+repo = 'junegunn/vim-easy-align'
+[[plugins]]
+repo = 'vim-scripts/sudo.vim'
+# [[plugins]]
+# repo = 'tyru/caw.vim'
+[[plugins]]
+repo = 'tpope/vim-commentary'
+[[plugins]]
+repo = 'suy/vim-context-commentstring'
+# [[plugins]]
+# repo = 'preservim/nerdcommenter'
+# [[plugins]]
+# repo = 'tomtom/tcomment_vim'
+# [[plugins]]
+# repo = 'JoosepAlviste/nvim-ts-context-commentstring'
+# [[plugins]]
+# repo = 'Shougo/context_filetype.vim'
+[[plugins]]
+repo = 'thinca/vim-qfreplace'
+[[plugins]]
+repo = 'thinca/vim-quickrun'
+[[plugins]]
+repo = 'machakann/vim-sandwich'
+[[plugins]]
+repo = 'deton/jasegment.vim'
+[[plugins]]
+repo = 'haya14busa/incsearch.vim'
+[[plugins]]
+repo = 'tpope/vim-repeat'
+[[plugins]]
+repo = 'deris/vim-rengbang'
+[[plugins]]
+repo = 'ntpeters/vim-better-whitespace'
+[[plugins]]
+repo = 'kana/vim-smartinput'
+[[plugins]]
+repo = 'honza/vim-snippets'
+[[plugins]]
+repo = 'glidenote/memolist.vim'
+[[plugins]]
+repo = 'majutsushi/tagbar'
+[[plugins]]
+repo = 'editorconfig/editorconfig-vim'
+# [[plugins]]
+# repo = 'liuchengxu/vista.vim'
+[[plugins]]
+repo = 'easymotion/vim-easymotion'
+[[plugins]]
+repo = 't9md/vim-choosewin'
+# [[plugins]]
+# repo = 'syui/airsave.vim'
+[[plugins]]
+repo = 'folke/which-key.nvim'
+[[plugins]]
+repo = 'blueyed/vim-diminactive'
+# [[plugins]]
+# repo = 'kat0h/vim-auto-color-switcher'
+# hook_post_update = '''
+# let g:dein#plugin.build = 'make'
+# '''
+[[plugins]]
+repo = 'vimpostor/vim-lumen'
+[[plugins]]
+repo = '907th/vim-auto-save'
+
+[[plugins]]
+repo = 'github/copilot.vim'
+
+# [[plugins]]
+# repo = '~/projects/spzenhan.vim'
+
+# git
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+[[plugins]]
+repo = 'tpope/vim-rhubarb'
+# git logDefx
+[[plugins]]
+repo = 'cohama/agit.vim'
+# git commit
+# [[plugins]]
+# repo = 'rhysd/committia.vim'
+# on_ft = ["git"]
+# git 差分表示
+[[plugins]]
+repo = 'airblade/vim-gitgutter'
+
+
+# textobj
+# https://github.com/kana/vim-textobj-user/wiki
+[[plugins]]
+repo = 'kana/vim-textobj-user'
+[[plugins]]
+repo = 'kana/vim-textobj-line' # al
+[[plugins]]
+repo = 'kana/vim-textobj-entire' # ae
+[[plugins]]
+repo = 'kana/vim-textobj-function' #af / aF
+[[plugins]]
+repo = 'kana/vim-textobj-indent' # ai / aI
+[[plugins]]
+repo = 'kana/vim-textobj-jabraces' # aj{X}
+[[plugins]]
+repo = 'thinca/vim-textobj-comment' # ac
+[[plugins]]
+repo = 'sgur/vim-textobj-parameter' #a,
+[[plugins]]
+repo = 'machakann/vim-textobj-delimited'  #ad aD
+[[plugins]]
+repo = 'pocke/vim-textobj-markdown' #c
+[[plugins]]
+repo = 'osyo-manga/vim-textobj-multiblock' #sb
+[[plugins]]
+repo = 'fvictorio/vim-textobj-backticks' #a`
+
+# language server client
+[[plugins]]
+repo = 'neoclide/coc.nvim'
+merged = 0
+rev = 'release'
+
+
+#
+# filetype
+[[plugins]]
+repo='mvolkmann/vim-js-arrow-function'
+on_ft = ["javascript", "typescript", "vue"]
+[[plugins]]
+repo='docteurklein/vim-symfony'
+on_ft = ["php"]
+[[plugins]]
+repo='stephpy/vim-php-cs-fixer'
+on_ft = ["php"]
+[[plugins]]
+repo = 'kmyk/brainfuck-highlight.vim'
+on_ft = ["bf"]
+[[plugins]]
+repo = 'PProvost/vim-ps1'
+on_ft = ["ps1"]
+[[plugins]]
+repo = "posva/vim-vue"
+on_ft = ["vue"]
+[[plugins]]
+repo = 'mechatroner/rainbow_csv'
+on_ft = ["csv"]
+[[plugins]]
+repo = 'vim-scripts/applescript.vim'
+on_ft = ["applescript"]
+[[plugins]]
+repo = 'jparise/vim-graphql'
+on_ft = ["graphql"]
+[[plugins]]
+repo = 'jlcrochet/vim-rbs'
+on_ft = ["rbs"]
+[[plugins]]
+repo = 'tpope/vim-rails'
+on_ft = ["ruby", "erb"]
+[[plugins]]
+repo = 'adelarsq/vim-matchit'
+[[plugins]]
+repo = 'kchmck/vim-coffee-script'
+[[plugins]]
+repo = 'briancollins/vim-jst'
+on_ft = ["ejs"]
+
+# markdown
+[[plugins]]
+repo = 'preservim/vim-markdown'
+on_ft = ['markdown', 'pandoc.markdown', 'rmd']
+[[plugins]]
+repo = 'mattn/vim-maketable'
+# on_ft = ['markdown', 'pandoc.markdown', 'rmd']
+[[plugins]]
+repo = 'previm/previm'
+on_ft = ['markdown', 'pandoc.markdown', 'rmd']
+[[plugins]]
+repo = 'tyru/open-browser.vim'
+on_ft = ['markdown', 'pandoc.markdown', 'rmd']
+[[plugins]]
+repo = 'vim-scripts/VOoM'
+on_ft = ['markdown', 'pandoc.markdown', 'rmd']
+[[plugins]]
+repo = 'habamax/vim-asciidoctor'
+on_ft = ['markdown', 'pandoc.markdown', 'rmd']
+[[plugins]]
+repo = 'nikvdp/ejs-syntax'
+on_ft = ['ejs']
+[[plugins]]
+repo = 'neoclide/vim-jsx-improve'
+on_ft = ['javascriptreact', 'typescriptreact']
+[[plugins]]
+repo = 'yuezk/vim-js'
+on_ft = ['javascriptreact', 'typescriptreact']
+[[plugins]]
+repo = 'MaxMEllon/vim-jsx-pretty'
+on_ft = ['javascriptreact', 'typescriptreact']
+[[plugins]]
+repo = 'dart-lang/dart-vim-plugin'
+on_ft = ['dart']
+[[plugins]]
+repo = 'thosakwe/vim-flutter'
+on_ft = ['dart']
+
+
+# # # syntax
+# [[plugins]]
+# repo = 'kat0h/vim-auto-color-switcher'
+# hook_post_update = '''
+# let g:dein#plugin.build = 'make'
+# '''
+
+[[plugins]]
+repo = 'sainnhe/sonokai'
+# [[plugins]]
+# repo = 'Shatur/neovim-ayu'
+[[plugins]]
+repo = 'Luxed/ayu-vim'
+[[plugins]]
+repo = 'marko-cerovac/material.nvim'
+[[plugins]]
+repo = 'rakr/vim-one'
+
+[[plugins]]
+repo = 'norcalli/nvim-colorizer.lua'
+[[plugins]]
+repo = 'vim-airline/vim-airline'
+[[plugins]]
+repo = 'vim-airline/vim-airline-themes'
+[[plugins]]
+repo = 'ryanoasis/vim-devicons'
+[[plugins]]
+repo = 'junegunn/goyo.vim'
+
+[[plugins]]
+repo = 'thinca/vim-scouter'
+

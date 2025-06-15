@@ -1,0 +1,53 @@
+#!/bin/bash
+if [[ "$(defaults read -g AppleInterfaceStyle 2>/dev/null)" == "Dark" ]]; then
+  #one dark
+  FZF_COLOR=" \
+    --color=fg:-1,bg:-1,hl:-1 \
+    --color=fg+:-1,bg+:-1,hl+:-1 \
+    --color=info:#98c379,prompt:#61afef,pointer:#be5046 \
+    --color=marker:#e5c07b,spinner:#61afef,header:#61afef"
+
+# ayu mirage
+# echo " \
+#   --color=fg:#cbccc6,bg:#1f2430,hl:#707a8c \
+#   --color=fg+:#707a8c,bg+:#191e2a,hl+:#ffcc66 \
+#   --color=info:#73d0ff,prompt:#707a8c,pointer:#cbccc6 \
+#   --color=marker:#73d0ff,spinner:#73d0ff,header:#d4bfff"
+# gruvbox
+#     echo " \
+# --color=dark \
+# --color fg:#ebdbb2,bg:#282828,hl:#fabd2f,fg+:#ebdbb2,bg+:#3c3836,hl+:#fabd2f \
+# --color info:#83a598,prompt:#bdae93,spinner:#fabd2f,pointer:#83a598,marker:#fe8019,header:#665c54"
+
+else 
+
+  # ayu light
+  FZF_COLOR=" \
+    --color=fg:-1,bg:-1,hl:-1 \
+    --color=fg+:-1,bg+:-1,hl+:-1 \
+    --color=info:#4271ae,prompt:#8959a8,pointer:#d7005f \
+    --color=marker:#4271ae,spinner:#4271ae,header:#4271ae"
+
+fi
+
+export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_COLOR"
+
+# gruvbox
+# echo " \
+#   --color=light \
+#   --color=fg:#3c3836,bg:#fbf1c7,hl:#928374,fg+:#3c3836,bg+:#ebdbb2,hl+:#9d0006 \
+#   --color=info:#427b58,prompt:#9d0006,spinner:#9d0006,pointer:#9d0006,marker:#9d0006,header:#928374"
+
+# \ { 'fg':      ['fg', 'Normal'],
+#   \ 'bg':      ['bg', 'Normal'],
+#   \ 'hl':      ['fg', 'Comment'],
+#   \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+#   \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+#   \ 'hl+':     ['fg', 'Statement'],
+#   \ 'info':    ['fg', 'PreProc'],
+#   \ 'border':  ['fg', 'Ignore'],
+#   \ 'prompt':  ['fg', 'Conditional'],
+#   \ 'pointer': ['fg', 'Exception'],
+#   \ 'marker':  ['fg', 'Keyword'],
+#   \ 'spinner': ['fg', 'Label'],
+#   \ 'header':  ['fg', 'Comment'] }

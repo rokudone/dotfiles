@@ -1,0 +1,163 @@
+{
+  "title": "util",
+  "rules": [
+    {
+      "description": "[util] Send jis_eisuu when type esc",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": { "key_code": "escape" },
+          "to": [
+            { "key_code": "escape" },
+            { "key_code": "japanese_eisuu" }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "[util] Send jis_eisuu when activate raycast",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": { "key_code": "spacebar", "modifiers": { "mandatory": [ "option" ], "optional": [ "any" ] } },
+          "to": [
+            { "key_code": "japanese_eisuu" },
+            { "key_code": "spacebar", "modifiers": [ "option" ] }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "[util] ctl + [ to escape on vscode",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": { "key_code": "open_bracket", "modifiers": { "mandatory": [ "control" ] } },
+          "to": [
+            { "key_code": "escape" },
+            { "key_code": "japanese_eisuu" }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "[util] Cmd + [ to escape on vscode",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": { "key_code": "open_bracket", "modifiers": { "mandatory": [ "command" ]} },
+          "to": [
+            { "key_code": "escape" },
+            { "key_code": "japanese_eisuu" }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "com\\.microsoft\\.VSCode",
+                "com\\.todesktop\\.230313mzl4w4u92"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "[util] ctl + enter to ctrl + v on vscode",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": { "key_code": "return_or_enter", "modifiers": { "mandatory": [ "control" ] } },
+          "to": [
+            { "key_code": "v", "modifiers": [ "left_control" ] }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.Terminal$",
+                "^com\\.googlecode\\.iterm2$",
+                "^com\\.jetbrains\\.rubymine$",
+                "^co\\.zeit\\.hyperterm$",
+                "^co\\.zeit\\.hyper$",
+                "^org\\.alacritty$",
+                "^dev\\.warp\\.Warp-Stable$",
+                "^net\\.kovidgoyal\\.kitty$",
+                "^com\\.mitchellh\\.ghostty$",
+                "^com\\.github\\.wez\\.wezterm$"
+
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "[util] Quit application by pressing command-q twice",
+      "manipulators": [
+        {
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "command-q",
+              "value": 1
+            }
+          ],
+          "from": {
+            "key_code": "q",
+            "modifiers": { "mandatory": [ "command" ], "optional": [ "caps_lock" ]
+            }
+          },
+          "to": [
+            { "key_code": "q", "modifiers": [ "left_command" ] }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": { "key_code": "q", "modifiers": { "mandatory": [ "command" ], "optional": [ "caps_lock" ] }
+          },
+          "to": [
+            { "set_variable": { "name": "command-q", "value": 1 } }
+          ],
+          "to_delayed_action": {
+            "to_if_invoked": [ { "set_variable": { "name": "command-q", "value": 0 } }
+            ],
+            "to_if_canceled": [ { "set_variable": { "name": "command-q", "value": 0 } } ]
+          },
+          "conditions": [
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.apple\\.Terminal$",
+                "^com\\.googlecode\\.iterm2$",
+                "^com\\.jetbrains\\.rubymine$",
+                "^co\\.zeit\\.hyperterm$",
+                "^co\\.zeit\\.hyper$",
+                "^org\\.alacritty$",
+                "^dev\\.warp\\.Warp-Stable$",
+                "^net\\.kovidgoyal\\.kitty$",
+                "^com\\.todesktop\\.230313mzl4w4u92$",
+                "^com\\.mitchellh\\.ghostty$",
+                "^com\\.github\\.wez\\.wezterm$"
+
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "[util] disable cmd + shift + q",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": { "key_code": "q", "modifiers": { "mandatory": [ "command", "shift" ] } },
+          "to": [
+            { "key_code": "q", "modifiers": { "mandatory": [ "command", "shift" ] } }
+          ]
+        }
+      ]
+    }
+  ]
+}

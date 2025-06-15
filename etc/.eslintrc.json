@@ -1,0 +1,35 @@
+{
+  "extends": ["eslint:recommended", "plugin:vue/recommended"],
+  "plugins": ["vue"],
+  "parserOptions": {
+    "ecmaVersion": 2019
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "globals": {},
+  "rules": {
+    "no-console": "off",
+    "semi": ["error", "never"],
+    "arrow-body-style": "error",
+    "arrow-parens": "error",
+    "arrow-spacing": "error",
+    "generator-star-spacing": "error",
+    "no-duplicate-imports": "error",
+    "no-useless-computed-key": "error",
+    "no-useless-constructor": "error",
+    "no-useless-rename": "error",
+    "no-var": "error",
+    "object-shorthand": "error",
+    "prefer-arrow-callback": "error",
+    "prefer-const": "error",
+    "prefer-rest-params": "error",
+    "prefer-spread": "error",
+    "prefer-template": "error",
+    "rest-spread-spacing": "error",
+    "template-curly-spacing": "error",
+    "yield-star-spacing": "error"
+  }
+}

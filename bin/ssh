@@ -1,0 +1,10 @@
+#!/bin/bash
+if [ -f ~/.ssh/casy-config ]; then
+  instanceid=$(cat ~/.ssh/casy-config | grep -E "^$1," | cut -d , -f2)
+fi
+
+if [ -n "$instanceid" ] ; then
+  mssh ubuntu@$instanceid
+else
+  /usr/bin/ssh  $@
+fi

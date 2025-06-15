@@ -1,0 +1,19 @@
+{
+  "configurations": {
+    "javascript_file": {
+      "adapter": "chrome",
+      "configuration": {
+        "name": "chrome",
+        "request": "launch",
+        "url": "http://localhost:8000/",
+        "webRoot": "${workspaceRoot}"
+      },
+      "breakpoints": {
+        "exception": {
+          "all": "N",
+          "uncaught": "Y"
+        }
+      }
+    }
+  }
+}

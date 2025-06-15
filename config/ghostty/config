@@ -1,0 +1,11 @@
+shell-integration = zsh
+theme = "OneHalfLight"
+
+# font-family = "S2GUniFont Nerd Font"
+font-family = "Yomogi"
+font-size = 20
+font-feature = -dlig
+font-thicken = true
+
+adjust-cell-height = 2
+adjust-cell-width = -2

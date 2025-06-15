@@ -1,0 +1,38 @@
+#!/usr/bin/env zsh
+
+# 名前が完全一致したものをattachする
+# $1 session name
+# -c dirpath
+# -n オプションが指定されたときは3をスキップ
+
+local -A opthash
+zparseopts -D -A opthash -- c: n
+
+if [[ -n "${opthash[(i)-c]}" ]]; then
+  local currentdir=${opthash[-c]}
+else
+  local currentdir=$PWD
+fi
+
+if [ $# -eq 0 ]; then
+  local sessionname=$(basename $PWD | perl -pe "s/\./_/g")
+else
+  local sessionname=$(echo $1 | perl -pe "s/\./_/g")
+fi
+
+# 1. First you check if a tmux session exists with a given name.
+tmux has-session -t=$sessionname 2> /dev/null
+
+# 2. Create the session if it doesn't exists.
+if [[ $? -ne 0 ]]; then
+  TMUX='' tmux new-session -d -s "$sessionname" -c $currentdir
+fi
+
+# 3. Attach if outside of tmux, switch if you're in tmux (unless -n is specified).
+if [[ -z ${opthash[(i)-n]} ]]; then
+  if [[ -z $TMUX ]]; then # tmuxの中にいるとき
+    tmux attach -t "$sessionname"
+  else # tmuxの中にいないとき
+    tmux switch-client -t "$sessionname"
+  fi
+fi

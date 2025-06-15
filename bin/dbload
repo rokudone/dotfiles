@@ -1,0 +1,32 @@
+#!/bin/bash
+
+cd ~/projects/casy-hub/casy-ruby
+
+echo "/Volumes/WD 2TB/c/mask_db.fin ."
+cp /Volumes/WD\ 2TB/c/mask_db.fin .
+echo "cp /Volumes/WD\ 2TB/c/mask_db_large.fin ."
+cp /Volumes/WD\ 2TB/c/mask_db_large.fin .
+echo "cp /Volumes/WD\ 2TB/c/casy_stats.dmp ."
+cp /Volumes/WD\ 2TB/c/casy_stats.dmp .
+
+cd ~/projects/casy-repo/docker-development
+
+echo "docker-compose run bo cp ./mask_db_large.fin ./tmp/"
+docker-compose run bo cp ./mask_db_large.fin ./tmp/
+echo "docker-compose run bo cp ./mask_db.fin ./tmp/"
+docker-compose run bo cp ./mask_db.fin ./tmp/
+echo "docker-compose run bo cp ./casy_stats.dmp ./tmp/"
+docker-compose run bo cp ./casy_stats.dmp ./tmp/
+
+docker compose run --rm bo bundle exec rake db:create
+docker compose run --rm bo bundle exec rake stats_db:create
+docker compose run --rm bo tools/refresh_db.sh
+docker compose run --rm bo bundle exec rake db:migrate
+docker compose run --rm bo bundle exec rake stats_db:migrate
+docker compose run --rm api bundle exec rake definitions:create
+
+cd ~/projects/casy-hub/casy-ruby
+
+rm ./mask_db.fin
+rm ./mask_db_large.fin
+rm ./casy_stats.dmp

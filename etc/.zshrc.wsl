@@ -1,0 +1,5 @@
+#!/bin/zsh
+
+if [ -z $TMUX ]; then
+  tmux a -t $(basename ~ | perl -pe 's/\\./_/g') || tmux new -s $(basename ~ | perl -pe 's/\\./_/g')
+fi

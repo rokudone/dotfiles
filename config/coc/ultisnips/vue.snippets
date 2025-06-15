@@ -1,0 +1,81 @@
+# A valid snippet should starts with:
+#
+#		snippet trigger_word [ "description" [ options ] ]
+#
+# and end with:
+#
+#		endsnippet
+#
+# Snippet options:
+#
+#		b - Beginning of line.
+#		i - In-word expansion.
+#		w - Word boundary.
+#		r - Regular expression
+#		e - Custom context snippet
+#		A - Snippet will be triggered automatically, when condition matches.
+#
+# Basic example:
+#
+#		snippet emitter "emitter properties" b
+#		private readonly ${1} = new Emitter<$2>()
+#		public readonly ${1/^_(.*)/$1/}: Event<$2> = this.$1.event
+#		endsnippet
+#
+# Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
+
+snippet template "vue3 template" b
+<script lang="ts" setup>
+
+</script>
+
+<template>
+
+</template>
+endsnippet
+
+snippet computed "vue 3 computed" i
+computed()
+endsnippet
+
+snippet computed-val "vue 3 computed" i
+computed(() => ${1})
+endsnippet
+
+snippet computed-var "vue 3 computed" i
+computed(() => {
+	return {
+		get() {
+			return ${1}
+		},
+		set(${2}) {
+			${3}
+		},
+	}
+})
+endsnippet
+
+snippet computed-func "vue 3 computed" i
+computed(() => (${1}) => ${2})
+endsnippet
+
+snippet computed-getters "vue 3 computed" i
+computed(() => store.getters.${3})
+endsnippet
+
+snippet computed-getters-func "vue 3 computed" i
+computed(() => (${1}) => store.getters.${2})
+endsnippet
+
+snippet script-setup "Vue 3 compsition API setup" b
+<script lang="ts" setup>
+</script>
+endsnippet
+
+snippet v-for "v-for" i
+<div v-for="${1}">${2}</div>
+endsnippet
+
+snippet v-if "v-if" i
+<div v-if="${1}">${2}</div>
+endsnippet

@@ -1,0 +1,26 @@
+#!/bin/sh
+
+# 使い方: notify "タイトル" "サブタイトル" "メッセージ内容"
+# 例: notify "作業完了" "ビルド" "ビルドが正常に完了しました"
+#
+# 機能:
+# - macOSの通知を表示
+# - alert音量を自動で100に設定
+# - Ping音を2回鳴らして目立たせる（0.4秒間隔）
+# - 他の音量（音楽など）には影響しない
+
+if [ -z "$1" ]; then
+  echo "実行するには最低1個の引数が必要です。" 1>&2
+  exit 1
+fi
+
+# alert音量を100に設定
+osascript -e "set volume alert volume 100"
+
+# 通知を表示
+osascript -e "display notification \"$3\" with title \"$1\" subtitle \"$2\""
+
+# Basso音を2回鳴らして目立たせるA
+afplay /System/Library/Sounds/Ping.aiff &
+sleep 0.4
+afplay /System/Library/Sounds/Ping.aiff

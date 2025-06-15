@@ -1,0 +1,177 @@
+ A valid snippet should starts with:
+#
+#		snippet trigger_word [ "description" [ options ] ]
+#
+# and end with:
+#
+#		endsnippet
+#
+# Snippet options:
+#
+#		b - Beginning of line.
+#		i - In-word expansion.
+#		w - Word boundary.
+#		r - Regular expression
+#		e - Custom context snippet
+#		A - Snippet will be triggered automatically, when condition matches.
+#
+# Basic example:
+#
+#		snippet emitter "emitter properties" b
+#		private readonly ${1} = new Emitter<$2>()
+#		public readonly ${1/^_(.*)/$1/}: Event<$2> = this.$1.event
+#		endsnippet
+#
+# Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
+
+snippet swap "swap" b
+const swap = (x: any[], i: number, j: number)  => {
+	x[j] = x.splice(i, 1, x[j])[0]
+	return x
+}
+endsnippet
+
+snippet range "Description" b
+const range = (length: number) => Array.from({ length }).map((_, i) => i);
+endsnippet
+
+snippet range "Description" b
+const range = (start: number, end: number) =>
+Array.from({ length: end - start + 1 }, (_, i) => start + i);
+endsnippet
+
+snippet Primitives "Description" b
+type Primitives = string | number | boolean;
+endsnippet
+
+snippet Maybe "Description" b
+type Maybe<T> = T | undefined | null;
+endsnippet
+
+snippet log "Description" b
+const log = (arg: unknown) => console.log(JSON.stringify(arg, null, 2));
+endsnippet
+
+snippet transpose "Description" b
+const transpose = <T>(table: T[][]) => table[0].map((_, i) => table.map((row) => row[i]));
+endsnippet
+
+snippet uniq "Description" b
+const uniq = <T>(arr: T[]) => Array.from(new Set(arr));
+endsnippet
+
+snippet paiza "Description" b
+export {}
+const getData = () => {
+	// @ts-ignore
+	if (typeof lines !== "undefined") {
+		// @ts-ignore
+		return lines.map((line) => line.trim()).filter((line) => line !== "");
+	}
+	return \`
+	\`
+	.split("\n")
+	.map((line) => line.trim())
+	.filter((line) => line !== "");
+};
+
+const data = getData();
+
+const log = (msg: any) => {
+	// @ts-ignore
+	if (typeof lines === "undefined") {
+		console.log(msg);
+	}
+};
+
+endsnippet
+
+snippet photoshop "Description" b
+/// <reference types="types-for-adobe/Photoshop/2015.5"/>
+
+import "json3";
+import "extendscript-es5-shim";
+import "extendscript-es6-shim";
+
+let actionSet: string;
+let actionName: string;
+
+// @ts-ignore
+if (typeof arguments === "undefined" || arguments.length < 3) {
+	actionSet = "";
+	actionName = "";
+} else {
+	// @ts-ignore
+	actionSet = arguments[1];
+	// @ts-ignore
+	actionName = arguments[2];
+}
+
+endsnippet
+
+snippet photoshop "observe" b
+	observe() {
+		// --- ▼▼▼ body以下のstyle属性変更を監視する処理 ▼▼▼ ---
+		try {
+			// 監視対象を document.body に設定
+			const targetNode = document.body;
+
+			// オブザーバーのオプション
+			const config = {
+				attributes: true, // 属性の変更を監視
+				attributeFilter: ['style'], // 'style'属性のみに絞り込む
+				subtree: true, // ★★★ 子孫要素の変更も監視対象に含める ★★★
+				attributeOldValue: true // 変更前の値を記録する
+			};
+
+			// 変更が検知されたときに実行されるコールバック関数
+			const callback = (mutationsList: MutationRecord[], observer: MutationObserver) => {
+				for (const mutation of mutationsList) {
+					if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+						// 変更された要素を取得 (Element型にアサーション)
+						const changedElement = mutation.target as Element;
+
+						// コンソールに目立つようにログを出力
+						console.groupCollapsed('%c style属性 変更検知！', 'color: blue; font-weight: bold;', changedElement);
+						console.log('変更された要素:', changedElement);
+						// 要素の情報を追加で表示 (特定しやすくするため)
+						console.log(`Tag: ${changedElement.tagName}`);
+						console.log(`ID: ${changedElement.id || '(なし)'}`);
+						console.log(`Class: ${changedElement.className || '(なし)'}`);
+						console.log('変更前の style:', mutation.oldValue);
+						console.log('変更後の style:', (changedElement as HTMLElement).style.cssText); // HTMLElementにキャストして style を参照
+						console.groupEnd();
+
+						// ★★★ デバッガーを有効にする ★★★
+						// 注意: 予期せぬ場所で頻繁に停止する可能性があります。
+						// 問題の箇所を特定できたら、コメントアウトするか、
+						// 特定の要素の場合のみ debugger が起動するように条件を追加してください。
+						// 例: if (changedElement.classList.contains('srvOrderSP_menu')) debugger;
+						// debugger;
+					}
+				}
+			};
+
+			// オブザーバーを作成
+			// 注意: この render メソッドが複数回呼ばれると、その度に新しい Observer が
+			// 生成・監視開始されてしまう可能性があります。
+			// 本来は View の初期化時やアプリ全体で一度だけ設定するのが理想的です。
+			const observer = new MutationObserver(callback);
+
+			// document.body の監視を開始
+			observer.observe(targetNode, config);
+
+			console.log('✅ document.body 以下の style属性の監視を開始しました。(MenuView.render内)');
+
+			// (参考) View が破棄されるタイミングで監視を停止する例
+			// this.listenToOnce(this, 'remove', () => {
+			// observer.disconnect();
+			// console.log('⏹️ document.body の style 監視を停止しました。(MenuView.remove)');
+			// });
+
+		} catch (error) {
+			console.error('❌ MutationObserver の設定中にエラーが発生しました:', error);
+		}
+		// --- ▲▲▲ 監視処理ここまで ▲▲▲ ---
+	}
+endsnippet

@@ -1,0 +1,46 @@
+# A valid snippet should starts with:
+#
+#    snippet trigger_word [ "description" [ options ] ]
+#
+# and end with:
+#
+#    endsnippet
+#
+# Snippet options:
+#
+#    b - Beginning of line.
+#    i - In-word expansion.
+#    w - Word boundary.
+#    r - Regular expression
+#    e - Custom context snippet
+#    A - Snippet will be triggered automatically, when condition matches.
+#
+# Basic example:
+#
+#    snippet emitter "emitter properties" b
+#    private readonly ${1} = new Emitter<$2>()
+#    public readonly ${1/^_(.*)/$1/}: Event<$2> = this.$1.event
+#    endsnippet
+#
+# Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
+snippet printval "print val" i
+println!("{}", ${1});
+endsnippet
+
+snippet gcd "Description" b
+fn gcd(mut a: i32, mut b: i32) -> i32 {
+	let mut r = a % b;
+	while r != 0 {
+		a = b;
+		b = r;
+		r = a % b;
+	}
+	b
+}
+endsnippet
+
+snippet lcm "Description" b
+fn lcm(a: i32, b: i32) -> i32 {
+	a * b / gcd(a, b)
+}
+endsnippet

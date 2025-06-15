@@ -1,0 +1,203 @@
+{
+  "diagnostic.messageTarget": "float",
+  "diagnostic.checkCurrentLine": true,
+  "diagnostic.virtualText": false,
+  "diagnostic.virtualTextCurrentLineOnly": true,
+  "signature.target": "float",
+  "snippets.priority": 100,
+  "snippets.snipmate.enable": false,
+  "suggest.noselect":false,
+  "suggest.minTriggerInputLength": 1,
+  "suggest.preferCompleteThanJumpPlaceholder":true,
+  "suggest.acceptSuggestionOnCommitCharacter": true,
+  "suggest.snippetIndicator": "►",
+  "suggest.maxCompleteItemCount": 20,
+  "html.filetypes": ["html", "markdown", "erb"],
+  "html.format.enable": true,
+  "css.lint.unknownAtRules": "ignore",
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false,
+  "tailwindCSS.emmetCompletions": true,
+  "tailwindCSS.headwind.runOnSave": false,
+  "stylelintplus.enable": true,
+  "stylelintplus.autoFixOnFormat": true,
+  "stylelintplus.autoFixOnSave": true,
+  "stylelintplus.validateOnSave": true,
+  "stylelintplus.filetypes": [
+    "css",
+    "less",
+    "postcss",
+    "sass",
+    "scss",
+    "sugarss",
+    "vue",
+    "wxss"
+  ],
+  "tsserver.enable": true,
+  "typescript.format.enable": true,
+  "volar.enable": true,
+  "volar-tools.enable": true,
+  "php-cs-fixer.enable": false,
+  "psalm.enable": false,
+  "solargraph.autoformat": true,
+  "solargraph.formatting": true,
+  "solargraph.diagnostics": false,
+  "solargraph.completion": true,
+  "solargraph.definitions": true,
+  "solargraph.useBundler": false,
+  "solargraph.commandPath": "solargraph",
+  "list.insertMappings": {
+    "<C-n>": "normal:j",
+    "<C-p>": "normal:k",
+    "<C-f>": "prompt:left",
+    "<C-b>": "prompt:right"
+  },
+  "diagnostic-languageserver.linters": {
+  },
+  "diagnostic-languageserver.mergeConfig": true,
+  "diagnostic-languageserver.filetypes": {
+    "ruby": "rubocop",
+    "sh": "shellcheck",
+    "bash": "shellcheck",
+    "zsh": "shellcheck"
+  },
+  "diagnostic-languageserver.formatFiletypes": {
+    "sh": "shfmt",
+    "bash": "shfmt",
+    "zsh": "shfmt"
+  },
+  "powershell.integratedConsole.showOnStartup": false,
+  "explorer.width": 60,
+  "explorer.root.strategies": [
+    "cwd",
+    "sourceBuffer",
+    "reveal"
+  ],
+  "explorer.file.hiddenRules": {
+    "extensions": [
+      "o",
+      "a",
+      "obj",
+      "pyc",
+      ".css.d.ts",
+      ".css.d.ts.map",
+    ],
+    "filenames": [
+      "node_modules",
+      ".cache"
+    ],
+    "patternMatches": [
+      "^\\."
+    ]
+  },
+  "explorer.keyMappings.global": {
+    "i": false,
+    "<c-o>": "noop",
+
+    "*": "toggleSelection",
+    "<tab>": "actionMenu",
+
+    "gk": ["wait", "expandablePrev"],
+    "gj": ["wait", "expandableNext"],
+    "h": ["wait", "collapse"],
+    "l": ["wait", "expandable?", "expand", "open"],
+    "J": ["wait", "toggleSelection", "normal:j"],
+    "K": ["wait", "toggleSelection", "normal:k"],
+    "gl": ["wait", "expand:recursive"],
+    "gh": ["wait", "collapse:recursive"],
+    "<2-LeftMouse>": [
+      "expandable?",
+      ["expanded?", "collapse", "expand"],
+      "open"
+    ],
+    "o": ["wait", "expanded?", "collapse", "expand"],
+    "<cr>": ["wait", "expandable?", "cd", ["open", "quit"]],
+    "e": ["open", "quit"],
+    "s": ["open:split", "quit"],
+    "v": ["open:vsplit", "quit"],
+    "t": ["open:tab", "quit"],
+    "<bs>": ["wait", "gotoParent"],
+    "gs": ["wait", "reveal:select"],
+    "il": "preview:labeling",
+    "ic": "preview:content",
+    "Il": "previewOnHover:toggle:labeling",
+    "Ic": "previewOnHover:toggle:content",
+    "II": "previewOnHover:disable",
+
+    "yp": "copyFilepath",
+    "yn": "copyFilename",
+    "yy": "copyFile",
+    "mm": "cutFile",
+    "p": "pasteFile",
+    "dd": "delete",
+    "dF": "deleteForever",
+
+    "a": "addFile",
+    "A": "addDirectory",
+    "r": "rename",
+
+    "zh": "toggleHidden",
+    "g<dot>": "toggleHidden",
+    "R": "refresh",
+
+    "?": "help",
+    "q": "quit",
+    "<esc>": "esc",
+    "X": "systemExecute",
+    "gd": "listDrive",
+
+    "f": "search",
+    "F": "searchRecursive",
+
+    "gf": "gotoSource:file",
+    "gb": "gotoSource:buffer",
+
+    "[[": ["wait", "sourcePrev"],
+    "]]": ["wait", "sourceNext"],
+
+    "[i": ["wait", "indentPrev"],
+    "]i": ["wait", "indentNext"],
+
+    "[m": ["wait", "markPrev:modified"],
+    "]m": ["wait", "markNext:modified"],
+
+    "[d": ["wait", "markPrev:diagnosticError:diagnosticWarning"],
+    "]d": ["wait", "markNext:diagnosticError:diagnosticWarning"],
+    "[D": ["wait", "markPrev:diagnosticError"],
+    "]D": ["wait", "markNext:diagnosticError"],
+
+    "[c": ["wait", "markPrev:git"],
+    "]c": ["wait", "markNext:git"],
+    "<<": "gitStage",
+    ">>": "gitUnstage"
+  },
+
+  "languageserver": {
+    "rubocop": {
+      "command": "rubocop",
+      "args": ["--lsp"],
+      "filetypes": ["ruby"]
+    },
+    "intelephense": {
+      "command": "intelephense",
+      "args": ["--stdio"],
+      "filetypes": ["php"],
+      "initializationOptions": {
+        "storagePath": "/tmp/intelephense"
+      }
+    },
+    "yaml": {
+      "command": "yaml-language-server",
+      "args": ["--stdio"],
+      "filetypes": ["yaml"]
+    },
+    "haskell": {
+      "command": "haskell-language-server-wrapper",
+      "args": ["--lsp"],
+      "rootPatterns": ["*.cabal", "stack.yaml", "cabal.project", "package.yaml", "hie.yaml"],
+      "filetypes": ["haskell", "lhaskell"]
+    }
+  },
+  "snippets.ultisnips.pythonPrompt": false
+}

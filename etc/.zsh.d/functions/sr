@@ -1,0 +1,94 @@
+function screen_list ()
+{
+   screen -list| perl -wne 'if ( $_=~ /([0-9]+\.\S*)/){ printf "$1\n";}'
+}
+
+# -s: strict
+# 名前が完全一致したものをattachする
+# $1: screen_name or sty
+# $2: dir
+
+local -A opts
+zparseopts -D -A opts -- s
+
+local strict_mode=false
+if [[ -n "${opts[(i)-s]}" ]]; then
+  local strict_mode=true
+fi
+
+if [ $# -eq 0 ]; then
+  local name=$(basename $PWD)
+  local sty=$(screen_list | grep -E "[0-9]+\.$name$" | head -n 1)
+elif [[ $1 =~ [0-9]+\..* ]]; then
+  local sty=$1
+  local name=$(echo 7748.test|cut -d "." -f 2)
+else
+  local name=$1
+  local sty=$(screen_list | grep -E "[0-9]+\.$name$" | head -n 1)
+fi
+
+if [[ "$2" = "" ]]; then
+  local dir=`pwd`
+else
+  local dir=$2
+fi
+
+# 引数処理ここまで
+
+if [[ ${#STY} != 0 ]]; then
+  local tempfile=$(mktemp)
+  local current_sty=$(echo $STY)
+
+  if [[ $current_sty = $sty ]]; then
+    echo " $sty is already attached "
+    return
+  fi
+
+  if [ ${#sty} -eq 0 ]; then
+    echo "local sr_next_screen=$name; local sr_strict_mode=$strict_mode; sr_dir=$dir" >| $tempfile
+    screen -X setenv TEMPFILE $tempfile
+  else
+    echo "local sr_next_screen=$sty; local sr_strict_mode=$strict_mode; sr_dir=$dir" >| $tempfile
+    screen -X setenv TEMPFILE $tempfile
+  fi
+  screen -d $current_sty
+  return
+
+else
+  # not in screen
+  cd $dir
+  if [ ${#sty} -ne 0 ]; then      # $styが一意に決まったとき
+    screen -xRR $sty
+  elif [ "${strict_mode}" ]; then # $styが定まらず、かつ作成したいとき
+    screen -S $name
+  else                            # $styが定まらず、かつゆるくマッチしてほしいとき
+    screen -xRR -S $name
+  fi
+
+  # XXX: ひとまず動いているが、この辺もう少し整理する
+  # detach後の処理
+  if [ ${#sty} -eq 0 ]; then
+    local sty=$(screen_list | grep -E "[0-9]+\.$name$" | head -n 1) # $styを更新
+  fi
+
+  if screen_list | grep -q $sty ; then
+    local tempfile=$(screen -x $sty -Q echo '$TEMPFILE')
+    screen -x $sty -X unsetenv 'TEMPFILE'
+
+    if [[ ${#tempfile} -ne 0 ]]; then
+      eval $(cat $tempfile)
+      rm $tempfile
+      if [[ ${#sr_next_screen} -ne 0 ]]; then
+        if [[ "${sr_strict_mode}" ]]; then
+          sr -s $sr_next_screen $sr_dir
+          return
+        else
+          sr $sr_next_screen $sr_dir
+          return
+        fi
+      fi
+    fi
+  fi
+  return
+fi
+

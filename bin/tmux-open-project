@@ -1,0 +1,12 @@
+#!/bin/zsh
+ghqroot=$(ghq root)
+
+repo_name=$(find $ghqroot -maxdepth 2 -name ".git" -type d \
+    | perl -pse 's/$root\/(.*)\/.git/\1/' -- -root=$ghqroot \
+    | sort \
+    | fzf-tmux --reverse --preview-window=hidden --height=100%)
+
+if [ -n "$repo_name" ]; then
+  session_name=$(echo $repo_name|perl -pe 's/github.com\///g'|perl -pse 's/\./_/g'|perl -pe 's/\//__/g')
+  tm -c $(ghq root)/${repo_name} $session_name
+fi

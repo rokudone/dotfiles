@@ -1,0 +1,2 @@
+#!/bin/bash
+cursor --list-extensions > ~/projects/dotfiles/vscode/extensions

@@ -1,0 +1,13 @@
+if [ $# = 0 ] ; then
+  echo "パスを指定してください"
+  return 1
+fi
+
+if [[ $1 =~ .bak$ ]]; then
+  echo unbackuped!
+  file=$(echo $1 | perl -pe 's/.bak$//g')
+  mv $file.bak $file
+else
+  echo backuped!
+  mv $1 $1.bak
+fi

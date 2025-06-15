@@ -1,0 +1,335 @@
+{
+  "title": "Razer Tartarus v2 PRO",
+  "rules": [
+    {
+      "description": "[Device]: Razer tartarus v2 PRO 01",
+      "manipulators": [
+        {
+          "conditions": [ { "identifiers": [ { "vendor_id": 5426, "product_id": 580 } ], "type": "device_if" } ],
+          "from": { "key_code": "1" },
+          "to": [ { "key_code": "f1" , "modifiers": ["command", "option", "shift", "option"] } ],
+          "type": "basic"
+        }
+      ]
+    },
+    {
+      "description": "[Device]: Razer tartarus v2 PRO 02",
+      "manipulators": [
+        {
+          "conditions": [ { "identifiers": [ { "vendor_id": 5426, "product_id": 580 } ], "type": "device_if" } ],
+          "from": { "key_code": "2" },
+          "to": [ { "key_code": "f2" , "modifiers": ["command", "option", "shift", "option"] } ],
+          "type": "basic"
+        }
+      ]
+    },
+    {
+      "description": "[Device]: Razer tartarus v2 PRO 03",
+      "manipulators": [
+        {
+          "conditions": [ { "identifiers": [ { "vendor_id": 5426, "product_id": 580 } ], "type": "device_if" } ],
+          "from": { "key_code": "3" },
+          "to": [ { "key_code": "f3" , "modifiers": ["command", "option", "shift", "option"] } ],
+          "type": "basic"
+        }
+      ]
+    },
+    {
+      "description": "[Device]: Razer tartarus v2 PRO 04",
+      "manipulators": [
+        {
+          "conditions": [ { "identifiers": [ { "vendor_id": 5426, "product_id": 580 } ], "type": "device_if" } ],
+          "from": { "key_code": "4" },
+          "to": [ { "key_code": "f4" , "modifiers": ["command", "option", "shift", "option"] } ],
+          "type": "basic"
+        }
+      ]
+    },
+    {
+      "description": "[Device]: Razer tartarus v2 PRO 05",
+      "manipulators": [
+        {
+          "conditions": [ { "identifiers": [ { "vendor_id": 5426, "product_id": 580 } ], "type": "device_if" } ],
+          "from": { "key_code": "5" },
+          "to": [ { "key_code": "f5" , "modifiers": ["command", "option", "shift", "option"] } ],
+          "type": "basic"
+        }
+      ]
+    },
+    {
+      "description": "[Device]: Razer tartarus v2 PRO 06",
+      "manipulators": [
+        {
+          "conditions": [ { "identifiers": [ { "vendor_id": 5426, "product_id": 580 } ], "type": "device_if" } ],
+          "from": { "key_code": "tab" },
+          "to": [ { "key_code": "f6" , "modifiers": ["command", "option", "shift", "option"] } ],
+          "type": "basic"
+        }
+      ]
+    },
+    {
+      "description": "[Device]: Razer tartarus v2 PRO 07",
+      "manipulators": [
+        {
+          "conditions": [ { "identifiers": [ { "vendor_id": 5426, "product_id": 580 } ], "type": "device_if" } ],
+          "from": { "key_code": "q" },
+          "to": [ { "key_code": "f7" , "modifiers": ["command", "option", "shift", "option"] } ],
+          "type": "basic"
+        }
+      ]
+    },
+    {
+      "description": "[Device]: Razer tartarus v2 PRO 08",
+      "manipulators": [
+        {
+          "conditions": [ { "identifiers": [ { "vendor_id": 5426, "product_id": 580 } ], "type": "device_if" } ],
+          "from": { "key_code": "w" },
+          "to": [ { "key_code": "f8" , "modifiers": ["command", "option", "shift", "option"] } ],
+          "type": "basic"
+        }
+      ]
+    },
+    {
+      "description": "[Device]: Razer tartarus v2 PRO 09",
+      "manipulators": [
+        {
+          "conditions": [ { "identifiers": [ { "vendor_id": 5426, "product_id": 580 } ], "type": "device_if" } ],
+          "from": { "key_code": "e" },
+          "to": [ { "key_code": "f9" , "modifiers": ["command", "option", "shift", "option"] } ],
+          "type": "basic"
+        }
+      ]
+    },
+    {
+      "description": "[Device]: Razer tartarus v2 PRO 10",
+      "manipulators": [
+        {
+          "conditions": [ { "identifiers": [ { "vendor_id": 5426, "product_id": 580 } ], "type": "device_if" } ],
+          "from": { "key_code": "r" },
+          "to": [ { "key_code": "f10" , "modifiers": ["command", "option", "shift", "option"] } ],
+          "type": "basic"
+        }
+      ]
+    },
+    {
+      "description": "[Device]: Razer tartarus v2 PRO 11",
+      "manipulators": [
+        {
+          "conditions": [ { "identifiers": [ { "vendor_id": 5426, "product_id": 580 } ], "type": "device_if" } ],
+          "from": { "key_code": "caps_lock" },
+          "to": [ { "key_code": "f11" , "modifiers": ["command", "option", "shift", "option"] } ],
+          "type": "basic"
+        }
+      ]
+    },
+    {
+      "description": "[Device]: Razer tartarus v2 PRO 12",
+      "manipulators": [
+        {
+          "conditions": [ { "identifiers": [ { "vendor_id": 5426, "product_id": 580 } ], "type": "device_if" } ],
+          "from": { "key_code": "a" },
+          "to": [ { "key_code": "f12" , "modifiers": ["command", "option", "shift", "option"] } ],
+          "type": "basic"
+        }
+      ]
+    },
+    {
+      "description": "[Device]: Razer tartarus v2 PRO 13",
+      "manipulators": [
+        {
+          "conditions": [ { "identifiers": [ { "vendor_id": 5426, "product_id": 580 } ], "type": "device_if" } ],
+          "from": { "key_code": "s" },
+          "to": [ { "key_code": "f13" , "modifiers": ["command", "option", "shift", "option"] } ],
+          "type": "basic"
+        }
+      ]
+    },
+    {
+      "description": "[Device]: Razer tartarus v2 PRO 14",
+      "manipulators": [
+        {
+          "conditions": [ { "identifiers": [ { "vendor_id": 5426, "product_id": 580 } ], "type": "device_if" } ],
+          "from": { "key_code": "d" },
+          "to": [ { "key_code": "f14" , "modifiers": ["command", "option", "shift", "option"] } ],
+          "type": "basic"
+        }
+      ]
+    },
+    {
+      "description": "[Device]: Razer tartarus v2 PRO 15",
+      "manipulators": [
+        {
+          "conditions": [ { "identifiers": [ { "vendor_id": 5426, "product_id": 580 } ], "type": "device_if" } ],
+          "from": { "key_code": "f" },
+          "to": [ { "key_code": "f15" , "modifiers": ["command", "option", "shift", "option"] } ],
+          "type": "basic"
+        }
+      ]
+    },
+    {
+      "description": "[Device]: Razer tartarus v2 PRO 16",
+      "manipulators": [
+        {
+          "conditions": [ { "identifiers": [ { "vendor_id": 5426, "product_id": 580 } ], "type": "device_if" } ],
+          "from": { "key_code": "left_shift" },
+          "to": [ { "key_code": "f16" , "modifiers": ["command", "option", "shift", "option"] } ],
+          "type": "basic"
+        }
+      ]
+    },
+    {
+      "description": "[Device]: Razer tartarus v2 PRO 17",
+      "manipulators": [
+        {
+          "conditions": [ { "identifiers": [ { "vendor_id": 5426, "product_id": 580 } ], "type": "device_if" } ],
+          "from": { "key_code": "z" },
+          "to": [ { "key_code": "f17" , "modifiers": ["command", "option", "shift", "option"] } ],
+          "type": "basic"
+        }
+      ]
+    },
+    {
+      "description": "[Device]: Razer tartarus v2 PRO 18",
+      "manipulators": [
+        {
+          "conditions": [ { "identifiers": [ { "vendor_id": 5426, "product_id": 580 } ], "type": "device_if" } ],
+          "from": { "key_code": "x" },
+          "to": [ { "key_code": "f18" , "modifiers": ["command", "option", "shift", "option"] } ],
+          "type": "basic"
+        }
+      ]
+    },
+    {
+      "description": "[Device]: Razer tartarus v2 PRO 19",
+      "manipulators": [
+        {
+          "conditions": [ { "identifiers": [ { "vendor_id": 5426, "product_id": 580 } ], "type": "device_if" } ],
+          "from": { "key_code": "c" },
+          "to": [ { "key_code": "f19" , "modifiers": ["command", "option", "shift", "option"] } ],
+          "type": "basic"
+        }
+      ]
+    },
+    {
+      "description": "[Device]: Razer tartarus v2 PRO 20",
+      "manipulators": [
+        {
+          "conditions": [ { "identifiers": [ { "vendor_id": 5426, "product_id": 580 } ], "type": "device_if" } ],
+          "from": { "key_code": "spacebar" },
+          "to": [ { "key_code": "f20" , "modifiers": ["command", "option", "shift", "option"] } ],
+          "type": "basic"
+        }
+      ]
+    },
+    {
+      "description": "[Device]: Razer tartarus v2 PRO 右上",
+      "manipulators": [
+        {
+          "conditions": [ { "identifiers": [ { "vendor_id": 5426, "product_id": 580 } ], "type": "device_if" } ],
+          "from": {  "simultaneous": [ { "key_code": "up_arrow" }, { "key_code": "right_arrow" } ] },
+          "to": [ { "key_code": "keypad_2" , "modifiers": ["command", "option", "shift", "option"] } ],
+          "type": "basic"
+        }
+      ]
+    },
+    {
+      "description": "[Device]: Razer tartarus v2 PRO 右下",
+      "manipulators": [
+        {
+          "conditions": [ { "identifiers": [ { "vendor_id": 5426, "product_id": 580 } ], "type": "device_if" } ],
+          "from": {  "simultaneous": [ { "key_code": "down_arrow" }, { "key_code": "right_arrow" } ] },
+          "to": [ { "key_code": "keypad_4" , "modifiers": ["command", "option", "shift", "option"] } ],
+          "type": "basic"
+        }
+      ]
+    },
+    {
+      "description": "[Device]: Razer tartarus v2 PRO 左下",
+      "manipulators": [
+        {
+          "conditions": [ { "identifiers": [ { "vendor_id": 5426, "product_id": 580 } ], "type": "device_if" } ],
+          "from": {  "simultaneous": [ { "key_code": "down_arrow" }, { "key_code": "left_arrow" } ] },
+          "to": [ { "key_code": "keypad_6" , "modifiers": ["command", "option", "shift", "option"] } ],
+          "type": "basic"
+        }
+      ]
+    },
+    {
+      "description": "[Device]: Razer tartarus v2 PRO 左上",
+      "manipulators": [
+        {
+          "conditions": [ { "identifiers": [ { "vendor_id": 5426, "product_id": 580 } ], "type": "device_if" } ],
+          "from": {  "simultaneous": [ { "key_code": "up_arrow" }, { "key_code": "left_arrow" } ] } ,
+          "to": [ { "key_code": "keypad_8" , "modifiers": ["command", "option", "shift", "option"] } ],
+          "type": "basic"
+        }
+      ]
+    },
+    {
+      "description": "[Device]: Razer tartarus v2 PRO 上",
+      "manipulators": [
+        {
+          "conditions": [ { "identifiers": [ { "vendor_id": 5426, "product_id": 580 } ], "type": "device_if" } ],
+          "from": { "key_code": "up_arrow" },
+          "to": [ { "key_code": "keypad_1" , "modifiers": ["command", "option", "shift", "option"] } ],
+          "type": "basic"
+        }
+      ]
+    },
+    {
+      "description": "[Device]: Razer tartarus v2 PRO 右",
+      "manipulators": [
+        {
+          "conditions": [ { "identifiers": [ { "vendor_id": 5426, "product_id": 580 } ], "type": "device_if" } ],
+          "from": { "key_code": "right_arrow" },
+          "to": [ { "key_code": "keypad_3" , "modifiers": ["command", "option", "shift", "option"] } ],
+          "type": "basic"
+        }
+      ]
+    },
+    {
+      "description": "[Device]: Razer tartarus v2 PRO 下",
+      "manipulators": [
+        {
+          "conditions": [ { "identifiers": [ { "vendor_id": 5426, "product_id": 580 } ], "type": "device_if" } ],
+          "from": { "key_code": "down_arrow" },
+          "to": [ { "key_code": "keypad_5" , "modifiers": ["command", "option", "shift", "option"] } ],
+          "type": "basic"
+        }
+      ]
+    },
+    {
+      "description": "[Device]: Razer tartarus v2 PRO 左",
+      "manipulators": [
+        {
+          "conditions": [ { "identifiers": [ { "vendor_id": 5426, "product_id": 580 } ], "type": "device_if" } ],
+          "from": { "key_code": "left_arrow" },
+          "to": [ { "key_code": "keypad_7" , "modifiers": ["command", "option", "shift", "option"] } ],
+          "type": "basic"
+        }
+      ]
+    },
+    {
+      "description": "[Device]: Razer tartarus v2 PRO 親指ボタン",
+      "manipulators": [
+        {
+          "conditions": [ { "identifiers": [ { "vendor_id": 5426, "product_id": 580 } ], "type": "device_if" } ],
+          "from": { "key_code": "left_alt" },
+          "to": [ { "key_code": "keypad_9" , "modifiers": ["command", "option", "shift", "option"] } ],
+          "type": "basic"
+        }
+      ]
+    },
+    {
+      "description": "[Device]: Razer tartarus v2 PRO スクロールクリック",
+      "manipulators": [
+        {
+          "conditions": [ { "identifiers": [ { "vendor_id": 5426, "product_id": 580 } ], "type": "device_if" } ],
+          "from": { "pointing_button": "button3" },
+          "to": [ { "key_code": "keypad_0" , "modifiers": ["command", "option", "shift", "option"] } ],
+          "type": "basic"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+alias ctags="$(dirname $(which brew))/ctags"
+
+export PATH=/usr/local/opt/coreutils/libexec/gnubin:${PATH}
+
+export MANPATH=/usr/local/opt/coreutils/libexec/gnuman:${MANPATH}
+
+alias find=gfind
+
+alias xargs=gxargs
+
+# migemo
+alias -g M='cmigemo -d /usr/local/share/migemo/utf-8/migemo-dict -w '
+
+# ruby
+export PATH=/usr/local/opt/ruby/bin:$PATH
+if which ruby >/dev/null && which gem >/dev/null; then
+  PATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin:$PATH"
+fi
+
+# tmux
+if [ -f "${HOMEBREW_PREFIX}/opt/tmux@2.9a/bin" ]; then
+  export PATH="${HOMEBREW_PREFIX}/opt/tmux@2.9a/bin:$PATH"
+fi
+
+# awscli
+if [ -f "/usr/local/bin/aws_zsh_completer.sh" ]; then
+  source /usr/local/bin/aws_zsh_completer.sh
+fi
+
+# iterm2
+# source "$(dirname $0)/.iterm2_shell_integration.zsh"
+
+# kitty
+if [[ $TERM == "xterm-kitty" ]]; then
+  ~/bin/chpfkitty
+fi
+

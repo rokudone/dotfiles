@@ -1,0 +1,619 @@
+live_config_reload = true
+working_directory = "None"
+
+import = ["~/.config/alacritty/color.toml"]
+
+[colors]
+draw_bold_text_with_bright_colors = true
+
+[colors.cursor]
+cursor = "0xF6CD76"
+text = "0x1E222A"
+
+[cursor]
+unfocused_hollow = true
+
+[env]
+TERM = "xterm-256color"
+
+[font]
+size = 24
+
+[font.glyph_offset]
+x = 0
+y = 5
+
+[font.bold]
+family = "S2GUniFont Nerd Font"
+style = "Regular"
+
+[font.italic]
+family = "S2GUniFont Nerd Font"
+style = "Regular"
+
+[font.normal]
+family = "S2GUniFont Nerd Font"
+style = "Regular"
+
+[font.offset]
+x = 0
+y = 10
+
+# [font.bold]
+# family = "Yomogi"
+# style = "Regular"
+
+# [font.italic]
+# family = "Yomogi"
+# style = "Regular"
+
+# [font.normal]
+# family = "Yomogi"
+# style = "Regular"
+
+[[hints.enabled]]
+command = "open"
+post_processing = true
+regex = "(mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)[^\u0000-\u001F\u007F-<>\" {-}\\^⟨⟩`]+"
+
+[hints.enabled.mouse]
+enabled = true
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u001B[F"
+key = "End"
+mode = "~AppCursor"
+
+[[keyboard.bindings]]
+chars = "\u001B[5;2~"
+key = "PageUp"
+mods = "Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B[5;5~"
+key = "PageUp"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u001B[5~"
+key = "PageUp"
+
+[[keyboard.bindings]]
+chars = "\u001B[6;2~"
+key = "PageDown"
+mods = "Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B[6;5~"
+key = "PageDown"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u001B[6~"
+key = "PageDown"
+
+[[keyboard.bindings]]
+chars = "\u001B[Z"
+key = "Tab"
+mods = "Shift"
+
+[[keyboard.bindings]]
+chars = "\u007F"
+key = "Back"
+
+[[keyboard.bindings]]
+chars = "\u001B\u007F"
+key = "Back"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001B[2~"
+key = "Insert"
+
+[[keyboard.bindings]]
+chars = "\u001B[3~"
+key = "Delete"
+
+[[keyboard.bindings]]
+chars = "\u001B[1;2D"
+key = "Left"
+mods = "Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B[1;5D"
+key = "Left"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u001B[1;3D"
+key = "Left"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001B[D"
+key = "Left"
+mode = "~AppCursor"
+
+[[keyboard.bindings]]
+chars = "\u001BOD"
+key = "Left"
+mode = "AppCursor"
+
+[[keyboard.bindings]]
+chars = "\u001BOD"
+key = "B"
+mode = "~AppCursor"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u001BOD"
+key = "B"
+mode = "AppCursor"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u001B[1;2C"
+key = "Right"
+mods = "Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B[1;5C"
+key = "Right"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u001B[1;3C"
+key = "Right"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001B[C"
+key = "Right"
+mode = "~AppCursor"
+
+[[keyboard.bindings]]
+chars = "\u001BOC"
+key = "Right"
+mode = "AppCursor"
+
+[[keyboard.bindings]]
+chars = "\u001BOC"
+key = "F"
+mode = "~AppCursor"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u001BOC"
+key = "F"
+mode = "AppCursor"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u001B[1;2A"
+key = "Up"
+mods = "Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B[1;5A"
+key = "Up"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u001B[1;3A"
+key = "Up"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001B[A"
+key = "Up"
+mode = "~AppCursor"
+
+[[keyboard.bindings]]
+chars = "\u001BOA"
+key = "Up"
+mode = "AppCursor"
+
+[[keyboard.bindings]]
+chars = "\u001B[1;2B"
+key = "Down"
+mods = "Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B[1;5B"
+key = "Down"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u001B[1;3B"
+key = "Down"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001B[B"
+key = "Down"
+mode = "~AppCursor"
+
+[[keyboard.bindings]]
+chars = "\u001BOB"
+key = "Down"
+mode = "AppCursor"
+
+[[keyboard.bindings]]
+chars = "\u0011"
+key = "Q"
+mods = "Control"
+
+[[keyboard.bindings]]
+action = "ResetFontSize"
+key = "Key0"
+mods = "Command"
+
+[[keyboard.bindings]]
+action = "IncreaseFontSize"
+key = "Equals"
+mods = "Command"
+
+[[keyboard.bindings]]
+action = "DecreaseFontSize"
+key = "Minus"
+mods = "Command"
+
+[[keyboard.bindings]]
+action = "ClearHistory"
+key = "K"
+mods = "Command"
+
+[[keyboard.bindings]]
+action = "Paste"
+key = "V"
+mods = "Command"
+
+[[keyboard.bindings]]
+action = "Copy"
+key = "C"
+mods = "Command"
+
+# [[keyboard.bindings]]
+# chars = "\u0000"
+# key = "C"
+# mods = "Control"
+
+[[keyboard.bindings]]
+action = "Quit"
+key = "Q"
+mods = "Command"
+
+[[keyboard.bindings]]
+action = "Quit"
+key = "W"
+mods = "Command"
+
+[[keyboard.bindings]]
+action = "SpawnNewInstance"
+key = "N"
+mods = "Command"
+
+[[keyboard.bindings]]
+chars = "\u001Ba"
+key = "A"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Bb"
+key = "B"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Bc"
+key = "C"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Bd"
+key = "D"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Be"
+key = "E"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Bf"
+key = "F"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Bg"
+key = "G"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Bh"
+key = "H"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Bi"
+key = "I"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Bj"
+key = "J"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Bk"
+key = "K"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Bl"
+key = "L"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Bm"
+key = "M"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Bn"
+key = "N"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Bo"
+key = "O"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Bp"
+key = "P"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Bq"
+key = "Q"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Br"
+key = "R"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Bs"
+key = "S"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Bt"
+key = "T"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Bu"
+key = "U"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Bv"
+key = "V"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Bw"
+key = "W"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Bx"
+key = "X"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001By"
+key = "Y"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Bz"
+key = "Z"
+mods = "Alt"
+
+[[keyboard.bindings]]
+action = "SelectNextTab"
+key = "Tab"
+mods = "Control"
+
+[[keyboard.bindings]]
+action = "SelectPreviousTab"
+key = "Tab"
+mods = "Control|Shift"
+
+[mouse]
+hide_when_typing = true
+
+# [schemes.ayu-dark.bright]
+# black = "0xc7c7c7"
+# blue = "0x59c2ff"
+# cyan = "0x5ccfe6"
+# green = "0xc2d94c"
+# magenta = "0xb77ee0"
+# red = "0xff3333"
+# white = "0xffffff"
+# yellow = "0xe7c547"
+
+# [schemes.ayu-dark.cursor]
+# cursor = "0xF6CD76"
+# text = "0x1E222A"
+
+# [schemes.ayu-dark.normal]
+# black = "0x02050c"
+# blue = "0x75bff9"
+# cyan = "0xa7e3cc"
+# green = "0xc6d863"
+# magenta = "0xfceea3"
+# red = "0xe0787a"
+# white = "0xc7c7c7"
+# yellow = "0xf3b765"
+
+# [schemes.ayu-dark.primary]
+# background = "0x0A0D13"
+# foreground = "0xB2B1AD"
+
+# [schemes.ayu-dark.selection]
+# background = "0x171E29"
+# text = "0x2E323B"
+
+# [schemes.ayu-light.bright]
+# black = "0x676767"
+# blue = "0x6871ff"
+# cyan = "0x56d9ad"
+# green = "0xa3d900"
+# magenta = "0xa37acc"
+# red = "0xd6646a"
+# white = "0xfeffff"
+# yellow = "0xe7c446"
+
+# [schemes.ayu-light.normal]
+# black = "0x000000"
+# blue = "0x41a5d9"
+# cyan = "0x4dbf98"
+# green = "0x76cc00"
+# magenta = "0x9965cc"
+# red = "0xf2590b"
+# white = "0xc7c7c7"
+# yellow = "0xf29717"
+
+# [schemes.ayu-light.primary]
+# background = "0xfafafa"
+# foreground = "0x5b6672"
+
+# [schemes.ayu-mirage.bright]
+# black = "0x686868"
+# blue = "0x73D0FF"
+# cyan = "0x95E6CB"
+# green = "0xBAE67E"
+# magenta = "0xD4BFFF"
+# red = "0xF28779"
+# white = "0xFFFFFF"
+# yellow = "0xFFD580"
+
+# [schemes.ayu-mirage.cursor]
+# cursor = "0xFFCC66"
+# text = "0x373E4C"
+
+# [schemes.ayu-mirage.normal]
+# black = "0x1A1E29"
+# blue = "0x73D0FF"
+# cyan = "0x95E6CB"
+# green = "0xBAE67E"
+# magenta = "0xD4BFFF"
+# red = "0xF28779"
+# white = "0xC7C7C7"
+# yellow = "0xFFD580"
+
+# [schemes.ayu-mirage.primary]
+# background = "0x1f2430"
+# foreground = "0xabb2bf"
+
+# [schemes.ayu-mirage.selection]
+# background = "0x2A3546"
+# text = "0x586071"
+
+# [schemes.palenight.bright]
+# black = "0x676e95"
+# blue = "0x8796b0"
+# cyan = "0xff5370"
+# green = "0x444267"
+# magenta = "0x959dcb"
+# red = "0xf78c6c"
+# white = "0xffffff"
+# yellow = "0x32374d"
+
+# [schemes.palenight.cursor]
+# cursor = "0x959dcb"
+# text = "0x292d3e"
+
+# [schemes.palenight.normal]
+# black = "0x292d3e"
+# blue = "0x82aaff"
+# cyan = "0x89ddff"
+# green = "0xc3e88d"
+# magenta = "0xc792ea"
+# red = "0xf07178"
+# white = "0x959dcb"
+# yellow = "0xffcb6b"
+
+# [schemes.palenight.primary]
+# background = "0x292d3e"
+# foreground = "0x959dcb"
+
+# [schemes.sonokai.bright]
+# black = "0x7f8490"
+# blue = "0x76cce0"
+# cyan = "0xf39660"
+# green = "0x9ed072"
+# magenta = "0xb39df3"
+# red = "0xfc5d7c"
+# white = "0xe2e2e3"
+# yellow = "0xe7c664"
+
+# [schemes.sonokai.normal]
+# black = "0x181819"
+# blue = "0x76cce0"
+# cyan = "0xf39660"
+# green = "0x9ed072"
+# magenta = "0xb39df3"
+# red = "0xfc5d7c"
+# white = "0xe2e2e3"
+# yellow = "0xe7c664"
+
+# [schemes.sonokai.primary]
+# background = "0x2c2e34"
+# foreground = "0xe2e2e3"
+
+[scrolling]
+history = 10000
+
+[selection]
+save_to_clipboard = true
+
+[window]
+decorations = "full"
+startup_mode = "Windowed"
+
+[window.dimensions]
+columns = 120
+lines = 30
+
+[window.position]
+x = 0
+y = 0
+[colors.primary]
+background = "0x0A0D13"
+foreground = "0xB2B1AD"
+
+[colors.normal]
+black = "0x02050c"
+blue = "0x75bff9"
+cyan = "0xa7e3cc"
+green = "0xc6d863"
+magenta = "0xfceea3"
+red = "0xe0787a"
+white = "0xc7c7c7"
+yellow = "0xf3b765"
+
+[colors.bright]
+black = "0xc7c7c7"
+blue = "0x59c2ff"
+cyan = "0x5ccfe6"
+green = "0xc2d94c"
+magenta = "0xb77ee0"
+red = "0xff3333"
+white = "0xffffff"
+yellow = "0xe7c547"

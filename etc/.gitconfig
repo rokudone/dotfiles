@@ -1,0 +1,66 @@
+[include]
+  path = .gitconfig.local
+[i18n]
+  commitencoding = UTF-8
+[alias]
+  st = status -sb
+  cm = commit
+  cma = commit -a
+  br = branch
+  co = checkout
+  df = diff
+  dfc = diff --cached
+  dfh = diff HEAD
+  pr = pull --rebase
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit
+  lga = log --all --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=short
+  lgg = log --stat --pretty=format:'%Cblue%h %Cgreen%ar %Cred%an %Creset%s %Cred%d'
+  lgs = log --stat --abbrev-commit --date=relative
+  fix = commit --amend -C HEAD
+	diffcount = "!f() { git diff \"$1\"..\"$2\" --shortstat -- . \":!*lock*\" \":!package.json\" \":!dist/*\" \":!build/*\"; }; f"
+	diffdetail = "!f() { git diff \"$1\"..\"$2\" --numstat -- . \":!*lock*\" \":!package.json\" \":!dist/*\" \":!build/*\" \":!node_modules/*\" \":!*.min.*\" | awk \"{add+=\\$1; del+=\\$2; files++} END {printf \\\"ファイル: %d, 追加: +%d, 削除: -%d, 純増減: %+d行\\n\\\", files, add, del, add-del}\"; }; f"
+[gui]
+  encoding = utf-8
+[pager]
+  diff = delta
+  log = delta
+  reflog = delta
+  show = delta
+  merge = delta
+[interactive]
+  diffFilter = delta --color-only
+	singleKey = true
+[delta]
+  features = side-by-side line-numbers decorations
+  side-by-side = true
+  line-numbers = true
+  navigate = true
+	syntax-theme = OneHalfDark
+  ; minus-style = brightred reverse
+  ; plus-style = green reverse
+  ; zero-style = auto
+  ; minus-emph-style = auto
+  ; plus-emph-style = auto
+[core]
+  editor = nvim
+  quotepath = false
+  autocrlf = false
+  safecrlf = false
+  excludesfile = ~/.gitignore_global
+  pager = delta
+[push]
+  default = simple
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+[ghq]
+  root = ~/projects
+[init]
+  templatedir = ~/.git_template
+	defaultBranch = main
+[web]
+  browser = open
+[browser "edge"]
+  cmd = "open -a 'Microsoft Edge.app'"

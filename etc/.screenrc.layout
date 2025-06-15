@@ -1,0 +1,15 @@
+source ~/.screenrc
+
+layout new
+split -v
+focus
+screen 1
+split -s
+focus
+screen 2
+focus
+screen 0
+
+layout new
+select 1
+layout select 0

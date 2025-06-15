@@ -1,0 +1,3 @@
+[user]
+    name = __NAME__ 
+    email = __EMAIL__

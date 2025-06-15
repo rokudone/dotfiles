@@ -1,0 +1,476 @@
+{
+    "editor.fontSize": 18,
+    "editor.fontFamily": " \"S2GUniFont Nerd Font\", \"Yomogi\", \"ゆたココ\", \"あんずもじ等幅\", \"きろ字\", \"Myrica M\", \"JetBrainsMono Nerd Font\", \"HackGen Console NF\"",
+    "editor.insertSpaces": true,
+    "editor.rulers": [
+        120
+    ],
+    "editor.semanticHighlighting.enabled": true,
+    "editor.accessibilitySupport": "off",
+    "editor.acceptSuggestionOnEnter": "off",
+    "editor.foldingStrategy": "indentation",
+    "explorer.confirmDragAndDrop": false,
+    "explorer.confirmDelete": false,
+    "files.autoSave": "afterDelay",
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "files.exclude": {
+        "**/.ruby-lsp": false
+    },
+    "errorLens.fontWeight": "100",
+    "git.autofetch": true,
+    "files.autoSaveDelay": 3000,
+    "[markdown]": {
+        "editor.insertSpaces": true
+    },
+    "[dart]": {
+        "editor.formatOnSave": true,
+        "editor.formatOnType": true,
+        "editor.rulers": [
+            80
+        ],
+        "editor.selectionHighlight": false,
+        "editor.suggest.snippetsPreventQuickSuggestions": false,
+        "editor.suggestSelection": "first",
+        "editor.tabCompletion": "onlySnippets",
+        "editor.wordBasedSuggestions": "off",
+        "editor.defaultFormatter": "Dart-Code.dart-code",
+        "editor.formatOnPaste": true
+    },
+    "dart.openDevTools": "flutter",
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+    },
+    "[ruby]": {
+        // "editor.defaultFormatter": "castwide.solargraph",
+        "editor.defaultFormatter": "Shopify.ruby-lsp", // Use the Ruby LSP as the default formatter
+        "editor.formatOnSave": false,
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true,
+        "editor.semanticHighlighting.enabled": true,
+        "editor.formatOnType": true,
+        "editor.wordSeparators": "`~@#$%^&*()-=+[{]}\\|;:'\",.<>/",
+    },
+    "rubyLsp.formatter": "rubocop",
+    "rubyLsp.enabledFeatures": {
+        "codeActions": true,
+        "diagnostics": true,
+        "documentHighlights": true,
+        "documentLink": true,
+        "documentSymbols": true,
+        "foldingRanges": true,
+        "formatting": true,
+        "hover": true,
+        "inlayHint": true,
+        "onTypeFormatting": true,
+        "selectionRanges": true,
+        "semanticHighlighting": true,
+        "completion": true,
+        "codeLens": true,
+        "definition": true,
+        "workspaceSymbol": true,
+        "signatureHelp": true
+    },
+    "solargraph.commandPath": "solargraph",
+    "solargraph.useBundler": false, // Bundlerを使う場合はtrueに設定
+    "solargraph.checkGemVersion": true, // Solargraphのジェムバージョンをチェックするかどうか
+    "solargraph.diagnostics": true, // 診断報告を有効にするかどうか
+    "solargraph.completion": true, // 自動補完を有効にするかどうか
+    "solargraph.hover": true, // ホバー時のヒントを有効にするかどうか
+    "solargraph.autoformat": true, // タイプ中の自動フォーマットを有効にするかどうか
+    "solargraph.formatting": true, // ドキュメントフォーマットを有効にするかどうか（RuboCopを使用）
+    "solargraph.symbols": true, // ドキュメントとワークスペースのシンボル検索を有効にするかどうか
+    "solargraph.definitions": true, // 定義への移動を有効にするかどうか
+    "solargraph.rename": true, // シンボルの名前変更を有効にするかどうか
+    "solargraph.references": true, // 参照検索を有効にするかどうか
+    "solargraph.folding": true, // 折りたたみ範囲を有効にするかどうか
+    "solargraph.transport": "stdio", // 通信方法（socket、stdio、externalから選択）
+    "solargraph.logLevel": "warn",
+    "editor.inlineSuggest.enabled": true,
+    "editor.tabSize": 2,
+    "extensions.experimental.affinity": {
+        "vscodevim.vim": 1,
+        "asvetliakov.vscode-neovim": 1
+    },
+    "keyboard.dispatch": "keyCode",
+    "vim.autoindent": true,
+    "vim.easymotion": true,
+    "vim.easymotionKeys": "awefjiopsdrukltgh[]';",
+    "vim.highlightedyank.color": "rgba(0, 240, 170, 0.5)",
+    "vim.highlightedyank.duration": 150,
+    "vim.highlightedyank.enable": true,
+    "vim.hlsearch": true,
+    "vim.incsearch": true,
+    "vim.leader": "<space>",
+    "vim.foldfix": true,
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": [
+                "f"
+            ],
+            "after": [
+                "<leader>",
+                "<leader>",
+                "f"
+            ]
+        },
+        {
+            "before": [
+                "F"
+            ],
+            "after": [
+                "<leader>",
+                "<leader>",
+                "F"
+            ]
+        },
+        {
+            "before": [
+                "t"
+            ],
+            "after": [
+                "<leader>",
+                "<leader>",
+                "t"
+            ]
+        },
+        {
+            "before": [
+                "T"
+            ],
+            "after": [
+                "<leader>",
+                "<leader>",
+                "T"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "s"
+            ],
+            "after": [
+                ":",
+                "%",
+                "s",
+                "/"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "["
+            ],
+            "after": [
+                "leader",
+                "leader",
+                "leader",
+                "b",
+                "d",
+                "w"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "w"
+            ],
+            "after": [
+                ":",
+                "w",
+                "<CR>"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "W"
+            ],
+            "after": [
+                ":",
+                "w",
+                "a",
+                "<CR>"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "q"
+            ],
+            "after": [
+                ":",
+                "q",
+                "<CR>"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "Q"
+            ],
+            "after": [
+                ":",
+                "q",
+                "a",
+                "<CR>"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "s"
+            ],
+            "after": [
+                ":",
+                "%",
+                "s",
+                "/"
+            ]
+        },
+        {
+            "before": [
+                "j"
+            ],
+            "after": [
+                "g",
+                "j"
+            ]
+        },
+        {
+            "before": [
+                "g",
+                "j"
+            ],
+            "after": [
+                "j"
+            ]
+        },
+        {
+            "before": [
+                "k"
+            ],
+            "after": [
+                "g",
+                "k"
+            ]
+        },
+        {
+            "before": [
+                "g",
+                "k"
+            ],
+            "after": [
+                "k"
+            ]
+        },
+        {
+            "before": [
+                "g",
+                "h"
+            ],
+            "commands": [
+                "editor.action.showHover"
+            ]
+        }
+    ],
+    "vim.insertModeKeyBindings": [
+        {
+            "before": [
+                "<C-f>"
+            ],
+            "after": [
+                "<right>"
+            ]
+        },
+        {
+            "before": [
+                "<C-b>"
+            ],
+            "after": [
+                "left"
+            ]
+        },
+        {
+            "before": [
+                "<C-p>"
+            ],
+            "after": [
+                "up"
+            ]
+        },
+        {
+            "before": [
+                "<C-n>"
+            ],
+            "after": [
+                "down"
+            ]
+        },
+        {
+            "before": [
+                "<D-[>"
+            ],
+            "after": [
+                "<Esc>"
+            ]
+        }
+    ],
+    "vim.visualModeKeyBindings": [
+        {
+            "before": [
+                "leader",
+                "s"
+            ],
+            "after": [
+                ":",
+                "s",
+                "/"
+            ]
+        }
+    ],
+    "vim.statusBarColorControl": false,
+    "vim.surround": true,
+    "vim.timeout": 1200,
+    "vim.useCtrlKeys": true,
+    "vim.useSystemClipboard": true,
+    "vim.visualstar": true,
+    "vim.matchpairs": "(:),{:},[:],<:>",
+    "git.openRepositoryInParentFolders": "never",
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "markdown.marp.themes": [
+        "MarpTheme/casy.css"
+    ],
+    "markdown.marp.enableHtml": true,
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[html]": {
+        "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+    },
+    "search.collapseResults": "auto",
+    "search.showLineNumbers": true,
+    "terminal.external.osxExec": "iTerm.app",
+    "terminal.integrated.allowChords": false,
+    "terminal.integrated.profiles.linux": {
+        "bash": {
+            "path": "bash",
+            "icon": "terminal-bash"
+        },
+        "zsh": {
+            "path": "zsh"
+        },
+        "fish": {
+            "path": "fish"
+        },
+        "tmux": {
+            "path": "tmux",
+            "icon": "terminal-tmux"
+        },
+        "pwsh": {
+            "path": "pwsh",
+            "icon": "terminal-powershell"
+        },
+        "bash (2)": {
+            "path": "/usr/bin/bash"
+        }
+    },
+    "terminal.integrated.defaultProfile.linux": "bash (2)",
+    "terminal.integrated.setLocaleVariables": false,
+    "hediet.vscode-drawio.resizeImages": null,
+    "hediet.vscode-drawio.theme": "min",
+    "editor.renderWhitespace": "none",
+    "fzf-quick-open.findDirectoriesCmd": "fd --type d",
+    "fzf-quick-open.ripgrepOptions": "--max-columns 640",
+    "csv-edit.fontSizeInPx": 20,
+    "editor.wordWrap": "on",
+    "githubPullRequests.pullBranch": "never",
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "editor.quickSuggestionsDelay": 500,
+    "debug.enableStatusBarColor": false,
+    "window.autoDetectColorScheme": true,
+    "workbench.iconTheme": "seti",
+    "cursor.cpp.enablePartialAccepts": true,
+    "cursor.chat.defaultNoContext": true,
+    "cursor.cmdk.useThemedDiffBackground": true,
+    "cursor.cmdk.ghostTextAtSymbols": true,
+    "cursor.chat.ghostTextAtSymbols": true,
+    "cursor.general.gitGraphIndexing": "enabled",
+    "[css]": {
+        "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+    },
+    "css.lint.validProperties": [
+        "composes"
+    ],
+    "files.associations": {
+        "*.jbuilder": "ruby"
+    },
+    "workbench.editor.splitSizing": "distribute",
+    "window.confirmSaveUntitledWorkspace": false,
+    "rubyLsp.featureFlags": {
+        "all": true
+    },
+    "editor.unicodeHighlight.nonBasicASCII": false,
+    "scm.inputFontFamily": "editor",
+    "editor.experimentalInlineEdit.fontFamily": "\"Yomogi\", \"S2GUniFont Nerd Font\", \"ゆたココ\", \"HackGen Console NF\"",
+    "markdown.preview.fontFamily": " \"S2GUniFont Nerd Font\", \"Yomogi\", \"ゆたココ\", \"あんずもじ等幅\", \"きろ字\", \"Myrica M\", \"JetBrainsMono Nerd Font\", \"HackGen Console NF\"",
+    "chat.editor.fontFamily": " \"S2GUniFont Nerd Font\", \"Yomogi\", \"ゆたココ\", \"あんずもじ等幅\", \"きろ字\", \"Myrica M\", \"JetBrainsMono Nerd Font\", \"HackGen Console NF\"",
+    "debug.console.fontFamily": " \"S2GUniFont Nerd Font\", \"Yomogi\", \"ゆたココ\", \"あんずもじ等幅\", \"きろ字\", \"Myrica M\", \"JetBrainsMono Nerd Font\", \"HackGen Console NF\"",
+    "editor.inlineSuggest.fontFamily": " \"S2GUniFont Nerd Font\", \"Yomogi\", \"ゆたココ\", \"あんずもじ等幅\", \"きろ字\", \"Myrica M\", \"JetBrainsMono Nerd Font\", \"HackGen Console NF\"",
+    "editor.fontLigatures": true,
+    "editor.fontWeight": "bold",
+    "terminal.integrated.fontLigatures": true,
+    "editor.lineHeight": 1.65,
+    "workbench.preferredLightColorTheme": "Atom One Light",
+    "explorer.excludeGitIgnore": true,
+    "terminal.integrated.fontSize": 16,
+    "window.zoomLevel": 1.5,
+    "workbench.editor.enablePreview": false,
+    "workbench.activityBar.orientation": "vertical",
+    "diffEditor.ignoreTrimWhitespace": false,
+    "rubyLsp.rubyVersionManager": {
+        "identifier": "rbenv"
+    },
+    "indentRainbow.errorColor": "rgba(32,32,32,0.6)",
+    "roo-cline.allowedCommands": [
+        "npm test",
+        "npm install",
+        "tsc",
+        "git log",
+        "git diff",
+        "git show",
+        "raills *",
+        "bundle exec rspec *",
+        "poetry *",
+        "npm run check"
+    ],
+    "git.confirmSync": false,
+    "hediet.vscode-drawio.zoomFactor": 1.5,
+    "cursor.composer.collapsePaneInputBoxPills": true,
+    "editor.mouseWheelZoom": true,
+    "window.commandCenter": true,
+    "workbench.preferredDarkColorTheme": "Ayu One",
+    "svg.preview.zoomOptions": [
+        "25%",
+        "100%",
+        "200%",
+        "400%",
+        "800%"
+    ],
+    "editor.showFoldingControls": "always",
+    "notebook.showFoldingControls": "always",
+    "workbench.panel.defaultLocation": "right",
+    "terminal.integrated.fontWeight": "normal",
+    "terminal.integrated.lineHeight": 1.3,
+    "terminal.integrated.letterSpacing": 1.1,
+    "terminal.integrated.copyOnSelection": true,
+    "terminal.integrated.rightClickBehavior": "paste",
+    "workbench.colorTheme": "Spinel"
+}

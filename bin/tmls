@@ -1,0 +1,2 @@
+#!/bin/zsh
+tmux ls |perl -pe "s/^([^:]*):.*/\1/g"

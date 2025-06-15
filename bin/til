@@ -1,0 +1,39 @@
+#!/bin/zsh
+
+rootDir="$(ghq root)/til"
+# rootDir="${TIL_DIR}"
+
+if [ ! -d ${rootDir} ]; then
+  echo "tilディレクトリが存在しません"
+  return 1
+fi
+
+if [ $# = 0 ] ; then
+  ext=$(ls $rootDir \
+      | grep -v README.md \
+      | sort \
+      | fzf-tmux --reverse --preview-window=hidden --height=100%)
+else
+  ext=$1
+fi
+
+echo ext
+
+
+langDir=$rootDir/$ext
+filename=$(date "+%Y-%m-%d")
+file=$langDir/$filename.$ext
+
+if [ ! -d ${langDir} ]; then
+  mkdir $langDir
+fi
+
+if [ ! -f ${file} ]; then
+  touch $file
+fi
+
+cd $langDir
+ln -fs ./$filename.$ext sandbox.$ext
+cd -
+
+tm -c $langDir $ext

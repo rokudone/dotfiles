@@ -1,0 +1,8 @@
+unbind h
+unbind j
+unbind k
+unbind l
+unbind C-h
+unbind C-j
+unbind C-k
+unbind C-l

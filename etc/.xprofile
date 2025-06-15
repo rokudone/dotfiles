@@ -1,0 +1,4 @@
+if [ -x /opt/xkeysnail/bin/xkeysnail ]; then
+  xhost +SI:localuser:xkeysnail
+  sudo -u xkeysnail DISPLAY=:1 /opt/xkeysnail/bin/xkeysnail /etc/opt/xkeysnail/config.py &
+fi

@@ -1,0 +1,104 @@
+defencoding utf-8
+encoding utf-8 utf-8
+multiuser on
+autodetach on
+hardstatus off
+msgminwait 0
+
+
+defscrollback 10000
+shell -$SHELL
+
+shelltitle "$ |zsh"
+
+defbce             on
+truecolor on
+
+term               xterm-256color
+termcapinfo xterm-256color 'is=^[r^[mJ^[H^[?7h^[?1;4;6l'
+termcapinfo xterm* "ks=\E[?1l\E:ku=\E[A:kd=\E[B:kl=\E[D:kr=\E[C"
+
+
+
+escape ^Aa
+startup_message off
+vbell off
+autodetach on
+
+cjkwidth on
+
+bind ^a meta
+bind x remove
+bind ^x remove
+bind o only
+bind ^o only
+bind j eval 'focus down'
+bind ^j eval 'focus down'
+bind k eval 'focus up'
+bind ^k eval 'focus up'
+bind h eval 'focus left'
+bind ^h eval 'focus left'
+bind l eval 'focus right'
+bind ^l eval 'focus right'
+bind v eval 'split -v' focus screen
+bind ^v eval 'split -v' focus screen
+bind s eval 'split' focus screen
+bind ^s eval 'split' focus screen
+
+bind K kill
+bind L redisplay
+bind q quit
+
+# trigger for layout sub-commands
+bind ^Y eval 'command -c layout' 'layout show'
+bind y  eval 'command -c layout' 'layout show'
+
+# create/remove layout
+bind C eval 'layout new'    'next' 'layout show'
+bind X eval 'layout remove' 'next' 'layout show'
+
+# switch to other layout
+bind N eval 'layout next' 'layout show'
+bind P eval 'layout prev' 'layout show'
+
+# bindkey "^[[5C" next
+# bindkey "^[[5D" prev
+# Alt + left 
+bindkey "^[[1;3D" prev
+# Alt + right
+bindkey "^[[1;3C" next
+
+
+# k 黒
+# r 赤
+# g 緑
+# y 黄色
+# b 青
+# m マゼンダ
+# c シアン
+# w 白
+# d デフォルトカラー
+# . 変更無し
+
+caption always "%?%F%{= wK}%:%{= Kk}%?%-w%?%F%{=u wk}%:%{=u Kw}%?%n %t%{-}%+w%{-u} %= %{ .k}%02c:%s"
+
+# caption always "%?%F%{= rk}%:%{= Rw}%?%-w%?%F%{=u rW}%:%{=u Rk}%?%n %t%{-}%+w%{-u} %= %{ .k}%02c:%s"
+# caption always "%?%F%{= yk}%:%{= Yw}%?%-w%?%F%{=u yW}%:%{=u Yk}%?%n %t%{-}%+w%{-u} %= %{ .k}%02c:%s" #prod
+
+# create layout on first launch
+#'layout new' 'split -v' 'focus screen' 'split -s' 'focus screen'
+source ~/.screenrc.local
+
+layout new
+split -v
+focus
+screen 1
+split -s
+focus
+screen 2
+focus
+screen 0
+
+layout new
+select 1
+layout select 0

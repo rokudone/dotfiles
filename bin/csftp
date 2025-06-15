@@ -1,0 +1,7 @@
+#!/bin/bash
+instanceid=$(cat ~/.ssh/casy-config | grep -E "^$1," | cut -d , -f2)
+if [ -n "$instanceid" ] ; then
+  msftp ubuntu@$instanceid
+else
+  echo "${1} is not found"
+fi

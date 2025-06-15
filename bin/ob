@@ -1,0 +1,2 @@
+#!/bin/zsh
+tm -c ${OBSIDIAN_DIR} obsidian
