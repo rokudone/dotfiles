@@ -1896,7 +1896,6 @@ augroup vimrcchecktime
 augroup END
 
 " ファイル読み込み時の文字コード検索順
-set termencoding=utf-8
 set enc=utf-8
 set fencs=utf-8,sjis,utf-16,ucs-bom,euc-jp,cp932,iso-2022-jp,ucs-2le,ucs-2
 set ffs=unix,mac,dos
