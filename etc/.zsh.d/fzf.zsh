@@ -34,7 +34,6 @@ if [ -f "${HOMEBREW_PREFIX}/opt/fzf/shell/key-bindings.zsh" ]; then
   bindkey -r '\ec' 
   bindkey -r '^t'
   bindkey '^s' fzf-z-widget
-  bindkey '^g' fzf-open-widget
   # bindkey '^Z' 'fzf-file-widget'
 fi
 

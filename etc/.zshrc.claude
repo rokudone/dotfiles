@@ -8,3 +8,12 @@ EOF
     git commit -m "$(claude -p "$prompt")"
 }
 
+# claude-watch ショートカット
+function claude-watch-shortcut() {
+    zle kill-whole-line
+    BUFFER="claude-watch"
+    zle accept-line
+}
+zle -N claude-watch-shortcut
+bindkey '^g' claude-watch-shortcut
+

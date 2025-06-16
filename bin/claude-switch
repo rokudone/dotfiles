@@ -1,0 +1,130 @@
+#!/bin/bash
+
+# プロセス情報を収集
+declare -a process_list
+
+# プロセスをチェック（pgrep -xで正確に"claude"のみ）
+index=0
+for pid in $(pgrep -x claude | sort -u); do
+    # ディレクトリを取得
+    dir=$(lsof -p $pid 2>&1 | grep -v "ERR:" | grep cwd | awk '{print $NF}' | head -1)
+    [ -z "$dir" ] || [ "$dir" = "/" ] && continue
+    
+    # TTY情報を取得
+    tty=$(ps -p $pid -o tty= 2>/dev/null | tr -d ' ')
+    [ -z "$tty" ] || [ "$tty" = "??" ] && continue
+    
+    # プロジェクト名
+    project=$(basename "$dir")
+    
+    # Git情報を取得
+    git_info=""
+    if [ -d "$dir/.git" ]; then
+        branch=$(cd "$dir" && git branch --show-current 2>/dev/null)
+        changes=$(cd "$dir" && git status --porcelain 2>/dev/null | wc -l | tr -d ' ')
+        if [ -n "$branch" ]; then
+            git_info=" [$branch"
+            [ "$changes" != "0" ] && [ -n "$changes" ] && git_info="${git_info} +$changes"
+            git_info="${git_info}]"
+        fi
+    fi
+    
+    # 配列に保存
+    process_list[$index]="${pid}|${tty}|${project}${git_info}|${dir}"
+    ((index++))
+done
+
+# プロセスが見つからない場合
+if [ ${#process_list[@]} -eq 0 ]; then
+    echo "No claude processes found."
+    exit 1
+fi
+
+# fzf用の表示リストを作成
+display_list=""
+for i in "${!process_list[@]}"; do
+    IFS='|' read -r pid tty project dir <<< "${process_list[$i]}"
+    # ホームディレクトリからの相対パスに変換
+    relative_dir="${dir/#$HOME/~}"
+    display_list="${display_list}$(printf "%-30s %s\n" "$project" "$relative_dir")"
+    [ $i -lt $((${#process_list[@]} - 1)) ] && display_list="${display_list}\n"
+done
+
+# プロセス情報を一時ファイルに保存
+temp_file=$(mktemp)
+for item in "${process_list[@]}"; do
+    echo "$item" >> "$temp_file"
+done
+
+# fzfで選択
+selected=$(echo -e "$display_list" | fzf --ansi --no-sort --reverse \
+    --preview="
+        selected_line=\$(echo {} | awk '{print \$1}')
+        grep -F \"|\$selected_line|\" '$temp_file' | head -1 | awk -F'|' -v home=\"$HOME\" '{
+            path = \$4
+            gsub(home, \"~\", path)
+            print \"PID: \" \$1
+            print \"TTY: \" \$2
+            print \"Project: \" \$3
+            print \"Path: \" path
+        }'
+    " \
+    --preview-window=right:40% \
+    --header='Select a claude process to switch to:' 2>/dev/null)
+
+# fzfの終了コードをチェック（130 = Ctrl+C, 1 = Esc）
+fzf_exit_code=$?
+if [ $fzf_exit_code -eq 130 ] || [ $fzf_exit_code -eq 1 ]; then
+    rm -f "$temp_file"
+    exit 0
+fi
+
+# 選択されなかった場合
+if [ -z "$selected" ]; then
+    rm -f "$temp_file"
+    exit 0
+fi
+
+# 選択されたプロジェクト名を取得（Git情報を含む可能性がある）
+selected_project=$(echo "$selected" | awk '{print $1}')
+
+# 一時ファイルから該当する行を取得
+selected_line=$(grep -F "|$selected_project" "$temp_file" | head -1)
+
+# 選択された情報を解析
+if [ -z "$selected_line" ]; then
+    # Git情報が含まれている場合は部分一致で検索
+    selected_line=$(grep -F "$selected_project" "$temp_file" | head -1)
+fi
+
+# TTYを取得
+IFS='|' read -r pid tty project dir <<< "$selected_line"
+
+# TTYからtmuxのペインIDを取得
+# TTYフォーマット: pts/N
+pts_num=$(echo "$tty" | sed 's/pts\///')
+
+# tmuxの全ペインを検索してTTYが一致するものを探す
+pane_id=""
+for pane in $(tmux list-panes -a -F "#{pane_id}:#{pane_tty}"); do
+    pane_tty=$(echo "$pane" | cut -d':' -f2)
+    pane_tty_num=$(basename "$pane_tty" 2>/dev/null)
+    
+    if [ "$pane_tty_num" = "$pts_num" ]; then
+        pane_id=$(echo "$pane" | cut -d':' -f1)
+        break
+    fi
+done
+
+# ペインが見つからない場合
+if [ -z "$pane_id" ]; then
+    echo "Could not find tmux pane for TTY: $tty"
+    rm -f "$temp_file"
+    exit 1
+fi
+
+# 一時ファイルを削除
+rm -f "$temp_file"
+
+# ペインに切り替え
+tmux switch-client -t "$pane_id" 2>/dev/null || tmux select-pane -t "$pane_id"

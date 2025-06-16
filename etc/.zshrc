@@ -522,7 +522,7 @@ zinit light-mode for \
     zdharma-continuum/zinit-annex-patch-dl \
     zdharma-continuum/zinit-annex-rust
 
-source ./.zshrc.claude
+source ~/.zshrc.claude
 
 ### End of Zinit's installer chunk
 
