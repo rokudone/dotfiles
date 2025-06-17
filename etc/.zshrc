@@ -521,6 +521,10 @@ zinit light-mode for \
     zdharma-continuum/zinit-annex-patch-dl \
     zdharma-continuum/zinit-annex-rust
 
+alias c="claude"
+alias cr="claude --resume"
+
+path=(~/some/directory/claude-code-config/bin $path)
 source ~/.zshrc.claude
 
 ### End of Zinit's installer chunk
