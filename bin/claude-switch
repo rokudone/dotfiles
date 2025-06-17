@@ -17,6 +17,18 @@ for pid in $(pgrep -x claude | sort -u); do
     # プロジェクト名
     project=$(basename "$dir")
     
+    # CPU使用率を取得して状態を判定
+    cpu=$(ps -p $pid -o %cpu= 2>/dev/null | tr -d ' ')
+    cpu_int=$(echo "$cpu" | cut -d'.' -f1)
+    [ -z "$cpu_int" ] && cpu_int=0
+    
+    # 状態に応じた絵文字を追加
+    if [ "$cpu_int" -gt 1 ]; then
+        status_emoji="🔵 "
+    else
+        status_emoji="🔴 "
+    fi
+    
     # Git情報を取得
     git_info=""
     if [ -d "$dir/.git" ]; then
@@ -30,7 +42,7 @@ for pid in $(pgrep -x claude | sort -u); do
     fi
     
     # 配列に保存
-    process_list[$index]="${pid}|${tty}|${project}${git_info}|${dir}"
+    process_list[$index]="${pid}|${tty}|${status_emoji}${project}${git_info}|${dir}"
     ((index++))
 done
 
@@ -58,18 +70,6 @@ done
 
 # fzfで選択
 selected=$(echo -e "$display_list" | fzf --ansi --no-sort --reverse \
-    --preview="
-        selected_line=\$(echo {} | awk '{print \$1}')
-        grep -F \"|\$selected_line|\" '$temp_file' | head -1 | awk -F'|' -v home=\"$HOME\" '{
-            path = \$4
-            gsub(home, \"~\", path)
-            print \"PID: \" \$1
-            print \"TTY: \" \$2
-            print \"Project: \" \$3
-            print \"Path: \" path
-        }'
-    " \
-    --preview-window=right:40% \
     --header='Select a claude process to switch to:' 2>/dev/null)
 
 # fzfの終了コードをチェック（130 = Ctrl+C, 1 = Esc）

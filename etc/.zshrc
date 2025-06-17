@@ -116,7 +116,6 @@ EXTRA_FZF_COMPLETIONS_FZF_PREFIX=,
 #   \ 'header':  ['fg', 'Comment'] }
 
 # alias
-alias c="claude"
 alias gosh='rlwrap gosh'
 alias phptags='ctags --tag-relative --recurse --sort=yes --exclude=*.js'
 alias -g F='| fzf'

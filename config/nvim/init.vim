@@ -1740,7 +1740,7 @@ augroup END
 "--------------------------------
 "ファイル操作
 "--------------------------------
-set mouse=
+set mouse=a
 set nofixeol
 
 " autocmd CursorHold * wall

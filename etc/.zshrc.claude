@@ -1,4 +1,6 @@
 alias yolo="claude --dangerously-skip-permissions"
+alias c="claude"
+alias cr="claude --resume"
 
 gci() {
     local prompt=$(cat <<'EOF'
@@ -11,7 +13,7 @@ EOF
 # claude-watch ショートカット
 function claude-watch-shortcut() {
     zle kill-whole-line
-    BUFFER="claude-watch"
+    BUFFER="claude-switch"
     zle accept-line
 }
 zle -N claude-watch-shortcut
