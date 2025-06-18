@@ -26,7 +26,7 @@
   log = delta
   reflog = delta
   show = delta
-  merge = delta
+  ; merge = delta
 [interactive]
   diffFilter = delta --color-only
 	singleKey = true
@@ -42,12 +42,12 @@
   ; minus-emph-style = auto
   ; plus-emph-style = auto
 [core]
-  editor = nvim
+  editor = "nvim"
   quotepath = false
   autocrlf = false
   safecrlf = false
   excludesfile = ~/.gitignore_global
-  pager = delta
+  ; pager = delta
 [push]
   default = simple
 [filter "lfs"]

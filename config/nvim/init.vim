@@ -477,7 +477,7 @@ endif
 " endif
 
 if dein#tap('copilot.vim')
-  imap <silent><script><expr> <Tab> copilot#Accept("\<Tab>")
+  " imap <silent><script><expr> <Tab> copilot#Accept("\<Tab>")
   imap <silent> <a-]> <Plug>(copilot-next)
   imap <silent> <a-[> <Plug>(copilot-previous)
   imap <silent> <c-/> <Plug>(copilot-suggest)
@@ -1832,21 +1832,14 @@ function! ProfileCursorMove() abort
   endfor
 endfunction
 
-" paste
-if &term =~ "xterm-256color"
-  let &t_ti .= "\e[?2004h"
-  let &t_te .= "\e[?2004l"
-  let &pastetoggle = "\e[201~"
-
-  function! XTermPasteBegin(ret)
-    set paste
-    return a:ret
-  endfunction
-
-  noremap <special> <expr> <Esc>[200~ XTermPasteBegin("0i")
-  inoremap <special> <expr> <Esc>[200~ XTermPasteBegin("")
-  cnoremap <special> <Esc>[200~ <nop>
-  cnoremap <special> <Esc>[201~ <nop>
+if !has('nvim')
+  " Vim専用の設定
+  if has('patch-8.0.0238') && &term =~ "xterm.*"
+    let &t_BE = "\e[?2004h"
+    let &t_BD = "\e[?2004l"
+    exec "set t_PS=\e[200~"
+    exec "set t_PE=\e[201~"
+  endif
 endif
 
 " if executable('zenhan')

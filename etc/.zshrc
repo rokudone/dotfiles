@@ -2,6 +2,7 @@
 export LANG=ja_JP.UTF-8
 export LC_ALL=ja_JP.UTF-8
 export LC_CTYPE=ja_JP.UTF-8
+export TERM=xterm-256color
 
 autoload -Uz compinit
 compinit
@@ -524,7 +525,7 @@ zinit light-mode for \
 alias c="claude"
 alias cr="claude --resume"
 
-path=(~/some/directory/claude-code-config/bin $path)
+path=($HOME/projects/claude-code-config/bin $path)
 source ~/.zshrc.claude
 
 ### End of Zinit's installer chunk

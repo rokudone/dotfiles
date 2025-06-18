@@ -76,3 +76,8 @@ fi
 export PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig/
 
 # eval `ssh-agent -s`
+
+# claude-code-config
+if [ -d "$HOME/projects/claude-code-config/bin" ]; then
+  export PATH="$HOME/projects/claude-code-config/bin:$PATH"
+fi
