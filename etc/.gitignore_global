@@ -7,19 +7,13 @@
 .wt
 
 # cline
-.clinerules
-!**/dotfiles/etc/.clinerules
 .cline
 .roomodes
 
 # cursor
-.cursorrules
-!**/etc/.cursorrules
 
 # claude
-CLAUDE.md
-!**/etc/CLAUDE.md
 CLAUDE.local.md
 CLAUDE/
 .claude/*
-!**/etc/.claude/*
+!etc/.claude/*

@@ -1,9 +1,9 @@
 hs.hotkey.bind({"ctrl"}, "space", function()
-  local app = hs.application.find('wezterm')
+  local app = hs.application.find('alacritty')
   if app:isFrontmost() then
     if app then app:hide() end
   else
-    hs.application.launchOrFocus("/Applications/WezTerm.app")
+    hs.application.launchOrFocus("/Applications/Alacritty.app")
   end
 end)
 
@@ -17,13 +17,13 @@ hs.hotkey.bind({"ctrl", "shift"}, "space", function()
 end)
 
 hs.hotkey.bind({}, "pageup", function()
-  local app = hs.application.find('dia')
+  local app = hs.application.find('edge')
   if app:isFrontmost() then
     if app then
       app:hide()
     end
   else
-    hs.application.launchOrFocus("/Applications/Dia.app")
+    hs.application.launchOrFocus("/Applications/Microsoft Edge.app")
   end
 end)
 
@@ -64,7 +64,7 @@ bindAppHotkey('o', 'Obsidian')
 
 -- bindAppHotkey('a', 'Arc')
 bindAppHotkey('s', 'Slack')
-bindAppHotkey('d', 'Dia')
+-- bindAppHotkey('d', 'Dia')
 bindAppHotkey('f', 'Floorp')
 -- bindAppHotkey('g', '')
 -- bindAppHotkey('h', '')
