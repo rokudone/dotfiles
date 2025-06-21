@@ -307,6 +307,7 @@ if dein#tap('fzf.vim')
   nnoremap <silent> <Leader>f :<C-u>FilesWithQuery <C-R>=expand('%:t:r')<CR><CR>
   nnoremap          <Leader>F :<C-u>FilesWithQuery '<C-R><C-W><CR>
   nnoremap <silent> <Leader>ee :<C-u>Dotfiles<CR>
+  nnoremap <silent> <Leader>ec :<C-u>ClaudeCodeConfig<CR>
   nnoremap <silent> <Leader>b :<C-u>Buffers<CR>
   nnoremap <silent> <Leader>m :<C-u>Marks<CR>
   nnoremap          <Leader>a :<C-u>Rg<Space>
@@ -782,6 +783,7 @@ augroup end
 "--------------------
 
 let g:dotfiles_path = substitute(system("cd $(dirname ".$MYVIMRC."); git rev-parse --show-toplevel"), "[\n\r]", "", "g")
+let g:claude_code_config_path = "~/projects/claude-code-config"
 if dein#tap('fzf.vim')
 
   " TODO: 多分遅い
@@ -865,6 +867,9 @@ if dein#tap('fzf.vim')
 
   command! -bang -nargs=? -complete=dir Dotfiles
         \ call fzf#vim#files(g:dotfiles_path, <bang>0)
+
+  command! -bang -nargs=? -complete=dir ClaudeCodeConfig
+        \ call fzf#vim#files(g:claude_code_config_path, <bang>0)
 
   command! -nargs=? Emoji call s:fzf_emoji(<f-args>)
   command! -bang -nargs=+ -complete=dir Ag call fzf#vim#ag_raw(<q-args>, <bang>0)

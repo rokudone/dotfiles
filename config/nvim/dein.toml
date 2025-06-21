@@ -84,8 +84,8 @@ repo = 'vimpostor/vim-lumen'
 [[plugins]]
 repo = '907th/vim-auto-save'
 
-[[plugins]]
-repo = 'github/copilot.vim'
+# [[plugins]]
+# repo = 'github/copilot.vim'
 
 # [[plugins]]
 # repo = '~/projects/spzenhan.vim'
