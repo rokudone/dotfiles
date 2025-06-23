@@ -35,6 +35,13 @@ hs.hotkey.bind({}, "pagedown", function()
     end
   else
     hs.application.launchOrFocus("/Applications/Obsidian.app")
+    -- Obsidianが立ち上がった後に少し待ってからCmd+Dを送信
+    hs.timer.doAfter(0.05, function()
+      local obsidianApp = hs.application.find('obsidian')
+      if obsidianApp and obsidianApp:isFrontmost() then
+        hs.eventtap.keyStroke({"cmd"}, "d")
+      end
+    end)
   end
 end)
 

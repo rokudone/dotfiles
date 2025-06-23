@@ -433,6 +433,11 @@ action = "SelectPreviousTab"
 key = "Tab"
 mods = "Control|Shift"
 
+[[keyboard.bindings]]
+chars = "\u000A"
+key = "Return"
+mods = "Shift"
+
 [mouse]
 hide_when_typing = true
 

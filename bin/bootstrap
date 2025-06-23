@@ -37,8 +37,10 @@ new_session casy-hub/casy-user
 new_session dx-api
 # new_session dx-environment
 new_session dx-hp
-new_session dx-user
+# new_session dx-user
 # new_session dx-staff
+new_session dotfiles
+new_session claude-code-config
 
 
 cd ~

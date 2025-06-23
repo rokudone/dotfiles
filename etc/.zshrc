@@ -525,9 +525,9 @@ zinit light-mode for \
 alias c="claude"
 alias cr="claude --resume"
 alias cf="./claude-flow"
-alcuias cfi="npx -y claude-flow@latest init --sparc"
+alias cfi="npx -y claude-flow@latest init --sparc"
 alias cfm="./claude-flow sparc modes"
-alias cfp="./claude-flow sparc run"
+alias cfr="./claude-flow sparc run"
 alias cfw="./claude-flow swarm"
 
 path=($HOME/projects/claude-code-config/bin $path)
@@ -539,3 +539,5 @@ source ~/.zshrc.claude
 # if (which zprof > /dev/null 2>&1) ;then
 #   zprof
 # fi
+
+alias claude="/Users/takuma/.config/claude/local/claude"
