@@ -82,16 +82,6 @@
         "when": "editorTextFocus && vim.active && !inDebugRepl && vim.mode != 'Insert' && isMac"
     },
     {
-        "key": "cmd+g",
-        "command": "extension.vim_ctrl+g",
-        "when": "editorTextFocus && vim.active && !inDebugRepl && vim.mode != 'Insert' && isMac"
-    },
-    {
-        "key": "cmd+g",
-        "command": "extension.vim_ctrl+g",
-        "when": "editorTextFocus && vim.active && !inDebugRepl && vim.mode != 'Insert' && isMac"
-    },
-    {
         "key": "cmd+home",
         "command": "extension.vim_ctrl+home",
         "when": "editorTextFocus && vim.active && !inDebugRepl && vim.mode != 'Insert' && isMac"
@@ -436,19 +426,9 @@
         "when": "editorFocus"
     },
     {
-        "key": "shift+cmd+g",
-        "command": "workbench.view.scm",
-        "when": "workbench.scm.active && !gitlens:disabled && config.gitlens.keymap == 'chorded'"
-    },
-    {
         "key": "ctrl+shift+g",
         "command": "-workbench.view.scm",
         "when": "workbench.scm.active && !gitlens:disabled && config.gitlens.keymap == 'chorded'"
-    },
-    {
-        "key": "shift+cmd+g",
-        "command": "workbench.view.scm",
-        "when": "workbench.scm.active"
     },
     {
         "key": "ctrl+shift+g",
@@ -579,7 +559,7 @@
         "when": "activeCustomEditorId == 'editor.excalidraw'"
     },
     {
-        "key": "cmd+a",
+        "key": "shift+cmd+a",
         "command": "git.stageSelectedRanges",
         "when": "isInDiffEditor && !operationInProgress"
     },
@@ -607,7 +587,7 @@
         "when": "!isSettingsPaneOpen"
     },
     {
-        "key": "cmd+j",
+        "key": "shift+cmd+b",
         "command": "workbench.action.togglePanel"
     },
     {
@@ -623,10 +603,6 @@
         "key": "shift+cmd+b",
         "command": "-workbench.action.tasks.build",
         "when": "taskCommandsRegistered"
-    },
-    {
-        "key": "shift+cmd+b",
-        "command": "workbench.action.toggleAuxiliaryBar"
     },
     {
         "key": "alt+cmd+b",
@@ -1003,8 +979,8 @@
     {
         "key": "shift+cmd+r",
         "command": "extension.showDirectoryFiles"
-  },
-  {
+    },
+    {
         "key": "shift+cmd+[",
         "command": "editor.fold",
         "when": "editorTextFocus && foldingEnabled"
@@ -1213,5 +1189,31 @@
         "key": "cmd+k",
         "command": "-aipopup.action.modal.generate",
         "when": "editorFocus && !composerBarIsVisible"
+    },
+    {
+        "key": "cmd+a",
+        "command": "git.stageFile",
+        "when": "isInDiffEditor && !operationInProgress"
+    },
+    {
+        "key": "cmd+g",
+        "command": "gitlens.showCommitDetailsView"
+    },
+    {
+        "key": "cmd+g",
+        "command": "-editor.action.nextMatchFindAction",
+        "when": "editorFocus"
+    },
+    {
+        "key": "cmd+a",
+        "command": "gitlens.views.stageFile"
+    },
+    {
+        "key": "cmd+a",
+        "command": "-editor.action.selectAll"
+    },
+    {
+        "key": "cmd+q cmd+q",
+        "command": "workbench.action.closeWindow"
     }
 ]

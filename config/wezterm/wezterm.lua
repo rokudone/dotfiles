@@ -4,10 +4,12 @@ local config = {}
 -- 基本設定
 config.automatically_reload_config = true
 config.term = "xterm-256color"
+config.hyperlink_rules = wezterm.default_hyperlink_rules()
 
 -- フォント設定
 config.font = wezterm.font_with_fallback({"S2GUniFont Nerd Font"})
 config.font_size = 24.0
+
 
 -- フォントレンダリング設定（WezTermの正しい設定）
 -- config.freetype_load_target = "Light"  -- より滑らかなレンダリング
@@ -19,7 +21,7 @@ config.font_size = 24.0
 config.use_cap_height_to_scale_fallback_fonts = true
 
 -- フォントオフセット (WezTermでは line_height で調整)
-config.line_height = 1.6
+config.line_height = 1.4
 config.cell_width = 1.0
 
 -- カラースキーム (Ayu Dark風)

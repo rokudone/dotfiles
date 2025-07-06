@@ -435,6 +435,12 @@
     "workbench.editor.enablePreview": false,
     "workbench.activityBar.orientation": "vertical",
     "diffEditor.ignoreTrimWhitespace": false,
+    "workbench.colorCustomizations": {
+        "diffEditor.insertedTextBackground": "#2ea04320",  // 追加行の背景（薄い緑）
+        "diffEditor.removedTextBackground": "#ff000010",   // 削除行の背景（薄い赤）
+        "diffEditor.insertedLineBackground": "#2ea04310",  // 追加行全体の背景
+        "diffEditor.removedLineBackground": "#ff000010"    // 削除行全体の背景
+    }
     "rubyLsp.rubyVersionManager": {
         "identifier": "rbenv"
     },

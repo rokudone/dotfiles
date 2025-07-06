@@ -304,22 +304,20 @@ zstyle ':completion:*:(ssh|scp|rsync):*:hosts-ipaddr' ignored-patterns '^(<->.<-
 
 zstyle ':completion:*:hosts' hosts
 
-if [ "$SSH_TTY" == "" ]; then
-  cache_hosts_file="${ZDOTDIR:-$HOME}/.cache_hosts"
-  print_cache_hosts () {
-    if [ ! -f $cache_hosts_file ]; then
-      update_cache_hosts
-    fi
-    print $cache_hosts_file
-  }
-
-update_cache_hosts () {
-  find ~/.ssh/conf.d -type f | xargs grep -ih "host " |cut -d ' ' -f 2|sort >|  $cache_hosts_file
-}
-
-update_cache_hosts
-_cache_hosts=(print_cache_hosts )
-fi
+# if [ "$SSH_TTY" == "" ]; then
+#   cache_hosts_file="${ZDOTDIR:-$HOME}/.cache_hosts"
+#   print_cache_hosts () {
+#     if [ ! -f $cache_hosts_file ]; then
+#       update_cache_hosts
+#     fi
+#     print $cache_hosts_file
+#   }
+# update_cache_hosts () {
+#   find ~/.ssh/conf.d -type f | xargs grep -ih "host " |cut -d ' ' -f 2|sort >|  $cache_hosts_file
+# }
+# update_cache_hosts
+# _cache_hosts=(print_cache_hosts )
+# fi
 
 
 export GOPATH=$HOME/go
@@ -343,6 +341,7 @@ export PATH=$JAVA_HOME/bin:$PATH
 
 # rust
 export RUST_BACKTRACE=1
+source $HOME/.cargo/env
 
 # tabtab source for packages
 # uninstall by removing these lines
@@ -540,4 +539,3 @@ source ~/.zshrc.claude
 #   zprof
 # fi
 
-alias claude="/Users/takuma/.config/claude/local/claude"

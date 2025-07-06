@@ -20,19 +20,15 @@ new_session() {
         # セッションが存在しない場合、新しいセッションを作成
         cd $project_path
         tmux new-session -s $session_name -c $project_path -d
-        tmux send-keys -t $session_name 'nvim' C-m
         tmux split-window -h -t $session_name
+        tmux send-keys -t $session_name 'nvim' C-m
         tmux new-window -t $session_name
         tmux previous-window -t $session_name
         tmux select-pane -L
     fi
 }
 
-# new_session casy-hub/casy-api
-# new_session casy-hub/casy-ruby
-# new_session casy-hub/casy-daemon
 new_session casy-hub
-new_session casy-hub/casy-user
 # new_session casy-repo
 new_session dx-api
 # new_session dx-environment

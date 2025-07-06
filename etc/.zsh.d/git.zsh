@@ -26,8 +26,7 @@ alias gbM='git branch --move --force'
 alias gbs='git switch'
 alias gbS='git_multi_switch'
 alias gbsd='git switch --detach'
-alias gbc='git branch --create'
-alias gbC='git switch --track' # originを指定する
+alias gbc='git switch --create'
 # alias gbC='hub sync && git switch --track'
 # alias gbc='git checkout -b'
 # alias gbr="git branch --remote"
@@ -473,7 +472,7 @@ function git-unskip-slack() {
 function git-skip-status() {
   git ls-files -v | grep "^S" | grep "slack_notify.rb"
 }
-alias gs='git stash'
+alias gss='git stash'
 alias gsa='git stash apply'
 alias gsx='git stash drop'
 alias gsl='git stash list'
@@ -483,9 +482,9 @@ alias gsP='git stash pop'
 # alias gss='git stash save --include-untracked'
 # alias gsS='git stash save --patch --no-keep-index'
 # alias gsw='git stash save --include-untracked --keep-index'
-alias gss='git-skip-slack'
-alias gsu='git-unskip-slack'
-alias gsS='git-skip-status'
+alias gsS='git-skip-slack'
+alias gsU='git-unskip-slack'
+# alias gsS='git-skip-status'
 
 # Submodule (S)
 # alias gS='git submodule'
@@ -524,6 +523,7 @@ alias gwX='git rm -rf'
 alias gwt='git worktree'
 #alias gwta='git worktree add'
 alias gwta='create_project_worktree'
+alias gwts='switch_project_worktree'
 alias gwtl='git worktree list'
 alias gwtm='git worktree move'
 alias gwtp='git worktree prune'
@@ -556,13 +556,38 @@ create_project_worktree() {
         return 1
     fi
 
+    # worktree内にいるかチェック
+    local git_common_dir="$(git rev-parse --git-common-dir 2>/dev/null)"
+    local git_dir="$(git rev-parse --git-dir 2>/dev/null)"
+    local toplevel="$(git rev-parse --show-toplevel)"
+    
+    # worktree内にいる場合は、メインリポジトリに移動
+    if [[ "$git_common_dir" != "$git_dir" ]]; then
+        # メインリポジトリのパスを取得
+        local main_repo="$(dirname "$git_common_dir")"
+        echo "Detected worktree. Switching to main repository: $main_repo"
+        cd "$main_repo"
+        # toplevelを再取得
+        toplevel="$(git rev-parse --show-toplevel)"
+    fi
+
     # .git/worktreeディレクトリを作成
-    local git_dir="$(git rev-parse --show-toplevel)"
-    local worktree_base="$git_dir/.wt"
+    local worktree_base="$toplevel/.git/wt"
     local worktree_path="$worktree_base/$branch_name"
+
+    # 既存のworktreeがあるかチェック
+    if [[ -d "$worktree_path" ]]; then
+        echo "Error: Worktree already exists for '$branch_name'"
+        echo "Use 'gwts $branch_name' to switch to it"
+        return 1
+    fi
 
     # 親ディレクトリを作成（feature/ など）
     mkdir -p "$(dirname "$worktree_path")"
+
+    # プロジェクトルートに移動してworktreeを作成
+    local original_dir="$(pwd)"
+    cd "$toplevel"
 
     # ブランチが既に存在するかチェック
     if git show-ref --verify --quiet "refs/heads/$branch_name"; then
@@ -573,9 +598,105 @@ create_project_worktree() {
 
     if [[ $? -eq 0 ]]; then
         cd "$worktree_path"
-        ailn
+        tm
+    else
+        cd "$original_dir"
     fi
 }
+
+# worktreeへ切り替える関数
+switch_project_worktree() {
+    local branch_name="$1"
+
+    # 引数チェック
+    if [[ -z "$branch_name" ]]; then
+        echo "Usage: gwts <branch-name>"
+        return 1
+    fi
+
+    # Gitリポジトリ内かチェック
+    if ! git rev-parse --git-dir > /dev/null 2>&1; then
+        echo "Error: Not in a git repository"
+        return 1
+    fi
+
+    # .git/worktreeディレクトリ
+    local git_dir="$(git rev-parse --show-toplevel)"
+    local worktree_base="$git_dir/.git/wt"
+    local worktree_path="$worktree_base/$branch_name"
+
+    # worktreeが存在するかチェック
+    if [[ -d "$worktree_path" ]]; then
+        cd "$worktree_path"
+        echo "Switched to worktree: $branch_name"
+    else
+        echo "Error: Worktree not found for '$branch_name'"
+        echo "Use 'gwta $branch_name' to create it"
+        return 1
+    fi
+}
+
+# zsh補完機能
+_create_project_worktree() {
+    local -a branches
+    
+    # ローカルブランチ
+    branches=($(git branch --format='%(refname:short)' 2>/dev/null))
+    
+    # リモートブランチ（origin/を除去）
+    branches+=($(git branch -r --format='%(refname:lstrip=3)' 2>/dev/null | grep -v HEAD))
+    
+    # 重複を除去
+    branches=($(echo "${branches[@]}" | tr ' ' '\n' | sort -u))
+    
+    _describe 'branches' branches
+}
+
+compdef _create_project_worktree create_project_worktree
+compdef _create_project_worktree gwta
+
+# zsh補完機能 for gwts
+_switch_project_worktree() {
+    local git_dir="$(git rev-parse --show-toplevel 2>/dev/null)"
+    if [[ -z "$git_dir" ]]; then
+        return
+    fi
+    
+    local -a worktrees
+    worktrees=()
+    
+    # 標準的な.git/worktreesディレクトリから取得
+    local worktrees_dir="$git_dir/.git/worktrees"
+    if [[ -d "$worktrees_dir" ]]; then
+        for worktree_dir in "$worktrees_dir"/*/; do
+            if [[ -f "$worktree_dir/HEAD" ]]; then
+                # HEADファイルからブランチ名を取得
+                local branch=$(cat "$worktree_dir/HEAD" | sed 's|ref: refs/heads/||')
+                worktrees+=("$branch")
+            fi
+        done
+    fi
+    
+    # カスタムworktree (.git/wt) も含める（独自実装用）
+    local worktree_base="$git_dir/.git/wt"
+    if [[ -d "$worktree_base" ]]; then
+        # 実際のworktreeのみを取得（.gitファイルが存在するディレクトリ）
+        for dir in "$worktree_base"/*/*(N/) "$worktree_base"/*(N/); do
+            if [[ -f "$dir/.git" ]]; then
+                local branch="${dir#$worktree_base/}"
+                worktrees+=("$branch")
+            fi
+        done
+    fi
+    
+    # 重複を除去
+    worktrees=($(echo "${worktrees[@]}" | tr ' ' '\n' | sort -u))
+    
+    _describe 'worktrees' worktrees
+}
+
+compdef _switch_project_worktree switch_project_worktree
+compdef _switch_project_worktree gwts
 
 # プロジェクト内worktree削除関数
 remove_project_worktree() {
@@ -587,7 +708,7 @@ remove_project_worktree() {
     fi
 
     local repo_root="$(git rev-parse --show-toplevel)"
-    local worktree_base="$repo_root/.wt"
+    local worktree_base="$repo_root/.git/wt"
     local worktree_path="$worktree_base/$branch_name"
 
     if [[ -d "$worktree_path" ]]; then
@@ -609,6 +730,49 @@ remove_project_worktree() {
         return 1
     fi
 }
+
+# zsh補完機能 for gwtr
+_remove_project_worktree() {
+    local git_dir="$(git rev-parse --show-toplevel 2>/dev/null)"
+    if [[ -z "$git_dir" ]]; then
+        return
+    fi
+    
+    local -a worktrees
+    worktrees=()
+    
+    # 標準的な.git/worktreesディレクトリから取得
+    local worktrees_dir="$git_dir/.git/worktrees"
+    if [[ -d "$worktrees_dir" ]]; then
+        for worktree_dir in "$worktrees_dir"/*/; do
+            if [[ -f "$worktree_dir/HEAD" ]]; then
+                # HEADファイルからブランチ名を取得
+                local branch=$(cat "$worktree_dir/HEAD" | sed 's|ref: refs/heads/||')
+                worktrees+=("$branch")
+            fi
+        done
+    fi
+    
+    # カスタムworktree (.git/wt) も含める（独自実装用）
+    local worktree_base="$git_dir/.git/wt"
+    if [[ -d "$worktree_base" ]]; then
+        # 実際のworktreeのみを取得（.gitファイルが存在するディレクトリ）
+        for dir in "$worktree_base"/*/*(N/) "$worktree_base"/*(N/); do
+            if [[ -f "$dir/.git" ]]; then
+                local branch="${dir#$worktree_base/}"
+                worktrees+=("$branch")
+            fi
+        done
+    fi
+    
+    # 重複を除去
+    worktrees=($(echo "${worktrees[@]}" | tr ' ' '\n' | sort -u))
+    
+    _describe 'worktrees' worktrees
+}
+
+compdef _remove_project_worktree remove_project_worktree
+compdef _remove_project_worktree gwtr
 
 function git-branch-current {
 

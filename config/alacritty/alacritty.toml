@@ -438,6 +438,10 @@ chars = "\u000A"
 key = "Return"
 mods = "Shift"
 
+[[keyboard.bindings]]
+action = "None"
+key = "F13"
+
 [mouse]
 hide_when_typing = true
 

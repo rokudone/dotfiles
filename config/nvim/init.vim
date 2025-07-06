@@ -258,14 +258,14 @@ nnoremap <a-9> <C-w>9w
 nnoremap <silent> <Leader>es :<C-u>source ~/.config/nvim/init.vim<CR>
 nnoremap <silent> <Leader>ev :<C-u>e ~/.config/nvim/init.vim<CR>
 nnoremap <silent> <Leader>et :<C-u>e ~/.config/nvim/dein.toml<CR>
-nnoremap <silent> <Leader>ec :<C-u>CocConfig<CR>
+" nnoremap <silent> <Leader>ec :<C-u>CocConfig<CR>
 nnoremap <silent> <Leader>eu :<C-u>call dein#update()
 nnoremap <silent> <Leader>eu :<C-u>call dein#update()
 " call dein#recache_runtimepath()
 
 " cursor
 " nnoremap <leader>c :execute '!cursor . && cursor -g '.expand('%:S').':'.line('.')<CR>
-nnoremap <leader>c :execute '!cursor -g '.expand('%:S').':'.line('.')<CR>
+nnoremap <leader>C :execute '!cursor -g '.expand('%:S').':'.line('.')<CR>
 
 
 " reload file
@@ -605,10 +605,6 @@ if dein#tap("vim-fugitive")
   vnoremap [git]B :'<,'>GBrowse<CR>
 endif
 
-if dein#tap("agit.vim")
-  nnoremap [git]l :Agit<CR>
-endif
-
 if dein#tap('vim-gitgutter')
   nmap ]h <Plug>(GitGutterNextHunk)
   nmap [h <Plug>(GitGutterPrevHunk)
@@ -670,10 +666,6 @@ endif
 "   nmap <Buffer><C-n> <Plug>(yankround-next)
 " endif
 
-if dein#tap('vim-openapi')
-  nnoremap <Leader>c :OpenAI<SPACE>
-endif
-
 if dein#tap('vim-markdown')
   autocmd FileType markdown nnoremap <silent><buffer> + :<C-u>.HeaderIncrease<CR>
   autocmd FileType markdown nnoremap <silent><buffer> - :<C-u>.HeaderDecrease<CR>
@@ -720,7 +712,7 @@ if dein#tap("vim-rails")
   " nnoremap [rails]a :<C-u>Rg <C-R>=expand('%:t:r')<CR>
 
   " app/contollers/xxx_controller.rb
-  nnoremap [rails]c :Econtroller<CR>
+    nnoremap [rails]c :Econtroller<CR>
   " config/application.rb
   nnoremap [rails]e :Eenvironment<CR>
 
@@ -1646,6 +1638,9 @@ else
   let g:airline_theme='one'
   colorscheme one
 end
+
+" 背景を透明にする（colorscheme設定後に実行）
+hi Normal guibg=NONE ctermbg=NONE
 
 au User LumenLight source ~/.config/nvim/init.vim
 au User LumenDark source ~/.config/nvim/init.vim
