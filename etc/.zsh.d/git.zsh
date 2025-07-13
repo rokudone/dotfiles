@@ -31,6 +31,79 @@ alias gbc='git switch --create'
 # alias gbc='git checkout -b'
 # alias gbr="git branch --remote"
 
+# Branch delete all - ローカルとリモートブランチを同時に削除
+function git-branch-delete-all() {
+    # 引数チェック
+    if [[ $# -eq 0 ]]; then
+        echo "Usage: gbxa <branch-name> [<branch-name>...]"
+        echo "  Delete both local and remote branches"
+        return 1
+    fi
+    
+    # 現在のブランチを取得
+    local current_branch="$(git rev-parse --abbrev-ref HEAD)"
+    local failed=false
+    
+    # 各ブランチに対して処理
+    for branch_name in "$@"; do
+        echo "=== Processing branch: $branch_name ==="
+        
+        # 現在のブランチを削除しようとしているかチェック
+        if [[ "$branch_name" == "$current_branch" ]]; then
+            echo "Error: Cannot delete the currently checked out branch '$branch_name'"
+            failed=true
+            continue
+        fi
+        
+        # ローカルブランチの存在確認
+        if ! git show-ref --verify --quiet "refs/heads/$branch_name"; then
+            echo "Warning: Local branch '$branch_name' does not exist"
+        else
+            # ローカルブランチを削除
+            echo "Deleting local branch: $branch_name"
+            if git branch -D "$branch_name"; then
+                echo "✓ Local branch deleted"
+            else
+                echo "✗ Failed to delete local branch"
+                failed=true
+            fi
+        fi
+        
+        # リモートブランチの存在確認
+        if ! git ls-remote --exit-code --heads origin "$branch_name" > /dev/null 2>&1; then
+            echo "Warning: Remote branch 'origin/$branch_name' does not exist"
+        else
+            # リモートブランチを削除
+            echo "Deleting remote branch: origin/$branch_name"
+            if git push origin --delete "$branch_name"; then
+                echo "✓ Remote branch deleted"
+            else
+                echo "✗ Failed to delete remote branch"
+                failed=true
+            fi
+        fi
+        
+        echo  # 空行で区切る
+    done
+    
+    # 失敗があった場合は非ゼロを返す
+    if [[ "$failed" == true ]]; then
+        return 1
+    fi
+}
+
+# zsh補完機能
+_git_branch_delete_all() {
+    local -a branches
+    # 現在のブランチを除外してブランチリストを取得
+    branches=($(git branch --format='%(refname:short)' 2>/dev/null | grep -v "^$(git rev-parse --abbrev-ref HEAD 2>/dev/null)$"))
+    _describe 'branches' branches
+}
+
+compdef _git_branch_delete_all git-branch-delete-all
+
+alias gbxa='git-branch-delete-all'
+
 git_multi_switch() {
   # 使用方法をチェック
   if [ $# -lt 2 ]; then
@@ -411,7 +484,7 @@ alias gpF='git push --force'
 alias gpa='git push --all'
 alias gpA='git push --all && git push --tags'
 alias gpt='git push --tags'
-alias gpd='git push --delete origin'
+alias gpx='git push --delete origin'
 alias gpc='git push --set-upstream origin "$(git-branch-current 2> /dev/null)"'
 alias gpp='git pull --rebase origin "$(git-branch-current 2> /dev/null)" && git push origin "$(git-branch-current 2> /dev/null)"'
 alias gP='git lfs push'

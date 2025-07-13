@@ -41,8 +41,9 @@ zinit snippet PZT::modules/syntax-highlighting/init.zsh
 zinit snippet PZT::modules/terminal/init.zsh
 zinit snippet PZT::modules/utility/init.zsh
 
-
-PROMPT="%F{242}[%*]%f "$PROMPT
+PURE_PROMPT_SYMBOL='❯'
+zstyle :prompt:pure:user show no
+zstyle :prompt:pure:host show no
 
 # Source OS-specific settings
 case $OSTYPE in
@@ -115,6 +116,14 @@ EXTRA_FZF_COMPLETIONS_FZF_PREFIX=,
 #   \ 'marker':  ['fg', 'Keyword'],
 #   \ 'spinner': ['fg', 'Label'],
 #   \ 'header':  ['fg', 'Comment'] }
+
+
+# より詳細な設定
+alias ls='eza --icons --group-directories-first'
+alias ll='eza -lh --icons --group-directories-first'
+alias la='eza -lah --icons --group-directories-first'
+alias lt='eza --tree --icons'
+alias lta='eza --tree --icons -a'
 
 # alias
 alias gosh='rlwrap gosh'

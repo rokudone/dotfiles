@@ -1,6 +1,20 @@
 local wezterm = require 'wezterm'
 local config = {}
 
+-- open-uriイベントハンドラー（ファイルパスを開く）
+wezterm.on('open-uri', function(window, pane, uri)
+  wezterm.log_info('Opening URI: ' .. uri)
+  
+  -- ファイル用
+  if uri:find('^file:') then
+    local path = uri:gsub('^file://', '')
+    -- macOSはopen、Linuxはxdg-open
+    local cmd = 'open'  -- macOS用
+    os.execute(cmd .. ' "' .. path .. '"')
+    return false  -- weztermのデフォルト処理をスキップ
+  end
+end)
+
 -- 基本設定
 config.automatically_reload_config = true
 config.term = "xterm-256color"
@@ -162,6 +176,20 @@ config.colors.tab_bar = {
     fg_color = '#B2B1AD',
   },
 }
+
+config.hyperlink_rules = wezterm.default_hyperlink_rules()
+
+-- ファイルパス用のルールを追加
+table.insert(config.hyperlink_rules, {
+  regex = [[\bfile://\S*\b]],
+  format = '$0',
+})
+
+-- 相対パス用
+table.insert(config.hyperlink_rules, {
+  regex = [[\b[\w\./\-_]+\.\w+\b]],
+  format = 'file://$0',
+})
 
 -- macOS固有の設定（必要に応じて）
 if wezterm.target_triple == "x86_64-apple-darwin" or wezterm.target_triple == "aarch64-apple-darwin" then

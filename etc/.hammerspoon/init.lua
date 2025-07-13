@@ -81,11 +81,7 @@ bindAltKey('o', 'Obsidian')
 
 -- bindAltKey('a', 'Arc')
 bindAltKey('s', 'Slack')
-bindAppHotkey({"alt"}, 'd', {
-  appName = "Dia",
-  appPath = "/Applications/Dia.app",
-  bundleId = "company.thebrowser.dia"
-})
+-- bindAltKey('d', '')
 bindAltKey('f', 'Firefox')
 -- bindAltKey('g', '')
 -- bindAltKey('h', '')
@@ -94,9 +90,9 @@ bindAltKey('f', 'Firefox')
 -- bindAltKey('l', '')
 
 bindAltKey('z', 'zoom.us')
-bindAltKey('x', 'Xcode')
+-- bindAltKey('x', 'Xcode')
 bindAltKey('c', 'Cursor')
 -- bindAltKey('v', '')
-bindAltKey('b', 'Firefox')
+-- bindAltKey('b', 'Firefox')
 -- bindAltKey('n', '')
 bindAltKey('m', 'YouTube Music')

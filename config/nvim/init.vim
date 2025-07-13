@@ -861,7 +861,11 @@ if dein#tap('fzf.vim')
         \ call fzf#vim#files(g:dotfiles_path, <bang>0)
 
   command! -bang -nargs=? -complete=dir ClaudeCodeConfig
-        \ call fzf#vim#files(g:claude_code_config_path, <bang>0)
+        \ call fzf#run(fzf#wrap({
+        \   'source': 'cd ' . g:claude_code_config_path . ' && git ls-files',
+        \   'dir': g:claude_code_config_path,
+        \   'options': fzf#vim#with_preview()['options']
+        \ }, <bang>0))
 
   command! -nargs=? Emoji call s:fzf_emoji(<f-args>)
   command! -bang -nargs=+ -complete=dir Ag call fzf#vim#ag_raw(<q-args>, <bang>0)
