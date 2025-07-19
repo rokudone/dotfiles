@@ -288,3 +288,5 @@ export NVM_DIR="$HOME/.config"
 . "$HOME/.cargo/env"
 
 export LESSCHARSET=utf-8
+
+[[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path bash)"

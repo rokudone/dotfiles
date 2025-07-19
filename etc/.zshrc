@@ -136,6 +136,7 @@ alias -g P='| pbcopy'
 alias -g SJIS='| nkf'
 alias serve="python3 -m http.server"
 alias cu='env -u TMUX cursor'
+alias k='env -u TMUX kiro'
 alias -g C="| xargs cursor"
 
 function rc() {
@@ -548,3 +549,5 @@ source ~/.zshrc.claude
 #   zprof
 # fi
 
+
+[[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"

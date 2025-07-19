@@ -1215,5 +1215,9 @@
     {
         "key": "cmd+q cmd+q",
         "command": "workbench.action.closeWindow"
+    },
+    {
+        "key": "shift+cmd+g",
+        "command": "git-graph.view"
     }
 ]

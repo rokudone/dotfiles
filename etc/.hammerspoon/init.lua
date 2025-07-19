@@ -43,11 +43,18 @@ bindAppHotkey({"ctrl", "shift"}, "space", {
   appPath = "/Applications/Cursor.app"
 })
 
-bindAppHotkey({}, "pageup", {
-  appName = "Dia",
-  appPath = "/Applications/Dia.app",
-  bundleId = "company.thebrowser.dia"
-})
+-- Dia用の特別なトグル関数
+local function toggleDia()
+  local app = hs.application.get("company.thebrowser.dia")
+  if app and app:isFrontmost() then
+    -- System EventsでDiaを非表示にする
+    hs.osascript.applescript('tell application "System Events" to set visible of process "Dia" to false')
+  else
+    hs.application.launchOrFocus("/Applications/Dia.app")
+  end
+end
+
+hs.hotkey.bind({}, "pageup", toggleDia)
 
 bindAppHotkey({}, "pagedown", {
   appName = "Obsidian",

@@ -19,5 +19,5 @@ CLAUDE/
 !etc/.claude/*
 claude-flow
 reports
-swarm*
+*swarm*
 

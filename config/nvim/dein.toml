@@ -72,8 +72,8 @@ repo = 't9md/vim-choosewin'
 # repo = 'syui/airsave.vim'
 [[plugins]]
 repo = 'folke/which-key.nvim'
-[[plugins]]
-repo = 'blueyed/vim-diminactive'
+# [[plugins]]
+# repo = 'blueyed/vim-diminactive'
 # [[plugins]]
 # repo = 'kat0h/vim-auto-color-switcher'
 # hook_post_update = '''
