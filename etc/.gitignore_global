@@ -1,10 +1,19 @@
 .devcontainer/
-.ruby_lsp/
+.ruby_lsp/*
 .index.yml
 .solargraph.yml
+.vscode/*
+
+# tempfile
+TODO.md
+!etc/.claude/commands/todo.md
 
 # worktree
 .wt
+
+# agent
+.agent
+.agent/*
 
 # cline
 .cline
@@ -13,11 +22,16 @@
 # cursor
 
 # claude
+CLAUDE.md
+!etc/CLAUDE.md
 CLAUDE.local.md
 CLAUDE/
 **/.claude/*
+.claude/*
 !etc/.claude/*
-claude-flow
-reports
-*swarm*
 
+# serena
+.serena
+
+# kiro
+.kiro/

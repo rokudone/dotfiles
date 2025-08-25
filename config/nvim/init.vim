@@ -191,6 +191,16 @@ nnoremap zH zC
 
 nnoremap gf gF
 
+function! CopyWithPathAndLineNumbers() range
+    let filepath = expand('%:p')
+    let lines = []
+    for lnum in range(a:firstline, a:lastline)
+        call add(lines, filepath . ':' . lnum . ' ' . getline(lnum))
+    endfor
+    let @+ = join(lines, "\n")
+endfunction
+
+vnoremap Y :call CopyWithPathAndLineNumbers()<CR>
 " ----------------------------------------
 " <m> commands
 " マーク関連

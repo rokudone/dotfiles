@@ -1,5 +1,5 @@
 {
-    "editor.fontSize": 18,
+    "editor.fontSize": 16,
     "editor.fontFamily": " \"S2GUniFont Nerd Font\", \"Yomogi\", \"ゆたココ\", \"あんずもじ等幅\", \"きろ字\", \"Myrica M\", \"JetBrainsMono Nerd Font\", \"HackGen Console NF\"",
     "editor.insertSpaces": true,
     "editor.rulers": [
@@ -22,7 +22,8 @@
     "git.autofetch": true,
     "files.autoSaveDelay": 3000,
     "[markdown]": {
-        "editor.insertSpaces": true
+        "editor.insertSpaces": true,
+        "editor.defaultFormatter": "yzhang.markdown-all-in-one"
     },
     "[dart]": {
         "editor.formatOnSave": true,
@@ -398,6 +399,7 @@
     "window.autoDetectColorScheme": true,
     "workbench.iconTheme": "seti",
     "cursor.cpp.enablePartialAccepts": true,
+    "workbench.webview.experimental.useExternalEndpoint": true,
     "cursor.chat.defaultNoContext": true,
     "cursor.cmdk.useThemedDiffBackground": true,
     "cursor.cmdk.ghostTextAtSymbols": true,
@@ -430,8 +432,8 @@
     "editor.lineHeight": 1.65,
     "workbench.preferredLightColorTheme": "Atom One Light",
     "explorer.excludeGitIgnore": true,
-    "terminal.integrated.fontSize": 16,
-    "window.zoomLevel": 1.5,
+    "terminal.integrated.fontSize": 14,
+    "window.zoomLevel": 2.5,
     "workbench.editor.enablePreview": false,
     "workbench.activityBar.orientation": "vertical",
     "diffEditor.ignoreTrimWhitespace": false,
@@ -440,7 +442,7 @@
         "diffEditor.removedTextBackground": "#ff000010",   // 削除行の背景（薄い赤）
         "diffEditor.insertedLineBackground": "#2ea04310",  // 追加行全体の背景
         "diffEditor.removedLineBackground": "#ff000010"    // 削除行全体の背景
-    }
+    },
     "rubyLsp.rubyVersionManager": {
         "identifier": "rbenv"
     },
@@ -462,7 +464,6 @@
     "cursor.composer.collapsePaneInputBoxPills": true,
     "editor.mouseWheelZoom": true,
     "window.commandCenter": true,
-    "workbench.preferredDarkColorTheme": "Ayu One",
     "svg.preview.zoomOptions": [
         "25%",
         "100%",
@@ -478,5 +479,18 @@
     "terminal.integrated.letterSpacing": 1.1,
     "terminal.integrated.copyOnSelection": true,
     "terminal.integrated.rightClickBehavior": "paste",
-    "workbench.colorTheme": "Spinel"
+    "workbench.colorTheme": "Spinel",
+    "kiroAgent.agentModelSelection": "CLAUDE_SONNET_4_20250514_V1_0",
+    "kiroAgent.trustedCommands": [
+        "npx tsc --noEmit",
+        "node *",
+        "npm *",
+        "npm run *",
+        "npx tsc *"
+    ],
+    "telemetry.telemetryAndContentCollectionForServiceImprovement": "Disabled",
+    "cSpell.enabled": false,
+    "gitlens.views.commitDetails.files.layout": "tree",
+    "comments.thread.confirmOnCollapse": "never",
+    "workbench.preferredDarkColorTheme": "Ayu Mirage Bordered"
 }

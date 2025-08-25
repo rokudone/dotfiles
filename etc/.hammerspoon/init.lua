@@ -9,20 +9,23 @@ local function toggleApp(config)
     app = hs.application.find(config.appName)
   end
   
-  if app and app:isFrontmost() then
-    app:hide()
-  else
-    hs.application.launchOrFocus(config.appPath)
-    -- 起動後のコールバック処理
-    if config.afterLaunch then
-      hs.timer.doAfter(config.afterLaunchDelay or 0.05, function()
-        local launchedApp = config.bundleId and hs.application.get(config.bundleId) or hs.application.find(config.appName)
-        if launchedApp and launchedApp:isFrontmost() then
-          config.afterLaunch()
-        end
-      end)
+  if app then
+    -- アプリが既に起動している場合のみトグル動作
+    if app:isFrontmost() then
+      app:hide()
+    else
+      app:activate()
+      -- 起動後のコールバック処理
+      if config.afterLaunch then
+        hs.timer.doAfter(config.afterLaunchDelay or 0.05, function()
+          if app:isFrontmost() then
+            config.afterLaunch()
+          end
+        end)
+      end
     end
   end
+  -- アプリが起動していない場合は何もしない
 end
 
 -- 便利なヘルパー関数
@@ -46,17 +49,21 @@ bindAppHotkey({"ctrl", "shift"}, "space", {
 -- Dia用の特別なトグル関数
 local function toggleDia()
   local app = hs.application.get("company.thebrowser.dia")
-  if app and app:isFrontmost() then
-    -- System EventsでDiaを非表示にする
-    hs.osascript.applescript('tell application "System Events" to set visible of process "Dia" to false')
-  else
-    hs.application.launchOrFocus("/Applications/Dia.app")
+  if app then
+    -- アプリが既に起動している場合のみトグル動作
+    if app:isFrontmost() then
+      -- System EventsでDiaを非表示にする
+      hs.osascript.applescript('tell application "System Events" to set visible of process "Dia" to false')
+    else
+      app:activate()
+    end
   end
+  -- アプリが起動していない場合は何もしない
 end
 
-hs.hotkey.bind({}, "pageup", toggleDia)
+hs.hotkey.bind({}, "home", toggleDia)
 
-bindAppHotkey({}, "pagedown", {
+bindAppHotkey({}, "pageup", {
   appName = "Obsidian",
   appPath = "/Applications/Obsidian.app",
   afterLaunch = function()

@@ -559,16 +559,6 @@
         "when": "activeCustomEditorId == 'editor.excalidraw'"
     },
     {
-        "key": "shift+cmd+a",
-        "command": "git.stageSelectedRanges",
-        "when": "isInDiffEditor && !operationInProgress"
-    },
-    {
-        "key": "cmd+k alt+cmd+s",
-        "command": "-git.stageSelectedRanges",
-        "when": "isInDiffEditor && !operationInProgress"
-    },
-    {
         "key": "shift+cmd+f",
         "command": "-workbench.action.terminal.searchWorkspace",
         "when": "terminalFocus && terminalProcessSupported && terminalTextSelected"
@@ -977,22 +967,8 @@
         "when": "editorFocus && !composerBarIsVisible"
     },
     {
-        "key": "shift+cmd+r",
-        "command": "extension.showDirectoryFiles"
-    },
-    {
-        "key": "shift+cmd+[",
-        "command": "editor.fold",
-        "when": "editorTextFocus && foldingEnabled"
-    },
-    {
         "key": "alt+cmd+[",
         "command": "-editor.fold",
-        "when": "editorTextFocus && foldingEnabled"
-    },
-    {
-        "key": "shift+cmd+]",
-        "command": "editor.unfold",
         "when": "editorTextFocus && foldingEnabled"
     },
     {
@@ -1071,10 +1047,6 @@
     {
         "key": "ctrl+9",
         "command": "-workbench.action.openEditorAtIndex9"
-    },
-    {
-        "key": "shift+cmd+c",
-        "command": "roo-cline.openInNewTab"
     },
     {
         "key": "ctrl+tab",
@@ -1191,22 +1163,13 @@
         "when": "editorFocus && !composerBarIsVisible"
     },
     {
-        "key": "cmd+a",
-        "command": "git.stageFile",
-        "when": "isInDiffEditor && !operationInProgress"
-    },
-    {
-        "key": "cmd+g",
+        "key": "shift+cmd+g",
         "command": "gitlens.showCommitDetailsView"
     },
     {
         "key": "cmd+g",
         "command": "-editor.action.nextMatchFindAction",
         "when": "editorFocus"
-    },
-    {
-        "key": "cmd+a",
-        "command": "gitlens.views.stageFile"
     },
     {
         "key": "cmd+a",
@@ -1217,7 +1180,94 @@
         "command": "workbench.action.closeWindow"
     },
     {
-        "key": "shift+cmd+g",
-        "command": "git-graph.view"
+        "key": "alt+f5",
+        "command": "-workbench.action.editor.nextChange",
+        "when": "editorTextFocus && !textCompareEditorActive"
+    },
+    {
+        "key": "shift+cmd+]",
+        "command": "-workbench.action.nextEditor"
+    },
+    {
+        "key": "shift+cmd+[",
+        "command": "-workbench.action.previousEditor"
+    },
+    {
+        "key": "shift+alt+f5",
+        "command": "-workbench.action.editor.previousChange",
+        "when": "editorTextFocus && !textCompareEditorActive"
+    },
+    {
+        "key": "shift+cmd+]",
+        "command": "workbench.action.compareEditor.nextChange",
+        "when": "textCompareEditorVisible"
+    },
+    {
+        "key": "shift+cmd+[",
+        "command": "workbench.action.compareEditor.previousChange",
+        "when": "textCompareEditorVisible"
+    },
+    {
+        "key": "cmd+g",
+        "command": "workbench.scm.focus"
+    },
+    {
+        "key": "shift+cmd+k",
+        "command": "-editor.action.deleteLines",
+        "when": "textInputFocus && !editorReadonly"
+    },
+    {
+        "key": "shift+cmd+k",
+        "command": "kiro.views.specExplorer.focus"
+    },
+    {
+        "key": "cmd+]",
+        "command": "-editor.action.indentLines",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "shift+cmd+s",
+        "command": "git.stageSelectedRanges",
+        "when": "editorTextFocus && !operationInProgress && resourceScheme == 'file'"
+    },
+    {
+        "key": "ctrl+shift+alt+cmd+c",
+        "command": "-copy-full-path-with-line-number",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "shift+cmd+c",
+        "command": "extension.copyCodeBlock"
+    },
+    {
+        "key": "cmd+e",
+        "command": "composerMode.background"
+    },
+    {
+        "key": "cmd+e",
+        "command": "composerMode.background"
+    },
+    {
+        "key": "shift+cmd+s",
+        "command": "-workbench.action.files.saveAs"
+    },
+    {
+        "key": "cmd+shift+r",
+        "command": "git.revertChange",
+        "when": "editorTextFocus && isInDiffEditor"
+    },
+    {
+        "key": "cmd+shift+a",
+        "command": "git.stageChange",
+        "when": "editorTextFocus && isInDiffEditor"
+    },
+    {
+        "key": "shift+y",
+        "command": "extension.copyCodeBlock"
+    },
+    {
+        "key": "enter",
+        "command": "-endwise.enter",
+        "when": "editorTextFocus && vim.mode != 'CommandlineInProgress' && vim.mode != 'Normal' && vim.mode != 'SearchInProgressMode' && editorLangId =~ /^ruby$|^crystal$/"
     }
 ]

@@ -39,22 +39,22 @@ function git-branch-delete-all() {
         echo "  Delete both local and remote branches"
         return 1
     fi
-    
+
     # 現在のブランチを取得
     local current_branch="$(git rev-parse --abbrev-ref HEAD)"
     local failed=false
-    
+
     # 各ブランチに対して処理
     for branch_name in "$@"; do
         echo "=== Processing branch: $branch_name ==="
-        
+
         # 現在のブランチを削除しようとしているかチェック
         if [[ "$branch_name" == "$current_branch" ]]; then
             echo "Error: Cannot delete the currently checked out branch '$branch_name'"
             failed=true
             continue
         fi
-        
+
         # ローカルブランチの存在確認
         if ! git show-ref --verify --quiet "refs/heads/$branch_name"; then
             echo "Warning: Local branch '$branch_name' does not exist"
@@ -68,7 +68,7 @@ function git-branch-delete-all() {
                 failed=true
             fi
         fi
-        
+
         # リモートブランチの存在確認
         if ! git ls-remote --exit-code --heads origin "$branch_name" > /dev/null 2>&1; then
             echo "Warning: Remote branch 'origin/$branch_name' does not exist"
@@ -82,10 +82,10 @@ function git-branch-delete-all() {
                 failed=true
             fi
         fi
-        
+
         echo  # 空行で区切る
     done
-    
+
     # 失敗があった場合は非ゼロを返す
     if [[ "$failed" == true ]]; then
         return 1
@@ -621,6 +621,28 @@ create_project_worktree() {
         return 1
     fi
 
+    # メインリポジトリのパスを取得
+    local repo_root="$(git rev-parse --show-toplevel)"
+
+    # worktree内にいる場合はメインリポジトリのパスを取得
+    local git_common_dir="$(git rev-parse --git-common-dir 2>/dev/null)"
+    local git_dir="$(git rev-parse --git-dir 2>/dev/null)"
+    if [[ "$git_common_dir" != "$git_dir" ]]; then
+        # worktree内にいる場合、メインリポジトリのパスを取得
+        repo_root="$(dirname "$git_common_dir")"
+    fi
+
+    # メインリポジトリに.agent/.claudeフォルダがなければ作成
+    if [[ ! -d "$repo_root/.agent" ]]; then
+        mkdir -p "$repo_root/.agent"
+    fi
+
+    if [[ ! -d "$repo_root/.claude" ]]; then
+        mkdir -p "$repo_root/.claude"
+    fi
+
+    # 既存のworktreeは何もしない（削除も置き換えもしない）
+
     # 現在のブランチをworktreeに追加しようとしているかチェック
     local current_branch="$(git rev-parse --abbrev-ref HEAD)"
     if [[ "$branch_name" == "$current_branch" ]]; then
@@ -633,7 +655,7 @@ create_project_worktree() {
     local git_common_dir="$(git rev-parse --git-common-dir 2>/dev/null)"
     local git_dir="$(git rev-parse --git-dir 2>/dev/null)"
     local toplevel="$(git rev-parse --show-toplevel)"
-    
+
     # worktree内にいる場合は、メインリポジトリに移動
     if [[ "$git_common_dir" != "$git_dir" ]]; then
         # メインリポジトリのパスを取得
@@ -670,6 +692,38 @@ create_project_worktree() {
     fi
 
     if [[ $? -eq 0 ]]; then
+        # 共有フォルダ・ファイルのsymlinkを作成
+
+        # .agentフォルダのsymlinkを作成
+        if [[ ! -e "$worktree_path/.agent" ]]; then
+            if [[ ! -d "$toplevel/.agent" ]]; then
+                mkdir -p "$toplevel/.agent"
+            fi
+            ln -s "$toplevel/.agent" "$worktree_path/.agent"
+            echo "✓ Created .agent symlink"
+        fi
+
+        # .claudeフォルダのsymlinkを作成
+        if [[ ! -e "$worktree_path/.claude" ]]; then
+            if [[ ! -d "$toplevel/.claude" ]]; then
+                mkdir -p "$toplevel/.claude"
+            fi
+            ln -s "$toplevel/.claude" "$worktree_path/.claude"
+            echo "✓ Created .claude symlink"
+        fi
+
+        # CLAUDE.mdのsymlinkを作成
+        if [[ -f "$toplevel/CLAUDE.md" && ! -e "$worktree_path/CLAUDE.md" ]]; then
+            ln -s "$toplevel/CLAUDE.md" "$worktree_path/CLAUDE.md"
+            echo "✓ Created CLAUDE.md symlink"
+        fi
+
+        # CLAUDE.local.mdのsymlinkを作成
+        if [[ -f "$toplevel/CLAUDE.local.md" && ! -e "$worktree_path/CLAUDE.local.md" ]]; then
+            ln -s "$toplevel/CLAUDE.local.md" "$worktree_path/CLAUDE.local.md"
+            echo "✓ Created CLAUDE.local.md symlink"
+        fi
+
         cd "$worktree_path"
         tm
     else
@@ -712,16 +766,16 @@ switch_project_worktree() {
 # zsh補完機能
 _create_project_worktree() {
     local -a branches
-    
+
     # ローカルブランチ
     branches=($(git branch --format='%(refname:short)' 2>/dev/null))
-    
+
     # リモートブランチ（origin/を除去）
     branches+=($(git branch -r --format='%(refname:lstrip=3)' 2>/dev/null | grep -v HEAD))
-    
+
     # 重複を除去
     branches=($(echo "${branches[@]}" | tr ' ' '\n' | sort -u))
-    
+
     _describe 'branches' branches
 }
 
@@ -734,10 +788,10 @@ _switch_project_worktree() {
     if [[ -z "$git_dir" ]]; then
         return
     fi
-    
+
     local -a worktrees
     worktrees=()
-    
+
     # 標準的な.git/worktreesディレクトリから取得
     local worktrees_dir="$git_dir/.git/worktrees"
     if [[ -d "$worktrees_dir" ]]; then
@@ -749,7 +803,7 @@ _switch_project_worktree() {
             fi
         done
     fi
-    
+
     # カスタムworktree (.git/wt) も含める（独自実装用）
     local worktree_base="$git_dir/.git/wt"
     if [[ -d "$worktree_base" ]]; then
@@ -761,10 +815,10 @@ _switch_project_worktree() {
             fi
         done
     fi
-    
+
     # 重複を除去
     worktrees=($(echo "${worktrees[@]}" | tr ' ' '\n' | sort -u))
-    
+
     _describe 'worktrees' worktrees
 }
 
@@ -810,10 +864,10 @@ _remove_project_worktree() {
     if [[ -z "$git_dir" ]]; then
         return
     fi
-    
+
     local -a worktrees
     worktrees=()
-    
+
     # 標準的な.git/worktreesディレクトリから取得
     local worktrees_dir="$git_dir/.git/worktrees"
     if [[ -d "$worktrees_dir" ]]; then
@@ -825,7 +879,7 @@ _remove_project_worktree() {
             fi
         done
     fi
-    
+
     # カスタムworktree (.git/wt) も含める（独自実装用）
     local worktree_base="$git_dir/.git/wt"
     if [[ -d "$worktree_base" ]]; then
@@ -837,10 +891,10 @@ _remove_project_worktree() {
             fi
         done
     fi
-    
+
     # 重複を除去
     worktrees=($(echo "${worktrees[@]}" | tr ' ' '\n' | sort -u))
-    
+
     _describe 'worktrees' worktrees
 }
 

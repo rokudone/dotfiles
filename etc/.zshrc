@@ -531,13 +531,12 @@ zinit light-mode for \
     zdharma-continuum/zinit-annex-patch-dl \
     zdharma-continuum/zinit-annex-rust
 
-alias c="claude"
-alias cr="claude --resume"
-alias cf="./claude-flow"
-alias cfi="npx -y claude-flow@latest init --sparc"
-alias cfm="./claude-flow sparc modes"
-alias cfr="./claude-flow sparc run"
-alias cfw="./claude-flow swarm"
+# alias c="npx -y @anthropic-ai/claude-code@1.0.55 --model=opus"
+# alias cr="npx -y @anthropic-ai/claude-code@1.0.55  --model=opus --resume"
+# alias serena="claude mcp add serena -- uvx --from git+https://github.com/oraios/serena serena-mcp-server --context ide-assistant --project $(pwd)"
+alias c="claude --model=opus"
+alias cr="claude --resume --model=opus"
+alias serena="claude mcp add serena -- uvx --from git+https://github.com/oraios/serena serena-mcp-server --context ide-assistant --project $(pwd)"
 
 path=($HOME/projects/claude-code-config/bin $path)
 source ~/.zshrc.claude
@@ -551,3 +550,14 @@ source ~/.zshrc.claude
 
 
 [[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
+
+# bun completions
+[ -s "/Users/takuma/.bun/_bun" ] && source "/Users/takuma/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# claude code
+export PATH="$HOME/ccbin:$PATH"
+export PATH="/Users/takuma/projects/incident-management-manual/tips/commands:/Users/takuma/projects/incident-management-manual/tips/postmortem/commands:${PATH}"
