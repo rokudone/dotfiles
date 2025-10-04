@@ -69,6 +69,7 @@
   },
   "powershell.integratedConsole.showOnStartup": false,
   "explorer.width": 60,
+  "explorer.file.showHiddenFiles": true,
   "explorer.root.strategies": [
     "cwd",
     "sourceBuffer",

@@ -1236,18 +1236,6 @@
         "when": "editorTextFocus"
     },
     {
-        "key": "shift+cmd+c",
-        "command": "extension.copyCodeBlock"
-    },
-    {
-        "key": "cmd+e",
-        "command": "composerMode.background"
-    },
-    {
-        "key": "cmd+e",
-        "command": "composerMode.background"
-    },
-    {
         "key": "shift+cmd+s",
         "command": "-workbench.action.files.saveAs"
     },
@@ -1257,17 +1245,21 @@
         "when": "editorTextFocus && isInDiffEditor"
     },
     {
-        "key": "cmd+shift+a",
-        "command": "git.stageChange",
-        "when": "editorTextFocus && isInDiffEditor"
-    },
-    {
-        "key": "shift+y",
-        "command": "extension.copyCodeBlock"
-    },
-    {
         "key": "enter",
         "command": "-endwise.enter",
         "when": "editorTextFocus && vim.mode != 'CommandlineInProgress' && vim.mode != 'Normal' && vim.mode != 'SearchInProgressMode' && editorLangId =~ /^ruby$|^crystal$/"
+    },
+    {
+        "key": "shift+cmd+c",
+        "command": "chatgpt.addToChat"
+    },
+    {
+        "key": "shift+cmd+i",
+        "command": "-composer.newAgentChat"
+    },
+    {
+        "key": "shift+cmd+i",
+        "command": "-workbench.panel.chatEditing",
+        "when": "workbench.panel.chat.view.edits.active"
     }
 ]

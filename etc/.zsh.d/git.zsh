@@ -632,15 +632,6 @@ create_project_worktree() {
         repo_root="$(dirname "$git_common_dir")"
     fi
 
-    # メインリポジトリに.agent/.claudeフォルダがなければ作成
-    if [[ ! -d "$repo_root/.agent" ]]; then
-        mkdir -p "$repo_root/.agent"
-    fi
-
-    if [[ ! -d "$repo_root/.claude" ]]; then
-        mkdir -p "$repo_root/.claude"
-    fi
-
     # 既存のworktreeは何もしない（削除も置き換えもしない）
 
     # 現在のブランチをworktreeに追加しようとしているかチェック
@@ -691,43 +682,14 @@ create_project_worktree() {
         git worktree add "$worktree_path" -b "$branch_name"
     fi
 
+    # 成功時は作成したworktreeへ移動、失敗時は元のディレクトリへ戻す
     if [[ $? -eq 0 ]]; then
-        # 共有フォルダ・ファイルのsymlinkを作成
-
-        # .agentフォルダのsymlinkを作成
-        if [[ ! -e "$worktree_path/.agent" ]]; then
-            if [[ ! -d "$toplevel/.agent" ]]; then
-                mkdir -p "$toplevel/.agent"
-            fi
-            ln -s "$toplevel/.agent" "$worktree_path/.agent"
-            echo "✓ Created .agent symlink"
-        fi
-
-        # .claudeフォルダのsymlinkを作成
-        if [[ ! -e "$worktree_path/.claude" ]]; then
-            if [[ ! -d "$toplevel/.claude" ]]; then
-                mkdir -p "$toplevel/.claude"
-            fi
-            ln -s "$toplevel/.claude" "$worktree_path/.claude"
-            echo "✓ Created .claude symlink"
-        fi
-
-        # CLAUDE.mdのsymlinkを作成
-        if [[ -f "$toplevel/CLAUDE.md" && ! -e "$worktree_path/CLAUDE.md" ]]; then
-            ln -s "$toplevel/CLAUDE.md" "$worktree_path/CLAUDE.md"
-            echo "✓ Created CLAUDE.md symlink"
-        fi
-
-        # CLAUDE.local.mdのsymlinkを作成
-        if [[ -f "$toplevel/CLAUDE.local.md" && ! -e "$worktree_path/CLAUDE.local.md" ]]; then
-            ln -s "$toplevel/CLAUDE.local.md" "$worktree_path/CLAUDE.local.md"
-            echo "✓ Created CLAUDE.local.md symlink"
-        fi
-
         cd "$worktree_path"
-        tm
+        echo "Created and switched to worktree: $branch_name"
     else
         cd "$original_dir"
+        echo "Error: Failed to create worktree for '$branch_name'"
+        return 1
     fi
 }
 

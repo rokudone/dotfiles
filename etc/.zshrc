@@ -212,6 +212,11 @@ bindkey '^^' cdup
 bindkey -r '^q'
 bindkey '^q' beginning-of-line
 
+# emacsキーマップ想定。viなら -M vicmd / -M viins に同様に追加
+bindkey -M emacs '^[ [ 1 ; 3 A' up-line-or-history   # \e[1;3A (Alt+Up)
+bindkey -M emacs '^[ [ 1 ; 3 B' down-line-or-history # \e[1;3B (Alt+Down)
+bindkey -M emacs '^[OA' up-line-or-history           # 端末によってはこっち
+bindkey -M emacs '^[OB' down-line-or-history
 #tmux
 # autoload -Uz til
 autoload -Uz bk
@@ -534,9 +539,12 @@ zinit light-mode for \
 # alias c="npx -y @anthropic-ai/claude-code@1.0.55 --model=opus"
 # alias cr="npx -y @anthropic-ai/claude-code@1.0.55  --model=opus --resume"
 # alias serena="claude mcp add serena -- uvx --from git+https://github.com/oraios/serena serena-mcp-server --context ide-assistant --project $(pwd)"
-alias c="claude --model=opus"
-alias cr="claude --resume --model=opus"
+# alias c="claude --model=opus"
+# alias cr="npx @sasazame/ccresume@latest ."
+alias c="codex"
+alias cr="codex resume"
 alias serena="claude mcp add serena -- uvx --from git+https://github.com/oraios/serena serena-mcp-server --context ide-assistant --project $(pwd)"
+alias agent="find .agent -name '*.md' | sort | fzf --height 70% --preview 'bat --language=markdown --style=plain --color=always --theme=OneHalfDark {}' --preview-window=right:50%:wrap | pbcopy"
 
 path=($HOME/projects/claude-code-config/bin $path)
 source ~/.zshrc.claude

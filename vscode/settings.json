@@ -109,230 +109,33 @@
     "vim.leader": "<space>",
     "vim.foldfix": true,
     "vim.normalModeKeyBindingsNonRecursive": [
-        {
-            "before": [
-                "f"
-            ],
-            "after": [
-                "<leader>",
-                "<leader>",
-                "f"
-            ]
-        },
-        {
-            "before": [
-                "F"
-            ],
-            "after": [
-                "<leader>",
-                "<leader>",
-                "F"
-            ]
-        },
-        {
-            "before": [
-                "t"
-            ],
-            "after": [
-                "<leader>",
-                "<leader>",
-                "t"
-            ]
-        },
-        {
-            "before": [
-                "T"
-            ],
-            "after": [
-                "<leader>",
-                "<leader>",
-                "T"
-            ]
-        },
-        {
-            "before": [
-                "leader",
-                "s"
-            ],
-            "after": [
-                ":",
-                "%",
-                "s",
-                "/"
-            ]
-        },
-        {
-            "before": [
-                "leader",
-                "["
-            ],
-            "after": [
-                "leader",
-                "leader",
-                "leader",
-                "b",
-                "d",
-                "w"
-            ]
-        },
-        {
-            "before": [
-                "leader",
-                "w"
-            ],
-            "after": [
-                ":",
-                "w",
-                "<CR>"
-            ]
-        },
-        {
-            "before": [
-                "leader",
-                "W"
-            ],
-            "after": [
-                ":",
-                "w",
-                "a",
-                "<CR>"
-            ]
-        },
-        {
-            "before": [
-                "leader",
-                "q"
-            ],
-            "after": [
-                ":",
-                "q",
-                "<CR>"
-            ]
-        },
-        {
-            "before": [
-                "leader",
-                "Q"
-            ],
-            "after": [
-                ":",
-                "q",
-                "a",
-                "<CR>"
-            ]
-        },
-        {
-            "before": [
-                "leader",
-                "s"
-            ],
-            "after": [
-                ":",
-                "%",
-                "s",
-                "/"
-            ]
-        },
-        {
-            "before": [
-                "j"
-            ],
-            "after": [
-                "g",
-                "j"
-            ]
-        },
-        {
-            "before": [
-                "g",
-                "j"
-            ],
-            "after": [
-                "j"
-            ]
-        },
-        {
-            "before": [
-                "k"
-            ],
-            "after": [
-                "g",
-                "k"
-            ]
-        },
-        {
-            "before": [
-                "g",
-                "k"
-            ],
-            "after": [
-                "k"
-            ]
-        },
-        {
-            "before": [
-                "g",
-                "h"
-            ],
-            "commands": [
-                "editor.action.showHover"
-            ]
-        }
+        { "before": [ "f" ], "after": [ "<leader>", "<leader>", "f" ] },
+        { "before": [ "F" ], "after": [ "<leader>", "<leader>", "F" ] },
+        { "before": [ "t" ], "after": [ "<leader>", "<leader>", "t" ] },
+        { "before": [ "T" ], "after": [ "<leader>", "<leader>", "T" ] },
+        { "before": [ "leader", "s" ], "after": [ ":", "%", "s", "/" ] },
+        { "before": [ "leader", "[" ], "after": [ "leader", "leader", "leader", "b", "d", "w" ] },
+        { "before": [ "leader", "w" ], "after": [ ":", "w", "<CR>" ] },
+        { "before": [ "leader", "W" ], "after": [ ":", "w", "a", "<CR>" ] },
+        { "before": [ "leader", "q" ], "after": [ ":", "q", "<CR>" ] },
+        { "before": [ "leader", "Q" ], "after": [ ":", "q", "a", "<CR>" ] },
+        { "before": [ "leader", "s" ], "after": [ ":", "%", "s", "/" ] },
+        { "before": [ "j" ], "after": [ "g", "j" ] },
+        { "before": [ "g", "j" ], "after": [ "j" ] },
+        { "before": [ "k" ], "after": [ "g", "k" ] },
+        { "before": [ "g", "k" ], "after": [ "k" ] },
+        { "before": [ "g", "h" ], "commands": [ "editor.action.showHover" ] }
     ],
     "vim.insertModeKeyBindings": [
-        {
-            "before": [
-                "<C-f>"
-            ],
-            "after": [
-                "<right>"
-            ]
-        },
-        {
-            "before": [
-                "<C-b>"
-            ],
-            "after": [
-                "left"
-            ]
-        },
-        {
-            "before": [
-                "<C-p>"
-            ],
-            "after": [
-                "up"
-            ]
-        },
-        {
-            "before": [
-                "<C-n>"
-            ],
-            "after": [
-                "down"
-            ]
-        },
-        {
-            "before": [
-                "<D-[>"
-            ],
-            "after": [
-                "<Esc>"
-            ]
-        }
+        { "before": [ "<C-f>" ], "after": [ "<right>" ] },
+        { "before": [ "<C-b>" ], "after": [ "left" ] },
+        { "before": [ "<C-p>" ], "after": [ "up" ] },
+        { "before": [ "<C-n>" ], "after": [ "down" ] },
+        { "before": [ "<D-[>" ], "after": [ "<Esc>" ] }
     ],
     "vim.visualModeKeyBindings": [
-        {
-            "before": [
-                "leader",
-                "s"
-            ],
-            "after": [
-                ":",
-                "s",
-                "/"
-            ]
-        }
+        { "before": [ "leader", "s" ], "after": [ ":", "s", "/" ] },
+        { "before": ["Y"], "commands": [ "extension.copyCodeBlock", "extension.vim_escape" ] }
     ],
     "vim.statusBarColorControl": false,
     "vim.surround": true,
@@ -488,9 +291,22 @@
         "npm run *",
         "npx tsc *"
     ],
-    "telemetry.telemetryAndContentCollectionForServiceImprovement": "Disabled",
     "cSpell.enabled": false,
     "gitlens.views.commitDetails.files.layout": "tree",
     "comments.thread.confirmOnCollapse": "never",
-    "workbench.preferredDarkColorTheme": "Ayu Mirage Bordered"
+    "workbench.preferredDarkColorTheme": "Ayu Mirage Bordered",
+    "[dockercompose]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2,
+        "editor.autoIndent": "advanced",
+        "editor.quickSuggestions": {
+            "other": true,
+            "comments": false,
+            "strings": true
+        },
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    "[github-actions-workflow]": {
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    }
 }

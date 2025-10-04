@@ -275,7 +275,7 @@ nnoremap <silent> <Leader>eu :<C-u>call dein#update()
 
 " cursor
 " nnoremap <leader>c :execute '!cursor . && cursor -g '.expand('%:S').':'.line('.')<CR>
-nnoremap <leader>C :execute '!cursor -g '.expand('%:S').':'.line('.')<CR>
+nnoremap <leader>c :execute '!cursor -g '.expand('%:S').':'.line('.')<CR>
 
 
 " reload file

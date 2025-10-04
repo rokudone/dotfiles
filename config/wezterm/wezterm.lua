@@ -150,10 +150,12 @@ config.keys = {
     mods = 'SHIFT',
     action = wezterm.action.SendString('\n'),
   },
+  -- { key = "UpArrow",   mods = "OPT", action = wezterm.action{SendString="\x1b[1;3A"} },
+  -- { key = "DownArrow", mods = "OPT", action = wezterm.action{SendString="\x1b[1;3B"} },
 }
 
--- マウス設定
-config.hide_mouse_cursor_when_typing = true
+config.send_composed_key_when_left_alt_is_pressed = false
+config.send_composed_key_when_right_alt_is_pressed = false
 
 -- その他の設定
 config.enable_tab_bar = true

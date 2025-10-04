@@ -6,6 +6,7 @@
 
 # tempfile
 TODO.md
+SUMMARY.md
 !etc/.claude/commands/todo.md
 
 # worktree
@@ -26,12 +27,19 @@ CLAUDE.md
 !etc/CLAUDE.md
 CLAUDE.local.md
 CLAUDE/
-**/.claude/*
-.claude/*
-!etc/.claude/*
+.claude
+!etc/.claude
+
+# kiro
+.kiro/
 
 # serena
 .serena
 
-# kiro
-.kiro/
+# codex
+AGENTS.md
+.codex
+!etc/.codex
+!etc/.codex/AGENTS.md
+
+stagewise.json
