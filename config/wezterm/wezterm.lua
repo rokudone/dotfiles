@@ -22,7 +22,7 @@ config.hyperlink_rules = wezterm.default_hyperlink_rules()
 
 -- フォント設定
 config.font = wezterm.font_with_fallback({"S2GUniFont Nerd Font"})
-config.font_size = 24.0
+config.font_size = 18.0
 
 
 -- フォントレンダリング設定（WezTermの正しい設定）

@@ -9,8 +9,7 @@
 --   end
 -- })
 
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = {
+local ensure_languages = {
     -- "ada",
     -- "agda",
     -- "arduino",
@@ -133,8 +132,8 @@ require'nvim-treesitter.configs'.setup {
     -- "rst",
     "ruby",
     "rust",
-    -- "scala",
-    -- "scheme",
+    "scala",
+    "scheme",
     "scss",
     -- "slint",
     -- "smali",
@@ -170,7 +169,14 @@ require'nvim-treesitter.configs'.setup {
     "yaml",
     -- "yang",
     -- "zig",
-  },
+}
+
+local is_headless = #vim.api.nvim_list_uis() == 0
+
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = is_headless and {} or ensure_languages,
+  sync_install = false,
+  auto_install = false,
   highlight = {
     enable = true,
   },
