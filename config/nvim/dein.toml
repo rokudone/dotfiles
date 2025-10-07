@@ -9,11 +9,6 @@ repo = 'vim-jp/vimdoc-ja'
 
 #
 # development:general
-[[plugins]]
-repo = 'junegunn/fzf'
-build = './install --all'
-[[plugins]]
-repo = 'junegunn/fzf.vim'
 # [[plugins]]
 # repo = 'Shougo/defx.nvim'
 # [[plugins]]
@@ -254,4 +249,3 @@ repo = 'junegunn/goyo.vim'
 
 [[plugins]]
 repo = 'thinca/vim-scouter'
-

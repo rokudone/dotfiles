@@ -87,7 +87,13 @@ function M.setup()
   append(opt.spelllang, { 'cjk' })
   opt.pumblend = 10
   opt.winblend = 10
-  opt.fillchars = { eob = ' ' }
+  opt.fillchars = {
+    eob = ' ',
+    vert = ' ',
+    vertleft = ' ',
+    vertright = ' ',
+    verthoriz = ' ',
+  }
   append(opt.iskeyword, { '-', '$', '#' })
   append(opt.clipboard, { 'unnamed', 'unnamedplus' })
   remove(opt.isfname, { ':' })

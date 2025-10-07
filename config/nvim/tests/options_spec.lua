@@ -13,6 +13,13 @@ function M.run()
   assert_eq(vim.o.autowriteall, true, 'autowriteall should be enabled')
   assert_eq(vim.o.mouse, 'a', 'mouse should be enabled')
   assert_eq(vim.o.fixeol, false, 'fixeol should be disabled')
+
+  local fillchars = vim.opt.fillchars:get()
+  assert_eq(fillchars.eob, ' ', 'eob fillchar should be blank')
+  assert_eq(fillchars.vert, ' ', 'vertical separator should be hidden')
+  assert_eq(fillchars.vertleft, ' ', 'left vertical separator should be hidden')
+  assert_eq(fillchars.vertright, ' ', 'right vertical separator should be hidden')
+  assert_eq(fillchars.verthoriz, ' ', 'vertical-horizontal separator should be hidden')
 end
 
 return M

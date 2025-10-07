@@ -41,23 +41,31 @@ function M.setup()
       end,
     },
     {
-      'junegunn/fzf',
-      build = function()
-        local ok, err = pcall(function()
-          fn['fzf#install']()
-        end)
-        if not ok then
-          vim.notify('fzf#install failed: ' .. tostring(err), vim.log.levels.WARN)
+      'nvim-telescope/telescope.nvim',
+      dependencies = {
+        'nvim-lua/plenary.nvim',
+        {
+          'nvim-telescope/telescope-fzf-native.nvim',
+          build = 'make',
+          cond = function()
+            return vim.fn.executable('make') == 1
+          end,
+        },
+      },
+      config = function()
+        local ok_setup, telescope = pcall(require, 'plugins.telescope')
+        if ok_setup then
+          telescope.setup()
         end
       end,
     },
     {
-      'junegunn/fzf.vim',
-      dependencies = { 'junegunn/fzf' },
+      'kevinhwang91/nvim-bqf',
+      ft = 'qf',
       config = function()
-        local ok_setup, fzf = pcall(require, 'plugins.fzf')
+        local ok_setup, bqf = pcall(require, 'plugins.bqf')
         if ok_setup then
-          fzf.setup()
+          bqf.setup()
         end
       end,
     },
@@ -288,6 +296,9 @@ function M.setup()
     },
     {
       'kana/vim-smartinput',
+      init = function()
+        vim.g.smartinput_no_default_key_mappings = 1
+      end,
       config = function()
         local ok_setup, smartinput = pcall(require, 'plugins.smartinput')
         if ok_setup then

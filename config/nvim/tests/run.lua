@@ -4,6 +4,8 @@ local specs = {
   'tests.commands_spec',
   'tests.autocmds_spec',
   'tests.lsp_spec',
+  'tests.lsp_references_spec',
+  'tests.telescope_spec',
   'tests.neo_tree_status_highlight_spec',
   'tests.colors_spec',
 }

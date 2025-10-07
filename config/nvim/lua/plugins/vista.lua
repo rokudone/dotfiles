@@ -29,7 +29,6 @@ function M.setup()
   vim.g.vista_default_executive = 'ctags'
   vim.g.vista_sidebar_width = 50
   vim.g.vista_enable_centering_jump = 1
-  vim.g.vista_fzf_preview = { 'right:50%' }
   vim.g['vista#renderer#enable_icon'] = 1
 
   vim.g['vista#renderer#icons'] = {

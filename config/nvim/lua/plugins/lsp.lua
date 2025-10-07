@@ -38,6 +38,54 @@ local function define_command(name, fn, opts)
   end
 end
 
+local function map_lsp_buffer_key(bufnr)
+  local function map(mode, lhs, rhs, desc)
+    vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, silent = true, desc = desc })
+  end
+
+  map('n', 'gd', vim.lsp.buf.definition, 'LSP Definition')
+  map('n', 'gD', vim.lsp.buf.type_definition, 'LSP Type Definition')
+  map('n', 'gi', vim.lsp.buf.implementation, 'LSP Implementation')
+  map('n', 'gR', vim.lsp.buf.rename, 'LSP Rename')
+  map('n', 'gF', function()
+    vim.lsp.buf.format({ async = true })
+  end, 'LSP Format')
+  map({ 'n', 'x' }, 'ga', vim.lsp.buf.code_action, 'LSP Code Action')
+  map('n', 'gA', vim.lsp.buf.code_action, 'LSP Code Action')
+  map('n', 'K', vim.lsp.buf.hover, 'LSP Hover')
+
+  local function goto_prev_diag()
+    vim.diagnostic.goto_prev({ float = true })
+  end
+
+  local function goto_next_diag()
+    vim.diagnostic.goto_next({ float = true })
+  end
+
+  map('n', '[g', goto_prev_diag, 'Prev Diagnostic')
+  map('n', ']g', goto_next_diag, 'Next Diagnostic')
+  map('n', '[d', goto_prev_diag, 'Prev Diagnostic')
+  map('n', ']d', goto_next_diag, 'Next Diagnostic')
+
+  local function references()
+    local ok, builtin = pcall(require, 'telescope.builtin')
+    if ok and builtin and builtin.lsp_references then
+      builtin.lsp_references({})
+    else
+      vim.lsp.buf.references()
+    end
+  end
+
+  map('n', 'gr', references, 'LSP References')
+end
+
+local function on_attach(_, bufnr)
+  map_lsp_buffer_key(bufnr)
+  vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
+end
+
+M.on_attach = on_attach
+
 local function setup_cmp()
   local ok_cmp, cmp = pcall(require, 'cmp')
   if not ok_cmp then
@@ -200,38 +248,6 @@ local function setup_lsp()
   local ok_cmp_caps, cmp_nvim_lsp = pcall(require, 'cmp_nvim_lsp')
   if ok_cmp_caps then
     capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
-  end
-
-  local function on_attach(_, bufnr)
-    local map = function(mode, lhs, rhs, desc)
-      vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, silent = true, desc = desc })
-    end
-
-    map('n', 'gd', vim.lsp.buf.definition, 'LSP Definition')
-    map('n', 'gD', vim.lsp.buf.type_definition, 'LSP Type Definition')
-    map('n', 'gi', vim.lsp.buf.implementation, 'LSP Implementation')
-    map('n', 'gr', vim.lsp.buf.references, 'LSP References')
-    map('n', 'gR', vim.lsp.buf.rename, 'LSP Rename')
-    map('n', 'gF', function()
-      vim.lsp.buf.format({ async = true })
-    end, 'LSP Format')
-    map({ 'n', 'x' }, 'ga', vim.lsp.buf.code_action, 'LSP Code Action')
-    map('n', 'gA', vim.lsp.buf.code_action, 'LSP Code Action')
-    map('n', 'K', vim.lsp.buf.hover, 'LSP Hover')
-    local function goto_prev_diag()
-      vim.diagnostic.goto_prev({ float = true })
-    end
-
-    local function goto_next_diag()
-      vim.diagnostic.goto_next({ float = true })
-    end
-
-    map('n', '[g', goto_prev_diag, 'Prev Diagnostic')
-    map('n', ']g', goto_next_diag, 'Next Diagnostic')
-    map('n', '[d', goto_prev_diag, 'Prev Diagnostic')
-    map('n', ']d', goto_next_diag, 'Next Diagnostic')
-
-    vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
   end
 
   local server_settings = {

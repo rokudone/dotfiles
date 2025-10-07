@@ -63,6 +63,15 @@ function M.setup()
     input = '<Bar>',
     filetype = filetypes,
   })
+
+  -- シングル／ダブルクォートは素の入力を優先したいので、smartinput の既定マッピングを解除する。
+  local function safe_del(mode, lhs)
+    pcall(vim.keymap.del, mode, lhs)
+  end
+  safe_del('i', "'")
+  safe_del('c', "'")
+  safe_del('i', '"')
+  safe_del('c', '"')
 end
 
 return M

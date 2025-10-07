@@ -76,6 +76,11 @@ function M.setup()
   neotree.setup({
     close_if_last_window = true,
     popup_border_style = 'rounded',
+    default_component_configs = {
+      indent = {
+        last_indent_marker = '└ ',
+      },
+    },
     filesystem = {
       follow_current_file = { enabled = true },
       use_libuv_file_watcher = true,
@@ -84,8 +89,8 @@ function M.setup()
           ['h'] = 'close_node',
           ['l'] = 'open',
           ['<CR>'] = open_and_close,
-          ['J'] = 'move_node',
-          ['K'] = 'move_node',
+          ['J'] = 'move',
+          ['K'] = 'move',
           ['<Space>'] = 'toggle_node',
           ['-'] = 'navigate_up',
           ['.'] = 'toggle_hidden',
