@@ -5,9 +5,12 @@ local specs = {
   'tests.autocmds_spec',
   'tests.lsp_spec',
   'tests.lsp_references_spec',
+  'tests.lsp_diagnostics_spec',
   'tests.telescope_spec',
   'tests.neo_tree_status_highlight_spec',
   'tests.colors_spec',
+  'tests.over_spec',
+  'tests.tmux_config_spec',
 }
 
 local M = {}

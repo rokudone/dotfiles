@@ -40,13 +40,6 @@
   "volar-tools.enable": true,
   "php-cs-fixer.enable": false,
   "psalm.enable": false,
-  "solargraph.autoformat": true,
-  "solargraph.formatting": true,
-  "solargraph.diagnostics": false,
-  "solargraph.completion": true,
-  "solargraph.definitions": true,
-  "solargraph.useBundler": false,
-  "solargraph.commandPath": "solargraph",
   "list.insertMappings": {
     "<C-n>": "normal:j",
     "<C-p>": "normal:k",

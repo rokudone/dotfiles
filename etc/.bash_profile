@@ -11,3 +11,4 @@ elif [ `uname` = "Linux" ]; then
   . ~/.bashrc
   fi
 fi
+. "$HOME/.cargo/env"

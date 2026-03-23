@@ -27,8 +27,47 @@ end
 
 function M.run()
   local autocmds = require('core.autocmds')
+
+  local captured_highlights = {}
+  local original_set_hl = vim.api.nvim_set_hl
+  vim.api.nvim_set_hl = function(_, name, value)
+    captured_highlights[name] = value
+  end
+
   autocmds.setup()
+
+  vim.api.nvim_set_hl = original_set_hl
   require('core.keymaps').setup()
+
+  local normal_highlight = captured_highlights.Normal
+  assert_truthy(normal_highlight, 'Normal ハイライトを設定すること')
+  assert_eq(normal_highlight.bg, 'NONE', 'Normal ハイライトの背景は透過にする')
+
+  local visual_highlight = captured_highlights.Visual
+  assert_truthy(visual_highlight, 'Visual ハイライトを設定すること')
+  assert_eq(visual_highlight.bg, '#3A3208', 'Visual ハイライトの背景は落ち着いた黄色にする')
+
+  local comment_highlight = captured_highlights.Comment
+  assert_truthy(comment_highlight, 'Comment ハイライトを設定すること')
+  assert_eq(comment_highlight.bg, 'NONE', 'Comment ハイライトの背景は透過にする')
+  local ctermbg = comment_highlight.ctermbg
+  assert_truthy(ctermbg == nil or ctermbg == 'NONE', 'Comment ハイライトの cterm 背景は透過にする')
+
+  local ts_comment_highlight = captured_highlights['@comment']
+  assert_truthy(ts_comment_highlight, '@comment ハイライトを設定すること')
+  assert_eq(ts_comment_highlight.bg, 'NONE', '@comment ハイライトの背景は透過にする')
+  local ts_comment_ctermbg = ts_comment_highlight.ctermbg
+  assert_truthy(ts_comment_ctermbg == nil or ts_comment_ctermbg == 'NONE', '@comment ハイライトの cterm 背景は透過にする')
+
+  local ts_doc_comment_highlight = captured_highlights['@comment.documentation']
+  assert_truthy(ts_doc_comment_highlight, '@comment.documentation ハイライトを設定すること')
+  assert_eq(ts_doc_comment_highlight.bg, 'NONE', '@comment.documentation ハイライトの背景は透過にする')
+
+  local fzf_dir_highlight = captured_highlights.FzfLuaDirPart
+  assert_truthy(fzf_dir_highlight, 'FzfLuaDirPart ハイライトを設定すること')
+  assert_eq(fzf_dir_highlight.bg, 'NONE', 'FzfLuaDirPart ハイライトの背景は透過にする')
+  local fzf_dir_ctermbg = fzf_dir_highlight.ctermbg
+  assert_truthy(fzf_dir_ctermbg == nil or fzf_dir_ctermbg == 'NONE', 'FzfLuaDirPart ハイライトの cterm 背景は透過にする')
 
   assert_eq(type(autocmds.ensure_parent_dir), 'function', 'ensure_parent_dir should be exposed')
   assert_eq(type(autocmds.ensure_executable), 'function', 'ensure_executable should be exposed')

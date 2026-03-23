@@ -293,6 +293,7 @@ compdef _git_now_reset git_now_reset
 # alias gc='git commit -m "[temp] $(date "+%Y/%m/%d %H:%M:%S")"'
 alias gn='git_now'
 alias gnr='git_now_reset'
+alias gccl='claude -p "ステージされた差分を見て、Conventional Commits形式の日本語コミットメッセージを1行で出力してください。説明不要。メッセージのみ。" --allowedTools "Bash(git diff --staged)" | git commit -F -'
 alias gcm='git commit --message'
 alias gca='git commit --verbose --amend'
 # alias gci は別ファイルで
@@ -338,6 +339,39 @@ alias gfF='git fetch && git reset --hard origin/$(git branch --show-current)'
 alias gfp='git pull'
 alias gfr='git pull --rebase'
 alias gfR='git-pull-rebase-all'
+
+function git-pull-rebase-all()
+{
+  local current=$(git name-rev --name-only HEAD)
+
+  # origin を 初期化
+  git fetch --all --prune
+
+  local branches=($(git branch|perl -pe "s/(\* |  )//"))
+  for br in ${branches[@]}; do
+    # 以下、作業
+    git checkout $br
+
+    local remotes=$(git branch -r)
+
+    # originが存在すれば実行
+    if echo $remotes | grep -q $br; then
+
+      echo -e "\033[0;36mgit checkout $br && git pull --rebase origin $br\033[0;m"
+      git pull --rebase origin $br
+
+      # conflict したら そこで終了
+      local conflict_count=$(git diff --name-only --diff-filter=U | wc -l)
+      if [ $conflict_count -gt 0 ]; then
+        echo -e "\033[0;31mrebase $br failed! \033[0;m"
+        git rebase --abort
+        return 1
+      fi
+    fi
+  done
+
+  git checkout $current >/dev/null
+}
 
 
 # Flow (F)
@@ -504,6 +538,24 @@ git_rebase_interactive() {
     fi
 }
 
+function git-branch-current {
+
+  if ! command git rev-parse 2> /dev/null; then
+    print "$0: not a repository: $PWD" >&2
+    return 1
+  fi
+
+  local ref="$(command git symbolic-ref HEAD 2> /dev/null)"
+
+  if [[ -n "$ref" ]]; then
+    print "${ref#refs/heads/}"
+    return 0
+  else
+    return 1
+  fi
+
+}
+
 # Rebase (r)
 alias gr='git rebase'
 alias gra='git rebase --abort'
@@ -514,6 +566,52 @@ alias gro='git rebase --onto'
 alias grf='git_rebase_root_all'
 alias grb='git-align-branch'
 alias grB='git-align-branch-all'
+
+function git-align-branch-all()
+{
+  # 引数処理
+  if [ $# -eq 0 ]; then
+    echo "newbase required"
+    return 1
+  elif [ $# -eq 1 ]; then
+    local newbase=$1
+  fi
+  local branches=($(git branch --no-merged |grep -v $newbase))
+  for branch in ${branches[@]}; do
+    git-align-branch "$newbase" "$branch" || return 1
+  done
+}
+
+function git-align-branch()
+{
+  # 引数処理
+  if [ $# -eq 0 ]; then
+    echo "newbase required"
+    return 1
+  elif [ $# -eq 1 ]; then
+    local newbase=$1
+    local branch=$(git name-rev --name-only HEAD) # current_branch
+  elif [ $# -eq 2 ]; then
+    local newbase=$1
+    local branch=$2
+  fi
+
+  local current=$(git name-rev --name-only HEAD)
+
+  # rebase --onto
+  local branch_point=$(git show-branch --merge-base $newbase $branch) # 分岐点
+  echo -e "\033[0;36mgit rebase --onto $newbase $branch_point [$branch]\033[0;m"
+  git checkout $branch && git rebase --onto $newbase $branch_point
+
+  # conflict したら そこで終了
+  local conflict_count=$(git diff --name-only --diff-filter=U | wc -l)
+  if [ $conflict_count -gt 0 ]; then
+    echo -e "\033[0;31mrebase $branch failed! \033[0;m"
+    git rebase --abort
+    return 1
+  fi
+  git checkout $current
+}
 
 # Remote (R)
 alias gR='git remote'
@@ -558,6 +656,16 @@ alias gsP='git stash pop'
 alias gsS='git-skip-slack'
 alias gsU='git-unskip-slack'
 # alias gsS='git-skip-status'
+#
+function git-stash-pop()
+{
+  stash=$(git stash list|grep "on $(git name-rev --name-only HEAD):"| head -n 1 | perl -lne 'print $1 if /(stash\@\{[0-9]*\})/')
+  if [[ $stash != '' ]]; then
+    git stash pop $stash
+  else
+    echo 'no stash on this branch'
+  fi
+}
 
 # Submodule (S)
 # alias gS='git submodule'
@@ -578,8 +686,8 @@ alias gsU='git-unskip-slack'
 # alias gtv='git verify-tag'
 
 # Working Copy (w)
-alias gw='(git status --short; echo ""; git stash list; git-skip-status)'
-alias gws='git status'
+alias gws='(git status --short; echo ""; git stash list; git-skip-status)'
+alias gw='git status'
 alias gwd='git diff'
 # alias gwD='git diff --word-diff'
 alias gwr='git restore'
@@ -593,293 +701,125 @@ alias gwrh='git reset --hard'
 alias gwx='git rm -r'
 alias gwX='git rm -rf'
 
-alias gwt='git worktree'
-#alias gwta='git worktree add'
-alias gwta='create_project_worktree'
-alias gwts='switch_project_worktree'
-alias gwtl='git worktree list'
-alias gwtm='git worktree move'
-alias gwtp='git worktree prune'
-# alias gwtx='git worktree remove'
-alias gwtr='remove_project_worktree'
-alias gwtX='git worktree remove --force'
-alias gwtu='git worktree unlock'
-alias gwtL='git worktree lock'
+# git gtr (wt)
+alias gwt='git gtr'
+alias gwtc='git gtr config'
+alias gwtn='git gtr new'
+alias gwte='git gtr editor'
+alias gwta='git gtr ai'
+alias gwtr='git gtr run'
+alias gwtx='git gtr rm'
+alias gwtl='git gtr list --porcelain'
 
-create_project_worktree() {
-    local branch_name="$1"
-
-    # 引数チェック
-    if [[ -z "$branch_name" ]]; then
-        echo "Usage: gwta <branch-name>"
-        return 1
-    fi
-
-    # Gitリポジトリ内かチェック
-    if ! git rev-parse --git-dir > /dev/null 2>&1; then
-        echo "Error: Not in a git repository"
-        return 1
-    fi
-
-    # メインリポジトリのパスを取得
-    local repo_root="$(git rev-parse --show-toplevel)"
-
-    # worktree内にいる場合はメインリポジトリのパスを取得
-    local git_common_dir="$(git rev-parse --git-common-dir 2>/dev/null)"
-    local git_dir="$(git rev-parse --git-dir 2>/dev/null)"
-    if [[ "$git_common_dir" != "$git_dir" ]]; then
-        # worktree内にいる場合、メインリポジトリのパスを取得
-        repo_root="$(dirname "$git_common_dir")"
-    fi
-
-    # 既存のworktreeは何もしない（削除も置き換えもしない）
-
-    # 現在のブランチをworktreeに追加しようとしているかチェック
-    local current_branch="$(git rev-parse --abbrev-ref HEAD)"
-    if [[ "$branch_name" == "$current_branch" ]]; then
-        echo "Error: Branch '$branch_name' is already checked out in the current directory"
-        echo "Tip: Specify a different branch name"
-        return 1
-    fi
-
-    # worktree内にいるかチェック
-    local git_common_dir="$(git rev-parse --git-common-dir 2>/dev/null)"
-    local git_dir="$(git rev-parse --git-dir 2>/dev/null)"
-    local toplevel="$(git rev-parse --show-toplevel)"
-
-    # worktree内にいる場合は、メインリポジトリに移動
-    if [[ "$git_common_dir" != "$git_dir" ]]; then
-        # メインリポジトリのパスを取得
-        local main_repo="$(dirname "$git_common_dir")"
-        echo "Detected worktree. Switching to main repository: $main_repo"
-        cd "$main_repo"
-        # toplevelを再取得
-        toplevel="$(git rev-parse --show-toplevel)"
-    fi
-
-    # .git/worktreeディレクトリを作成
-    local worktree_base="$toplevel/.git/wt"
-    local worktree_path="$worktree_base/$branch_name"
-
-    # 既存のworktreeがあるかチェック
-    if [[ -d "$worktree_path" ]]; then
-        echo "Error: Worktree already exists for '$branch_name'"
-        echo "Use 'gwts $branch_name' to switch to it"
-        return 1
-    fi
-
-    # 親ディレクトリを作成（feature/ など）
-    mkdir -p "$(dirname "$worktree_path")"
-
-    # プロジェクトルートに移動してworktreeを作成
-    local original_dir="$(pwd)"
-    cd "$toplevel"
-
-    # ブランチが既に存在するかチェック
-    if git show-ref --verify --quiet "refs/heads/$branch_name"; then
-        git worktree add "$worktree_path" "$branch_name"
-    else
-        git worktree add "$worktree_path" -b "$branch_name"
-    fi
-
-    # 成功時は作成したworktreeへ移動、失敗時は元のディレクトリへ戻す
-    if [[ $? -eq 0 ]]; then
-        cd "$worktree_path"
-        echo "Created and switched to worktree: $branch_name"
-    else
-        cd "$original_dir"
-        echo "Error: Failed to create worktree for '$branch_name'"
-        return 1
-    fi
+gwtg() {
+  local dir
+  dir=$(git gtr go "$1" | tail -n 1 | tr -d '[:space:]')
+  [ -d "$dir" ] && cd "$dir"
 }
 
-# worktreeへ切り替える関数
-switch_project_worktree() {
-    local branch_name="$1"
-
-    # 引数チェック
-    if [[ -z "$branch_name" ]]; then
-        echo "Usage: gwts <branch-name>"
-        return 1
-    fi
-
-    # Gitリポジトリ内かチェック
-    if ! git rev-parse --git-dir > /dev/null 2>&1; then
-        echo "Error: Not in a git repository"
-        return 1
-    fi
-
-    # .git/worktreeディレクトリ
-    local git_dir="$(git rev-parse --show-toplevel)"
-    local worktree_base="$git_dir/.git/wt"
-    local worktree_path="$worktree_base/$branch_name"
-
-    # worktreeが存在するかチェック
-    if [[ -d "$worktree_path" ]]; then
-        cd "$worktree_path"
-        echo "Switched to worktree: $branch_name"
-    else
-        echo "Error: Worktree not found for '$branch_name'"
-        echo "Use 'gwta $branch_name' to create it"
-        return 1
-    fi
-}
-
-# zsh補完機能
-_create_project_worktree() {
-    local -a branches
-
-    # ローカルブランチ
-    branches=($(git branch --format='%(refname:short)' 2>/dev/null))
-
-    # リモートブランチ（origin/を除去）
-    branches+=($(git branch -r --format='%(refname:lstrip=3)' 2>/dev/null | grep -v HEAD))
-
-    # 重複を除去
-    branches=($(echo "${branches[@]}" | tr ' ' '\n' | sort -u))
-
-    _describe 'branches' branches
-}
-
-compdef _create_project_worktree create_project_worktree
-compdef _create_project_worktree gwta
-
-# zsh補完機能 for gwts
-_switch_project_worktree() {
-    local git_dir="$(git rev-parse --show-toplevel 2>/dev/null)"
-    if [[ -z "$git_dir" ]]; then
-        return
-    fi
-
-    local -a worktrees
-    worktrees=()
-
-    # 標準的な.git/worktreesディレクトリから取得
-    local worktrees_dir="$git_dir/.git/worktrees"
-    if [[ -d "$worktrees_dir" ]]; then
-        for worktree_dir in "$worktrees_dir"/*/; do
-            if [[ -f "$worktree_dir/HEAD" ]]; then
-                # HEADファイルからブランチ名を取得
-                local branch=$(cat "$worktree_dir/HEAD" | sed 's|ref: refs/heads/||')
-                worktrees+=("$branch")
-            fi
-        done
-    fi
-
-    # カスタムworktree (.git/wt) も含める（独自実装用）
-    local worktree_base="$git_dir/.git/wt"
-    if [[ -d "$worktree_base" ]]; then
-        # 実際のworktreeのみを取得（.gitファイルが存在するディレクトリ）
-        for dir in "$worktree_base"/*/*(N/) "$worktree_base"/*(N/); do
-            if [[ -f "$dir/.git" ]]; then
-                local branch="${dir#$worktree_base/}"
-                worktrees+=("$branch")
-            fi
-        done
-    fi
-
-    # 重複を除去
-    worktrees=($(echo "${worktrees[@]}" | tr ' ' '\n' | sort -u))
-
-    _describe 'worktrees' worktrees
-}
-
-compdef _switch_project_worktree switch_project_worktree
-compdef _switch_project_worktree gwts
-
-# プロジェクト内worktree削除関数
-remove_project_worktree() {
-    local branch_name="$1"
-
-    if [[ -z "$branch_name" ]]; then
-        echo "Usage: gwtr <branch-name>"
-        return 1
-    fi
-
-    local repo_root="$(git rev-parse --show-toplevel)"
-    local worktree_base="$repo_root/.git/wt"
-    local worktree_path="$worktree_base/$branch_name"
-
-    if [[ -d "$worktree_path" ]]; then
-        git worktree remove "$worktree_path"
-
-        # 空になった親ディレクトリを削除
-        local parent_dir="$(dirname "$worktree_path")"
-        while [[ "$parent_dir" != "$worktree_base" ]]; do
-            if rmdir "$parent_dir" 2>/dev/null; then
-                echo "Removed empty directory: $parent_dir"
-                parent_dir="$(dirname "$parent_dir")"
-            else
-                # ディレクトリが空でない場合は終了
-                break
-            fi
-        done
-    else
-        echo "Error: Worktree not found at $worktree_path"
-        return 1
-    fi
-}
-
-# zsh補完機能 for gwtr
-_remove_project_worktree() {
-    local git_dir="$(git rev-parse --show-toplevel 2>/dev/null)"
-    if [[ -z "$git_dir" ]]; then
-        return
-    fi
-
-    local -a worktrees
-    worktrees=()
-
-    # 標準的な.git/worktreesディレクトリから取得
-    local worktrees_dir="$git_dir/.git/worktrees"
-    if [[ -d "$worktrees_dir" ]]; then
-        for worktree_dir in "$worktrees_dir"/*/; do
-            if [[ -f "$worktree_dir/HEAD" ]]; then
-                # HEADファイルからブランチ名を取得
-                local branch=$(cat "$worktree_dir/HEAD" | sed 's|ref: refs/heads/||')
-                worktrees+=("$branch")
-            fi
-        done
-    fi
-
-    # カスタムworktree (.git/wt) も含める（独自実装用）
-    local worktree_base="$git_dir/.git/wt"
-    if [[ -d "$worktree_base" ]]; then
-        # 実際のworktreeのみを取得（.gitファイルが存在するディレクトリ）
-        for dir in "$worktree_base"/*/*(N/) "$worktree_base"/*(N/); do
-            if [[ -f "$dir/.git" ]]; then
-                local branch="${dir#$worktree_base/}"
-                worktrees+=("$branch")
-            fi
-        done
-    fi
-
-    # 重複を除去
-    worktrees=($(echo "${worktrees[@]}" | tr ' ' '\n' | sort -u))
-
-    _describe 'worktrees' worktrees
-}
-
-compdef _remove_project_worktree remove_project_worktree
-compdef _remove_project_worktree gwtr
-
-function git-branch-current {
-
-  if ! command git rev-parse 2> /dev/null; then
-    print "$0: not a repository: $PWD" >&2
-    return 1
+gwtt() {
+  local dir
+  dir=$(git gtr go "$1" | tail -n 1 | tr -d '[:space:]')
+  if [ -d "$dir" ]; then
+    tm -c "$dir" "$(basename "$dir")"
   fi
-
-  local ref="$(command git symbolic-ref HEAD 2> /dev/null)"
-
-  if [[ -n "$ref" ]]; then
-    print "${ref#refs/heads/}"
-    return 0
-  else
-    return 1
-  fi
-
 }
+
+# shorthand
+gtg() { gwtg "$@" }
+
+# 共通: 既存 worktree を perl で list 化
+_gtr_wt_list() {
+  local -a branches
+  local line branch
+
+  while IFS=$' \t' read -r _ branch _; do
+    [[ -n $branch ]] && branches+=$branch
+  done < <(git gtr list --porcelain 2>/dev/null | grep -v '^\[!]' | grep -v detached)
+
+  # 重複を除去して出力
+  print -l ${(u)branches}
+}
+
+# worktree/ブランチ/ID一覧をまとめて取得
+_gtr_candidate_list() {
+  local -a worktrees branches candidates
+  worktrees=("${(@f)$(_gtr_wt_list)}")
+  branches=("${(@f)$(git branch --format='%(refname:short)' 2>/dev/null)}")
+  candidates=(${(u)worktrees} ${(u)branches} 1)
+  print -l ${(u)candidates}
+}
+
+# 既存ブランチのリスト取得
+_gtr_branch_list() {
+  git branch --format='%(refname:short)' 2>/dev/null
+}
+
+# git gtr 全体の補完関数
+_git-gtr() {
+  local -a subcommands
+  subcommands=(
+    'config:Configure git-gtr'
+    'new:Create new worktree'
+    'editor:Open editor in worktree'
+    'ai:Open AI in worktree'
+    'run:Run command in worktree'
+    'rm:Remove worktree'
+    'list:List worktrees'
+    'go:Go to worktree'
+  )
+
+  local context state state_descr line
+  typeset -A opt_args
+
+  _arguments -C \
+    '1:subcommand:->subcommand' \
+    '*::arg:->args'
+
+  case "$state" in
+    subcommand)
+      _describe 'git gtr subcommand' subcommands
+      ;;
+    args)
+      case "$line[1]" in
+        new)
+          local -a branches
+          branches=("${(@f)$(_gtr_branch_list)}")
+          _describe 'branch' branches
+          ;;
+        editor|ai|run|rm|go)
+          local -a list
+          list=("${(@f)$(_gtr_wt_list)}")
+          _describe 'worktree' list
+          ;;
+      esac
+      ;;
+  esac
+}
+
+# gtg 関数の補完
+_gwtg() {
+  # git リポジトリ外ではデフォルト補完に任せる
+  git rev-parse --git-dir > /dev/null 2>&1 || return 1
+
+  local -a worktrees
+  worktrees=(${(@f)$(_gtr_wt_list)})
+
+  _describe 'worktree' worktrees
+}
+
+# エイリアスと関数に補完を設定
+compdef _git-gtr git-gtr
+compdef _git-gtr gwt
+compdef _git-gtr gwtc
+compdef _git-gtr gwtn
+compdef _git-gtr gwte
+compdef _git-gtr gwta
+compdef _git-gtr gwtr
+compdef _git-gtr gwtx
+compdef _git-gtr gwtl
+compdef _gwtg gwtg
+compdef _gwtg gwtt
 
 function git-branch-list()
 {
@@ -899,92 +839,4 @@ function git-branch-list()
 }
 
 alias -g B='`git-branch-list| fzf --query="* "| perl -pe "s/^  . //g"`'
-
-function git-stash-pop()
-{
-  stash=$(git stash list|grep "on $(git name-rev --name-only HEAD):"| head -n 1 | perl -lne 'print $1 if /(stash\@\{[0-9]*\})/')
-  if [[ $stash != '' ]]; then
-    git stash pop $stash
-  else
-    echo 'no stash on this branch'
-  fi
-}
-
-function git-pull-rebase-all()
-{
-  local current=$(git name-rev --name-only HEAD)
-
-  # origin を 初期化
-  git fetch --all --prune
-
-  local branches=($(git branch|perl -pe "s/(\* |  )//"))
-  for br in ${branches[@]}; do
-    # 以下、作業
-    git checkout $br
-
-    local remotes=$(git branch -r)
-
-    # originが存在すれば実行
-    if echo $remotes | grep -q $br; then
-
-      echo -e "\033[0;36mgit checkout $br && git pull --rebase origin $br\033[0;m"
-      git pull --rebase origin $br
-
-      # conflict したら そこで終了
-      local conflict_count=$(git diff --name-only --diff-filter=U | wc -l)
-      if [ $conflict_count -gt 0 ]; then
-        echo -e "\033[0;31mrebase $br failed! \033[0;m"
-        git rebase --abort
-        return 1
-      fi
-    fi
-  done
-
-  git checkout $current >/dev/null
-}
-
-function git-align-branch()
-{
-  # 引数処理
-  if [ $# -eq 0 ]; then
-    echo "newbase required"
-    return 1
-  elif [ $# -eq 1 ]; then
-    local newbase=$1
-    local branch=$(git name-rev --name-only HEAD) # current_branch
-  elif [ $# -eq 2 ]; then
-    local newbase=$1
-    local branch=$2
-  fi
-
-  local current=$(git name-rev --name-only HEAD)
-
-  # rebase --onto
-  local branch_point=$(git show-branch --merge-base $newbase $branch) # 分岐点
-  echo -e "\033[0;36mgit rebase --onto $newbase $branch_point [$branch]\033[0;m"
-  git checkout $branch && git rebase --onto $newbase $branch_point
-
-  # conflict したら そこで終了
-  local conflict_count=$(git diff --name-only --diff-filter=U | wc -l)
-  if [ $conflict_count -gt 0 ]; then
-    echo -e "\033[0;31mrebase $branch failed! \033[0;m"
-    git rebase --abort
-    return 1
-  fi
-  git checkout $current
-}
-
-function git-align-branch-all()
-{
-  # 引数処理
-  if [ $# -eq 0 ]; then
-    echo "newbase required"
-    return 1
-  elif [ $# -eq 1 ]; then
-    local newbase=$1
-  fi
-  local branches=($(git branch --no-merged |grep -v $newbase))
-  for branch in ${branches[@]}; do
-    git-align-branch "$newbase" "$branch" || return 1
-  done
-}
+alias -g C='$(git log --oneline | fzf --preview "git show --stat {1}" | cut -d " " -f1)'

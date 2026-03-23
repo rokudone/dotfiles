@@ -94,6 +94,8 @@ function M.setup()
     vertright = ' ',
     verthoriz = ' ',
   }
+  opt.ignorecase = true
+  opt.smartcase = true
   append(opt.iskeyword, { '-', '$', '#' })
   append(opt.clipboard, { 'unnamed', 'unnamedplus' })
   remove(opt.isfname, { ':' })
@@ -104,7 +106,9 @@ function M.setup()
   opt.viminfo = "!,'1000,<500,s10,h,f1,%"
   opt.cmdwinheight = 2
   opt.mouse = 'a'
+  opt.mousescroll = 'ver:1,hor:2'
   opt.fixeol = false
+  opt.foldlevelstart = 99
 
   opt.expandtab = true
   opt.tabstop = 4

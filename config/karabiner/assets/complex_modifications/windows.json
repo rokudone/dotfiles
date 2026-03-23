@@ -10,7 +10,6 @@
           "to": [
             { "key_code": "left_control" }
           ],
-          "to_if_held_down": [ { "key_code": "left_control" } ],
           "to_if_alone": [ { "key_code": "japanese_eisuu" } ],
           "conditions": [
             {
@@ -25,8 +24,10 @@
                 "^dev\\.warp\\.Warp-Stable$",
                 "^net\\.kovidgoyal\\.kitty$",
                 "^com\\.mitchellh\\.ghostty$",
-                "^com\\.github\\.wez\\.wezterm$"
-              ]
+                "^com\\.github\\.wez\\.wezterm$",
+                "^com\\.raphaelamorim\\.rio$",
+                "^com\\.cmuxterm\\.app$",
+                "^com\\.cmuxterm\\.app\\.nightly$"              ]
             },
             {
               "type": "device_unless",
@@ -45,7 +46,6 @@
           "to": [
             { "key_code": "right_control" }
           ],
-          "to_if_held_down": [ { "key_code": "right_control" } ],
           "to_if_alone": [ { "key_code": "japanese_kana" } ],
           "conditions": [
             {
@@ -60,7 +60,10 @@
                 "^dev\\.warp\\.Warp-Stable$",
                 "^net\\.kovidgoyal\\.kitty$",
                 "^com\\.mitchellh\\.ghostty$",
-                "^com\\.github\\.wez\\.wezterm$"
+                "^com\\.github\\.wez\\.wezterm$",
+                "^com\\.raphaelamorim\\.rio$",
+                "^com\\.cmuxterm\\.app$",
+                "^com\\.cmuxterm\\.app\\.nightly$"
               ]
             },
             {
@@ -93,7 +96,10 @@
                 "^dev\\.warp\\.Warp-Stable$",
                 "^net\\.kovidgoyal\\.kitty$",
                 "^com\\.mitchellh\\.ghostty$",
-                "^com\\.github\\.wez\\.wezterm$"
+                "^com\\.github\\.wez\\.wezterm$",
+                "^com\\.raphaelamorim\\.rio$",
+                "^com\\.cmuxterm\\.app$",
+                "^com\\.cmuxterm\\.app\\.nightly$"
 
               ]
             },
@@ -111,7 +117,7 @@
         {
           "type": "basic",
           "from": { "key_code": "right_control", "modifiers": { "optional": [ "any" ] } },
-          "to": [ { "key_code": "right_control" } ],
+          "to": [ { "key_code": "right_command" } ],
           "conditions": [
             {
               "type": "frontmost_application_unless",
@@ -125,7 +131,10 @@
                 "^dev\\.warp\\.Warp-Stable$",
                 "^net\\.kovidgoyal\\.kitty$",
                 "^com\\.mitchellh\\.ghostty$",
-                "^com\\.github\\.wez\\.wezterm$"
+                "^com\\.github\\.wez\\.wezterm$",
+                "^com\\.raphaelamorim\\.rio$",
+                "^com\\.cmuxterm\\.app$",
+                "^com\\.cmuxterm\\.app\\.nightly$"
 
               ]
             },
@@ -143,8 +152,62 @@
       ]
     },
     {
-      "description": "[windows] reswap ctrl-tab and cmd-tab",
+      "description": "[windows] cmd+tab to cmd+], cmd+shift+tab to cmd+[, reswap cmd-tab to ctrl-tab",
       "manipulators": [
+        {
+          "type": "basic",
+          "from": { "key_code": "tab", "modifiers": { "mandatory": [ "command"] } },
+          "to": [
+            { "key_code": "close_bracket", "modifiers": [ "command", "shift" ] }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.Terminal$",
+                "^com\\.googlecode\\.iterm2$",
+                "^com\\.jetbrains\\.rubymine$",
+                "^co\\.zeit\\.hyperterm$",
+                "^co\\.zeit\\.hyper$",
+                "^org\\.alacritty$",
+                "^dev\\.warp\\.Warp-Stable$",
+                "^net\\.kovidgoyal\\.kitty$",
+                "^com\\.mitchellh\\.ghostty$",
+                "^com\\.github\\.wez\\.wezterm$",
+                "^com\\.raphaelamorim\\.rio$",
+                "^com\\.cmuxterm\\.app$",
+                "^com\\.cmuxterm\\.app\\.nightly$"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": { "key_code": "tab", "modifiers": { "mandatory": [ "command" , "shift"] } },
+          "to": [
+            { "key_code": "open_bracket", "modifiers": [ "command", "shift" ] }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.Terminal$",
+                "^com\\.googlecode\\.iterm2$",
+                "^com\\.jetbrains\\.rubymine$",
+                "^co\\.zeit\\.hyperterm$",
+                "^co\\.zeit\\.hyper$",
+                "^org\\.alacritty$",
+                "^dev\\.warp\\.Warp-Stable$",
+                "^net\\.kovidgoyal\\.kitty$",
+                "^com\\.mitchellh\\.ghostty$",
+                "^com\\.github\\.wez\\.wezterm$",
+                "^com\\.raphaelamorim\\.rio$",
+                "^com\\.cmuxterm\\.app$",
+                "^com\\.cmuxterm\\.app\\.nightly$"
+              ]
+            }
+          ]
+        },
         {
           "type": "basic",
           "from": { "key_code": "tab", "modifiers": { "mandatory": [ "control" ], "optional": [ "any" ] } },
@@ -164,8 +227,10 @@
                 "^dev\\.warp\\.Warp-Stable$",
                 "^net\\.kovidgoyal\\.kitty$",
                 "^com\\.mitchellh\\.ghostty$",
-                "^com\\.github\\.wez\\.wezterm$"
-
+                "^com\\.github\\.wez\\.wezterm$",
+                "^com\\.raphaelamorim\\.rio$",
+                "^com\\.cmuxterm\\.app$",
+                "^com\\.cmuxterm\\.app\\.nightly$"
               ]
             },
             {
@@ -198,8 +263,10 @@
                 "^dev\\.warp\\.Warp-Stable$",
                 "^net\\.kovidgoyal\\.kitty$",
                 "^com\\.mitchellh\\.ghostty$",
-                "^com\\.github\\.wez\\.wezterm$"
-
+                "^com\\.github\\.wez\\.wezterm$",
+                "^com\\.raphaelamorim\\.rio$",
+                "^com\\.cmuxterm\\.app$",
+                "^com\\.cmuxterm\\.app\\.nightly$"
               ]
             },
             {
@@ -237,7 +304,10 @@
                 "^dev\\.warp\\.Warp-Stable$",
                 "^net\\.kovidgoyal\\.kitty$",
                 "^com\\.mitchellh\\.ghostty$",
-                "^com\\.github\\.wez\\.wezterm$"
+                "^com\\.github\\.wez\\.wezterm$",
+                "^com\\.raphaelamorim\\.rio$",
+                "^com\\.cmuxterm\\.app$",
+                "^com\\.cmuxterm\\.app\\.nightly$"
 
               ]
             }
@@ -262,7 +332,10 @@
                 "^dev\\.warp\\.Warp-Stable$",
                 "^net\\.kovidgoyal\\.kitty$",
                 "^com\\.mitchellh\\.ghostty$",
-                "^com\\.github\\.wez\\.wezterm$"
+                "^com\\.github\\.wez\\.wezterm$",
+                "^com\\.raphaelamorim\\.rio$",
+                "^com\\.cmuxterm\\.app$",
+                "^com\\.cmuxterm\\.app\\.nightly$"
 
               ]
             },
@@ -301,7 +374,10 @@
                 "^dev\\.warp\\.Warp-Stable$",
                 "^net\\.kovidgoyal\\.kitty$",
                 "^com\\.mitchellh\\.ghostty$",
-                "^com\\.github\\.wez\\.wezterm$"
+                "^com\\.github\\.wez\\.wezterm$",
+                "^com\\.raphaelamorim\\.rio$",
+                "^com\\.cmuxterm\\.app$",
+                "^com\\.cmuxterm\\.app\\.nightly$"
 
               ]
             },
@@ -336,7 +412,10 @@
                 "^dev\\.warp\\.Warp-Stable$",
                 "^net\\.kovidgoyal\\.kitty$",
                 "^com\\.mitchellh\\.ghostty$",
-                "^com\\.github\\.wez\\.wezterm$"
+                "^com\\.github\\.wez\\.wezterm$",
+                "^com\\.raphaelamorim\\.rio$",
+                "^com\\.cmuxterm\\.app$",
+                "^com\\.cmuxterm\\.app\\.nightly$"
 
               ]
             },
@@ -375,7 +454,10 @@
                 "^dev\\.warp\\.Warp-Stable$",
                 "^net\\.kovidgoyal\\.kitty$",
                 "^com\\.mitchellh\\.ghostty$",
-                "^com\\.github\\.wez\\.wezterm$"
+                "^com\\.github\\.wez\\.wezterm$",
+                "^com\\.raphaelamorim\\.rio$",
+                "^com\\.cmuxterm\\.app$",
+                "^com\\.cmuxterm\\.app\\.nightly$"
 
               ]
             },
@@ -409,7 +491,10 @@
                 "^dev\\.warp\\.Warp-Stable$",
                 "^net\\.kovidgoyal\\.kitty$",
                 "^com\\.mitchellh\\.ghostty$",
-                "^com\\.github\\.wez\\.wezterm$"
+                "^com\\.github\\.wez\\.wezterm$",
+                "^com\\.raphaelamorim\\.rio$",
+                "^com\\.cmuxterm\\.app$",
+                "^com\\.cmuxterm\\.app\\.nightly$"
 
               ]
             },
@@ -443,7 +528,10 @@
                 "^dev\\.warp\\.Warp-Stable$",
                 "^net\\.kovidgoyal\\.kitty$",
                 "^com\\.mitchellh\\.ghostty$",
-                "^com\\.github\\.wez\\.wezterm$"
+                "^com\\.github\\.wez\\.wezterm$",
+                "^com\\.raphaelamorim\\.rio$",
+                "^com\\.cmuxterm\\.app$",
+                "^com\\.cmuxterm\\.app\\.nightly$"
 
               ]
             },
@@ -477,7 +565,10 @@
                 "^dev\\.warp\\.Warp-Stable$",
                 "^net\\.kovidgoyal\\.kitty$",
                 "^com\\.mitchellh\\.ghostty$",
-                "^com\\.github\\.wez\\.wezterm$"
+                "^com\\.github\\.wez\\.wezterm$",
+                "^com\\.raphaelamorim\\.rio$",
+                "^com\\.cmuxterm\\.app$",
+                "^com\\.cmuxterm\\.app\\.nightly$"
 
               ]
             },
@@ -511,7 +602,10 @@
                 "^dev\\.warp\\.Warp-Stable$",
                 "^net\\.kovidgoyal\\.kitty$",
                 "^com\\.mitchellh\\.ghostty$",
-                "^com\\.github\\.wez\\.wezterm$"
+                "^com\\.github\\.wez\\.wezterm$",
+                "^com\\.raphaelamorim\\.rio$",
+                "^com\\.cmuxterm\\.app$",
+                "^com\\.cmuxterm\\.app\\.nightly$"
 
               ]
             },
@@ -545,7 +639,10 @@
                 "^dev\\.warp\\.Warp-Stable$",
                 "^net\\.kovidgoyal\\.kitty$",
                 "^com\\.mitchellh\\.ghostty$",
-                "^com\\.github\\.wez\\.wezterm$"
+                "^com\\.github\\.wez\\.wezterm$",
+                "^com\\.raphaelamorim\\.rio$",
+                "^com\\.cmuxterm\\.app$",
+                "^com\\.cmuxterm\\.app\\.nightly$"
 
               ]
             },
@@ -579,7 +676,10 @@
                 "^dev\\.warp\\.Warp-Stable$",
                 "^net\\.kovidgoyal\\.kitty$",
                 "^com\\.mitchellh\\.ghostty$",
-                "^com\\.github\\.wez\\.wezterm$"
+                "^com\\.github\\.wez\\.wezterm$",
+                "^com\\.raphaelamorim\\.rio$",
+                "^com\\.cmuxterm\\.app$",
+                "^com\\.cmuxterm\\.app\\.nightly$"
 
               ]
             },
@@ -613,7 +713,10 @@
                 "^dev\\.warp\\.Warp-Stable$",
                 "^net\\.kovidgoyal\\.kitty$",
                 "^com\\.mitchellh\\.ghostty$",
-                "^com\\.github\\.wez\\.wezterm$"
+                "^com\\.github\\.wez\\.wezterm$",
+                "^com\\.raphaelamorim\\.rio$",
+                "^com\\.cmuxterm\\.app$",
+                "^com\\.cmuxterm\\.app\\.nightly$"
 
               ]
             },
@@ -631,7 +734,7 @@
       ]
     },
     {
-      "description": "[windows] コマンドキーを単体で押したときに、英数・かなキーを送信する。（左コマンドキーは英数、右コマンドキーはかな） (rev 3)",
+      "description": "[windows] Cmdキーを単体で押したときに、英数・かなキーを送信する（ターミナル用）",
       "manipulators": [
         {
           "type": "basic",
@@ -653,17 +756,10 @@
                 "^dev\\.warp\\.Warp-Stable$",
                 "^net\\.kovidgoyal\\.kitty$",
                 "^com\\.mitchellh\\.ghostty$",
-                "^com\\.github\\.wez\\.wezterm$"
-
-              ]
-            },
-            {
-              "type": "device_unless",
-              "identifiers": [
-                {
-                  "vendor_id": 65261,
-                  "product_id": 24672
-                }
+                "^com\\.github\\.wez\\.wezterm$",
+                "^com\\.raphaelamorim\\.rio$",
+                "^com\\.cmuxterm\\.app$",
+                "^com\\.cmuxterm\\.app\\.nightly$"
               ]
             }
           ]
@@ -688,8 +784,10 @@
                 "^dev\\.warp\\.Warp-Stable$",
                 "^net\\.kovidgoyal\\.kitty$",
                 "^com\\.mitchellh\\.ghostty$",
-                "^com\\.github\\.wez\\.wezterm$"
-
+                "^com\\.github\\.wez\\.wezterm$",
+                "^com\\.raphaelamorim\\.rio$",
+                "^com\\.cmuxterm\\.app$",
+                "^com\\.cmuxterm\\.app\\.nightly$"
               ]
             }
           ]
@@ -707,16 +805,14 @@
           "parameters": {
             "basic.to_if_held_down_threshold_milliseconds": 100
           },
-          "to": [ { "key_code": "left_shift", "lazy": true }
-          ],
-          "to_if_held_down": [ { "key_code": "left_shift" }
-          ],
-          "to_if_alone": [ { "key_code": "japanese_eisuu" }
-          ]
+          "to": [ { "key_code": "left_shift", "lazy": true } ],
+          "to_if_held_down": [ { "key_code": "left_shift" } ],
+          "to_if_alone": [ { "key_code": "japanese_eisuu" } ]
         },
         {
           "type": "basic",
-          "from": { "key_code": "right_shift", "modifiers": { "optional": [ "any" ] }
+          "from": {
+            "key_code": "right_shift", "modifiers": { "optional": [ "any" ] }
           },
           "parameters": {
             "basic.to_if_held_down_threshold_milliseconds": 100
@@ -749,7 +845,10 @@
                 "^dev\\.warp\\.Warp-Stable$",
                 "^net\\.kovidgoyal\\.kitty$",
                 "^com\\.mitchellh\\.ghostty$",
-                "^com\\.github\\.wez\\.wezterm$"
+                "^com\\.github\\.wez\\.wezterm$",
+                "^com\\.raphaelamorim\\.rio$",
+                "^com\\.cmuxterm\\.app$",
+                "^com\\.cmuxterm\\.app\\.nightly$"
 
               ]
             },

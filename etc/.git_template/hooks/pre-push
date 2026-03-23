@@ -40,13 +40,20 @@ do
             range="$remote_sha..$local_sha"
         fi
 
-        git rev-list -n 1 "$range"
+        # [WIP] チェック
+        wip_commits=$(git log --oneline "$range" --grep='\[WIP\]' 2>/dev/null)
+        if [ -n "$wip_commits" ]; then
+            echo >&2 "❌ [WIP] コミットが含まれているため push を拒否します:"
+            echo >&2 "$wip_commits"
+            echo >&2 ""
+            echo >&2 "→ git rebase -i で [WIP] コミットを squash/修正してください"
+            exit 1
+        fi
 
-        # Check for WIP commit
-        commit=`git rev-list -n 1 --grep '^\[from now\]' "$range"`
-        if [ -n "$commit" ]
-        then
-            echo >&2 "Found NOW commit in $local_ref, not pushing"
+        # [from now] チェック
+        commit=$(git rev-list -n 1 --grep='^\[from now\]' "$range")
+        if [ -n "$commit" ]; then
+            echo >&2 "❌ [from now] コミットが含まれているため push を拒否します"
             exit 1
         fi
     fi

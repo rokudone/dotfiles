@@ -30,6 +30,8 @@
 [interactive]
   diffFilter = delta --color-only
 	singleKey = true
+[diff]
+  difft
 [delta]
   features = side-by-side line-numbers decorations
   side-by-side = true
@@ -69,3 +71,9 @@
 	enabled = true
 [merge]
 	conflictStyle = diff3
+[gtr "editor"]
+	default = nvim
+[gtr "ai"]
+	default = codex
+[checkout]
+	defaultRemote = origin

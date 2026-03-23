@@ -7,6 +7,99 @@ local cmd = api.nvim_create_user_command
 local actions = require('telescope.actions')
 local action_state = require('telescope.actions.state')
 
+local function split_words(prompt)
+  local utils = require('telescope.utils')
+  if not prompt or prompt == '' then
+    return {}
+  end
+  return utils.max_split(prompt, '%s+')
+end
+
+local function multiword_fzy_sorter()
+  local sorters = require('telescope.sorters')
+  local fzy = require('telescope.algos.fzy')
+  local OFFSET = -fzy.get_score_floor()
+
+  local function basename(text)
+    if not text or text == '' then
+      return ''
+    end
+    return text:match('([^/\\]+)$') or text
+  end
+
+  local function score_word(word, target)
+    if not target or target == '' or not fzy.has_match(word, target) then
+      return nil
+    end
+    local raw = fzy.score(word, target)
+    if raw == fzy.get_score_min() then
+      return 1
+    end
+    return 1 / (raw + OFFSET)
+  end
+
+  -- ファイル名にマッチしたスコアを優先する
+  local function compute_score(words, line)
+    local total = 0
+    local count = 0
+    local name = basename(line)
+
+    for _, word in ipairs(words) do
+      if word ~= '' then
+        count = count + 1
+        local score_name = score_word(word, name)
+        local score_line = score_word(word, line)
+
+        if not score_name and not score_line then
+          return -1
+        end
+
+        local best = math.max(score_line or 0, (score_name or 0) * 1.25)
+        total = total + best
+      end
+    end
+
+    if count == 0 then
+      return 1
+    end
+    return total / count
+  end
+
+  return sorters.Sorter:new({
+    discard = true,
+    scoring_function = function(_, prompt, line)
+      if not line or line == '' then
+        return -1
+      end
+      local words = split_words(prompt)
+      if #words == 0 then
+        return 1
+      end
+      return compute_score(words, line)
+    end,
+    highlighter = function(_, prompt, display)
+      local highlights = {}
+      for _, word in ipairs(split_words(prompt)) do
+        if word ~= '' then
+          local positions = fzy.positions(word, display)
+          for _, pos in ipairs(positions) do
+            if pos then
+              table.insert(highlights, { start = pos, finish = pos })
+            end
+          end
+        end
+      end
+      table.sort(highlights, function(a, b)
+        if a.start == b.start then
+          return (a.finish or a.start) < (b.finish or b.start)
+        end
+        return a.start < b.start
+      end)
+      return highlights
+    end,
+  })
+end
+
 local function feed_commandline(command)
   local keys = api.nvim_replace_termcodes(':' .. command, true, false, true)
   api.nvim_feedkeys(keys, 'n', false)
@@ -52,6 +145,19 @@ local function setup_extensions(telescope)
 
   telescope.setup({
     defaults = {
+      file_sorter = multiword_fzy_sorter,
+      generic_sorter = multiword_fzy_sorter,
+      vimgrep_arguments = {
+        'rg',
+        '--color=never',
+        '--no-heading',
+        '--with-filename',
+        '--line-number',
+        '--column',
+        '--smart-case',
+        '--hidden',
+        '--no-ignore',
+      },
       mappings = {
         i = {
           ['<C-j>'] = actions.cycle_history_next,
@@ -67,11 +173,19 @@ local function setup_extensions(telescope)
         },
       },
     },
+    pickers = {
+      find_files = {
+        hidden = true,
+        no_ignore = true,
+        no_ignore_parent = true,
+        follow = true,
+      },
+    },
     extensions = {
       fzf = {
         fuzzy = true,
-        override_generic_sorter = true,
-        override_file_sorter = true,
+        override_generic_sorter = false,
+        override_file_sorter = false,
         case_mode = 'smart_case',
       },
     },
@@ -139,7 +253,7 @@ local function setup_keymaps()
   end, { silent = true, desc = 'Telescope live ripgrep' })
   map('n', '<Leader>A', function()
     local word = fn.expand('<cword>')
-    feed_commandline('Rg ' .. word .. ' ')
+    feed_commandline('Rg ' .. word)
   end, { silent = true, desc = 'Telescope live ripgrep (word)' })
   map('n', '<Leader>/', builtin.current_buffer_fuzzy_find, { silent = true, desc = 'Telescope buffer search' })
   map('n', '<Leader>?', function()

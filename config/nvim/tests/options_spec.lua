@@ -20,6 +20,8 @@ function M.run()
   assert_eq(fillchars.vertleft, ' ', 'left vertical separator should be hidden')
   assert_eq(fillchars.vertright, ' ', 'right vertical separator should be hidden')
   assert_eq(fillchars.verthoriz, ' ', 'vertical-horizontal separator should be hidden')
+
+  assert_eq(vim.o.mousescroll, 'ver:1,hor:2', 'mouse scroll should move minimal lines')
 end
 
 return M

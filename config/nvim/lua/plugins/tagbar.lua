@@ -40,8 +40,6 @@ function M.setup()
   }
 
   set_highlights()
-
-  vim.keymap.set('n', '<Leader>O', '<cmd>TagbarToggle<CR>', { silent = true, desc = 'Toggle Tagbar' })
 end
 
 return M

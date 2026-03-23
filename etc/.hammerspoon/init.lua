@@ -1,31 +1,45 @@
+-- CLIからhs.reload()などを実行できるようにする
+hs.ipc.cliInstall()
+
+-- 同じモニターの一番左のウィンドウを取得（フォーカスはしない）
+local function getLeftmostWindowOnSameScreen(currentWin, excludeApp)
+  if not currentWin then return nil end
+
+  local currentScreen = currentWin:screen()
+  local candidates = {}
+
+  for _, win in ipairs(hs.window.orderedWindows()) do
+    if win:isStandard()
+      and not win:isMinimized()
+      and win:isVisible()
+      and win:screen() == currentScreen
+      and win:application() ~= excludeApp
+    then
+      table.insert(candidates, win)
+    end
+  end
+
+  if #candidates == 0 then return nil end
+
+  -- x座標でソートして一番左を返す
+  table.sort(candidates, function(a, b)
+    return a:frame().x < b:frame().x
+  end)
+
+  return candidates[1]
+end
+
 -- 汎用的なアプリトグル関数
 local function toggleApp(config)
-  local app = nil
-  
-  -- Bundle IDまたは名前でアプリを検索
-  if config.bundleId then
-    app = hs.application.get(config.bundleId)
-  else
-    app = hs.application.find(config.appName)
-  end
-  
+  local app = hs.application.find(config.appName)
+
   if app then
-    -- アプリが既に起動している場合のみトグル動作
     if app:isFrontmost() then
       app:hide()
     else
       app:activate()
-      -- 起動後のコールバック処理
-      if config.afterLaunch then
-        hs.timer.doAfter(config.afterLaunchDelay or 0.05, function()
-          if app:isFrontmost() then
-            config.afterLaunch()
-          end
-        end)
-      end
     end
   end
-  -- アプリが起動していない場合は何もしない
 end
 
 -- 便利なヘルパー関数
@@ -35,43 +49,6 @@ local function bindAppHotkey(modifiers, key, config)
   end)
 end
 
--- アプリケーションのキーバインド設定
-bindAppHotkey({"ctrl"}, "space", {
-  appName = "WezTerm",
-  appPath = "/Applications/WezTerm.app"
-})
-
-bindAppHotkey({"ctrl", "shift"}, "space", {
-  appName = "Cursor",
-  appPath = "/Applications/Cursor.app"
-})
-
--- Dia用の特別なトグル関数
-local function toggleDia()
-  local app = hs.application.get("company.thebrowser.dia")
-  if app then
-    -- アプリが既に起動している場合のみトグル動作
-    if app:isFrontmost() then
-      -- System EventsでDiaを非表示にする
-      hs.osascript.applescript('tell application "System Events" to set visible of process "Dia" to false')
-    else
-      app:activate()
-    end
-  end
-  -- アプリが起動していない場合は何もしない
-end
-
-hs.hotkey.bind({}, "home", toggleDia)
-
-bindAppHotkey({}, "pageup", {
-  appName = "Obsidian",
-  appPath = "/Applications/Obsidian.app",
-  afterLaunch = function()
-    hs.eventtap.keyStroke({"cmd"}, "d")
-  end
-})
-
--- Alt+キーのバインド用関数（後方互換性のため残す）
 local function bindAltKey(key, appName)
   local appPath = "/Applications/" .. appName .. ".app"
   bindAppHotkey({"alt"}, key, {
@@ -80,9 +57,20 @@ local function bindAltKey(key, appName)
   })
 end
 
+-- アプリケーションのキーバインド設定
+bindAppHotkey({"ctrl"}, "space", {
+  appName = "cmux",
+  appPath = "/Applications/cmux.app",
+  focusSameScreenOnHide = true
+})
+
+bindAppHotkey({"ctrl", "shift"}, "space", {
+  appName = "Ghostty",
+  appPath = "/Applications/Ghostty.app"
+})
 
 -- Alt + キーのアプリケーションバインド
--- bindAltKey('q', '')
+-- bindAltKey('q', '')t
 -- bindAltKey('w', '')
 bindAltKey('e', 'Microsoft Edge')
 -- bindAltKey('r', '')
@@ -93,10 +81,10 @@ bindAltKey('t', 'TablePlus')
 bindAltKey('o', 'Obsidian')
 -- bindAltKey('p', '')
 
--- bindAltKey('a', 'Arc')
+bindAltKey('a', 'ChatGPT Atlas')
 bindAltKey('s', 'Slack')
 -- bindAltKey('d', '')
-bindAltKey('f', 'Firefox')
+bindAltKey('f', 'Finder')
 -- bindAltKey('g', '')
 -- bindAltKey('h', '')
 -- bindAltKey('j', '')
@@ -105,8 +93,69 @@ bindAltKey('f', 'Firefox')
 
 bindAltKey('z', 'zoom.us')
 -- bindAltKey('x', 'Xcode')
-bindAltKey('c', 'Cursor')
+bindAltKey('c', 'Google Chrome')
 -- bindAltKey('v', '')
 -- bindAltKey('b', 'Firefox')
 -- bindAltKey('n', '')
-bindAltKey('m', 'YouTube Music')
+-- bindAltKey('m', 'YouTube Music')
+
+local function collectAppWindows(app)
+  if app == nil then
+    return {}
+  end
+
+  local collected = {}
+  for _, win in ipairs(hs.window.orderedWindows()) do
+    if win
+      and win:application() == app
+      and win:isStandard()
+      and not win:isMinimized()
+      and win:isVisible()
+    then
+      table.insert(collected, win)
+    end
+  end
+
+  table.sort(collected, function(a, b)
+    return a:id() < b:id()
+  end)
+
+  return collected
+end
+
+local function cycleAppWindow(direction)
+  direction = direction or 1
+
+  local currentWindow = hs.window.focusedWindow()
+  if currentWindow == nil then
+    return
+  end
+
+  local app = currentWindow:application()
+  local windows = collectAppWindows(app)
+  local count = #windows
+  if count < 2 then
+    return
+  end
+
+  local currentIndex
+  for index, win in ipairs(windows) do
+    if win == currentWindow then
+      currentIndex = index
+      break
+    end
+  end
+
+  if currentIndex == nil then
+    currentIndex = 0
+  end
+
+  local nextIndex = ((currentIndex - 1 + direction) % count) + 1
+  local targetWindow = windows[nextIndex]
+  if targetWindow ~= nil then
+    hs.timer.doAfter(0, function()
+      targetWindow:focus()
+      targetWindow:raise()
+    end)
+  end
+end

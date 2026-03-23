@@ -9,3 +9,4 @@ $scriptDir/bin/setup/install.sh
 $scriptDir/bin/setup/rbenv.sh
 $scriptDir/bin/setup/vim.sh
 $scriptDir/bin/setup/vscode.sh
+$scriptDir/bin/setup/sketchy.sh

@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ruby calc:*)",
+      "Bash(ruby /Users/takuma/projects/dotfiles/bin/calc:*)",
+      "Bash(ruby:*)",
+      "WebSearch",
+      "WebFetch(domain:holidays-jp.github.io)",
+      "Bash(/Users/takuma/projects/dotfiles/bin/calc:*)"
+    ]
+  }
+}

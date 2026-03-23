@@ -22,7 +22,10 @@ function M.setup()
       vim.keymap.set('v', '-', ":'<,'>HeaderDecrease<CR>", opts)
 
       vim.keymap.set('n', '<Leader>\\', function()
-        vim.cmd('PrevimOpen')
+        local path = vim.fn.expand('%:p')
+        if path ~= '' then
+          vim.fn.jobstart({ 'open', path }, { detach = true })
+        end
       end, opts)
     end,
   })

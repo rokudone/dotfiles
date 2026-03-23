@@ -84,7 +84,8 @@
                 "^dev\\.warp\\.Warp-Stable$",
                 "^net\\.kovidgoyal\\.kitty$",
                 "^com\\.mitchellh\\.ghostty$",
-                "^com\\.github\\.wez\\.wezterm$"
+                "^com\\.github\\.wez\\.wezterm$",
+                "^com\\.raphaelamorim\\.rio$"
 
               ]
             }
@@ -139,11 +140,41 @@
                 "^net\\.kovidgoyal\\.kitty$",
                 "^com\\.todesktop\\.230313mzl4w4u92$",
                 "^com\\.mitchellh\\.ghostty$",
-                "^com\\.github\\.wez\\.wezterm$"
+                "^com\\.github\\.wez\\.wezterm$",
+                "^com\\.raphaelamorim\\.rio$"
 
               ]
             }
           ]
+        }
+      ]
+    },
+    {
+      "description": "[util] cmd + hjkl to cmd + shift + opt + arrows on cmux",
+      "manipulators": [
+        {
+          "type": "basic",
+          "conditions": [{ "type": "frontmost_application_if", "bundle_identifiers": ["^com\\.cmuxterm\\.app$", "^com\\.cmuxterm\\.app\\.nightly$"] }],
+          "from": { "key_code": "h", "modifiers": { "mandatory": [ "command" ], "optional": [ "shift" ] } },
+          "to": [{ "key_code": "left_arrow", "modifiers": [ "command", "shift", "option" ] }]
+        },
+        {
+          "type": "basic",
+          "conditions": [{ "type": "frontmost_application_if", "bundle_identifiers": ["^com\\.cmuxterm\\.app$", "^com\\.cmuxterm\\.app\\.nightly$"] }],
+          "from": { "key_code": "j", "modifiers": { "mandatory": [ "command" ], "optional": [ "shift" ] } },
+          "to": [{ "key_code": "down_arrow", "modifiers": [ "command", "shift", "option" ] }]
+        },
+        {
+          "type": "basic",
+          "conditions": [{ "type": "frontmost_application_if", "bundle_identifiers": ["^com\\.cmuxterm\\.app$", "^com\\.cmuxterm\\.app\\.nightly$"] }],
+          "from": { "key_code": "k", "modifiers": { "mandatory": [ "command" ], "optional": [ "shift" ] } },
+          "to": [{ "key_code": "up_arrow", "modifiers": [ "command", "shift", "option" ] }]
+        },
+        {
+          "type": "basic",
+          "conditions": [{ "type": "frontmost_application_if", "bundle_identifiers": ["^com\\.cmuxterm\\.app$", "^com\\.cmuxterm\\.app\\.nightly$"] }],
+          "from": { "key_code": "l", "modifiers": { "mandatory": [ "command" ], "optional": [ "shift" ] } },
+          "to": [{ "key_code": "right_arrow", "modifiers": [ "command", "shift", "option" ] }]
         }
       ]
     },

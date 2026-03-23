@@ -132,6 +132,11 @@ brew tap yakitrak/yakitrak
 brew install yakitrak/yakitrak/obs
 brew install obsidian
 
+brew tap FelixKratz/formulae
+brew install sketchybar
+brew install nikitabobko/tap/aerospace
+brew install borders
+
 # brew cask install objektiv
 
 brew install selenium-server-standalone

@@ -133,13 +133,39 @@ local function detect_macos_background()
   end
 end
 
-local function set_transparent_background()
-  vim.api.nvim_set_hl(0, 'Normal', { bg = 'NONE', ctermbg = 'NONE' })
+local function apply_highlight_preferences()
+  local set_hl = vim.api.nvim_set_hl
+
+  set_hl(0, 'Normal', { bg = 'NONE', ctermbg = 'NONE' })
+  set_hl(0, 'Visual', { bg = '#3A3208' })
+
+  local function make_transparent(group)
+    local ok, hl = pcall(vim.api.nvim_get_hl, 0, { name = group, link = false })
+    if ok and type(hl) == 'table' then
+      hl.bg = 'NONE'
+      hl.ctermbg = 'NONE'
+      set_hl(0, group, hl)
+    else
+      set_hl(0, group, { bg = 'NONE', ctermbg = 'NONE' })
+    end
+  end
+
+  make_transparent('Comment')
+  make_transparent('@comment')
+  make_transparent('@comment.documentation')
+  make_transparent('FzfLuaDirPart')
+
+  set_hl(0, 'GitSignsAdd', { fg = '#4CAF50', bg = 'NONE' })
+  set_hl(0, 'GitSignsChange', { fg = '#42A5F5', bg = 'NONE' })
+  set_hl(0, 'GitSignsDelete', { fg = '#EF5350', bg = 'NONE' })
+  set_hl(0, 'GitSignsStagedAdd', { fg = '#EFD75A', bg = 'NONE' })
+  set_hl(0, 'GitSignsStagedChange', { fg = '#E7C64C', bg = 'NONE' })
+  set_hl(0, 'GitSignsStagedDelete', { fg = '#E7C64C', bg = 'NONE' })
 end
 
 function M.setup()
   detect_macos_background()
-  set_transparent_background()
+  apply_highlight_preferences()
 
   local auto_mkdir = api.nvim_create_augroup('CoreAutoMkdir', { clear = true })
   api.nvim_create_autocmd('BufWritePre', {
@@ -219,11 +245,22 @@ function M.setup()
     end,
   })
 
+  local open_folds = api.nvim_create_augroup('CoreOpenFolds', { clear = true })
+  api.nvim_create_autocmd('BufWinEnter', {
+    group = open_folds,
+    callback = function()
+      vim.opt_local.foldlevel = 99
+    end,
+  })
+
   local colorscheme = api.nvim_create_augroup('CoreColorScheme', { clear = true })
   api.nvim_create_autocmd('ColorScheme', {
     group = colorscheme,
-    callback = set_transparent_background,
+    callback = function()
+      vim.schedule(apply_highlight_preferences)
+    end,
   })
+
 end
 
 return M

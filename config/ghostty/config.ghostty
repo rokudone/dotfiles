@@ -1,0 +1,35 @@
+shell-integration = zsh
+theme = "ayu"
+window-theme = dark
+
+auto-update-channel = tip
+
+font-family = "S2GUniFont Nerd Font"
+adjust-cell-height = 12
+adjust-cell-width = -1
+font-size = 16
+font-thicken = true
+font-feature = -dlig
+
+# font-family = "MesloLGM Nerd Font Mono"
+# adjust-cell-height = 8
+# adjust-cell-width = -1
+
+link-url = true
+keybind = shift+enter=text:\n
+# JIS キーボードの「¥」キーでバックスラッシュを入力する
+# （Shift+¥ でパイプも送出する）
+keybind = ¥=text:\\
+keybind = shift+¥=text:|
+
+# 選択しただけでクリップボードにコピー
+copy-on-select = true
+# macOSでは system clipboard にもコピーしたいなら
+copy-on-select = "clipboard"
+
+keybind = ctrl+m=text:\r
+
+keybind = ctrl+alt+h=goto_split:left
+keybind = ctrl+alt+j=goto_split:bottom
+keybind = ctrl+alt+k=goto_split:top
+keybind = ctrl+alt+l=goto_split:right

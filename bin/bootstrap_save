@@ -1,0 +1,49 @@
+#!/bin/bash
+set -euo pipefail
+
+ITEMS_FILE="${HOME}/.config/bootstrap/items.txt"
+mkdir -p "$(dirname "$ITEMS_FILE")"
+
+workspaces=$(cmux --json list-workspaces 2>/dev/null)
+refs=$(echo "$workspaces" | python3 -c "import sys,json; data=json.load(sys.stdin); [print(w['ref']) for w in data['workspaces']]")
+
+seen_cwds=""
+items=()
+
+for ref in $refs; do
+  state=$(cmux sidebar-state --workspace "$ref" 2>/dev/null)
+
+  cwd=$(echo "$state" | grep '^cwd=' | head -1 | cut -d= -f2-)
+  [[ -z "$cwd" ]] && continue
+
+  # git リポジトリのルートまでたどる
+  git_root=$(git -C "$cwd" rev-parse --show-toplevel 2>/dev/null) && cwd="$git_root"
+
+  # 重複除去
+  if echo "$seen_cwds" | grep -qxF "$cwd"; then
+    continue
+  fi
+  seen_cwds="${seen_cwds}${cwd}
+"
+
+  # パスからチケット名を抽出（CASY-1234_description 形式）
+  dir_name=$(basename "$cwd")
+  if [[ "$dir_name" =~ ([A-Z]+-[0-9]+.*) ]]; then
+    name="${BASH_REMATCH[1]}"
+  else
+    name="$dir_name"
+  fi
+
+  # ~ に置換
+  cwd="${cwd/#$HOME/~}"
+
+  items+=("${name}|${cwd}")
+done
+
+if [[ ${#items[@]} -eq 0 ]]; then
+  echo "No workspaces with cwd found" >&2
+  exit 1
+fi
+
+printf '%s\n' "${items[@]}" | sort > "$ITEMS_FILE"
+echo "Saved ${#items[@]} workspaces to $ITEMS_FILE"

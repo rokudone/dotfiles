@@ -23,8 +23,14 @@
     "files.autoSaveDelay": 3000,
     "[markdown]": {
         "editor.insertSpaces": true,
-        "editor.defaultFormatter": "yzhang.markdown-all-in-one"
+        "editor.defaultFormatter": "yzhang.markdown-all-in-one",
+        "editor.quickSuggestions": { "other": true, "strings": true },
+        "editor.suggest.insertMode": "replace"
     },
+    "emmet.includeLanguages": {
+    "markdown": "html"
+    },
+    "html.suggest.html5": true,
     "[dart]": {
         "editor.formatOnSave": true,
         "editor.formatOnType": true,
@@ -93,10 +99,6 @@
     "solargraph.logLevel": "warn",
     "editor.inlineSuggest.enabled": true,
     "editor.tabSize": 2,
-    "extensions.experimental.affinity": {
-        "vscodevim.vim": 1,
-        "asvetliakov.vscode-neovim": 1
-    },
     "keyboard.dispatch": "keyCode",
     "vim.autoindent": true,
     "vim.easymotion": true,
@@ -124,7 +126,12 @@
         { "before": [ "g", "j" ], "after": [ "j" ] },
         { "before": [ "k" ], "after": [ "g", "k" ] },
         { "before": [ "g", "k" ], "after": [ "k" ] },
-        { "before": [ "g", "h" ], "commands": [ "editor.action.showHover" ] }
+        { "before": [ "g", "h" ], "commands": [ "editor.action.showHover" ] },
+        { "before": ["leader", "g", "a"], "commands": ["git.stageSelectedRanges"] },
+        { "before": ["leader", "g", "u"], "commands": ["git.unstageSelectedRanges"] },
+        { "before": ["leader", "g", "r"], "commands": ["git.revertSelectedRanges"] },
+        { "before": ["leader", "g", "m"], "commands": ["github.createPullRequestComment"] },
+        { "before": ["leader", "g", "p"], "commands": ["github.openPullRequestDescription"] }
     ],
     "vim.insertModeKeyBindings": [
         { "before": [ "<C-f>" ], "after": [ "<right>" ] },
@@ -135,7 +142,11 @@
     ],
     "vim.visualModeKeyBindings": [
         { "before": [ "leader", "s" ], "after": [ ":", "s", "/" ] },
-        { "before": ["Y"], "commands": [ "extension.copyCodeBlock", "extension.vim_escape" ] }
+        { "before": ["Y"], "commands": [ "extension.copyCodeBlock", "extension.vim_escape" ] },
+        { "before": ["leader", "g", "a"], "commands": ["git.stageSelectedRanges"] },
+        { "before": ["leader", "g", "u"], "commands": ["git.unstageSelectedRanges"] },
+        { "before": ["leader", "g", "r"], "commands": ["git.revertSelectedRanges"] },
+        { "before": ["leader", "g", "m"], "commands": ["github.createPullRequestComment"] }
     ],
     "vim.statusBarColorControl": false,
     "vim.surround": true,
@@ -151,7 +162,6 @@
     "markdown.marp.themes": [
         "MarpTheme/casy.css"
     ],
-    "markdown.marp.enableHtml": true,
     "[javascript]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
@@ -236,7 +246,7 @@
     "workbench.preferredLightColorTheme": "Atom One Light",
     "explorer.excludeGitIgnore": true,
     "terminal.integrated.fontSize": 14,
-    "window.zoomLevel": 2.5,
+    "window.zoomLevel": 3,
     "workbench.editor.enablePreview": false,
     "workbench.activityBar.orientation": "vertical",
     "diffEditor.ignoreTrimWhitespace": false,
@@ -308,5 +318,9 @@
     },
     "[github-actions-workflow]": {
         "editor.defaultFormatter": "redhat.vscode-yaml"
-    }
+    },
+    "cursor.composer.shouldAllowCustomModes": true,
+    "markdown.marp.html": "all",
+    "diffEditor.codeLens": true,
+    "diffEditor.experimental.showMoves": true
 }

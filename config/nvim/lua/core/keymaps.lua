@@ -3,6 +3,8 @@ local M = {}
 local map = vim.keymap.set
 local api = vim.api
 local fn = vim.fn
+local ESC = api.nvim_replace_termcodes('<Esc>', true, false, true)
+local git_tools = require('core.git_tools')
 
 local mark_chars = {
   'a','b','c','d','e','f','g','h','i','j','k','l','m',
@@ -47,11 +49,27 @@ end
 
 local function copy_with_path(first_line, last_line)
   local filepath = fn.expand('%:p')
+  if filepath == '' then
+    filepath = fn.expand('%')
+  end
+  if filepath == '' then
+    filepath = '[No Name]'
+  end
+  first_line = tonumber(first_line) or 1
+  last_line = tonumber(last_line) or first_line
+  if first_line > last_line then
+    first_line, last_line = last_line, first_line
+  end
+  local total_lines = math.max(fn.line('$'), 1)
+  local start_line = math.min(math.max(first_line, 1), total_lines)
+  local end_line = math.min(math.max(last_line, start_line), total_lines)
   local lines = {}
-  for lnum = first_line, last_line do
+  for lnum = start_line, end_line do
     table.insert(lines, string.format('%s:%d %s', filepath, lnum, fn.getline(lnum)))
   end
-  fn.setreg('+', table.concat(lines, '\n'))
+  local payload = table.concat(lines, '\n')
+  fn.setreg('"', payload)
+  fn.setreg('+', payload)
 end
 
 local function open_dictionary()
@@ -62,13 +80,33 @@ local function open_dictionary()
 end
 
 local function cursor_jump()
-  local path = string.format('%s:%d', fn.expand('%:S'), fn.line('.'))
+  local filepath = fn.expand('%:p')
+  if filepath == '' then
+    filepath = fn.expand('%')
+  end
+  filepath = filepath:gsub("^'", ''):gsub("'$", '')
+  if filepath == '' then
+    return
+  end
+  local path = string.format('%s:%d', filepath, fn.line('.'))
   fn.jobstart({ 'cursor', '-g', path }, { detach = true })
+end
+
+local function close_tab_or_quit()
+  if fn.tabpagenr('$') == 1 then
+    vim.cmd('qa')
+    return
+  end
+  vim.cmd('tabclose')
 end
 
 local function set_core_keymaps()
   map({ 'n', 'v', 'o' }, '<Leader>', '<Nop>', { silent = true })
   map('n', '<Leader><Leader>', '<Space>', { silent = true })
+  map('n', '[Git]', '<Nop>', { silent = true })
+  map('n', '<Leader>g', '[Git]', { remap = true, silent = true })
+  map('x', '[Git]', '<Nop>', { silent = true })
+  map('x', '<Leader>g', '[Git]', { remap = true, silent = true })
 
   map('n', '<ESC><ESC>', ':nohlsearch<CR>', { silent = true })
 
@@ -122,7 +160,14 @@ local function set_extended_keymaps()
     map('n', ('<A-%d>'):format(i), ('<C-w>%dw'):format(i), { silent = true })
   end
 
+  map('n', 'Y', function()
+    local cursor_line = vim.api.nvim_win_get_cursor(0)[1]
+    local count = vim.v.count1
+    copy_with_path(cursor_line, cursor_line + count - 1)
+  end, { silent = true, desc = 'Yank line with file path' })
+
   map('v', 'Y', function()
+    vim.cmd('normal! ' .. ESC)
     copy_with_path(fn.line("'<"), fn.line("'>"))
   end, { silent = true, desc = 'Yank with file path' })
 
@@ -144,9 +189,10 @@ local function set_extended_keymaps()
   map('n', '<Leader>eu', ':Lazy sync<CR>', { silent = true, desc = 'Lazy sync' })
 
   map('n', '<Leader>c', cursor_jump, { silent = true, desc = 'Open cursor location' })
-
+  map('n', '[Git]I', git_tools.toggle_live_blame, { silent = true, desc = 'ライブ blame パネルを切り替え' })
   map('n', '<Leader>q', ':q<CR>', { silent = true })
-  map('n', '<Leader>Q', ':qa!<CR>', { silent = true })
+  map('n', '<Leader>Q', close_tab_or_quit, { silent = true, desc = 'Close tab or quit' })
+  map('n', '<Leader>o', '<cmd>Outline<CR>', { silent = true, desc = 'Toggle Outline' })
   map('n', '<C-s>', ':w<CR>', { silent = true })
   map('n', '<C-w>w', ':q<CR>', { silent = true })
   map('n', '<C-w><C-w>', ':q<CR>', { silent = true })
@@ -162,10 +208,8 @@ local function set_extended_keymaps()
     jump_same_indent('down')
   end, { silent = true, desc = 'Jump to next line with same indent' })
 
-  map('n', '<leader>s', ':%s/\v', { silent = false })
-  map('v', '<leader>s', ":'<,'>s/\v", { silent = false })
-  vim.cmd([[cnoreabbrev <expr> s getcmdtype() .. getcmdline() ==# ':s' ? [getchar(), ''][1] .. "%s///g<Left><Left>" : 's']])
-
+  map('n', '<leader>s', ':%s/\\v', { silent = false })
+  map('v', '<leader>s', ":<C-u>'<,'>s/\\v", { silent = false })
   api.nvim_set_keymap('c', '<C-R><C-E>', "<C-R>=expand('%:t:r')<CR>", { noremap = true })
 end
 

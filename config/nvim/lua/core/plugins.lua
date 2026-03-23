@@ -40,22 +40,33 @@ function M.setup()
         end
       end,
     },
+    -- Telescopeからfzf-luaに移行
+    -- {
+    --   'nvim-telescope/telescope.nvim',
+    --   dependencies = {
+    --     'nvim-lua/plenary.nvim',
+    --     {
+    --       'nvim-telescope/telescope-fzf-native.nvim',
+    --       build = 'make',
+    --       cond = function()
+    --         return vim.fn.executable('make') == 1
+    --       end,
+    --     },
+    --   },
+    --   config = function()
+    --     local ok_setup, telescope = pcall(require, 'plugins.telescope')
+    --     if ok_setup then
+    --       telescope.setup()
+    --     end
+    --   end,
+    -- },
     {
-      'nvim-telescope/telescope.nvim',
-      dependencies = {
-        'nvim-lua/plenary.nvim',
-        {
-          'nvim-telescope/telescope-fzf-native.nvim',
-          build = 'make',
-          cond = function()
-            return vim.fn.executable('make') == 1
-          end,
-        },
-      },
+      'ibhagwan/fzf-lua',
+      dependencies = { 'nvim-tree/nvim-web-devicons' },
       config = function()
-        local ok_setup, telescope = pcall(require, 'plugins.telescope')
+        local ok_setup, fzf_lua = pcall(require, 'plugins.fzf-lua')
         if ok_setup then
-          telescope.setup()
+          fzf_lua.setup()
         end
       end,
     },
@@ -71,12 +82,19 @@ function M.setup()
     },
     {
       'nvim-neo-tree/neo-tree.nvim',
-      branch = 'v3.x',
+      branch = 'main',
       dependencies = {
         'nvim-lua/plenary.nvim',
         'nvim-tree/nvim-web-devicons',
         'MunifTanjim/nui.nvim',
+        'mrbjarksen/neo-tree-diagnostics.nvim',
       },
+      init = function()
+        -- Neo-treeがロードされる前にパッチ版モジュールを登録
+        package.preload['neo-tree.sources.common.file-items'] = function()
+          return require('patches.neo-tree-file-items')
+        end
+      end,
       config = function()
         local ok_setup, neo_tree = pcall(require, 'plugins.neo_tree')
         if ok_setup then
@@ -166,6 +184,16 @@ function M.setup()
       end,
     },
     {
+      'hedyhli/outline.nvim',
+      cmd = { 'Outline', 'OutlineOpen', 'OutlineClose', 'OutlineFollow' },
+      config = function()
+        local ok_setup, outline = pcall(require, 'plugins.outline')
+        if ok_setup then
+          outline.setup()
+        end
+      end,
+    },
+    {
       'liuchengxu/vista.vim',
       config = function()
         local ok_setup, vista = pcall(require, 'plugins.vista')
@@ -184,15 +212,6 @@ function M.setup()
       end,
     },
     {
-      'osyo-manga/vim-over',
-      config = function()
-        local ok_setup, over = pcall(require, 'plugins.over')
-        if ok_setup then
-          over.setup()
-        end
-      end,
-    },
-    {
       'vim-airline/vim-airline',
       dependencies = { 'vim-airline/vim-airline-themes' },
       config = function()
@@ -203,24 +222,65 @@ function M.setup()
       end,
     },
     {
-      'tpope/vim-fugitive',
+      'sindrets/diffview.nvim',
       config = function()
-        local ok_setup, fugitive = pcall(require, 'plugins.fugitive')
+        local ok_setup, diffview = pcall(require, 'plugins.diffview')
         if ok_setup then
-          fugitive.setup()
+          diffview.setup()
         end
       end,
     },
     {
-      'tpope/vim-rhubarb',
-      dependencies = { 'tpope/vim-fugitive' },
+      'NeogitOrg/neogit',
+      dependencies = {
+        'nvim-lua/plenary.nvim',
+        'sindrets/diffview.nvim',
+        -- 'nvim-telescope/telescope.nvim',  -- fzf-luaに移行
+        'MunifTanjim/nui.nvim',
+      },
+      config = function()
+        local ok_setup, neogit = pcall(require, 'plugins.neogit')
+        if ok_setup then
+          neogit.setup()
+        end
+      end,
     },
     {
-      'airblade/vim-gitgutter',
+      'pwntester/octo.nvim',
+      cmd = 'Octo',
+      keys = {
+        { '[Git]o', ':Octo pr search<CR>', desc = 'PRを検索する' },
+        { '[Git]O', ':Octo review<CR>', desc = 'レビューを開始' },
+      },
+      dependencies = {
+        'nvim-lua/plenary.nvim',
+        'ibhagwan/fzf-lua',
+        'nvim-tree/nvim-web-devicons',
+      },
       config = function()
-        local ok_setup, gitgutter = pcall(require, 'plugins.gitgutter')
+        local ok_setup, octo = pcall(require, 'plugins.octo')
         if ok_setup then
-          gitgutter.setup()
+          octo.setup()
+        end
+      end,
+    },
+    {
+      'lewis6991/gitsigns.nvim',
+      event = { 'BufReadPre', 'BufNewFile' },
+      config = function()
+        local ok_setup, gitsigns = pcall(require, 'plugins.gitsigns')
+        if ok_setup then
+          gitsigns.setup()
+        end
+      end,
+    },
+    {
+      'ruifm/gitlinker.nvim',
+      dependencies = { 'nvim-lua/plenary.nvim' },
+      config = function()
+        local ok_setup, gitlinker = pcall(require, 'plugins.gitlinker')
+        if ok_setup then
+          gitlinker.setup()
         end
       end,
     },
@@ -239,6 +299,32 @@ function M.setup()
         local ok_setup, phpcs = pcall(require, 'plugins.php_cs_fixer')
         if ok_setup then
           phpcs.setup()
+        end
+      end,
+    },
+    {
+      'MeanderingProgrammer/render-markdown.nvim',
+      ft = { 'markdown' },
+      dependencies = { 'nvim-treesitter/nvim-treesitter' },
+      config = function()
+        local ok, render_md = pcall(require, 'render-markdown')
+        if ok then
+          render_md.setup({
+            heading = { enabled = false },
+            code = { enabled = false },
+            bullet = { enabled = false },
+            checkbox = { enabled = false },
+            quote = { enabled = false },
+            dash = { enabled = false },
+            link = { enabled = false },
+            sign = { enabled = false },
+            indent = { enabled = false },
+            pipe_table = { enabled = true },
+            win_options = {
+              conceallevel = { default = vim.o.conceallevel, rendered = vim.o.conceallevel },
+              concealcursor = { default = vim.o.concealcursor, rendered = vim.o.concealcursor },
+            },
+          })
         end
       end,
     },

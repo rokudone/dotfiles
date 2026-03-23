@@ -1,0 +1,13 @@
+#!/opt/homebrew/bin/lua
+
+local home = os.getenv("HOME")
+package.path = package.path
+	.. ";"
+	.. home
+	.. "/.config/sketchybar/?.lua;"
+	.. home
+	.. "/.config/sketchybar/?/init.lua"
+
+-- Load the sketchybar-package and prepare the helper binaries
+require("helpers")
+require("init")

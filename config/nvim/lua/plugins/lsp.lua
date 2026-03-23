@@ -11,7 +11,6 @@ local servers = {
   'tailwindcss',
   'ruby_lsp',
   'bashls',
-  'gopls',
   'rust_analyzer',
   'pyright',
   'yamlls',
@@ -26,7 +25,6 @@ local mason_package_map = {
   tailwindcss = 'tailwindcss-language-server',
   ruby_lsp = 'ruby-lsp',
   bashls = 'bash-language-server',
-  gopls = 'gopls',
   rust_analyzer = 'rust-analyzer',
   pyright = 'pyright',
   yamlls = 'yaml-language-server',
@@ -53,6 +51,9 @@ local function map_lsp_buffer_key(bufnr)
   map({ 'n', 'x' }, 'ga', vim.lsp.buf.code_action, 'LSP Code Action')
   map('n', 'gA', vim.lsp.buf.code_action, 'LSP Code Action')
   map('n', 'K', vim.lsp.buf.hover, 'LSP Hover')
+  map('n', 'gh', function()
+    vim.diagnostic.open_float()
+  end, 'Show Diagnostics')
 
   local function goto_prev_diag()
     vim.diagnostic.goto_prev({ float = true })
@@ -62,8 +63,6 @@ local function map_lsp_buffer_key(bufnr)
     vim.diagnostic.goto_next({ float = true })
   end
 
-  map('n', '[g', goto_prev_diag, 'Prev Diagnostic')
-  map('n', ']g', goto_next_diag, 'Next Diagnostic')
   map('n', '[d', goto_prev_diag, 'Prev Diagnostic')
   map('n', ']d', goto_next_diag, 'Next Diagnostic')
 
@@ -85,6 +84,16 @@ local function on_attach(_, bufnr)
 end
 
 M.on_attach = on_attach
+
+-- 念のため LspAttach イベントでもキーマップを保証する（on_attach が呼ばれないケースの保険）
+local lsp_keymap_group = vim.api.nvim_create_augroup('LspKeymaps', { clear = true })
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = lsp_keymap_group,
+  callback = function(args)
+    map_lsp_buffer_key(args.buf)
+    vim.bo[args.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+  end,
+})
 
 local function setup_cmp()
   local ok_cmp, cmp = pcall(require, 'cmp')
@@ -155,21 +164,6 @@ local function setup_cmp()
     }),
   })
 
-  cmp.setup.cmdline('/', {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = {
-      { name = 'buffer' },
-    },
-  })
-
-  cmp.setup.cmdline(':', {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = cmp.config.sources({
-      { name = 'path' },
-    }, {
-      { name = 'cmdline' },
-    }),
-  })
 end
 
 local function setup_diagnostics()
@@ -205,6 +199,35 @@ local function setup_commands()
   end, { desc = 'Organize imports with LSP' })
 end
 
+local function adapt_root_dir(config)
+  local root_dir = config.root_dir
+  if type(root_dir) ~= 'function' then
+    return
+  end
+
+  local info = debug.getinfo(root_dir, 'u')
+  if info and not info.isvararg and info.nparams and info.nparams >= 2 then
+    return
+  end
+
+  config.root_dir = function(arg1, arg2, ...)
+    if type(arg2) == 'function' then
+      local bufnr = arg1
+      local on_dir = arg2
+      local fname = vim.api.nvim_buf_get_name(bufnr)
+      local ok, dir = pcall(root_dir, fname)
+      if not ok then
+        error(dir)
+      end
+      if dir and dir ~= '' then
+        on_dir(dir)
+      end
+    else
+      return root_dir(arg1, arg2, ...)
+    end
+  end
+end
+
 local function setup_lsp()
   local ok_mason, mason = pcall(require, 'mason')
   if ok_mason and type(mason.setup) == 'function' then
@@ -216,6 +239,10 @@ local function setup_lsp()
     mason_lspconfig.setup({
       ensure_installed = servers,
       automatic_installation = false,
+      -- mason-lspconfig の automatic_enable 機能は mason で存在するサーバーを
+      -- 無条件に enable してしまうため、手動管理している一覧に含まれない
+      -- サーバーが勝手に立ち上がるのを防ぐべく明示的に無効化する
+      automatic_enable = false,
     })
   end
 
@@ -250,7 +277,7 @@ local function setup_lsp()
     capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
   end
 
-  local server_settings = {
+local server_settings = {
     lua_ls = {
       settings = {
         Lua = {
@@ -260,9 +287,33 @@ local function setup_lsp()
       },
     },
     ruby_lsp = {
-      cmd_env = { BUNDLE_GEMFILE = vim.env.BUNDLE_GEMFILE },
-      init_options = {
-        formatter = 'rubocop',
+      -- 常にグローバルの ruby-lsp を起動し、プロジェクト側の .bundle/config を無視する
+      cmd = { 'ruby-lsp' },
+      cmd_env = {
+        BUNDLE_USER_HOME = vim.env.BUNDLE_USER_HOME or (vim.env.HOME .. '/.bundle'),
+        BUNDLE_PATH = (vim.env.BUNDLE_USER_HOME or (vim.env.HOME .. '/.bundle')) .. '/ruby-lsp',
+        BUNDLE_CONFIG = (vim.env.BUNDLE_USER_HOME or (vim.env.HOME .. '/.bundle')) .. '/config',
+        BUNDLE_APP_CONFIG = (vim.env.BUNDLE_USER_HOME or (vim.env.HOME .. '/.bundle')) .. '/app-config',
+        BUNDLE_IGNORE_CONFIG = '1', -- プロジェクトの .bundle/config を無視して固定パスに入れる
+        PATH = ((vim.env.BUNDLE_USER_HOME or (vim.env.HOME .. '/.bundle')) .. '/ruby-lsp/ruby/3.2.0/bin') .. ':' .. vim.env.PATH,
+      },
+      on_new_config = function(config, _)
+        local bundle_home = config.cmd_env and config.cmd_env.BUNDLE_USER_HOME
+          or (vim.env.BUNDLE_USER_HOME or (vim.env.HOME .. '/.bundle'))
+        config.cmd_env = config.cmd_env or {}
+        config.cmd_env.BUNDLE_USER_HOME = bundle_home
+        config.cmd_env.BUNDLE_PATH = (config.cmd_env.BUNDLE_PATH or (bundle_home .. '/ruby-lsp'))
+        config.cmd_env.BUNDLE_CONFIG = config.cmd_env.BUNDLE_CONFIG or (bundle_home .. '/config')
+        config.cmd_env.BUNDLE_APP_CONFIG = config.cmd_env.BUNDLE_APP_CONFIG or (bundle_home .. '/app-config')
+        config.cmd_env.BUNDLE_IGNORE_CONFIG = '1'
+        config.cmd_env.BUNDLE_GEMFILE = nil
+        config.cmd = { 'ruby-lsp' }
+      end,
+      settings = {
+        ruby = {
+          rubyVersionManager = 'rbenv',
+          format = 'auto',
+        },
       },
     },
   }
@@ -281,25 +332,10 @@ local function setup_lsp()
     if not ok_config_module or not config_module then
       vim.notify(string.format('LSP server %s is not available', server), vim.log.levels.WARN)
     else
-      local default_opts = config_module.default_config or {}
-      local merged = vim.tbl_deep_extend('force', default_opts, opts)
-      if type(merged.root_dir) == 'function' then
-        local original_root_dir = merged.root_dir
-        merged.root_dir = function(path_or_buf, ...)
-          local args = { ... }
-          local callback = args[1]
-          local path = path_or_buf
-          if type(path_or_buf) == 'number' then
-            path = vim.api.nvim_buf_get_name(path_or_buf)
-          end
-          local root = original_root_dir(path)
-          if type(callback) == 'function' then
-            callback(root)
-            return
-          end
-          return root
-        end
-      end
+      local default_config = config_module.default_config or {}
+      local merged = vim.tbl_deep_extend('force', default_config, opts)
+      adapt_root_dir(merged)
+
       vim.lsp.config(server, merged)
       vim.lsp.enable(server)
     end

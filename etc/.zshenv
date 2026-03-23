@@ -53,6 +53,9 @@ export PATH="$HOMEBREW_PREFIX/opt/grep/libexec/gnubin:$PATH"
 
 export HOMEBREW_NO_INSTALL_CLEANUP=1
 
+# Neovim の Ruby LSP が自動生成する bundle 用。非対話シェルでも使うためここで指定。
+export BUNDLE_USER_HOME="$HOME/.bundle"
+
 
 # npm
 # .zshrcでpathを解決すると、vimがうまく読み取ってくれない

@@ -1,5 +1,12 @@
 local wezterm = require 'wezterm'
+local mouse_utils = require 'config.wezterm.mouse_utils'
 local config = {}
+
+if wezterm.gui and wezterm.gui.default_mouse_bindings and not wezterm.default_mouse_bindings then
+  function wezterm.default_mouse_bindings(...)
+    return wezterm.gui.default_mouse_bindings(...)
+  end
+end
 
 -- open-uriイベントハンドラー（ファイルパスを開く）
 wezterm.on('open-uri', function(window, pane, uri)
@@ -202,6 +209,10 @@ if wezterm.target_triple == "x86_64-apple-darwin" or wezterm.target_triple == "a
   -- macOS固有のアンチエイリアス設定
   config.font_rasterizer = "FreeType"  -- または "CoreText"
   config.font_shaper = "Harfbuzz"  -- より良い文字形状処理
+end
+
+if config.mouse_bindings then
+  config.mouse_bindings = mouse_utils.normalize(config.mouse_bindings)
 end
 
 return config

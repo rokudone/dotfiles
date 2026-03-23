@@ -1,3 +1,5 @@
+.jj/
+
 .devcontainer/
 .ruby_lsp/*
 .index.yml
@@ -5,9 +7,8 @@
 .vscode/*
 
 # tempfile
-TODO.md
+TODO*.md
 SUMMARY.md
-!etc/.claude/commands/todo.md
 
 # worktree
 .wt
@@ -16,19 +17,14 @@ SUMMARY.md
 .agent
 .agent/*
 
+# claude
+/.claude/
+
 # cline
 .cline
 .roomodes
 
 # cursor
-
-# claude
-CLAUDE.md
-!etc/CLAUDE.md
-CLAUDE.local.md
-CLAUDE/
-.claude
-!etc/.claude
 
 # kiro
 .kiro/
@@ -36,10 +32,7 @@ CLAUDE/
 # serena
 .serena
 
-# codex
-AGENTS.md
-.codex
-!etc/.codex
-!etc/.codex/AGENTS.md
-
 stagewise.json
+
+.playwright-mcp
+.playwright-cli

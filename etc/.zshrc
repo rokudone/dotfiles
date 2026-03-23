@@ -4,8 +4,7 @@ export LC_ALL=ja_JP.UTF-8
 export LC_CTYPE=ja_JP.UTF-8
 export TERM=xterm-256color
 
-autoload -Uz compinit
-compinit
+fpath=(~/.zsh/completions $fpath)
 
 if [ ! -e "$HOME"/.tmux.bundle/tpm ]; then
     git clone https://github.com/tmux-plugins/tpm "${HOME}/.tmux.bundle/tpm"
@@ -15,6 +14,9 @@ fi
 if [ ! -e "$HOME"/.local/share/zinit/zinit.git/zinit.zsh ]; then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"
 fi
+
+autoload -Uz compinit
+compinit -i
 
 source "${ZDOTDIR:-$HOME}/.local/share/zinit/zinit.git/zinit.zsh"
 autoload -Uz _zinit
@@ -39,11 +41,29 @@ zinit snippet PZT::modules/osx/init.zsh
 zinit snippet PZT::modules/spectrum/init.zsh
 zinit snippet PZT::modules/syntax-highlighting/init.zsh
 zinit snippet PZT::modules/terminal/init.zsh
+zstyle ':prezto:module:utility' safe-ops 'no'
 zinit snippet PZT::modules/utility/init.zsh
 
 PURE_PROMPT_SYMBOL='❯'
 zstyle :prompt:pure:user show no
 zstyle :prompt:pure:host show no
+
+# Docker mount worktree indicator (preprompt の git info と同じ行に表示)
+# PROMPT 内の ${prompt_newline} は変数参照のまま残るため、
+# その変数自体に docker info を仕込むことで PROMPT のパターン置換を回避する
+function _docker_mount_prompt() {
+  local env_file="$HOME/projects/casy-repo/docker-development/.env"
+  if [[ -f "$env_file" ]]; then
+    local line
+    read -r line < "$env_file"
+    local mount_path="${line#*=}"
+    local worktree_name="${${mount_path%/*}:t}"
+    prompt_newline=" %F{242}🐳 ${worktree_name}%f"$'\n%{\r%}'
+  else
+    prompt_newline=$'\n%{\r%}'
+  fi
+}
+add-zsh-hook precmd _docker_mount_prompt
 
 # Source OS-specific settings
 case $OSTYPE in
@@ -131,13 +151,12 @@ alias phptags='ctags --tag-relative --recurse --sort=yes --exclude=*.js'
 alias -g F='| fzf'
 alias -g G='| grep'
 alias -g V='| grep -v'
-alias -g N='&& notify completed || notify error'
 alias -g P='| pbcopy'
 alias -g SJIS='| nkf'
+alias -g N="| ; printf \'a'"
 alias serve="python3 -m http.server"
 alias cu='env -u TMUX cursor'
 alias k='env -u TMUX kiro'
-alias -g C="| xargs cursor"
 
 function rc() {
   rg --no-heading --line-number "$1" | fzf | awk -F: '{print $1":"$2}' | xargs cursor -g
@@ -230,7 +249,7 @@ function hub-member {
 }
 
 # default editor
-EDITOR=`which nvim`
+export EDITOR="nvim"
 export VIMCONFIG="$HOME/.config/nvim"
 
 function starteditor() {
@@ -266,8 +285,14 @@ alias clang-omp++="$HOMEBREW_PREFIX/opt/llvm/bin/clang++ -fopenmp -L$HOMEBREW_PR
 # rg ripgrep
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 
+# python
+export PATH="$HOME/Library/Python/3.9/bin:$PATH"
+
 # composer
 path=(${ZDOTDIR:-$HOME}/.config/composer/vendor/bin $path)
+
+# Neovim の Ruby LSP が自動生成する bundle の置き場所を固定するため
+export BUNDLE_USER_HOME="$HOME/.bundle"
 
 # ruby
 path=(/usr/local/lib/ruby/gems/2.6.0 $path)
@@ -386,6 +411,17 @@ function zgit()
     | perl -pe "s/.*['\"]([a-zA-Z \-]+)['\"].*/\1/g"
   )
 }
+
+function zjj()
+{
+  echo $(cat ~/.zsh.d/jj.zsh \
+    | grep --color=never '^alias' \
+    | grep -v 'alias -g'\
+    | perl -pe 's/alias ([^=]+)=(.*)/\1\t\2/' \
+    | fzf \
+    | perl -pe "s/.*['\"]([a-za-z \-]+)['\"].*/\1/g"
+  )
+}
 # alias -g Z=zgit
 #
 function zdocker()
@@ -416,6 +452,8 @@ function rf() {
         eval $COMMAND
     fi
 }
+
+# alias rm='trash'
 
 function casy_table() {
   # 使用法:
@@ -467,7 +505,7 @@ if [[ $TERM_PROGRAM != "vscode" ]]; then
   fi
   source $HOME/.keychain/`hostname`-sh
 else
-  alias rm="rm"
+  alias rm="trash"
 fi
 
 # Load a few important annexes, without Turbo
@@ -484,11 +522,11 @@ if [ "$(uname)" == 'Linux' ]; then
   fi
 fi
 
-alias ml='aws sso login --profile'
-alias mlp='aws sso login --profile production'
-alias mls='aws sso login --profile staging'
+alias al='aws sso login --profile'
+alias alp='aws sso login --profile production'
+alias als='aws sso login --profile staging'
 
-function me() {
+function ae() {
   local PROFILE=$1
   shift
   local SERVICE=$1
@@ -499,14 +537,14 @@ function me() {
   aws --profile $PROFILE ecs execute-command --region ap-northeast-1 --cluster DX --container "rails-$SERVICE" --interactive --task $TASK_ARN --command "$COMMAND"
 }
 
-alias mep="me production"
-alias mepb="me production batch"
-alias mepa="me production api"
-alias mepw="me production worker"
-alias mes="me staging"
-alias mesb="me staging batch"
-alias mesa="me staging api"
-alias mesw="me staging worker"
+alias aep="ae production"
+alias aepb="ae production batch"
+alias aepa="ae production api"
+alias aepw="ae production worker"
+alias aes="ae staging"
+alias aesb="ae staging batch"
+alias aesa="ae staging api"
+alias aesw="ae staging worker"
 
 # if [ -z $TMUX ]; then
 #   tmux a -t $(basename ~ | perl -pe 's/\\./_/g') || tmux new -s $(basename ~ | perl -pe 's/\\./_/g')
@@ -536,18 +574,19 @@ zinit light-mode for \
     zdharma-continuum/zinit-annex-patch-dl \
     zdharma-continuum/zinit-annex-rust
 
-# alias c="npx -y @anthropic-ai/claude-code@1.0.55 --model=opus"
-# alias cr="npx -y @anthropic-ai/claude-code@1.0.55  --model=opus --resume"
-# alias serena="claude mcp add serena -- uvx --from git+https://github.com/oraios/serena serena-mcp-server --context ide-assistant --project $(pwd)"
-# alias c="claude --model=opus"
-# alias cr="npx @sasazame/ccresume@latest ."
-alias c="codex"
-alias cr="codex resume"
+# alias c="codex"
+# alias cr="codex resume"
+alias c="claude"
+alias cr="claude --resume"
+alias yolo="claude --dangerously-skip-permissions"
+alias co="codex"
+alias cor="codex resume"
+alias cu="cursor"
 alias serena="claude mcp add serena -- uvx --from git+https://github.com/oraios/serena serena-mcp-server --context ide-assistant --project $(pwd)"
 alias agent="find .agent -name '*.md' | sort | fzf --height 70% --preview 'bat --language=markdown --style=plain --color=always --theme=OneHalfDark {}' --preview-window=right:50%:wrap | pbcopy"
+alias dft="command difit --include-untracked HEAD"
 
-path=($HOME/projects/claude-code-config/bin $path)
-source ~/.zshrc.claude
+path=($HOME/projects/claude-code-config/claude/bin $path)
 
 ### End of Zinit's installer chunk
 
@@ -566,6 +605,15 @@ source ~/.zshrc.claude
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
-# claude code
-export PATH="$HOME/ccbin:$PATH"
-export PATH="/Users/takuma/projects/incident-management-manual/tips/commands:/Users/takuma/projects/incident-management-manual/tips/postmortem/commands:${PATH}"
+# Added by Antigravity
+export PATH="/Users/takuma/.antigravity/antigravity/bin:$PATH"
+
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zdharma-continuum/zinit-annex-as-monitor \
+    zdharma-continuum/zinit-annex-bin-gem-node \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-rust
+
+### End of Zinit's installer chunk

@@ -1,0 +1,59 @@
+line-height = 1.4
+option-as-alt = 'both'
+confirm-before-quit = false
+draw-bold-text-with-light-colors = true
+fonts.family = "S2GUniFont Nerd Font"
+fonts.size = 20.0
+fonts.use-drawable-chars = true
+
+[keyboard]
+disable-ctlseqs-alt = false
+
+[window]
+opacity = 1.0
+blur = false
+decorations = "Enabled"
+padding-x = 0
+padding-y = [0, 0]
+
+[window.background-image]
+# Copy the desired background image to ~/.config/rio before enabling this path.
+path = "/Users/takuma/projects/dotfiles/config/wezterm/lexa1.jpg"
+opacity = 0.10
+x = 0.0
+y = 0.0
+
+[cursor]
+shape = "block"
+blinking = true
+blinking-interval = 300
+
+[colors]
+background = "#141B24"
+foreground = "#E6E6E3"
+cursor = "#DD745F"
+selection-background = "#2B3341"
+selection-foreground = "#E6E6E3"
+
+black = "#02050C"
+red = "#E0787A"
+green = "#C6D863"
+yellow = "#F3B765"
+blue = "#75BFF9"
+magenta = "#FCEEA3"
+cyan = "#A7E3CC"
+white = "#C7C7C7"
+
+light-black = "#C7C7C7"
+light-red = "#FF3333"
+light-green = "#C2D94C"
+light-yellow = "#E7C547"
+light-blue = "#59C2FF"
+light-magenta = "#B77EE0"
+light-cyan = "#5CCFE6"
+light-white = "#FFFFFF"
+
+[bindings]
+keys = [
+  { key = "k", with = "super", action = "ClearHistory" },
+]

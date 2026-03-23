@@ -1,0 +1,3 @@
+-- このファイルは不要になりました
+-- パッチは lua/patches/neo-tree-file-items.lua に移動し、
+-- plugins.lua の init で package.preload を使って適用しています
