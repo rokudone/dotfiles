@@ -42,7 +42,7 @@ brew install gibo
 brew install jq
 brew install fd
 brew install tealdeer
-brew install exa
+brew install eza
 brew install peco
 brew install fzf
 brew install z
