@@ -686,7 +686,7 @@ function git-stash-pop()
 # alias gtv='git verify-tag'
 
 # Working Copy (w)
-alias gws='(git status --short; echo ""; git stash list; git-skip-status)'
+# alias gws='(git status --short; echo ""; git stash list; git-skip-status)'
 alias gw='git status'
 alias gwd='git diff'
 # alias gwD='git diff --word-diff'

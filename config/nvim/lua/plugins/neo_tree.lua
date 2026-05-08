@@ -7,7 +7,7 @@ local status_colors = {
   NeoTreeGitModified = '#FF6666',
   NeoTreeGitAdded = '#FF6666',
   NeoTreeGitUntracked = '#FF6666',
-  NeoTreeGitUnstaged = '#66BB6A',
+  NeoTreeGitUnstaged = '#888888',
   NeoTreeGitRenamed = '#FF6666',
   NeoTreeGitDeleted = '#CC3333',
   NeoTreeModified = '#FF6666',
@@ -248,7 +248,7 @@ local function git_status_component(config, node, state)
     }
   elseif sstate == 'unstaged' then
     return {
-      { text = ' ✱', highlight = 'NeoTreeGitUnstaged' },
+      { text = ' ·', highlight = 'NeoTreeGitUnstaged' },
     }
   end
 

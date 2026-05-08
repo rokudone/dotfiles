@@ -1230,27 +1230,103 @@
                         "description": "[util] cmd + hjkl to cmd + shift + opt + arrows on cmux",
                         "manipulators": [
                             {
-                                "conditions": [{ "type": "frontmost_application_if", "bundle_identifiers": ["^com\\.cmuxterm\\.app$", "^com\\.cmuxterm\\.app\\.nightly$"] }],
-                                "from": { "key_code": "h", "modifiers": { "mandatory": ["command"], "optional": ["shift"] } },
-                                "to": [{ "key_code": "left_arrow", "modifiers": ["command", "shift", "option"] }],
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.cmuxterm\\.app$",
+                                            "^com\\.cmuxterm\\.app\\.nightly$"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "h",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["shift"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "left_arrow",
+                                        "modifiers": ["command", "shift", "option"]
+                                    }
+                                ],
                                 "type": "basic"
                             },
                             {
-                                "conditions": [{ "type": "frontmost_application_if", "bundle_identifiers": ["^com\\.cmuxterm\\.app$", "^com\\.cmuxterm\\.app\\.nightly$"] }],
-                                "from": { "key_code": "j", "modifiers": { "mandatory": ["command"], "optional": ["shift"] } },
-                                "to": [{ "key_code": "down_arrow", "modifiers": ["command", "shift", "option"] }],
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.cmuxterm\\.app$",
+                                            "^com\\.cmuxterm\\.app\\.nightly$"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "j",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["shift"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "down_arrow",
+                                        "modifiers": ["command", "shift", "option"]
+                                    }
+                                ],
                                 "type": "basic"
                             },
                             {
-                                "conditions": [{ "type": "frontmost_application_if", "bundle_identifiers": ["^com\\.cmuxterm\\.app$", "^com\\.cmuxterm\\.app\\.nightly$"] }],
-                                "from": { "key_code": "k", "modifiers": { "mandatory": ["command"], "optional": ["shift"] } },
-                                "to": [{ "key_code": "up_arrow", "modifiers": ["command", "shift", "option"] }],
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.cmuxterm\\.app$",
+                                            "^com\\.cmuxterm\\.app\\.nightly$"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "k",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["shift"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "up_arrow",
+                                        "modifiers": ["command", "shift", "option"]
+                                    }
+                                ],
                                 "type": "basic"
                             },
                             {
-                                "conditions": [{ "type": "frontmost_application_if", "bundle_identifiers": ["^com\\.cmuxterm\\.app$", "^com\\.cmuxterm\\.app\\.nightly$"] }],
-                                "from": { "key_code": "l", "modifiers": { "mandatory": ["command"], "optional": ["shift"] } },
-                                "to": [{ "key_code": "right_arrow", "modifiers": ["command", "shift", "option"] }],
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.cmuxterm\\.app$",
+                                            "^com\\.cmuxterm\\.app\\.nightly$"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "l",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["shift"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "right_arrow",
+                                        "modifiers": ["command", "shift", "option"]
+                                    }
+                                ],
                                 "type": "basic"
                             }
                         ]
@@ -1604,8 +1680,24 @@
                     "ignore": false,
                     "simple_modifications": [
                         {
+                            "from": { "key_code": "backslash" },
+                            "to": [{ "key_code": "delete_or_backspace" }]
+                        },
+                        {
+                            "from": { "key_code": "caps_lock" },
+                            "to": [{ "key_code": "left_control" }]
+                        },
+                        {
                             "from": { "key_code": "delete_forward" },
                             "to": [{ "key_code": "f13" }]
+                        },
+                        {
+                            "from": { "key_code": "delete_or_backspace" },
+                            "to": [{ "key_code": "backslash" }]
+                        },
+                        {
+                            "from": { "key_code": "left_control" },
+                            "to": [{ "key_code": "caps_lock" }]
                         }
                     ]
                 },
@@ -1731,6 +1823,43 @@
                         {
                             "from": { "key_code": "right_arrow" },
                             "to": [{ "key_code": "escape" }]
+                        }
+                    ]
+                },
+                {
+                    "identifiers": {
+                        "is_keyboard": true,
+                        "product_id": 64009,
+                        "vendor_id": 13652
+                    },
+                    "simple_modifications": [
+                        {
+                            "from": { "key_code": "caps_lock" },
+                            "to": [{ "key_code": "left_control" }]
+                        },
+                        {
+                            "from": { "key_code": "left_control" },
+                            "to": [{ "key_code": "caps_lock" }]
+                        },
+                        {
+                            "from": { "key_code": "right_control" },
+                            "to": [{ "key_code": "right_option" }]
+                        },
+                        {
+                            "from": { "key_code": "backslash" },
+                            "to": [{ "key_code": "delete_or_backspace" }]
+                        },
+                        {
+                            "from": { "key_code": "delete_or_backspace" },
+                            "to": [{ "key_code": "backslash" }]
+                        },
+                        {
+                            "from": { "key_code": "right_command" },
+                            "to": [{ "key_code": "f13" }]
+                        },
+                        {
+                            "from": { "key_code": "delete_forward" },
+                            "to": [{ "key_code": "home" }]
                         }
                     ]
                 }

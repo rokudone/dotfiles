@@ -189,7 +189,7 @@ local function set_extended_keymaps()
   map('n', '<Leader>eu', ':Lazy sync<CR>', { silent = true, desc = 'Lazy sync' })
 
   map('n', '<Leader>c', cursor_jump, { silent = true, desc = 'Open cursor location' })
-  map('n', '[Git]I', git_tools.toggle_live_blame, { silent = true, desc = 'ライブ blame パネルを切り替え' })
+  map('n', '[Git]I', git_tools.show_line_history, { silent = true, desc = '現在行の履歴を git log -L で表示' })
   map('n', '<Leader>q', ':q<CR>', { silent = true })
   map('n', '<Leader>Q', close_tab_or_quit, { silent = true, desc = 'Close tab or quit' })
   map('n', '<Leader>o', '<cmd>Outline<CR>', { silent = true, desc = 'Toggle Outline' })
