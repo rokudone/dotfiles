@@ -58,6 +58,33 @@ ln -nfs "$src_dir/bin" $home
 # etc
 link_etc_files "$src_dir/etc" $home
 
+# .claude / .codex はディレクトリ全体 symlink。
+# 新マシンでは Claude/Codex が先に実体ディレクトリを生成しているため、
+# link_etc_files の ln だけだと実体の中にリンクができてしまう。
+# 実体側を主として etc に rsync で上書き反映（git diff を効かせるため）してから、
+# 実体を削除して symlink を張り直す。
+link_home_dir () {
+  name=$1
+  real="$home/$name"
+  repo="$src_dir/etc/$name"
+
+  # link_etc_files が誤って実体内に作ったリンクを除去
+  if [ -L "$real/$name" ]; then
+    rm -f "$real/$name"
+  fi
+
+  # 実体（symlink でないディレクトリ）なら etc に上書き反映してから削除
+  if [ -d "$real" ] && [ ! -L "$real" ]; then
+    rsync -a "$real/" "$repo/"
+    rm -rf "$real"
+  fi
+
+  ln -nfs "$repo" "$real"
+}
+
+link_home_dir ".claude"
+link_home_dir ".codex"
+
 # config
 config_dir="$src_dir/config"
 

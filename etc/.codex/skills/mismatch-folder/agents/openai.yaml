@@ -1,0 +1,4 @@
+interface:
+  display_name: "Hoge Frontmatter Mismatch"
+  short_description: "Discovery test for folder/name mismatch"
+  default_prompt: "Use $hoge-frontmatter-mismatch for the discovery test."

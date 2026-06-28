@@ -39,5 +39,25 @@ bin/chromedriver
 bin/calc
 tests/calc_test.rb
 
+# .claude — PC跨いで必要なものだけ allowlist。それ以外（ログ/DB/履歴/セッション等）は全無視
 etc/.claude/*
+!etc/.claude/CLAUDE.md
+!etc/.claude/settings.json
 !etc/.claude/commands/
+!etc/.claude/skills/
+
+# .codex — 同様に必要なものだけ allowlist
+etc/.codex/*
+!etc/.codex/AGENTS.md
+!etc/.codex/config.toml
+!etc/.codex/hooks.json
+!etc/.codex/rules/
+!etc/.codex/skills/
+# Codex が起動時に自動配布する組み込み skill は共有不要
+etc/.codex/skills/.system/
+
+# skill 配下の自動生成物・重複物は除外
+etc/.claude/skills/**/__pycache__/
+etc/.codex/skills/**/__pycache__/
+etc/.claude/skills/*.zip
+etc/.codex/skills/*.zip

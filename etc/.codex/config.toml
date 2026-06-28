@@ -1,0 +1,74 @@
+# ============================================================================
+# Codex CLI — Comprehensive Configuration Template
+# Generated: 2025-08-27
+#  ~/.codex/config.toml (aka $CODEX_HOME/config.toml)
+# ============================================================================
+
+model = "gpt-5.5"                                # default model
+approval_policy = "on-request"                  # "untrusted" | "on-failure" | "on-request" | "never"
+sandbox_mode = "workspace-write"                      # "read-only" | "workspace-write" | "danger-full-access"
+file_opener = "cursor"                          # "vscode" | "vscode-insiders" | "windsurf" | "cursor" | "none"
+model_reasoning_effort = "high"               # "minimal" | "low" | "medium" | "high" | "none"
+
+notify = ["/bin/sh", "-c", "ffplay -nodisp -autoexit -hide_banner -loglevel error -nostats -af 'volume=5dB' /System/Library/Sounds/Ping.aiff"]
+
+[features]
+multi_agent = true
+
+[history]
+persistence = "save-all"          # "save-all" | "none"
+
+[sandbox_workspace_write]
+writable_roots = ["/Users/takuma/projects/casy-hub/.agent"]
+
+[projects."/Users/takuma/projects/claude-code-config"]
+trust_level = "trusted"
+
+[projects."/Users/takuma/projects"]
+trust_level = "trusted"
+
+[projects."/Users/takuma/.codex"]
+trust_level = "trusted"
+
+[projects."/Users/takuma/projects/casy-repo"]
+trust_level = "trusted"
+
+[projects."/Users/takuma/projects/claude-code-concierge"]
+trust_level = "trusted"
+
+[projects."/Users/takuma/projects/casy-hub"]
+trust_level = "trusted"
+
+[tui.model_availability_nux]
+"gpt-5.5" = 4
+
+[hooks.state]
+
+[hooks.state."/Users/takuma/.codex/hooks.json:session_start:0:0"]
+trusted_hash = "sha256:bc5bbb986a9e32fd2126d2407f3579307397ae8d563843050db4781cb1b02fe7"
+
+[hooks.state."/Users/takuma/.codex/hooks.json:stop:0:0"]
+trusted_hash = "sha256:a340fa4f2615c6c53cadbddcbb7f9c6d0c7a2914453786b00949673eef693121"
+
+[hooks.state."/Users/takuma/.codex/hooks.json:user_prompt_submit:0:0"]
+trusted_hash = "sha256:21cdb1b8edafc203968c55b11c528bd240db8acddbc5b5346f042863925a18e0"
+
+[marketplaces.casy-tools-codex]
+last_updated = "2026-06-26T14:14:18Z"
+source_type = "local"
+source = "/Users/takuma/projects/claude-code-config/claude"
+
+[plugins."casy-workflow@casy-tools-codex"]
+enabled = true
+
+[plugins."casy-docker@casy-tools-codex"]
+enabled = true
+
+[plugins."casy-utils@casy-tools-codex"]
+enabled = true
+
+[plugins."casy-domain@casy-tools-codex"]
+enabled = true
+
+[plugins."cck@casy-tools-codex"]
+enabled = true

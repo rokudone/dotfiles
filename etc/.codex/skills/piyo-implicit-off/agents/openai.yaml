@@ -1,0 +1,6 @@
+interface:
+  display_name: "Piyo Implicit Off"
+  short_description: "Discovery test with implicit invocation disabled"
+  default_prompt: "Use $piyo-implicit-off for the discovery test."
+policy:
+  allow_implicit_invocation: false
