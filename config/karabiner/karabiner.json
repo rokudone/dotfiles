@@ -1348,24 +1348,6 @@
                                 "type": "basic"
                             }
                         ]
-                    },
-                    {
-                        "description": "[util] disable cmd + shift + q",
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "q",
-                                    "modifiers": { "mandatory": ["command", "shift"] }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "q",
-                                        "modifiers": { "mandatory": ["command", "shift"] }
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
                     }
                 ]
             },

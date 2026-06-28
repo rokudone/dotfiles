@@ -1,0 +1,3 @@
+WRN 2026-05-09T21:40:35.752 ?.13263    server_start:164: Failed to start server: operation not permitted: /var/folders/zj/70mvpqtd3kd57zy2zq8t7rmm0000gn/T/nvim.filriya/umKVhN/nvim.13263.0
+WRN 2026-05-09T21:40:40.779 ?.13421    server_start:164: Failed to start server: operation not permitted: /var/folders/zj/70mvpqtd3kd57zy2zq8t7rmm0000gn/T/nvim.filriya/RlEZqH/nvim.13421.0
+WRN 2026-05-09T21:47:22.035 ?.18663    server_start:164: Failed to start server: operation not permitted: /var/folders/zj/70mvpqtd3kd57zy2zq8t7rmm0000gn/T/nvim.filriya/1pjLo9/nvim.18663.0

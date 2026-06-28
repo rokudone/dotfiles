@@ -14,8 +14,8 @@ SUMMARY.md
 .wt
 
 # agent
-.agent
-.agent/*
+# .agent
+# .agent/*
 
 # claude
 /.claude/

@@ -199,35 +199,6 @@ local function setup_commands()
   end, { desc = 'Organize imports with LSP' })
 end
 
-local function adapt_root_dir(config)
-  local root_dir = config.root_dir
-  if type(root_dir) ~= 'function' then
-    return
-  end
-
-  local info = debug.getinfo(root_dir, 'u')
-  if info and not info.isvararg and info.nparams and info.nparams >= 2 then
-    return
-  end
-
-  config.root_dir = function(arg1, arg2, ...)
-    if type(arg2) == 'function' then
-      local bufnr = arg1
-      local on_dir = arg2
-      local fname = vim.api.nvim_buf_get_name(bufnr)
-      local ok, dir = pcall(root_dir, fname)
-      if not ok then
-        error(dir)
-      end
-      if dir and dir ~= '' then
-        on_dir(dir)
-      end
-    else
-      return root_dir(arg1, arg2, ...)
-    end
-  end
-end
-
 local function setup_lsp()
   local ok_mason, mason = pcall(require, 'mason')
   if ok_mason and type(mason.setup) == 'function' then
@@ -277,7 +248,7 @@ local function setup_lsp()
     capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
   end
 
-local server_settings = {
+  local server_settings = {
     lua_ls = {
       settings = {
         Lua = {
@@ -328,17 +299,8 @@ local server_settings = {
       opts = vim.tbl_deep_extend('force', opts, server_settings[server])
     end
 
-    local ok_config_module, config_module = pcall(require, 'lspconfig.configs.' .. server)
-    if not ok_config_module or not config_module then
-      vim.notify(string.format('LSP server %s is not available', server), vim.log.levels.WARN)
-    else
-      local default_config = config_module.default_config or {}
-      local merged = vim.tbl_deep_extend('force', default_config, opts)
-      adapt_root_dir(merged)
-
-      vim.lsp.config(server, merged)
-      vim.lsp.enable(server)
-    end
+    vim.lsp.config(server, opts)
+    vim.lsp.enable(server)
   end
 end
 
