@@ -1,0 +1,4 @@
+interface:
+  display_name: "CodexでMarkdownを開く"
+  short_description: "CodexからMarkdownをmacOSのopenで開く。"
+  default_prompt: "Markdownファイルを開いてください。"

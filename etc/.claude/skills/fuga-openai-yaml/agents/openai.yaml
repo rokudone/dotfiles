@@ -1,0 +1,4 @@
+interface:
+  display_name: "Fuga OpenAI YAML"
+  short_description: "Discovery test with skill-level openai.yaml"
+  default_prompt: "Use $fuga-openai-yaml for the discovery test."
