@@ -17,8 +17,6 @@
     "allow": [
       "Read(**)",
       "Edit(**)",
-      "Write(**)",
-      "Glob(**)",
       "Grep(**)",
       "Notebookedit(*)",
       "Webfetch(*)",
@@ -239,55 +237,38 @@
       "Bash(git -C:*)",
       "Read(**/.env)",
       "Edit(**/.env)",
-      "Write(**/.env)",
       "Read(**/config/settings.yml)",
       "Edit(**/config/settings.yml)",
-      "Write(**/config/settings.yml)",
       "Read(**/config/secrets.yml)",
       "Edit(**/config/secrets.yml)",
-      "Write(**/config/secrets.yml)",
       "Read(**/config/credentials.yml.enc)",
       "Edit(**/config/credentials.yml.enc)",
-      "Write(**/config/credentials.yml.enc)",
       "Read(**/.aws/**)",
       "Edit(**/.aws/**)",
-      "Write(**/.aws/**)",
       "Read(**/.ssh/**)",
       "Edit(**/.ssh/**)",
-      "Write(**/.ssh/**)",
       "Read(**/.gnupg/**)",
       "Edit(**/.gnupg/**)",
-      "Write(**/.gnupg/**)",
       "Read(**/private/**)",
       "Edit(**/private/**)",
-      "Write(**/private/**)",
       "Read(**/secrets/**)",
       "Edit(**/secrets/**)",
-      "Write(**/secrets/**)",
       "Read(**/*.pem)",
       "Edit(**/*.pem)",
-      "Write(**/*.pem)",
       "Read(**/*.key)",
       "Edit(**/*.key)",
-      "Write(**/*.key)",
       "Read(**/*.p12)",
       "Edit(**/*.p12)",
-      "Write(**/*.p12)",
       "Read(**/*.pfx)",
       "Edit(**/*.pfx)",
-      "Write(**/*.pfx)",
       "Read(**/*.jks)",
       "Edit(**/*.jks)",
-      "Write(**/*.jks)",
       "Read(**/*.keystore)",
       "Edit(**/*.keystore)",
-      "Write(**/*.keystore)",
       "Read(**/*.asc)",
       "Edit(**/*.asc)",
-      "Write(**/*.asc)",
       "Read(**/*.gpg)",
       "Edit(**/*.gpg)",
-      "Write(**/*.gpg)",
       "Bash(set)",
       "Bash(docker-compose config)",
       "Bash(echo *key*)",
@@ -408,69 +389,17 @@
       "~/projects/casy-hub-worktrees/"
     ]
   },
-  "model": "opus[1m]",
+  "model": "fable",
   "hooks": {
-    "UserPromptSubmit": [
+    "PreToolUse": [
       {
+        "matcher": "Bash",
         "hooks": [
           {
             "type": "command",
-            "command": "[ -n \"$SUPERSET_HOME_DIR\" ] && [ -x \"$SUPERSET_HOME_DIR/hooks/notify.sh\" ] && \"$SUPERSET_HOME_DIR/hooks/notify.sh\" || true"
-          },
-          {
-            "type": "command",
-            "command": "echo 'IMPORTANT: ツール呼び出し（antml:invoke）の前に宣言テキストを書くな。本文を簡潔に終え、すぐ呼び出しブロックを出せ。同じコマンドを2回以上本文に書きそうになったら即やめろ。'"
-          }
-        ]
-      }
-    ],
-    "Stop": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "[ -n \"$SUPERSET_HOME_DIR\" ] && [ -x \"$SUPERSET_HOME_DIR/hooks/notify.sh\" ] && \"$SUPERSET_HOME_DIR/hooks/notify.sh\" || true"
-          }
-        ]
-      },
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "cat | python3 \"$HOME/.claude/tools/detect_malformed_toolcalls.py\""
-          }
-        ]
-      }
-    ],
-    "PostToolUse": [
-      {
-        "matcher": "*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "[ -n \"$SUPERSET_HOME_DIR\" ] && [ -x \"$SUPERSET_HOME_DIR/hooks/notify.sh\" ] && \"$SUPERSET_HOME_DIR/hooks/notify.sh\" || true"
-          }
-        ]
-      }
-    ],
-    "PostToolUseFailure": [
-      {
-        "matcher": "*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "[ -n \"$SUPERSET_HOME_DIR\" ] && [ -x \"$SUPERSET_HOME_DIR/hooks/notify.sh\" ] && \"$SUPERSET_HOME_DIR/hooks/notify.sh\" || true"
-          }
-        ]
-      }
-    ],
-    "PermissionRequest": [
-      {
-        "matcher": "*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "[ -n \"$SUPERSET_HOME_DIR\" ] && [ -x \"$SUPERSET_HOME_DIR/hooks/notify.sh\" ] && \"$SUPERSET_HOME_DIR/hooks/notify.sh\" || true"
+            "command": "jq -n --arg ctx \"$(printf 'CPU load (1/5/15m):%s\\n' \"$(sysctl -n vm.loadavg | tr -d '{}')\"; ps -Ao %cpu,comm -r | awk 'NR>1 && $1>3.0 {printf \"  %5s%%  %s\\n\",$1,$2} NR>8{exit}')\" '{hookSpecificOutput:{hookEventName:\"PreToolUse\",additionalContext:(\"[bench pre-check] \" + $ctx)}}'",
+            "if": "Bash(*madara bench*)",
+            "statusMessage": "Checking CPU load before bench"
           }
         ]
       }
@@ -478,7 +407,7 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "~/.claude/bin/casy/cck-statusline"
+    "command": "bash ~/.claude/statusline.sh"
   },
   "enabledPlugins": {
     "ruby-lsp@claude-plugins-official": true,
@@ -501,7 +430,7 @@
     "autoAllowBashIfSandboxed": false
   },
   "alwaysThinkingEnabled": false,
-  "effortLevel": "xhigh",
+  "effortLevel": "medium",
   "promptSuggestionEnabled": false,
   "tui": "fullscreen",
   "autoDreamEnabled": true,
