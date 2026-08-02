@@ -1,6 +1,6 @@
 ---
 name: avoid-bash
-description: 読まずに作業を開始してはならない。必読。Bashを避け備え付けツール（Read, Edit, Write, Grep, Glob等）を使う。コードを書く・ファイル操作する際に常に適用する。Claude Code 専用。Codex には関係ない。
+description: 読まずに作業を開始してはならない。必読。Bashを避け備え付けツール（Read, Edit, Write 等）を使う。コードを書く・ファイル操作する際に常に適用する。Claude Code 専用。Codex には関係ない。
 user-invocable: false
 ---
 
@@ -9,7 +9,7 @@ user-invocable: false
 ## 理由
 
 Bash サンドボックスはディレクトリごとの書き込み権限を独自管理しており、プロジェクト内であっても未承認ディレクトリへの書き込みで確認ダイアログが発生する。
-備え付けツール（Read, Write, Edit, Glob, Grep）はこの制約を受けないため、権限プロンプトなしで操作できる。
+備え付けツール（Read, Write, Edit）はこの制約を受けないため、権限プロンプトなしで操作できる。
 
 **備え付けツールで代替できる操作には Bash を使わず、備え付けツールを使う。**
 
@@ -20,8 +20,6 @@ Bash サンドボックスはディレクトリごとの書き込み権限を独
 | ファイル読み取り | Read | `cat`, `head`, `tail`, `less`, `more`, `bat` |
 | ファイル作成 | Write | `echo "..." > file`, `cat <<EOF > file`, `printf > file`, `tee` |
 | ファイル編集 | Edit | `sed -i`, `awk`, `perl -i -pe` |
-| ファイル名検索 | Glob | `find`, `ls`, `tree` |
-| コンテンツ検索 | Grep | `grep`, `rg` |
 | ディレクトリ作成 | Write（親ディレクトリ自動作成） | `mkdir -p` |
 | ファイルコピー | Read → Write | `cp` |
 | 空ファイル作成 | Write（空文字列） | `touch` |
@@ -29,24 +27,23 @@ Bash サンドボックスはディレクトリごとの書き込み権限を独
 ## スキル情報の取得
 
 <IMPORTANT>
-テスト・linter・デプロイ等のコマンドやスクリプトのパスを知りたいときは、system-reminder に表示される skill 一覧の description を読み、該当する skill 名を特定して `Skill` ツールで呼ぶ。SKILL.md 内の `${CLAUDE_SKILL_DIR}` は Skill ツール経由でのみ絶対パスに解決される。Glob/Grep/find で SKILL.md やスクリプトファイルを検索しても正しいパスは得られない。
+テスト・linter・デプロイ等のコマンドやスクリプトのパスを知りたいときは、system-reminder に表示される skill 一覧の description を読み、該当する skill 名を特定して `Skill` ツールで呼ぶ。SKILL.md 内の `${CLAUDE_SKILL_DIR}` は Skill ツール経由でのみ絶対パスに解決される。find/grep で SKILL.md やスクリプトファイルを検索しても正しいパスは得られない。
 
 SKILL.md を Read ツールで直接読むことも禁止する。スキルの内容が必要なときは必ず `Skill` ツールで呼び出すこと。例外はスキルファイル自体を更新するとき（SKILL.md を編集する作業）のみで、その場合は Read → Edit/Write してよい。
 </IMPORTANT>
 
 ```
 # NG — SKILL.md やスクリプトを検索して探す
-Glob("**/SKILL.md", path="plugins/")
-Grep("test", path="plugins/", glob="SKILL.md")
-Glob("**/deploy.sh")
+Bash("find . -name 'SKILL.md'")
 Bash("find . -name 'deploy.sh'")
+Bash("grep -rn 'deploy' --include='SKILL.md' .")
 
 # NG — SKILL.md を直接 Read する（スキル更新作業を除く）
 Read("plugins/casy-domain/skills/casy-test/SKILL.md")
 
 # OK — system-reminder の skill 一覧から正確な名前で呼ぶ
 Skill("casy-test")
-Skill("casy-deploy")
+Skill("docker-deploy")
 ```
 
 ## 具体例
@@ -89,30 +86,6 @@ Bash("sed -i 's/oldFunc/newFunc/g' src/app.ts")
 Edit("src/app.ts", old="oldFunc", new="newFunc", replace_all=true)
 ```
 
-### find / ls → Glob
-
-```
-# NG
-Bash("find . -name '*.ts'")
-Bash("find src -type f -name '*.spec.ts'")
-
-# OK
-Glob("**/*.ts")
-Glob("src/**/*.spec.ts")
-```
-
-### grep / rg → Grep
-
-```
-# NG
-Bash("grep -rn 'TODO' src/")
-Bash("rg -l 'handleSubmit' --type ts")
-
-# OK
-Grep("TODO", path="src/", output_mode="content")
-Grep("handleSubmit", type="ts", output_mode="files_with_matches")
-```
-
 ### mkdir -p → Write
 
 Write ツールはファイル作成時に親ディレクトリを自動生成する。ディレクトリだけ作りたい場合もファイルを書き込めばよい。
@@ -150,6 +123,7 @@ Write("src/new-file.ts", "")
 以下に限定する:
 
 - git, npm, docker, bundle, rails 等のシステムコマンド
+- find, grep 等の検索コマンド
 - diff, wc 等の集計・比較コマンド
 - rm, mv 等の備え付けツールで代替できない操作
 - パイプラインやシェル制御が本質的に必要な処理

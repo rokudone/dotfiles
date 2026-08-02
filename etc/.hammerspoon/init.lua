@@ -72,7 +72,7 @@ bindAppHotkey({"ctrl", "shift"}, "space", {
 -- Alt + キーのアプリケーションバインド
 -- bindAltKey('q', '')t
 -- bindAltKey('w', '')
-bindAltKey('e', 'Microsoft Edge')
+-- bindAltKey('e', 'Microsoft Edge')
 -- bindAltKey('r', '')
 bindAltKey('t', 'TablePlus')
 -- bindAltKey('y', '')
@@ -81,9 +81,9 @@ bindAltKey('t', 'TablePlus')
 bindAltKey('o', 'Obsidian')
 -- bindAltKey('p', '')
 
-bindAltKey('a', 'ChatGPT Atlas')
+bindAltKey('a', 'Orion')
 bindAltKey('s', 'Slack')
--- bindAltKey('d', '')
+bindAltKey('d', 'Dia')
 bindAltKey('f', 'Finder')
 -- bindAltKey('g', '')
 -- bindAltKey('h', '')
@@ -91,13 +91,13 @@ bindAltKey('f', 'Finder')
 -- bindAltKey('k', '')
 -- bindAltKey('l', '')
 
-bindAltKey('z', 'zoom.us')
+-- bindAltKey('z', 'zoom.us')
 -- bindAltKey('x', 'Xcode')
-bindAltKey('c', 'Google Chrome')
+-- bindAltKey('c', 'Google Chrome')
 -- bindAltKey('v', '')
--- bindAltKey('b', 'Firefox')
+bindAltKey('b', 'Helium')
 -- bindAltKey('n', '')
--- bindAltKey('m', 'YouTube Music')
+bindAltKey('m', 'Google Meet')
 
 local function collectAppWindows(app)
   if app == nil then

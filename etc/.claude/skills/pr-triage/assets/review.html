@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>旧staffアプリ変更PR 判定</title>
+<style>
+  :root {
+    --bg: #ffffff; --fg: #1a1a1a; --muted: #666; --border: #e0e0e0;
+    --card: #fafafa; --accent: #0969da; --keep: #1a7f37; --drop: #cf222e; --hold: #9a6700;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#0d1117; --fg:#e6edf3; --muted:#8b949e; --border:#30363d;
+            --card:#161b22; --accent:#58a6ff; --keep:#3fb950; --drop:#f85149; --hold:#d29922; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;
+         background:var(--bg); color:var(--fg); line-height:1.6; }
+  header { position:sticky; top:0; background:var(--bg); border-bottom:1px solid var(--border);
+           padding:10px 16px; z-index:10; }
+  .bar { display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+  .progress { flex:1; min-width:200px; height:8px; background:var(--border); border-radius:4px; overflow:hidden; }
+  .progress > i { display:block; height:100%; background:var(--accent); transition:width .2s; }
+  .counts { font-size:13px; color:var(--muted); font-variant-numeric:tabular-nums; }
+  .counts b { color:var(--fg); }
+  button { font:inherit; padding:5px 12px; border:1px solid var(--border); border-radius:6px;
+           background:var(--card); color:var(--fg); cursor:pointer; }
+  button:hover { border-color:var(--accent); }
+  select { font:inherit; padding:4px 8px; border:1px solid var(--border); border-radius:6px;
+           background:var(--card); color:var(--fg); }
+  main { max-width:1000px; margin:0 auto; padding:16px; }
+  .card { border:1px solid var(--border); border-radius:10px; background:var(--card); padding:16px; }
+  .meta { display:flex; gap:10px; align-items:baseline; flex-wrap:wrap; font-size:13px; color:var(--muted); }
+  .num { font-size:22px; font-weight:700; color:var(--fg); }
+  h1 { font-size:19px; margin:8px 0 12px; line-height:1.45; }
+  .tag { display:inline-block; padding:1px 8px; border-radius:999px; font-size:11px; font-weight:600;
+         border:1px solid var(--border); }
+  .tag.confirmed { background:#0969da22; color:var(--accent); border-color:var(--accent); }
+  .tag.specific { background:#1a7f3722; color:var(--keep); border-color:var(--keep); }
+  .tag.shared { background:#9a670022; color:var(--hold); border-color:var(--hold); }
+  .verdict { font-weight:700; }
+  .verdict.keep { color:var(--keep); } .verdict.drop { color:var(--drop); } .verdict.hold { color:var(--hold); }
+  section { margin-top:16px; }
+  section > h2 { font-size:12px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted);
+                 margin:0 0 6px; font-weight:600; }
+  .files { border:1px solid var(--border); border-radius:8px; overflow:hidden; }
+  .files > div { display:flex; gap:10px; padding:4px 10px; font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+                 font-size:12px; border-bottom:1px solid var(--border); align-items:baseline; }
+  .files > div:last-child { border-bottom:none; }
+  .files .dim { opacity:.4; }
+  .files .hit { background:#0969da14; }
+  .files .core { background:#1a7f3714; font-weight:600; }
+  .files .p { flex:1; word-break:break-all; }
+  .files .n { color:var(--muted); white-space:nowrap; }
+  textarea.body { width:100%; border:1px solid var(--border); border-radius:8px; padding:10px 12px;
+          font:inherit; font-size:13px; background:var(--bg); color:var(--fg); resize:vertical; }
+  .diff { border:1px solid var(--border); border-radius:8px; overflow:hidden; margin-bottom:10px; }
+  .diff > .h { padding:5px 10px; background:var(--bg); border-bottom:1px solid var(--border);
+               font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:12px;
+               display:flex; gap:10px; align-items:baseline; }
+  .diff > .h .p { flex:1; word-break:break-all; font-weight:600; }
+  .diff > .h .n { color:var(--muted); white-space:nowrap; }
+  .diff pre { margin:0; padding:0; overflow-x:auto; font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+              font-size:12px; line-height:1.45; }
+  .diff pre i { display:block; padding:0 10px; white-space:pre; font-style:normal; }
+  .diff .add { background:#1a7f3722; }
+  .diff .del { background:#cf222e22; }
+  .diff .hunk { background:#0969da1a; color:var(--muted); }
+  .trunc { padding:4px 10px; font-size:11px; color:var(--hold); border-top:1px solid var(--border); }
+  .loading { color:var(--muted); font-size:13px; }
+  .keys { display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-top:8px; }
+  .keys button { padding:6px 16px; font-weight:600; }
+  .keys .cur { margin-left:auto; font-size:13px; color:var(--muted);
+               font-variant-numeric:tabular-nums; }
+  .keys .cur .pos { opacity:.7; }
+  .keys .k1 { border-color:var(--keep); color:var(--keep); }
+  .keys .k2 { border-color:var(--drop); color:var(--drop); }
+  .keys .k3 { border-color:var(--hold); color:var(--hold); }
+  .hint { font-size:12px; color:var(--muted); margin-top:10px; }
+  a { color:var(--accent); }
+  .done { text-align:center; padding:48px 16px; }
+</style>
+</head>
+<body>
+<header>
+  <div class="bar">
+    <select id="filter">
+      <option value="shared">shared (共用のみ・要判断)</option>
+      <option value="specific">specific (対象機能に固有)</option>
+      <option value="confirmed">confirmed (本体を直接変更)</option>
+      <option value="undecided">未判定のみ (全グループ)</option>
+      <option value="all">すべて</option>
+    </select>
+    <div class="progress"><i id="bar"></i></div>
+    <div class="counts" id="counts"></div>
+    <button id="prev">← 前</button>
+    <button id="next">次 →</button>
+    <button id="export">結果を書き出す</button>
+  </div>
+  <div class="keys">
+    <button class="k1" data-v="keep">1: 対象</button>
+    <button class="k2" data-v="drop">2: 対象外</button>
+    <button class="k3" data-v="hold">3: 保留</button>
+    <span class="cur" id="cur"></span>
+  </div>
+</header>
+<main id="main"></main>
+
+<script>
+const LS_KEY = 'casy-staff-pr-verdicts';
+let DATA = [];
+let DIFFS = {};
+let verdicts = JSON.parse(localStorage.getItem(LS_KEY) || '{}');
+let list = [];
+let idx = 0;
+
+const VERDICT_LABEL = { keep: '対象', drop: '対象外', hold: '保留' };
+
+function save() { localStorage.setItem(LS_KEY, JSON.stringify(verdicts)); }
+
+function applyFilter() {
+  const f = document.getElementById('filter').value;
+  if (f === 'all') list = DATA.slice();
+  else if (f === 'undecided') list = DATA.filter(r => !verdicts[r.number]);
+  else list = DATA.filter(r => r.group === f);
+  if (idx >= list.length) idx = Math.max(0, list.length - 1);
+}
+
+function renderCounts() {
+  const scope = list.length;
+  const done = list.filter(r => verdicts[r.number]).length;
+  const k = list.filter(r => verdicts[r.number] === 'keep').length;
+  const d = list.filter(r => verdicts[r.number] === 'drop').length;
+  const h = list.filter(r => verdicts[r.number] === 'hold').length;
+  document.getElementById('bar').style.width = scope ? (done / scope * 100) + '%' : '0';
+  document.getElementById('counts').innerHTML =
+    `<b>${done}</b>/${scope} 判定済 &nbsp; 対象 <b>${k}</b> / 対象外 <b>${d}</b> / 保留 <b>${h}</b>`;
+
+  const r = list[idx];
+  const cur = document.getElementById('cur');
+  if (cur) {
+    const v = r && verdicts[r.number];
+    cur.innerHTML = r
+      ? `#${r.number} <span class="pos">(${idx + 1}/${scope})</span>` +
+        (v ? ` <span class="verdict ${v}">${VERDICT_LABEL[v]}</span>` : '')
+      : '';
+  }
+}
+
+function render() {
+  applyFilter();
+  renderCounts();
+  const main = document.getElementById('main');
+  if (!list.length) { main.innerHTML = '<div class="done">該当するPRがありません。</div>'; return; }
+  const r = list[idx];
+  const v = verdicts[r.number];
+
+  const files = r.files.map(f => {
+    const cls = f.core ? 'core' : (f.kept ? 'hit' : 'dim');
+    return `<div class="${cls}"><span class="p">${esc(f.path)}</span>` +
+           `<span class="n">+${f.add} -${f.del}</span></div>`;
+  }).join('');
+
+  main.innerHTML = `
+    <div class="card">
+      <div class="meta">
+        <span class="num">#${r.number}</span>
+        <span class="tag ${r.group}">${r.group}</span>
+        <span>${esc(r.author)}</span>
+        <span>${r.mergedAt}</span>
+        <span>${r.changedFiles} files &nbsp; +${r.additions} -${r.deletions}</span>
+        <span><a href="${r.url}" target="_blank" rel="noopener">GitHub ↗</a></span>
+        ${(r.jira || []).map(j =>
+          `<span><a href="${j.url}" target="_blank" rel="noopener">${esc(j.key)} ↗</a></span>`).join('')}
+        ${v ? `<span class="verdict ${v}">判定: ${VERDICT_LABEL[v]}</span>` : ''}
+      </div>
+      <h1>${esc(r.title)}</h1>
+      <div class="meta"><span>base: ${esc(r.base)}</span><span>head: ${esc(r.head)}</span></div>
+
+      <section>
+        <h2>PR本文</h2>
+        <textarea class="body" rows="30" readonly>${esc(r.body)}</textarea>
+      </section>
+
+      <section>
+        <h2>変更ファイル（青=判定対象として残った / 緑=対象機能の本体 / 薄字=除外済み）</h2>
+        <div class="files">${files}</div>
+      </section>
+
+      <section>
+        <h2>差分（判定対象ファイルのみ）</h2>
+        <div id="diffs"><span class="loading">読み込み中…</span></div>
+      </section>
+
+      <div class="hint">キー: 1=対象 / 2=対象外 / 3=保留 / ←→=移動 / Enter=次の未判定へ</div>
+    </div>`;
+
+  renderDiffs(r.number);
+}
+
+function renderDiffs(number) {
+  const el = document.getElementById('diffs');
+  if (!el) return;
+  const files = DIFFS[String(number)];
+  if (!files) {
+    el.innerHTML = '<span class="loading">この PR の差分は未取得です（fetch_diffs.py を実行してください）。</span>';
+    return;
+  }
+  if (!files.length) {
+    el.innerHTML = '<span class="loading">判定対象ファイルの差分がありません。</span>';
+    return;
+  }
+  el.innerHTML = files.map(f => `<div class="diff">
+      <div class="h"><span class="p">${esc(f.path)}</span>
+        <span class="n">${f.status} +${f.add} -${f.del}</span></div>
+      <pre>${highlight(f.patch || '')}</pre>
+      ${f.truncated ? '<div class="trunc">※ 差分が大きいため以降を省略しています。GitHub で全体を確認してください。</div>' : ''}
+    </div>`).join('');
+}
+
+// patch 全体を一度だけエスケープし、行頭記号で色を付ける。
+// 1行ごとに esc() を呼ぶと数千行の diff で目に見えて遅くなる。
+function highlight(patch) {
+  return esc(patch).split('\n').map(l => {
+    const c = l.charCodeAt(0);
+    if (c === 64 && l.charCodeAt(1) === 64) return '<i class="hunk">' + l + '</i>';
+    if (c === 43) return '<i class="add">' + l + '</i>';
+    if (c === 45) return '<i class="del">' + l + '</i>';
+    return '<i>' + (l || ' ') + '</i>';
+  }).join('');
+}
+
+function esc(s) {
+  return String(s == null ? '' : s).replace(/[&<>"]/g,
+    c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c]));
+}
+
+function decide(v) {
+  const r = list[idx];
+  if (!r) return;
+  verdicts[r.number] = v;
+  save();
+  if (idx < list.length - 1) idx++;
+  render();
+}
+
+function nextUndecided() {
+  for (let i = idx + 1; i < list.length; i++) {
+    if (!verdicts[list[i].number]) { idx = i; render(); return; }
+  }
+  for (let i = 0; i < list.length; i++) {
+    if (!verdicts[list[i].number]) { idx = i; render(); return; }
+  }
+}
+
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'SELECT') return;
+  if (e.key === '1') decide('keep');
+  else if (e.key === '2') decide('drop');
+  else if (e.key === '3') decide('hold');
+  else if (e.key === 'ArrowLeft') { if (idx > 0) { idx--; render(); } }
+  else if (e.key === 'ArrowRight') { if (idx < list.length - 1) { idx++; render(); } }
+  else if (e.key === 'Enter') nextUndecided();
+});
+
+document.querySelectorAll('header [data-v]').forEach(b =>
+  b.addEventListener('click', () => decide(b.dataset.v)));
+
+document.getElementById('prev').onclick = () => { if (idx > 0) { idx--; render(); } };
+document.getElementById('next').onclick = () => { if (idx < list.length - 1) { idx++; render(); } };
+document.getElementById('filter').onchange = () => { idx = 0; render(); };
+
+document.getElementById('export').onclick = () => {
+  const header = ['verdict','group','number','title','author','mergedAt','base','changedFiles','additions','deletions','url'];
+  const csv = [header.join(',')].concat(DATA.map(r => [
+    verdicts[r.number] || '', r.group, r.number,
+    '"' + String(r.title).replace(/"/g, '""') + '"',
+    r.author, r.mergedAt, r.base, r.changedFiles, r.additions, r.deletions, r.url
+  ].join(','))).join('\n');
+  const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'staff_pr_verdicts.csv';
+  a.click();
+};
+
+fetch('diffs.json')
+  .then(r => r.ok ? r.json() : {})
+  .then(d => { DIFFS = d; if (DATA.length) render(); })
+  .catch(() => {});
+
+fetch('review_data.json')
+  .then(r => r.json())
+  .then(d => { DATA = d; render(); })
+  .catch(() => {
+    document.getElementById('main').innerHTML =
+      '<div class="done">review_data.json を読み込めませんでした。<br>' +
+      'このディレクトリで <code>python3 -m http.server 8765</code> を実行し、' +
+      '<a href="http://localhost:8765/review.html">http://localhost:8765/review.html</a> を開いてください。</div>';
+  });
+</script>
+</body>
+</html>

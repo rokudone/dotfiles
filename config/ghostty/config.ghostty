@@ -7,7 +7,7 @@ auto-update-channel = tip
 font-family = "S2GUniFont Nerd Font"
 adjust-cell-height = 12
 adjust-cell-width = -1
-font-size = 16
+font-size = 18
 font-thicken = true
 font-feature = -dlig
 

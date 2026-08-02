@@ -36,3 +36,5 @@ stagewise.json
 
 .playwright-mcp
 .playwright-cli
+
+**/.claude/settings.local.json

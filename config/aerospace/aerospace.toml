@@ -68,15 +68,35 @@ run = 'layout floating'
 # Google Chromeをワークスペース1に固定
 [[on-window-detected]]
 if.app-id = 'com.google.Chrome'
-run = 'move-node-to-workspace 4'
+run = 'move-node-to-workspace 3'
 
 [[on-window-detected]]
 if.app-id = 'org.mozilla.firefox'
+run = 'move-node-to-workspace 3'
+
+# cmuxをワークスペース2に固定
+[[on-window-detected]]
+if.app-id = 'com.cmuxterm.app'
+run = 'move-node-to-workspace 2'
+
+# Notion Calendarをワークスペース3に固定
+[[on-window-detected]]
+if.app-id = 'com.cron.electron'
+run = 'move-node-to-workspace 4'
+
+# YouTube Music（Edge PWA）をワークスペース3に固定
+[[on-window-detected]]
+if.app-id = 'com.microsoft.edgemac.app.cinhimbnkkaeohfgghhklpknlkffjgod'
 run = 'move-node-to-workspace 4'
 
 # Finderをフローティングにして管理対象から外す
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'
+run = 'layout floating'
+
+# Previewをフローティングにして管理対象から外す
+[[on-window-detected]]
+if.app-id = 'com.apple.Preview'
 run = 'layout floating'
 
 # 'main' binding mode declaration

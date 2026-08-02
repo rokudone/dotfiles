@@ -576,7 +576,7 @@ zinit light-mode for \
 
 # alias c="codex"
 # alias cr="codex resume"
-alias cc="claude"
+alias cc="claude --model opus"
 alias ccr="claude --resume"
 alias yolo="claude --dangerously-skip-permissions"
 alias co="codex"
@@ -586,8 +586,8 @@ alias serena="claude mcp add serena -- uvx --from git+https://github.com/oraios/
 alias agent="find .agent -name '*.md' | sort | fzf --height 70% --preview 'bat --language=markdown --style=plain --color=always --theme=OneHalfDark {}' --preview-window=right:50%:wrap | pbcopy"
 alias dft="command difit --include-untracked HEAD"
 
-path=($HOME/projects/claude-code-config/claude/bin $path)
-path=($HOME/Documents/casy-proj/claude-code-kit/claude/bin $path)
+export PATH="$HOME/projects/claude-code-config/claude/bin:$PATH"
+export PATH="$HOME/Documents/casy-proj/claude-code-kit/claude/bin:$PATH"
 
 ### End of Zinit's installer chunk
 
@@ -618,10 +618,10 @@ zinit light-mode for \
     zdharma-continuum/zinit-annex-rust
 
 ### End of Zinit's installer chunk
+export GOOGLE_WORKSPACEW_CLI_CREDENTIALS_FILE=~/.config/gws/client_secret_406954908422-lhdu5imavlhj30m0cbfviu3l9fe7k2mi.apps.googleusercontent.com.json
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/takuma/projects/casy-hub/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/takuma/projects/casy-hub/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '/Users/takuma/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/takuma/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/Users/takuma/projects/casy-hub/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/takuma/projects/casy-hub/google-cloud-sdk/completion.zsh.inc'; fi
-export GOOGLE_WORKSPACEW_CLI_CREDENTIALS_FILE=~/.config/gws/client_secret_406954908422-lhdu5imavlhj30m0cbfviu3l9fe7k2mi.apps.googleusercontent.com.json
+if [ -f '/Users/takuma/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/takuma/google-cloud-sdk/completion.zsh.inc'; fi

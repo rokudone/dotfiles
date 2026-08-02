@@ -3,7 +3,7 @@
     "BASH_DEFAULT_TIMEOUT_MS": "300000",
     "BASH_MAX_TIMEOUT_MS": "1500000",
     "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
-    "CLAUDE_CODE_SUBAGENT_MODEL": "sonnet",
+    "CLAUDE_CODE_SUBAGENT_MODEL": "opus",
     "CASY_AUTO_OPEN_DESIGN": "true",
     "CASY_AUTO_OPEN_REPORT": "true",
     "CASY_AUTO_OPEN_TEST_REPORT": "true",
@@ -11,7 +11,8 @@
     "CASY_OPEN_BROWSER": "Google Chrome",
     "CASY_PLAYWRIGHT_HEADLESS": "0",
     "CASY_DASHBOARD_PATH": "",
-    "PLAYWRIGHT_MCP_HEADLESS": "0"
+    "PLAYWRIGHT_MCP_HEADLESS": "0",
+    "CASY_FLOW_ENGINE": "codex"
   },
   "permissions": {
     "allow": [
@@ -235,6 +236,8 @@
     ],
     "deny": [
       "Bash(git -C:*)",
+      "Bash(git update-ref:*)",
+      "Bash(git symbolic-ref:*)",
       "Read(**/.env)",
       "Edit(**/.env)",
       "Read(**/config/settings.yml)",
@@ -334,7 +337,6 @@
       "Bash(launchctl:*)",
       "Bash(spctl:*)",
       "Bash(security:*)",
-      "Bash(aws:*)",
       "Bash(gcloud:*)",
       "Bash(az:*)",
       "Bash(heroku:*)",
@@ -379,7 +381,10 @@
       "Bash(stack install:*)",
       "Bash(luarocks install:*)"
     ],
-    "defaultMode": "acceptEdits",
+    "ask": [
+      "Bash(aws:*)"
+    ],
+    "defaultMode": "auto",
     "additionalDirectories": [
       "~/.claude",
       "/private/tmp",
@@ -390,6 +395,10 @@
     ]
   },
   "model": "fable",
+  "skillOverrides": {
+    "prompt-review": "off",
+    "todo": "off"
+  },
   "hooks": {
     "PreToolUse": [
       {
@@ -405,13 +414,17 @@
       }
     ]
   },
+  "worktree": {
+    "bgIsolation": "none"
+  },
   "statusLine": {
     "type": "command",
     "command": "bash ~/.claude/statusline.sh"
   },
   "enabledPlugins": {
     "ruby-lsp@claude-plugins-official": true,
-    "casy-workflow@casy-tools": true,
+    "crit@crit": true,
+    "casy-flow@casy-tools": true,
     "casy-docker@casy-tools": true,
     "casy-utils@casy-tools": true,
     "casy-domain@casy-tools": true,
@@ -422,6 +435,12 @@
       "source": {
         "source": "directory",
         "path": "/Users/takuma/projects/claude-code-config/claude"
+      }
+    },
+    "crit": {
+      "source": {
+        "source": "github",
+        "repo": "tomasz-tomczyk/crit"
       }
     }
   },
@@ -435,7 +454,10 @@
   "tui": "fullscreen",
   "autoDreamEnabled": true,
   "skipDangerousModePermissionPrompt": true,
-  "theme": "dark-daltonized",
+  "skipWorkflowUsageWarning": true,
+  "theme": "dark-ansi",
+  "autoCompactEnabled": false,
+  "terminalProgressBarEnabled": true,
   "remoteControlAtStartup": false,
   "context": {
     "autoInclude": true

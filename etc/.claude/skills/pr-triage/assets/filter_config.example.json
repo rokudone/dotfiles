@@ -1,0 +1,104 @@
+{
+  "_comment": "PR絞り込みの除外ルール。案件ごとに書き換える。以下は casy-hub の旧staffアプリ移植検証で使った実例。",
+
+  "_confirm_prefixes": "ここに当たれば「読む対象確定」として除外プロセスの外へ。対象機能の本体ディレクトリを書く。",
+  "confirm_prefixes": [
+    "casy-api/ts/staff/"
+  ],
+
+  "_exclude_prefixes": "前方一致で除外。別プロジェクト・別アプリ・メタファイルから順に足していく。",
+  "exclude_prefixes": [
+    "casy-ruby/",
+    "casy-daemon/",
+    "casy-user/",
+    "casy-api/middleman/",
+    "casy-api/spec/",
+    "casy-api/scripts/",
+    "casy-api/config/",
+    "casy-api/ts/user/",
+    "casy-api/docs/",
+    ".github/",
+    ".agents/",
+    "casy-api/bin/",
+    "casy-api/.",
+    "temp/",
+    "casy-api/app/models/",
+    "casy-api/app/views/top/",
+    "casy-api/app/controllers/top/",
+    "casy-api/app/assets/",
+    "casy-api/db/schema.rb",
+    "casy-api/app/controllers/api/user",
+    "casy-api/app/views/api/user",
+    "casy-api/app/controllers/api/bo",
+    "casy-api/app/controllers/api/users_controller.rb",
+    "casy-api/app/controllers/api/bitkey_users",
+    "casy-api/app/controllers/api/fb_users",
+    "casy-api/app/applications/bo/",
+    "casy-api/app/applications/petition_modify_subscription_application.rb",
+    "casy-api/app/helpers/top_helper.rb",
+    "casy-api/app/controllers/user_application_controller.rb",
+    "casy-api/app/services/hearbit_sso",
+    "casy-api/app/controllers/hearbit_sso",
+    "casy-api/app/services/operations/repayment.rb",
+    "casy-api/app/services/scheduler_offer_service.rb",
+    "casy-api/lib/tasks/auto_matching.rake",
+    "casy-api/lib/utils/capistrano_util.rb",
+    "casy-api/lib/utils/datadog_rake_tracer.rb",
+    "casy-api/ts_test/",
+    "casy-api/Rakefile",
+    "casy-api/package-lock.json"
+  ],
+
+  "_exclude_pr_if_touches": "このパターンを1ファイルでも含むPRは丸ごと除外。移植先の新実装など、混ざっていたらPRごと対象外にすべきものに使う。ファイル行を消す方式では apiv2 以外の数行が残ってPRが生き残ってしまうため、PR単位で落とす。",
+  "exclude_pr_if_touches": [
+    "apiv2"
+  ],
+
+  "_exclude_substrings": "部分一致で除外。名前空間や機能名が階層のあちこちに散る場合に使う。",
+  "exclude_substrings": [
+    "monica",
+    "house_cleaning",
+    "administrative",
+    "stratzone",
+    "employed_staff_schedule_management",
+    "shift_optimization",
+    "multiple_day_multiple_staff_scheduler",
+    "single_day_single_staff_scheduler"
+  ],
+
+  "_specific_patterns": "対象機能に固有のファイルを示す正規表現。当たれば specific グループ（読む対象確定）。当たらなければ shared（要判断）。",
+  "specific_patterns": [
+    "api/staff",
+    "/staff/",
+    "[^/]*staff[^/]*$",
+    "app/validators/staff"
+  ],
+
+  "_body_cut_pattern": "PR本文のうち、この見出し以降を捨てる。PRテンプレートの定型部分を消す用途。",
+  "body_cut_pattern": "^#+\\s*開発者.*$",
+
+  "_jira": "Jira キーの抽出パターンとリンクのベースURL。",
+  "jira_pattern": "\\b([A-Z][A-Z0-9]+-\\d+)\\b",
+  "jira_base": "https://casy-dev.atlassian.net/browse/",
+
+  "_keep_substrings": "exclude より優先して残す。依存調査で「対象から到達する」と確認したファイルを守る。",
+  "keep_substrings": [
+    "administrative_service_restriction"
+  ],
+
+  "_exclude_basenames": "ファイル名一致で除外。ルート直下のメタファイル用。",
+  "exclude_basenames": [
+    "Gemfile",
+    "Gemfile.lock",
+    ".gitignore",
+    "requirements.txt",
+    ".python-version",
+    ".buildspec.yml",
+    ".rubocop_todo.yml"
+  ],
+
+  "_nondev": "個別開発でないPR（統合・リリース束）を母集合から外す条件。",
+  "nondev_head_refs": ["release"],
+  "nondev_titles": ["release to master"],
+  "nondev_title_patterns": ["^定期リリース"]
+}

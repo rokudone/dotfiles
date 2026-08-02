@@ -704,7 +704,7 @@ alias gwX='git rm -rf'
 # git gtr (wt)
 alias gwt='git gtr'
 alias gwtc='git gtr config'
-alias gwtn='git gtr new'
+# alias gwtn='git gtr new'
 alias gwte='git gtr editor'
 alias gwta='git gtr ai'
 alias gwtr='git gtr run'
@@ -717,12 +717,11 @@ gwtg() {
   [ -d "$dir" ] && cd "$dir"
 }
 
-gwtt() {
+gwtn() {
+  git gtr new "$1"
   local dir
   dir=$(git gtr go "$1" | tail -n 1 | tr -d '[:space:]')
-  if [ -d "$dir" ]; then
-    tm -c "$dir" "$(basename "$dir")"
-  fi
+  [ -d "$dir" ] && cd "$dir"
 }
 
 # shorthand
