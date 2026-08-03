@@ -3,12 +3,70 @@
   "schemaVersion" : 1,
   "shortcuts" : {
     "bindings" : {
+      "focusHistoryBack" : {
+        "first" : {
+          "command" : false,
+          "control" : false,
+          "key" : "",
+          "option" : false,
+          "shift" : false
+        }
+      },
+      "focusHistoryForward" : {
+        "first" : {
+          "command" : false,
+          "control" : false,
+          "key" : "",
+          "option" : false,
+          "shift" : false
+        }
+      },
+      "nextSidebarTab" : {
+        "first" : {
+          "command" : false,
+          "control" : true,
+          "key" : "\t",
+          "keyCode" : 48,
+          "option" : false,
+          "shift" : false
+        }
+      },
+      "nextSurface" : {
+        "first" : {
+          "command" : true,
+          "control" : false,
+          "key" : "}",
+          "keyCode" : 30,
+          "option" : false,
+          "shift" : true
+        }
+      },
       "openDiffViewer" : {
         "first" : {
           "command" : true,
           "control" : true,
           "key" : "d",
           "keyCode" : 2,
+          "option" : false,
+          "shift" : true
+        }
+      },
+      "prevSidebarTab" : {
+        "first" : {
+          "command" : false,
+          "control" : true,
+          "key" : "\u0019",
+          "keyCode" : 48,
+          "option" : false,
+          "shift" : true
+        }
+      },
+      "prevSurface" : {
+        "first" : {
+          "command" : true,
+          "control" : false,
+          "key" : "{",
+          "keyCode" : 33,
           "option" : false,
           "shift" : true
         }

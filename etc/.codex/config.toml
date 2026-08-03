@@ -77,9 +77,6 @@ enabled = true
 [plugins."visualize@openai-bundled"]
 enabled = true
 
-[plugins."browser@openai-bundled"]
-enabled = true
-
 [plugins."google-calendar@openai-curated"]
 enabled = true
 
@@ -116,18 +113,21 @@ enabled = true
 [plugins."cck@casy-tools-codex"]
 enabled = true
 
+[plugins."browser@openai-bundled"]
+enabled = true
+
 [marketplaces.casy-tools-codex]
 last_updated = "2026-08-02T06:55:47Z"
 source_type = "local"
 source = "/Users/takuma/projects/claude-code-config/claude"
 
 [marketplaces.openai-bundled]
-last_updated = "2026-07-20T21:09:28Z"
+last_updated = "2026-08-02T14:07:54Z"
 source_type = "local"
 source = "/Users/takuma/projects/dotfiles/etc/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
 [marketplaces.openai-primary-runtime]
-last_updated = "2026-07-20T21:10:00Z"
+last_updated = "2026-08-02T20:05:48Z"
 source_type = "local"
 source = "/Users/takuma/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
 
@@ -165,3 +165,4 @@ NODE_REPL_TRUSTED_CODE_PATHS = "/Users/takuma/.codex"
 [desktop]
 conversationDetailMode = "STEPS_COMMANDS"
 ambient-suggestions-enabled = true
+followUpQueueMode = "queue"
