@@ -696,36 +696,33 @@ alias gwR='git reset'
 alias gwrs='git reset --soft'
 alias gwrm='git reset --mixed'
 alias gwrh='git reset --hard'
-# alias gwc='git clean -n'
-# alias gwC='git clean -f'
+alias gwc='git clean -n'
+alias gwC='git clean -f'
 alias gwx='git rm -r'
 alias gwX='git rm -rf'
 
 # git gtr (wt)
-alias gwt='git gtr'
-alias gwtc='git gtr config'
+alias gt='git gtr'
+alias gtc='git gtr config'
 # alias gwtn='git gtr new'
-alias gwte='git gtr editor'
-alias gwta='git gtr ai'
-alias gwtr='git gtr run'
-alias gwtx='git gtr rm'
-alias gwtl='git gtr list --porcelain'
+alias gte='git gtr editor'
+alias gta='git gtr ai'
+alias gtr='git gtr run'
+alias gtx='git gtr rm'
+alias gtl='git gtr list --porcelain'
 
-gwtg() {
+gtg() {
   local dir
   dir=$(git gtr go "$1" | tail -n 1 | tr -d '[:space:]')
   [ -d "$dir" ] && cd "$dir"
 }
 
-gwtn() {
+gtn() {
   git gtr new "$1"
   local dir
   dir=$(git gtr go "$1" | tail -n 1 | tr -d '[:space:]')
   [ -d "$dir" ] && cd "$dir"
 }
-
-# shorthand
-gtg() { gwtg "$@" }
 
 # 共通: 既存 worktree を perl で list 化
 _gtr_wt_list() {

@@ -247,3 +247,4 @@ prefix_rule(pattern=["rm", "-f", ".playwright-cli/casy-10126-cropped/tmp-user-to
 prefix_rule(pattern=["rm", "-f", ".playwright-cli/casy-10126-cropped/tmp-estimate-loaded.png", ".playwright-cli/casy-10126-cropped/tmp-menu-detail-lower.png", ".playwright-cli/casy-10126-cropped/tmp-menu-detail-lower2.png", ".playwright-cli/casy-10126-cropped/tmp-ready-menu.png"], decision="allow")
 prefix_rule(pattern=["rm", "-rf", "casy-api/app/services/house_cleaning_offer_reschedule_service.rb", "casy-ruby/spec/view_objects"], decision="allow")
 prefix_rule(pattern=["rm", "-rf", "claude/.agents", "claude/plugins/casy-flow/.codex-plugin", "claude/plugins/casy-flow/codex-references", "claude/plugins/casy-flow/codex-skills"], decision="allow")
+prefix_rule(pattern=["rm", "-f", "claude/plugins/casy-flow/scripts/run-durations.sh"], decision="allow")

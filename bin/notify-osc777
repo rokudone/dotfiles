@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# Claude Code の Notification hook 用。
+# stdin に hook イベントの JSON を受け取り、OSC 777 通知シーケンスを
+# terminalSequence フィールドに載せて返す。cmux がこれを受け取って
+# デスクトップ通知にする。
+#
+# hook プロセスは制御端末を持たないため、自前で printf しても端末には
+# 届かない。Claude Code に代理で emit させるのが唯一の経路。
+# 要 Claude Code v2.1.141 以降。
+#
+# cmux の内側で tmux を挟む場合は ~/.tmux.conf に
+# `set -g allow-passthrough on` が必要。
+
+title=${NOTIFY_TITLE:-Claude Code}
+body=$(jq -r '.message // "入力待ち"')
+
+seq=$(printf '\033]777;notify;%s;%s\007' "$title" "$body")
+jq -nc --arg seq "$seq" '{terminalSequence: $seq}'

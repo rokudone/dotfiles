@@ -523,8 +523,8 @@ if [ "$(uname)" == 'Linux' ]; then
 fi
 
 alias al='aws sso login --profile'
-alias alp='aws sso login --profile production'
-alias als='aws sso login --profile staging'
+alias alp='aws sso login --profile monica-production'
+alias als='aws sso login --profile monica-staging'
 
 function ae() {
   local PROFILE=$1
@@ -537,14 +537,14 @@ function ae() {
   aws --profile $PROFILE ecs execute-command --region ap-northeast-1 --cluster DX --container "rails-$SERVICE" --interactive --task $TASK_ARN --command "$COMMAND"
 }
 
-alias aep="ae production"
-alias aepb="ae production batch"
-alias aepa="ae production api"
-alias aepw="ae production worker"
-alias aes="ae staging"
-alias aesb="ae staging batch"
-alias aesa="ae staging api"
-alias aesw="ae staging worker"
+alias aep="ae monica-production"
+alias aepb="ae monica-production batch"
+alias aepa="ae monica-production api"
+alias aepw="ae monica-production worker"
+alias aes="ae monica-staging"
+alias aesb="ae monica-staging batch"
+alias aesa="ae monica-staging api"
+alias aesw="ae monica-staging worker"
 
 # if [ -z $TMUX ]; then
 #   tmux a -t $(basename ~ | perl -pe 's/\\./_/g') || tmux new -s $(basename ~ | perl -pe 's/\\./_/g')
@@ -625,3 +625,4 @@ if [ -f '/Users/takuma/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/takuma/g
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/takuma/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/takuma/google-cloud-sdk/completion.zsh.inc'; fi
+export PATH="/Users/takuma/.local/bin:$PATH"

@@ -1348,6 +1348,19 @@
                                 "type": "basic"
                             }
                         ]
+                    },
+                    {
+                        "description": "[util] caps_lock to f20 for homerow",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "caps_lock",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [{ "key_code": "f20" }],
+                                "type": "basic"
+                            }
+                        ]
                     }
                 ]
             },

@@ -3,6 +3,36 @@
   "schemaVersion" : 1,
   "shortcuts" : {
     "bindings" : {
+      "browserBack" : {
+        "first" : {
+          "command" : true,
+          "control" : false,
+          "key" : "[",
+          "keyCode" : 33,
+          "option" : false,
+          "shift" : false
+        }
+      },
+      "browserForward" : {
+        "first" : {
+          "command" : true,
+          "control" : false,
+          "key" : "]",
+          "keyCode" : 30,
+          "option" : false,
+          "shift" : false
+        }
+      },
+      "focusDown" : {
+        "first" : {
+          "command" : true,
+          "control" : false,
+          "key" : "↓",
+          "keyCode" : 125,
+          "option" : true,
+          "shift" : true
+        }
+      },
       "focusHistoryBack" : {
         "first" : {
           "command" : false,
@@ -21,7 +51,83 @@
           "shift" : false
         }
       },
+      "focusLeft" : {
+        "first" : {
+          "command" : true,
+          "control" : false,
+          "key" : "←",
+          "keyCode" : 123,
+          "option" : true,
+          "shift" : true
+        }
+      },
+      "focusRight" : {
+        "first" : {
+          "command" : true,
+          "control" : false,
+          "key" : "→",
+          "keyCode" : 124,
+          "option" : true,
+          "shift" : true
+        }
+      },
+      "focusUp" : {
+        "first" : {
+          "command" : true,
+          "control" : false,
+          "key" : "↑",
+          "keyCode" : 126,
+          "option" : true,
+          "shift" : true
+        }
+      },
+      "moveSurfaceToPaneDown" : {
+        "first" : {
+          "command" : false,
+          "control" : false,
+          "key" : "",
+          "option" : false,
+          "shift" : false
+        }
+      },
+      "moveSurfaceToPaneLeft" : {
+        "first" : {
+          "command" : false,
+          "control" : false,
+          "key" : "",
+          "option" : false,
+          "shift" : false
+        }
+      },
+      "moveSurfaceToPaneRight" : {
+        "first" : {
+          "command" : false,
+          "control" : false,
+          "key" : "",
+          "option" : false,
+          "shift" : false
+        }
+      },
+      "moveSurfaceToPaneUp" : {
+        "first" : {
+          "command" : false,
+          "control" : false,
+          "key" : "",
+          "option" : false,
+          "shift" : false
+        }
+      },
       "nextSidebarTab" : {
+        "first" : {
+          "command" : true,
+          "control" : false,
+          "key" : "]",
+          "keyCode" : 30,
+          "option" : false,
+          "shift" : true
+        }
+      },
+      "nextSurface" : {
         "first" : {
           "command" : false,
           "control" : true,
@@ -31,42 +137,22 @@
           "shift" : false
         }
       },
-      "nextSurface" : {
+      "prevSidebarTab" : {
         "first" : {
           "command" : true,
           "control" : false,
-          "key" : "}",
-          "keyCode" : 30,
-          "option" : false,
-          "shift" : true
-        }
-      },
-      "openDiffViewer" : {
-        "first" : {
-          "command" : true,
-          "control" : true,
-          "key" : "d",
-          "keyCode" : 2,
-          "option" : false,
-          "shift" : true
-        }
-      },
-      "prevSidebarTab" : {
-        "first" : {
-          "command" : false,
-          "control" : true,
-          "key" : "\u0019",
-          "keyCode" : 48,
+          "key" : "[",
+          "keyCode" : 33,
           "option" : false,
           "shift" : true
         }
       },
       "prevSurface" : {
         "first" : {
-          "command" : true,
-          "control" : false,
-          "key" : "{",
-          "keyCode" : 33,
+          "command" : false,
+          "control" : true,
+          "key" : "\u0019",
+          "keyCode" : 48,
           "option" : false,
           "shift" : true
         }

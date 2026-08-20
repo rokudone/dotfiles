@@ -11,6 +11,9 @@ font-size = 18
 font-thicken = true
 font-feature = -dlig
 
+unfocused-split-opacity = 0.70
+unfocused-split-fill = #404040
+
 # font-family = "MesloLGM Nerd Font Mono"
 # adjust-cell-height = 8
 # adjust-cell-width = -1

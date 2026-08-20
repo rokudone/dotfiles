@@ -121,13 +121,28 @@ alt-right = 'move --boundaries all-monitors-outer-frame right'
 alt-up = 'move --boundaries all-monitors-outer-frame up'
 alt-down = 'move --boundaries all-monitors-outer-frame down'
 
+alt-shift-h = 'move --boundaries all-monitors-outer-frame left'
+alt-shift-l = 'move --boundaries all-monitors-outer-frame right'
+alt-shift-k = 'move --boundaries all-monitors-outer-frame up'
+alt-shift-j = 'move --boundaries all-monitors-outer-frame down'
+
+alt-h = 'focus --ignore-floating --boundaries all-monitors-outer-frame left'
+alt-j = 'focus --ignore-floating --boundaries all-monitors-outer-frame down'
+alt-k = 'focus --ignore-floating --boundaries all-monitors-outer-frame up'
+alt-l = 'focus --ignore-floating --boundaries all-monitors-outer-frame right'
+
+f17 = 'focus --ignore-floating --boundaries all-monitors-outer-frame left'
+f18 = 'focus --ignore-floating --boundaries all-monitors-outer-frame down'
+f19 = 'focus --ignore-floating --boundaries all-monitors-outer-frame up'
+f20 = 'focus --ignore-floating --boundaries all-monitors-outer-frame right'
+
 # =============================================================================
-# 2. ワークスペース移動 - alt-shift-矢印
+# 2. 隣のモニタとワークスペースを入れ替え - alt-shift-矢印
 # =============================================================================
-alt-shift-left = 'move-workspace-to-monitor --wrap-around left'
-alt-shift-right = 'move-workspace-to-monitor --wrap-around right'
-alt-shift-up = 'move-workspace-to-monitor --wrap-around up'
-alt-shift-down = 'move-workspace-to-monitor --wrap-around down'
+alt-shift-left = 'exec-and-forget /bin/bash /Users/takuma/projects/dotfiles/config/aerospace/swap-workspace-with-monitor.sh left'
+alt-shift-right = 'exec-and-forget /bin/bash /Users/takuma/projects/dotfiles/config/aerospace/swap-workspace-with-monitor.sh right'
+alt-shift-up = 'exec-and-forget /bin/bash /Users/takuma/projects/dotfiles/config/aerospace/swap-workspace-with-monitor.sh up'
+alt-shift-down = 'exec-and-forget /bin/bash /Users/takuma/projects/dotfiles/config/aerospace/swap-workspace-with-monitor.sh down'
 
 # =============================================================================
 # 同一モニター内のWS切り替え - alt-backspace

@@ -31,6 +31,23 @@ Started crit daemon at http://localhost:61900 (session a3d919c400a5, PID 34551)
 cmux browser open http://localhost:61900
 ```
 
+## 開き直しの禁止
+
+`cmux browser open` を実行するのは、crit を新しく起動して URL を得たときだけである。既に開いているセッションに対して開き直してはならない。
+
+とくに `crit --session <id>` はレビューの次ラウンドへ進むための再接続であり、ブラウザ操作を伴わない。実行しても `cmux browser open` は不要である。
+
+```
+# NG — 再接続しただけなのに開き直す
+crit --session 6bdc026dc6c0
+cmux browser open http://localhost:64624
+
+# OK — 再接続のみ。ブラウザは開いたままなので何もしない
+crit --session 6bdc026dc6c0
+```
+
+ユーザーから「表示されない」と言われた場合を除き、2 回目以降の `cmux browser open` は行わない。
+
 ## URL を加工することの禁止
 
 出力された URL に対して、パスを足す・セッション ID を埋め込む・形式を推測して組み立てる、のいずれも禁止する。`/r/<session>` のようなパスは crit の出力に現れない限り存在しない。
@@ -53,6 +70,6 @@ URL の形式を自分で調べようとしないこと。curl でのパス探�
 
 ## 注意
 
-1. `--no-open` は理由を問わず外さない。URL を調べる目的であっても外さない。省略して起動してしまった場合、既定ブラウザ側のタブは閉じ、改めて `cmux browser open <url>` で開き直す
+1. `--no-open` は理由を問わず外さない。URL を調べる目的であっても外さない。省略して起動してしまった場合のみ、既定ブラウザ側のタブを閉じ、改めて `cmux browser open <url>` を実行する
 2. crit はサーバーを立てたまま前景に留まるため、バックグラウンド実行にして URL を取得する
 3. `cmux open` ではなく `cmux browser open` を使う。前者はワークスペースのパネルとして開く汎用コマンドで、ブラウザサーフェスを指定できない
