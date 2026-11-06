@@ -6,6 +6,24 @@ user-invocable: false
 
 # Bash を避けるルール
 
+## 前提: Grep / Glob ツールは存在しない
+
+あなたが持つファイル系の備え付けツールは Read, Write, Edit の3つだけである。
+**Grep ツールと Glob ツールは存在しない。** ToolSearch で探しても見つからない。
+
+このスキルが「Bash を避けろ」と言っているのは、あくまで Read / Write / Edit で代替できる操作についてである。
+検索は代替先が無いため、Bash の grep / find を使う。
+
+```
+# NG — 存在しないツールを呼ぼうとする
+Grep(pattern="foo", path="src")
+Glob(pattern="**/*.ts")
+
+# OK — 検索は Bash
+Bash("grep -rn 'foo' src")
+Bash("find src -name '*.ts'")
+```
+
 ## 理由
 
 Bash サンドボックスはディレクトリごとの書き込み権限を独自管理しており、プロジェクト内であっても未承認ディレクトリへの書き込みで確認ダイアログが発生する。
@@ -17,7 +35,7 @@ Bash サンドボックスはディレクトリごとの書き込み権限を独
 
 | 操作 | 使うべきツール | 避けるべき Bash |
 |---|---|---|
-| ファイル読み取り | Read | `cat`, `head`, `tail`, `less`, `more`, `bat` |
+| ファイル読み取り | Read | `cat`, `head`, `tail`, `less`, `more`, `bat` , `grep` |
 | ファイル作成 | Write | `echo "..." > file`, `cat <<EOF > file`, `printf > file`, `tee` |
 | ファイル編集 | Edit | `sed -i`, `awk`, `perl -i -pe` |
 | ディレクトリ作成 | Write（親ディレクトリ自動作成） | `mkdir -p` |
@@ -123,7 +141,7 @@ Write("src/new-file.ts", "")
 以下に限定する:
 
 - git, npm, docker, bundle, rails 等のシステムコマンド
-- find, grep 等の検索コマンド
+- find, grep 等の検索コマンド（Grep / Glob ツールは存在しないため、検索は Bash が唯一の手段）
 - diff, wc 等の集計・比較コマンド
 - rm, mv 等の備え付けツールで代替できない操作
 - パイプラインやシェル制御が本質的に必要な処理

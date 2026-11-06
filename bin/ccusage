@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+#
+# ccusage-what-if.sh
+#
+# deepseek を使った実績を「もし codex-sol を使っていたら」に置き換えて
+# ccusage で試算する。元のログには触れず、一時ディレクトリへ
+# セッションログをコピーした上でモデル名を差し替える。
+#
+# 引数はすべてそのまま ccusage へ渡す。出力も ccusage のまま。
+#
+#   ccusage-what-if.sh codex daily --since 2026-08-01
+#   ccusage-what-if.sh codex monthly --json
+
+FROM_MODEL="accounts/fireworks/models/deepseek-v4-flash-0731"
+TO_MODEL="gpt-5.6-sol"
+
+SRC="${CODEX_HOME:-$HOME/.codex}"
+
+SRC="${CODEX_HOME:-$HOME/.codex}"
+[[ -d "$SRC/sessions" ]] || { echo "sessions not found: $SRC/sessions" >&2; exit 1; }
+
+WORK="$(mktemp -d "${TMPDIR:-/tmp}/ccusage-what-if.XXXXXX")"
+trap 'rm -rf "$WORK"' EXIT
+
+# sessions だけをコピーする。auth.json などの機密ファイルは持ち込まない。
+cp -R "$SRC/sessions" "$WORK/sessions"
+
+# モデル名は JSON 文字列としてそのまま現れるため固定文字列置換で足りる。
+# 区切りに | を使い、モデル ID 中の / をエスケープ不要にする。
+# BSD sed は -i '' が xargs 経由で壊れるため -i.bak を使って後で消す。
+grep -rlZ --fixed-strings "$FROM_MODEL" "$WORK/sessions" \
+  | xargs -0 sed -i.bak "s|${FROM_MODEL}|${TO_MODEL}|g"
+find "$WORK/sessions" -name '*.bak' -delete
+
+CODEX_HOME="$WORK" exec npx -y ccusage@latest "$@"

@@ -97,6 +97,15 @@ ln -fs "$config_dir/karabiner" "$home/.config/"
 ln -fs "$config_dir/kitty" "$home/.config/"
 ln -fs "$config_dir/nvim" "$home/.config/"
 ln -fs "$config_dir/ghostty" "$home/.config/"
+# herdr: config.toml のみ symlink。
+# ~/.config/herdr/ には session.json や *.log / *.sock など実行時状態が同居するため、
+# ディレクトリ全体の symlink はせず、config.toml ファイルに限って張る（リポジトリ汚染回避）。
+mkdir -p "$home/.config/herdr"
+ln -fs "$config_dir/herdr/config.toml" "$home/.config/herdr/config.toml"
+# herdr の自作プラグインは herdr 側の台帳に登録する必要があるため plugin link を使う。
+if command -v herdr >/dev/null 2>&1; then
+  herdr plugin link "$config_dir/herdr/plugins/wsflag" >/dev/null 2>&1 || true
+fi
 ln -fs "$config_dir/vscode/mcp.json" "$home/Library/Application Support/Claude/claude_desktop_config.json"
 ln -fs "$config_dir/vscode/mcp.json" "$home/.cursor/"
 

@@ -1,0 +1,67 @@
+#!/bin/zsh
+# 現在のディレクトリ起点の herdr workspace を用意して herdr に入る。
+# 既に同じディレクトリに居る pane の workspace があれば使い回して rename、無ければ新規作成する。
+# herdr の外から打った場合はサーバー確保→作成/focus→そのまま attach する（tm 相当）。
+# 用法: hh [label]           # 現在地起点（ラベル省略時は basename($PWD)）
+#       hh -c <dir> [label]  # 指定ディレクトリ起点
+local -A opthash
+zparseopts -D -A opthash -- c:
+local dir="${opthash[-c]:-$PWD}"
+local real
+real="$(cd "$dir" && pwd -P)" || { echo "hh: ディレクトリに移動できません: $dir" >&2; exit 1; }
+local label
+if [[ $# -ge 1 && -n "$1" ]]; then
+  label="$1"
+else
+  label="$(basename "$real")"
+  # worktree (<repo>-<branch>) のラベルから repo プレフィックスを除いて短くする
+  local -a repo_prefixes=(casy-hub- casy-user- casy-infra- casy-repo- casy-staff- casy-ruby- claude-code-concierge- claude-code-config-)
+  local pfx
+  for pfx in "${repo_prefixes[@]}"; do
+    if [[ "$label" == "$pfx"* ]]; then
+      label="${label#$pfx}"
+      break
+    fi
+  done
+fi
+
+# herdr 内(pane)から実行されたか（tmux の $TMUX 相当: pane 内では HERDR_PANE_ID が設定される）
+local inside=0
+[[ -n "${HERDR_PANE_ID:-}" ]] && inside=1
+
+# 外からで、かつサーバーが落ちているなら起動
+if [[ $inside -eq 0 ]] && herdr status server 2>/dev/null | grep -q 'not running'; then
+  nohup herdr server >/dev/null 2>&1 &
+  for _ in {1..30}; do
+    herdr status server 2>/dev/null | grep -q 'not running' || break
+    sleep 0.2
+  done
+fi
+
+# 既存判定: pane の live cwd が一致する workspace があれば再利用（session.json は停止時まで古いため使わない）
+local wid
+wid="$(herdr pane list 2>/dev/null | python3 -c '
+import json, sys, os
+real = os.path.realpath(sys.argv[1])
+try:
+    d = json.load(sys.stdin)
+except Exception:
+    sys.exit(0)
+for p in d.get("result", {}).get("panes", []):
+    cwd = p.get("cwd") or p.get("foreground_cwd")
+    if cwd and os.path.realpath(cwd) == real:
+        print(p.get("workspace_id", ""))
+        break
+' "$real")"
+
+if [[ -n "$wid" ]]; then
+  herdr workspace rename "$wid" "$label" >/dev/null 2>&1
+  herdr workspace focus "$wid" >/dev/null 2>&1
+else
+  herdr workspace create --cwd "$real" --label "$label" --focus >/dev/null 2>&1
+fi
+
+# 外からなら、これで herdr の TUI に入る
+if [[ $inside -eq 0 ]]; then
+  herdr
+fi

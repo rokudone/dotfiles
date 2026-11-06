@@ -75,11 +75,6 @@ run = 'layout floating'
 if.app-id = 'com.apple.Preview'
 run = 'layout floating'
 
-# cmuxをワークスペース2に固定
-[[on-window-detected]]
-if.app-id = 'com.cmuxterm.app'
-run = 'move-node-to-workspace 2'
-
 # Google Chromeをワークスペース1に固定
 [[on-window-detected]]
 if.app-id = 'com.google.Chrome'
@@ -98,12 +93,12 @@ run = 'move-node-to-workspace 3'
 # Notion Calendarをワークスペース3に固定
 [[on-window-detected]]
 if.app-id = 'com.cron.electron'
-run = 'move-node-to-workspace 4'
+run = 'move-node-to-workspace 3'
 
 # YouTube Music（Edge PWA）をワークスペース3に固定
 [[on-window-detected]]
 if.app-id = 'net.imput.helium.app.cinhimbnkkaeohfgghhklpknlkffjgod'
-run = 'move-node-to-workspace 4'
+run = 'move-node-to-workspace 3'
 
 
 

@@ -36,3 +36,11 @@ keybind = ctrl+alt+h=goto_split:left
 keybind = ctrl+alt+j=goto_split:bottom
 keybind = ctrl+alt+k=goto_split:top
 keybind = ctrl+alt+l=goto_split:right
+# herdr の tab 移動(ctrl+tab / ctrl+shift+tab)。Ghostty のタブ切替を上書きし、
+# kitty keyboard protocol の CSI u 形式(ctrl=5 / ctrl+shift=6)で herdr へ直接送る
+keybind = ctrl+tab=text:\x1b[9;5u
+keybind = ctrl+shift+tab=text:\x1b[9;6u
+# herdr の workspace 移動(ctrl+cmd+tab / ctrl+cmd+shift+tab)。
+# CSI u 形式(ctrl+super=13 / ctrl+shift+super=14)で herdr へ直接送る
+keybind = ctrl+super+tab=text:\x1b[9;13u
+keybind = ctrl+super+shift+tab=text:\x1b[9;14u

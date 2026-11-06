@@ -59,12 +59,6 @@ end
 
 -- アプリケーションのキーバインド設定
 bindAppHotkey({"ctrl"}, "space", {
-  appName = "cmux",
-  appPath = "/Applications/cmux.app",
-  focusSameScreenOnHide = true
-})
-
-bindAppHotkey({"ctrl", "shift"}, "space", {
   appName = "Ghostty",
   appPath = "/Applications/Ghostty.app"
 })

@@ -1,45 +1,37 @@
-model_provider = "fireworks-ai"
-model_catalog_json = "~/.codex/fireworks-model-catalog.json"
-model = "accounts/fireworks/models/deepseek-v4-flash-0731"
-
 # ============================================================================
 # Codex CLI — Comprehensive Configuration Template
 # Generated: 2025-08-27
 #  ~/.codex/config.toml (aka $CODEX_HOME/config.toml)
 # ============================================================================
 
-# model = "gpt-5.6-sol"                                # default model
-# model_reasoning_effort = "medium"               # "minimal" | "low" | "medium" | "high" | "none"
-model_context_window = 1048576        # 公式の実コンテキスト長（100万トークン）
-model_auto_compact_token_limit = 838860 # 任意：約8割で自動圧縮する設定
-
-approval_policy = "on-request"                  # "untrusted" | "on-failure" | "on-request" | "never"
-sandbox_mode = "danger-full-access"                      # "read-only" | "workspace-write" | "danger-full-access"
-file_opener = "cursor"                          # "vscode" | "vscode-insiders" | "windsurf" | "cursor" | "none"
-
-# [profiles.fireworks]
 # model = "accounts/fireworks/models/deepseek-v4-flash-0731"
 # model_provider = "fireworks"
+# model_catalog_json = "/Users/takuma/.codex/model-catalog.json"
+
+model = "gpt-6-astra"                                # default model
+model_reasoning_effort = "xhigh"
+approval_policy = "on-request"                  # "untrusted" | "on-failure" | "on-request" | "never"
+sandbox_mode = "workspace-write"                      # "read-only" | "workspace-write" | "danger-full-access"
+file_opener = "cursor"                          # "vscode" | "vscode-insiders" | "windsurf" | "cursor" | "none"
+
+notify = ["/Users/takuma/projects/dotfiles/etc/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended"]
 
 [model_providers.fireworks]
 name = "Fireworks AI"
 base_url = "https://api.fireworks.ai/inference/v1"
 env_key = "FIREWORKS_API_KEY"
 wire_api = "responses"
+http_headers = { "X-Title" = "Codex", "HTTP-Referer" = "fireconnect/v0.9.3" }
 
 [features]
+hooks = true
 multi_agent = true
 js_repl = false
+plugins = true
+plugin_hooks = true
 
 [history]
 persistence = "save-all"          # "save-all" | "none"
-
-[sandbox_workspace_write]
-writable_roots = [
-  "/Users/takuma/projects",
-  "/Users/filriya/projects/madara",
-  "/private/tmp",
-]
 
 [projects."/Users/filriya/projects/madara"]
 trust_level = "trusted"
@@ -77,14 +69,49 @@ trust_level = "trusted"
 [projects."/Users/takuma/projects/casy-user"]
 trust_level = "trusted"
 
+[projects."/private/tmp"]
+trust_level = "trusted"
+
+[projects."/Users/takuma"]
+trust_level = "trusted"
+
+[projects."/Users/takuma/projects/claude-code-concierge"]
+trust_level = "trusted"
+
+[projects."/private/tmp/claude-501/-Users-takuma-projects-claude-code-config/4e4a218c-4568-4aed-bc47-32128d2b0b56/scratchpad"]
+trust_level = "trusted"
+
+[projects."/private/tmp/claude-501/-Users-takuma-projects-claude-code-config/2ce68df5-edc9-4df9-babb-40ec37709293/scratchpad/repro"]
+trust_level = "trusted"
+
+[projects."/private/tmp/cfgtest"]
+trust_level = "trusted"
+
+[projects."/private/tmp/cfgtest2"]
+trust_level = "trusted"
+
+[projects."/Users/takuma/projects/casy-corporate"]
+trust_level = "trusted"
+
+[projects."/Users/takuma/projects/casy-mokuhyou"]
+trust_level = "trusted"
+
+[projects."/Users/takuma/projects/casy-mokuhyou/casy_goal_management"]
+trust_level = "trusted"
+
+[tui]
+screen_reader_detection_done = true
+
 [tui.model_availability_nux]
 "gpt-5.5" = 4
 "gpt-5.6-sol" = 4
+gpt-6-astra = 4
+"gpt-6.1-sol" = 4
 
 [hooks.state]
 
 [hooks.state."/Users/takuma/.codex/hooks.json:session_start:0:0"]
-trusted_hash = "sha256:bc5bbb986a9e32fd2126d2407f3579307397ae8d563843050db4781cb1b02fe7"
+trusted_hash = "sha256:4d4d5f480146af1543a5eda5b7e7968af5f4e9b7049a23d0f9616d493e7f7c4d"
 
 [hooks.state."/Users/takuma/.codex/hooks.json:stop:0:0"]
 trusted_hash = "sha256:a340fa4f2615c6c53cadbddcbb7f9c6d0c7a2914453786b00949673eef693121"
@@ -93,7 +120,7 @@ trusted_hash = "sha256:a340fa4f2615c6c53cadbddcbb7f9c6d0c7a2914453786b00949673ee
 trusted_hash = "sha256:21cdb1b8edafc203968c55b11c528bd240db8acddbc5b5346f042863925a18e0"
 
 [hooks.state."casy-domain@casy-tools-codex:hooks/hooks.json:pre_tool_use:0:0"]
-trusted_hash = "sha256:1bc7a0ca219070fb1b9bde5078ce2e3c2fe015ac2d696bc239bf0948008c3559"
+trusted_hash = "sha256:33abb3e64ae47c1956d5fac6bf876c3156cf77a7e8793cb3ca13cdd662c70451"
 
 [hooks.state."casy-flow@casy-tools-codex:hooks/hooks.json:pre_tool_use:0:0"]
 trusted_hash = "sha256:1d93b3eef4041d2c2ad48f45bec62a8f2ed0b216374e6aa4983489b2740f0c3d"
@@ -102,7 +129,7 @@ trusted_hash = "sha256:1d93b3eef4041d2c2ad48f45bec62a8f2ed0b216374e6aa4983489b27
 trusted_hash = "sha256:62803d139e7c07fae2aac7f708016ce0abb0fa3232eb0348f1b52da239e6ff28"
 
 [hooks.state."casy-flow@casy-tools-codex:hooks/hooks.json:post_tool_use:0:0"]
-trusted_hash = "sha256:cc1e7564c6f3c031f9a8d2710cf02bd9f7174cbc8859800058ba90fc61a8c609"
+trusted_hash = "sha256:cd6cf4f53bbc44cb704bca9d63f49a419c345e8875b3184afdea33285e85ae84"
 
 [hooks.state."casy-flow@casy-tools-codex:hooks/hooks.json:post_tool_use:1:0"]
 trusted_hash = "sha256:b0d565bf37668f012711105c27dd92014d81e6411d88dce5748a08e39559d864"
@@ -133,6 +160,21 @@ trusted_hash = "sha256:cd6cf4f53bbc44cb704bca9d63f49a419c345e8875b3184afdea33285
 
 [hooks.state."casy-flow@casy-tools-codex:hooks/hooks.json:user_prompt_submit:0:0"]
 trusted_hash = "sha256:e5d88e1e69f04979d1e932480cddb5913a1c4ce92dc516cfd205b6b24e054b9b"
+
+[hooks.state."casy-flow-dev@casy-tools-dev-codex:hooks/hooks.json:pre_tool_use:0:0"]
+trusted_hash = "sha256:f94ea2a70598dd818ef13a21a19920bc125b907e98d1fb902b31daa3d7b8d374"
+
+[hooks.state."/Users/takuma/projects/claude-code-config/.codex/hooks.json:post_tool_use:0:0"]
+trusted_hash = "sha256:250d05b3130f399fd91d4fc4b86206844e998a87d2431e58cb5eca715a787786"
+
+[hooks.state."crit@local:hooks/hooks.json:stop:0:0"]
+trusted_hash = "sha256:bf6ad428ae7902810fa2d68d8db42228377af118aa18508ad0eccf73a95ed1f8"
+
+[hooks.state."casy-flow@casy-tools-codex:hooks/hooks.json:pre_tool_use:1:1"]
+trusted_hash = "sha256:9a67b537e2d946b8cf9e695f4d17682f16e29a2045cddbc05ffb718c3f9d9102"
+
+[hooks.state."casy-flow@casy-tools-codex:hooks/hooks.json:pre_tool_use:2:0"]
+trusted_hash = "sha256:0e9ba832bcc27b1baeb2a49bc06214b48201e8eb802369329b70656b2cf8bd09"
 
 [plugins."sites@openai-bundled"]
 enabled = true
@@ -167,6 +209,92 @@ enabled = true
 [plugins."cck@casy-tools-codex"]
 enabled = true
 
+[plugins."cg@casy-tools-codex"]
+enabled = true
+
+[marketplaces.openai-primary-runtime]
+last_updated = "2026-10-26T01:05:49Z"
+source_type = "local"
+source = "/Users/takuma/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
+
+[marketplaces.casy-tools-dev-codex]
+source_type = "local"
+source = "/Users/takuma/projects/claude-code-config/claude-dev"
+
+[marketplaces.casy-tools-codex]
+source_type = "local"
+source = "/Users/takuma/projects/claude-code-config/claude"
+
+[shell_environment_policy.set]
+BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "323bc3e687e17d7e377238d9f4c69111c4d0e6219103b6316d8c52082489533b"
+NODE_REPL_TRUSTED_CODE_PATHS = "/Users/takuma/.codex:/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules"
+
+[desktop]
+conversationDetailMode = "STEPS_COMMANDS"
+ambient-suggestions-enabled = true
+followUpQueueMode = "queue"
+
+[sandbox_workspace_write]
+network_access = true   # 子プロセスの通信を許可する。行き先は [features.network_proxy.domains] で絞る
+writable_roots = [
+  "/Users/takuma/projects",
+  "/private/tmp",
+]
+
+[mcp_servers.node_repl]
+args = []
+command = "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node_repl"
+startup_timeout_sec = 120
+
+[mcp_servers.node_repl.env]
+NODE_REPL_NATIVE_PIPE_CONNECT_TIMEOUT_MS = "1000"
+NODE_REPL_NODE_MODULE_DIRS = "/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules"
+NODE_REPL_NODE_PATH = "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node"
+NODE_REPL_TRUSTED_CODE_PATHS = "/Users/takuma/.codex:/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules"
+CODEX_HOME = "/Users/takuma/.codex"
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "323bc3e687e17d7e377238d9f4c69111c4d0e6219103b6316d8c52082489533b"
+BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
+NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunction with the Browser Plugin."
+NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "Control the Chrome browser in conjunction with the Chrome Plugin. Prefer this method of controlling Chrome over alternatives (such as Computer Use) unless the user explicitly mentions an alternative."
+NODE_REPL_INSTRUCTIONS_USE_CASE_COMPUTER_USE = "Control desktop apps on macOS through Computer Use."
+BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
+BROWSER_USE_CODEX_APP_VERSION = "26.803.41515"
+CODEX_CLI_PATH = "/Applications/ChatGPT.app/Contents/Resources/codex"
+
+[mcp_servers.computer-use]
+command = "./Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient"
+args = ["mcp"]
+cwd = "."
+enabled = false
+
+# 子プロセス（codex exec を含む）の通信先を許可制にする。未記載のホストは 403 で遮断される
+[features.network_proxy]
+enabled = true
+mode = "full"
+
+[features.network_proxy.domains]
+"api.fireworks.ai" = "allow"          # model provider
+"api.openai.com" = "allow"            # OpenAI 直のときの API
+"chatgpt.com" = "allow"               # codex のログイン・認証
+"*.chatgpt.com" = "allow"
+"auth.openai.com" = "allow"
+"github.com" = "allow"
+"api.github.com" = "allow"
+"*.githubusercontent.com" = "allow"   # raw / gist / release asset
+"google.com" = "allow"                # デモ: google.com 取得
+"www.google.com" = "allow"            # google.com のリダイレクト先
+"*.atlassian.net" = "allow"           # Jira / Confluence 本体
+"api.atlassian.com" = "allow"         # Atlassian REST / MCP
+"auth.atlassian.com" = "allow"        # Atlassian OAuth
+"mcp.atlassian.com" = "allow"         # Atlassian Remote MCP
+"localhost" = "allow"
+"127.0.0.1" = "allow"
+"::1" = "allow"
+
+[plugins."crit@local"]
+enabled = true
+
 [plugins."casy-flow@casy-tools-codex"]
 enabled = true
 
@@ -179,72 +307,13 @@ enabled = true
 [plugins."casy-domain@casy-tools-codex"]
 enabled = true
 
-[plugins."cg@casy-tools-codex"]
+[plugins."genie@casy-tools-codex"]
 enabled = true
 
 [plugins."casy-flow-dev@casy-tools-dev-codex"]
 enabled = true
 
 [marketplaces.openai-bundled]
-last_updated = "2026-08-02T14:07:54Z"
+last_updated = "2026-10-19T12:25:40Z"
 source_type = "local"
 source = "/Users/takuma/projects/dotfiles/etc/.codex/.tmp/bundled-marketplaces/openai-bundled"
-
-[marketplaces.openai-primary-runtime]
-last_updated = "2026-08-06T03:05:42Z"
-source_type = "local"
-source = "/Users/takuma/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
-
-[marketplaces.casy-tools-codex]
-last_updated = "2026-08-20T00:05:56Z"
-source_type = "local"
-source = "/Users/takuma/projects/claude-code-config/claude"
-
-[marketplaces.casy-tools-dev-codex]
-last_updated = "2026-08-20T00:05:56Z"
-source_type = "local"
-source = "/Users/takuma/projects/claude-code-config/claude-dev"
-
-[mcp_servers.node_repl]
-args = []
-command = "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node_repl"
-startup_timeout_sec = 120
-
-[mcp_servers.node_repl.env]
-NODE_REPL_NATIVE_PIPE_CONNECT_TIMEOUT_MS = "1000"
-NODE_REPL_NODE_MODULE_DIRS = "/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules"
-NODE_REPL_NODE_PATH = "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node"
-NODE_REPL_TRUSTED_CODE_PATHS = "/Users/takuma/.codex"
-CODEX_HOME = "/Users/takuma/.codex"
-NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "583bf903a6cfb9b00a01e1583381ce921c71d7585085c6fa6b805baa0f60230b,6d25aa7656feac858f3a3bdaea5bcbab0dbfd426c9de8e6931ce90c399ee8e4f"
-BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
-NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunction with the Browser Plugin."
-NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "Control the Chrome browser in conjunction with the Chrome Plugin. Prefer this method of controlling Chrome over alternatives (such as Computer Use) unless the user explicitly mentions an alternative."
-NODE_REPL_INSTRUCTIONS_USE_CASE_COMPUTER_USE = "Control desktop apps on macOS through Computer Use."
-BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
-BROWSER_USE_CODEX_APP_VERSION = "26.715.52143"
-CODEX_CLI_PATH = "/Applications/ChatGPT.app/Contents/Resources/codex"
-
-[mcp_servers.computer-use]
-command = "./Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient"
-args = ["mcp"]
-cwd = "."
-enabled = false
-
-[shell_environment_policy.set]
-BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
-NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "583bf903a6cfb9b00a01e1583381ce921c71d7585085c6fa6b805baa0f60230b,6d25aa7656feac858f3a3bdaea5bcbab0dbfd426c9de8e6931ce90c399ee8e4f"
-NODE_REPL_TRUSTED_CODE_PATHS = "/Users/takuma/.codex"
-
-[desktop]
-conversationDetailMode = "STEPS_COMMANDS"
-ambient-suggestions-enabled = true
-followUpQueueMode = "queue"
-
-[model_providers.fireworks-ai]
-name = "Fireworks"
-base_url = "https://api.fireworks.ai/inference/v1"
-wire_api = "responses"
-experimental_bearer_token = "fw_K4R9aU8EedAXBnJYpLrKyX"
-requires_openai_auth = false
-http_headers = { "X-Title" = "Codex", "HTTP-Referer" = "fireconnect/v0.9.3" }

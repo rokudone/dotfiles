@@ -38,3 +38,5 @@ stagewise.json
 .playwright-cli
 
 **/.claude/settings.local.json
+
+**/.claude/.cc-writes/

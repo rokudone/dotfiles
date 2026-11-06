@@ -1,0 +1,45 @@
+onboarding = false
+# herdr config (dotfiles管理)
+# ~/.config/herdr/config.toml から symlink で参照される(link.sh)
+# 実行時状態(session.json / *.log / *.sock)はリポジトリに持ち込まないため、このファイルのみ symlink する
+
+[keys]
+# tmux 時代の prefix (C-q) を引き継ぐ。他はデフォルトへ寄せる
+prefix = "ctrl+q"
+
+# pane: 分割 v(左右) / -(上下) / 閉じ は無効化（prefix+d は tab 閉じが優先）
+close_pane = ""
+# ペイン名はほぼ使わないため rename_pane は無効化（P を空ける）
+rename_pane = ""
+
+# tab: 作成 c / 閉じ d
+new_tab = "prefix+c"
+close_tab = "prefix+d"
+
+# workspace: 作成 C(shift+c) / 閉じ X(shift+x)
+new_workspace = "prefix+shift+c"
+close_workspace = "prefix+shift+d"
+
+# workspace: N / P で前後の workspace 移動
+next_workspace = "prefix+shift+n"
+previous_workspace = "prefix+shift+p"
+
+# agent: [ / ] で前後のエージェント移動（エージェントは workspace 跨ぎ）
+previous_agent = "prefix+["
+next_agent = "prefix+]"
+
+[ui]
+# タブ作成時に名前入力を求めず、連番で即生成する
+prompt_new_tab_name = false
+
+show_agent_labels_on_pane_borders = true
+[ui.toast]
+delivery = "system"
+
+[theme]
+name = "one-dark"
+auto_switch = false
+
+[experimental]
+pane_history = true
+switch_ascii_input_source_in_prefix = true

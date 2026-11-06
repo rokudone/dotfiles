@@ -1,0 +1,43 @@
+id = "wsflag.status"
+name = "Workspace Flag"
+version = "0.1.0"
+min_herdr_version = "0.7.0"
+description = "Mark a workspace as 要対応 / 対応中 / 済み with a leading emoji."
+platforms = ["macos", "linux"]
+
+# サイドバーの workspace 行には label 以外の表示枠が無いため、
+# label 先頭の絵文字を状態の印として使う。
+[[actions]]
+id = "cycle"
+title = "Workspace flag: 次の状態へ（要対応→対応中→済み→印なし）"
+contexts = ["pane", "workspace"]
+command = ["python3", "wsflag.py", "cycle"]
+
+[[actions]]
+id = "todo"
+title = "Workspace flag: ❤️‍🔥 要対応"
+contexts = ["pane", "workspace"]
+command = ["python3", "wsflag.py", "set", "todo"]
+
+[[actions]]
+id = "doing"
+title = "Workspace flag: ☀️ 対応中"
+contexts = ["pane", "workspace"]
+command = ["python3", "wsflag.py", "set", "doing"]
+
+[[actions]]
+id = "done"
+title = "Workspace flag: ⏳ 済み"
+contexts = ["pane", "workspace"]
+command = ["python3", "wsflag.py", "set", "done"]
+
+[[actions]]
+id = "clear"
+title = "Workspace flag: 印を外す"
+contexts = ["pane", "workspace"]
+command = ["python3", "wsflag.py", "clear"]
+
+# 新しい workspace には既定の印を付ける。
+[[hooks]]
+event = "workspace.created"
+command = ["python3", "wsflag.py", "default"]

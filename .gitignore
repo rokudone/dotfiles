@@ -45,6 +45,7 @@ etc/.claude/*
 !etc/.claude/settings.json
 !etc/.claude/commands/
 !etc/.claude/skills/
+!etc/.claude/skills/.system/
 
 # .codex — 同様に必要なものだけ allowlist
 etc/.codex/*

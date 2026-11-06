@@ -576,7 +576,7 @@ zinit light-mode for \
 
 # alias c="codex"
 # alias cr="codex resume"
-alias cc="claude --model opus"
+alias cc="claude"
 alias ccr="claude --resume"
 alias yolo="claude --dangerously-skip-permissions"
 alias co="codex"

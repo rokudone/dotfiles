@@ -2,6 +2,64 @@
   "title": "util",
   "rules": [
     {
+      "description": "[windows] Cmdキーを単体で押したときに、英数・かなキーを送信する（ターミナル用）",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "left_command", "modifiers": { "optional": [ "any" ] }
+          },
+          "parameters": {
+            "basic.to_if_held_down_threshold_milliseconds": 100
+          },
+          "to": [ { "key_code": "left_command", "lazy": true } ],
+          "to_if_held_down": [ { "key_code": "left_command" } ],
+          "to_if_alone": [ { "key_code": "japanese_eisuu" } ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "right_command", "modifiers": { "optional": [ "any" ] }
+          },
+          "parameters": {
+            "basic.to_if_held_down_threshold_milliseconds": 100
+          },
+          "to": [ { "key_code": "right_command", "lazy": true } ],
+          "to_if_held_down": [ { "key_code": "right_command" } ],
+          "to_if_alone": [ { "key_code": "japanese_kana" } ]
+        }
+      ]
+    },
+    {
+      "description": "[windows] シフトキーを単体で押したときに、英数・かなキーを送信する。（左シフトキーは英数、右シフトキーはかな） (rev 3)",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "left_shift", "modifiers": { "optional": [ "any" ] }
+          },
+          "parameters": {
+            "basic.to_if_held_down_threshold_milliseconds": 100
+          },
+          "to": [ { "key_code": "left_shift", "lazy": true } ],
+          "to_if_held_down": [ { "key_code": "left_shift" } ],
+          "to_if_alone": [ { "key_code": "japanese_eisuu" } ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "right_shift", "modifiers": { "optional": [ "any" ] }
+          },
+          "parameters": {
+            "basic.to_if_held_down_threshold_milliseconds": 100
+          },
+          "to": [ { "key_code": "right_shift", "lazy": true } ],
+          "to_if_held_down": [ { "key_code": "right_shift" } ],
+          "to_if_alone": [ { "key_code": "japanese_kana" } ]
+        }
+      ]
+    },
+    {
       "description": "[util] Send jis_eisuu when type esc",
       "manipulators": [
         {
@@ -9,7 +67,7 @@
           "from": { "key_code": "escape" },
           "to": [
             { "key_code": "escape" },
-            { "key_code": "japanese_eisuu" }
+            { "select_input_source": { "language": "^en$" } }
           ]
         }
       ]
@@ -35,7 +93,7 @@
           "from": { "key_code": "open_bracket", "modifiers": { "mandatory": [ "control" ] } },
           "to": [
             { "key_code": "escape" },
-            { "key_code": "japanese_eisuu" }
+            { "select_input_source": { "language": "^en$" } }
           ]
         }
       ]
@@ -48,7 +106,7 @@
           "from": { "key_code": "open_bracket", "modifiers": { "mandatory": [ "command" ]} },
           "to": [
             { "key_code": "escape" },
-            { "key_code": "japanese_eisuu" }
+            { "select_input_source": { "language": "^en$" } }
           ],
           "conditions": [
             {
@@ -186,6 +244,101 @@
           "from": { "key_code": "q", "modifiers": { "mandatory": [ "command", "shift" ] } },
           "to": [
             { "key_code": "q", "modifiers": { "mandatory": [ "command", "shift" ] } }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "[util] Send jis_eisuu + ctl + q on terminal",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": { "key_code": "q", "modifiers": { "mandatory": [ "control" ], "optional": [ "any" ] } },
+          "to": [
+            { "select_input_source": { "language": "^en$" } },
+            { "key_code": "q", "modifiers": [ "control" ] }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.Terminal$",
+                "^com\\.googlecode\\.iterm2$",
+                "^com\\.jetbrains\\.rubymine$",
+                "^co\\.zeit\\.hyperterm$",
+                "^co\\.zeit\\.hyper$",
+                "^org\\.alacritty$",
+                "^dev\\.warp\\.Warp-Stable$",
+                "^net\\.kovidgoyal\\.kitty$",
+                "^com\\.todesktop\\.230313mzl4w4u92$",
+                "^com\\.mitchellh\\.ghostty$",
+                "^com\\.github\\.wez\\.wezterm$",
+                "^com\\.raphaelamorim\\.rio$",
+                "^com\\.cmuxterm\\.app$",
+                "^com\\.cmuxterm\\.app\\.nightly$"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "[util] cmd+tab to ctrl+cmd+tab, cmd+shift+tab to ctrl+cmd+shift+tab on terminal (herdr tab move)",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": { "key_code": "tab", "modifiers": { "mandatory": [ "command" ] } },
+          "to": [
+            { "key_code": "tab", "modifiers": [ "control", "command" ] }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.Terminal$",
+                "^com\\.googlecode\\.iterm2$",
+                "^com\\.jetbrains\\.rubymine$",
+                "^co\\.zeit\\.hyperterm$",
+                "^co\\.zeit\\.hyper$",
+                "^org\\.alacritty$",
+                "^dev\\.warp\\.Warp-Stable$",
+                "^net\\.kovidgoyal\\.kitty$",
+                "^com\\.todesktop\\.230313mzl4w4u92$",
+                "^com\\.mitchellh\\.ghostty$",
+                "^com\\.github\\.wez\\.wezterm$",
+                "^com\\.raphaelamorim\\.rio$",
+                "^com\\.cmuxterm\\.app$",
+                "^com\\.cmuxterm\\.app\\.nightly$"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": { "key_code": "tab", "modifiers": { "mandatory": [ "command", "shift" ] } },
+          "to": [
+            { "key_code": "tab", "modifiers": [ "control", "command", "shift" ] }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.Terminal$",
+                "^com\\.googlecode\\.iterm2$",
+                "^com\\.jetbrains\\.rubymine$",
+                "^co\\.zeit\\.hyperterm$",
+                "^co\\.zeit\\.hyper$",
+                "^org\\.alacritty$",
+                "^dev\\.warp\\.Warp-Stable$",
+                "^net\\.kovidgoyal\\.kitty$",
+                "^com\\.todesktop\\.230313mzl4w4u92$",
+                "^com\\.mitchellh\\.ghostty$",
+                "^com\\.github\\.wez\\.wezterm$",
+                "^com\\.raphaelamorim\\.rio$",
+                "^com\\.cmuxterm\\.app$",
+                "^com\\.cmuxterm\\.app\\.nightly$"
+              ]
+            }
           ]
         }
       ]

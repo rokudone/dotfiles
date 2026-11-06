@@ -1,0 +1,95 @@
+onboarding = false
+# herdr config (dotfiles管理)
+# ~/.config/herdr/config.toml から symlink で参照される(link.sh)
+# 実行時状態(session.json / *.log / *.sock)はリポジトリに持ち込まないため、このファイルのみ symlink する
+
+[keys]
+# tmux 時代の prefix (C-q) を引き継ぐ。他はデフォルトへ寄せる
+prefix = "ctrl+q"
+
+# pane: 閉じ x（分割 v/- はデフォルトのまま）
+close_pane = "prefix+x"
+# ペイン名はほぼ使わないため rename_pane は無効化（P を空ける）
+rename_pane = ""
+
+# tab: 作成 c / 閉じ d
+new_tab = "prefix+c"
+close_tab = "prefix+d"
+
+# tab: n / p で前後の tab 移動。ctrl+tab / ctrl+shift+tab は prefix なしの直接移動
+# (Ghostty 側で ctrl+tab / ctrl+shift+tab を CSI u 形式で送る設定が必要)
+next_tab = ["prefix+n", "ctrl+tab"]
+previous_tab = ["prefix+p", "ctrl+shift+tab"]
+
+# workspace: 作成 C(shift+c) / 閉じ X(shift+x)
+new_workspace = "prefix+shift+c"
+close_workspace = "prefix+shift+d"
+
+# workspace: 名前変更 M（デフォルトの shift+w から移動）
+rename_workspace = "prefix+shift+m"
+
+# workspace: N / P で前後の workspace 移動。ctrl+cmd+tab / ctrl+cmd+shift+tab は prefix なしの直接移動
+# (Ghostty 側で ctrl+cmd+tab / ctrl+cmd+shift+tab を CSI u 形式で送る設定が必要)
+next_workspace = ["prefix+shift+n", "ctrl+cmd+tab"]
+previous_workspace = ["prefix+shift+p", "ctrl+cmd+shift+tab"]
+
+# agent: [ / ] で前後のエージェント移動（エージェントは workspace 跨ぎ）
+previous_agent = "prefix+["
+next_agent = "prefix+]"
+
+# hunk: H (shift+h) で worktree diff を分割 pane に開く
+[[keys.command]]
+key = "prefix+shift+h"
+type = "plugin_action"
+command = "hunk.diff.worktree-split"
+description = "Open hunk worktree diff in a split pane"
+
+# wsflag: m で workspace の対応状態を巡回（要対応→対応中→済み→印なし）
+[[keys.command]]
+key = "prefix+m"
+type = "plugin_action"
+command = "wsflag.status.cycle"
+description = "Cycle the workspace status flag"
+
+[[keys.command]]
+key = "prefix+t"
+type = "plugin_action"
+command = "herdr-theme-picker.open"
+
+[ui]
+# タブ作成時に名前入力を求めず、連番で即生成する
+prompt_new_tab_name = false
+
+show_agent_labels_on_pane_borders = true
+agent_panel_sort = "priority"
+[ui.toast]
+delivery = "system"
+
+[theme]
+name = "one-dark"
+auto_switch = false
+
+[experimental]
+pane_history = true
+switch_ascii_input_source_in_prefix = true
+
+[theme.custom]
+panel_bg = "#0b0e14"
+sidebar_bg = "#090b11"
+active_row_bg = "#1e232b"
+selection_bg = "#1b3a5b"
+surface0 = "#1e232b"
+surface1 = "#686868"
+surface_dim = "#0a0c12"
+overlay0 = "#686868"
+overlay1 = "#c7c7c7"
+text = "#bfbdb6"
+subtext0 = "#c7c7c7"
+accent = "#53bdfa"
+mauve = "#cda1fa"
+green = "#7fd962"
+yellow = "#f9af4f"
+red = "#ea6c73"
+blue = "#53bdfa"
+teal = "#90e1c6"
+peach = "#f07178"
