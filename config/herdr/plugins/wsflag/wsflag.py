@@ -25,6 +25,10 @@ DEFAULT_FLAG = "todo"
 # 印とラベル本体の区切り。表示上の詰まりを避けるための半角スペース。
 SEP = " "
 
+# ラベル先頭の詰め物。herdr は state_icon の後ろに半角スペースを一つしか入れず、
+# 区切りは設定で変えられないため、ラベル側でもう一つ分の隙間を作る。
+PAD = " "
+
 
 def herdr_bin() -> str:
     return os.environ.get("HERDR_BIN_PATH") or "herdr"
@@ -73,7 +77,8 @@ def current_label(wid: str) -> str:
 
 
 def split_label(label: str) -> tuple[str | None, str]:
-    """先頭の印と、印を除いた本体に分ける。"""
+    """先頭の印と、印を除いた本体に分ける。先頭の詰め物は捨てる。"""
+    label = label.lstrip(PAD)
     for name, mark in FLAGS:
         if label.startswith(mark):
             return name, label[len(mark) :].lstrip()
@@ -82,7 +87,7 @@ def split_label(label: str) -> tuple[str | None, str]:
 
 def apply(wid: str, flag: str | None) -> None:
     _, body = split_label(current_label(wid))
-    label = body if flag is None else f"{BY_NAME[flag]}{SEP}{body}"
+    label = PAD + (body if flag is None else f"{BY_NAME[flag]}{SEP}{body}")
     run_json(["workspace", "rename", wid, label])
 
 

@@ -306,7 +306,7 @@
       "~/Library/Caches/ms-playwright/"
     ]
   },
-  "model": "claude-fable-5-1",
+  "model": "fable",
   "skillOverrides": {
     "prompt-review": "off",
     "todo": "off"
