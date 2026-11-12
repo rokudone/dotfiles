@@ -8,7 +8,13 @@ allowed-tools: Write, Read, Bash
 
 # report-html
 
+<<<<<<< Updated upstream
 分析結果を単一 HTML ファイルにして、ブラウザで開く一行を渡す。ターミナルに長い Markdown を流す代わりに使う。
+||||||| Stash base
+長文資料を、認知負荷の低い1枚のダイジェストHTMLに変換する。実績: masa_wunder の統合ドキュメント29本（merged/digest/ 配下）。
+=======
+長文資料を、認知負荷の低い1枚のダイジェストHTMLに変換する。実績: masa_wunder の統合ドキュメント29本（masa_wunder/reports/ 配下）。
+>>>>>>> Stashed changes
 
 ## 前提
 
@@ -41,6 +47,7 @@ allowed-tools: Write, Read, Bash
 
 同じ項目について複数の軸の値を並べるだけなら表にする。行が独立していて、上下の順序に意味がなく、隣の行と線で繋がっていないなら、それは図ではなく表である。矢印を引いても、それが「左の欄の値に対応する右の欄の値」以上を意味していないなら、その矢印は列の区切りでしかない。
 
+<<<<<<< Updated upstream
 ```
 ❌ 図にした比較        →  ✅ 表
 [書き方] → [解決] → [結果]     | 書き方 | 解決 | 結果 |
@@ -251,3 +258,8 @@ details > *:not(summary):last-child { margin-bottom: 0; }
 `--fg-66` と `--fg-46` は名前に濃度が残っているが、値は `--fg` と同じ。名前に合わせて薄い値へ戻さない。指定を減らさず変数を残してあるのは、骨格の各所からの参照を書き換えずに済ませるため。
 
 他サイトの見た目に寄せたいと言われた場合、記事を開いて算出スタイルを測るのではなく、配信されている CSS を取得して規則ごと読む。記事に存在しない要素は算出スタイルでは測れない。Playwright は `~/Library/Caches/ms-playwright` のバイナリを `executablePath` で指定すれば動く。読み取った数値を自分のスタイルに反映するに留め、他社の CSS をそのまま複製しない。
+||||||| Stash base
+複数本ある場合は同スタイルの目次ページ（index.html）も作る。実例: /Users/filriya/Documents/note/masa_wunder/merged/digest/index.html
+=======
+複数本ある場合は同スタイルの目次ページ（index.html）も作る。実例: /Users/filriya/Documents/note/masa_wunder/reports/index.html
+>>>>>>> Stashed changes

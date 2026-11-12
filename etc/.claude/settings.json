@@ -291,6 +291,7 @@
       "Bash(xcrun simctl spawn:*)"
     ],
     "defaultMode": "auto",
+    "defaultMode": "auto",
     "additionalDirectories": [
       "~/.claude",
       "~/.crit",

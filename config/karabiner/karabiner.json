@@ -5,108 +5,6 @@
                 "parameters": { "basic.simultaneous_threshold_milliseconds": 1000 },
                 "rules": [
                     {
-                        "description": "[util] cmd+tab to ctrl+cmd+tab, cmd+shift+tab to ctrl+cmd+shift+tab on terminal (herdr tab move)",
-                        "manipulators": [
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.googlecode\\.iterm2$",
-                                            "^com\\.jetbrains\\.rubymine$",
-                                            "^co\\.zeit\\.hyperterm$",
-                                            "^co\\.zeit\\.hyper$",
-                                            "^org\\.alacritty$",
-                                            "^dev\\.warp\\.Warp-Stable$",
-                                            "^net\\.kovidgoyal\\.kitty$",
-                                            "^com\\.todesktop\\.230313mzl4w4u92$",
-                                            "^com\\.mitchellh\\.ghostty$",
-                                            "^com\\.github\\.wez\\.wezterm$",
-                                            "^com\\.raphaelamorim\\.rio$",
-                                            "^com\\.cmuxterm\\.app$",
-                                            "^com\\.cmuxterm\\.app\\.nightly$"
-                                        ],
-                                        "type": "frontmost_application_if"
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "tab",
-                                    "modifiers": { "mandatory": ["command"] }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "tab",
-                                        "modifiers": ["control", "command"]
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.googlecode\\.iterm2$",
-                                            "^com\\.jetbrains\\.rubymine$",
-                                            "^co\\.zeit\\.hyperterm$",
-                                            "^co\\.zeit\\.hyper$",
-                                            "^org\\.alacritty$",
-                                            "^dev\\.warp\\.Warp-Stable$",
-                                            "^net\\.kovidgoyal\\.kitty$",
-                                            "^com\\.todesktop\\.230313mzl4w4u92$",
-                                            "^com\\.mitchellh\\.ghostty$",
-                                            "^com\\.github\\.wez\\.wezterm$",
-                                            "^com\\.raphaelamorim\\.rio$",
-                                            "^com\\.cmuxterm\\.app$",
-                                            "^com\\.cmuxterm\\.app\\.nightly$"
-                                        ],
-                                        "type": "frontmost_application_if"
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "tab",
-                                    "modifiers": { "mandatory": ["command", "shift"] }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "tab",
-                                        "modifiers": ["control", "command", "shift"]
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "description": "[util] ctl + [ to escape on vscode",
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "open_bracket",
-                                    "modifiers": { "mandatory": ["control"] }
-                                },
-                                "to": [
-                                    { "key_code": "escape" },
-                                    { "select_input_source": { "language": "^en$" } }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "description": "[util] Send jis_eisuu when type esc",
-                        "manipulators": [
-                            {
-                                "from": { "key_code": "escape" },
-                                "to": [
-                                    { "key_code": "escape" },
-                                    { "select_input_source": { "language": "^en$" } }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
                         "description": "[windows] シフトキーを単体で押したときに、英数・かなキーを送信する。（左シフトキーは英数、右シフトキーはかな） (rev 3)",
                         "manipulators": [
                             {
@@ -144,38 +42,14 @@
                         ]
                     },
                     {
-                        "description": "[windows] Cmdキーを単体で押したときに、英数・かなキーを送信する（ターミナル用）",
+                        "description": "[util] Send jis_eisuu when type esc",
                         "manipulators": [
                             {
-                                "from": {
-                                    "key_code": "left_command",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "parameters": { "basic.to_if_held_down_threshold_milliseconds": 100 },
+                                "from": { "key_code": "escape" },
                                 "to": [
-                                    {
-                                        "key_code": "left_command",
-                                        "lazy": true
-                                    }
+                                    { "key_code": "escape" },
+                                    { "key_code": "japanese_eisuu" }
                                 ],
-                                "to_if_alone": [{ "key_code": "japanese_eisuu" }],
-                                "to_if_held_down": [{ "key_code": "left_command" }],
-                                "type": "basic"
-                            },
-                            {
-                                "from": {
-                                    "key_code": "right_command",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "parameters": { "basic.to_if_held_down_threshold_milliseconds": 100 },
-                                "to": [
-                                    {
-                                        "key_code": "right_command",
-                                        "lazy": true
-                                    }
-                                ],
-                                "to_if_alone": [{ "key_code": "japanese_kana" }],
-                                "to_if_held_down": [{ "key_code": "right_command" }],
                                 "type": "basic"
                             }
                         ]
@@ -196,6 +70,83 @@
                                     {
                                         "key_code": "spacebar",
                                         "modifiers": ["option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "[util] ctl + [ to escape on vscode",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "open_bracket",
+                                    "modifiers": { "mandatory": ["control"] }
+                                },
+                                "to": [
+                                    { "key_code": "escape" },
+                                    { "key_code": "japanese_eisuu" }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "[util] Cmd + [ to escape on vscode",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "com\\.microsoft\\.VSCode",
+                                            "com\\.todesktop\\.230313mzl4w4u92"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "open_bracket",
+                                    "modifiers": { "mandatory": ["command"] }
+                                },
+                                "to": [
+                                    { "key_code": "escape" },
+                                    { "key_code": "japanese_eisuu" }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "[util] ctl + enter to ctrl + v on vscode",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.googlecode\\.iterm2$",
+                                            "^com\\.jetbrains\\.rubymine$",
+                                            "^co\\.zeit\\.hyperterm$",
+                                            "^co\\.zeit\\.hyper$",
+                                            "^org\\.alacritty$",
+                                            "^dev\\.warp\\.Warp-Stable$",
+                                            "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
+                                            "^com\\.github\\.wez\\.wezterm$",
+                                            "^com\\.raphaelamorim\\.rio$"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "return_or_enter",
+                                    "modifiers": { "mandatory": ["control"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "v",
+                                        "modifiers": ["left_control"]
                                     }
                                 ],
                                 "type": "basic"
@@ -402,49 +353,6 @@
                                     {
                                         "key_code": "q",
                                         "modifiers": { "mandatory": ["command", "shift"] }
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "description": "[util] Send jis_eisuu + ctl + q on terminal",
-                        "manipulators": [
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.googlecode\\.iterm2$",
-                                            "^com\\.jetbrains\\.rubymine$",
-                                            "^co\\.zeit\\.hyperterm$",
-                                            "^co\\.zeit\\.hyper$",
-                                            "^org\\.alacritty$",
-                                            "^dev\\.warp\\.Warp-Stable$",
-                                            "^net\\.kovidgoyal\\.kitty$",
-                                            "^com\\.todesktop\\.230313mzl4w4u92$",
-                                            "^com\\.mitchellh\\.ghostty$",
-                                            "^com\\.github\\.wez\\.wezterm$",
-                                            "^com\\.raphaelamorim\\.rio$",
-                                            "^com\\.cmuxterm\\.app$",
-                                            "^com\\.cmuxterm\\.app\\.nightly$"
-                                        ],
-                                        "type": "frontmost_application_if"
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "q",
-                                    "modifiers": {
-                                        "mandatory": ["control"],
-                                        "optional": ["any"]
-                                    }
-                                },
-                                "to": [
-                                    { "select_input_source": { "language": "^en$" } },
-                                    {
-                                        "key_code": "q",
-                                        "modifiers": ["control"]
                                     }
                                 ],
                                 "type": "basic"
@@ -899,13 +807,7 @@
                         "product_id": 1818,
                         "vendor_id": 13364
                     },
-                    "ignore": false,
-                    "simple_modifications": [
-                        {
-                            "from": { "key_code": "caps_lock" },
-                            "to": [{ "key_code": "left_control" }]
-                        }
-                    ]
+                    "ignore": false
                 },
                 {
                     "identifiers": {
@@ -962,45 +864,14 @@
                             "to": [{ "key_code": "caps_lock" }]
                         },
                         {
-                            "from": { "key_code": "right_control" },
-                            "to": [{ "key_code": "right_option" }]
-                        }
-                    ]
-                },
-                {
-                    "identifiers": {
-                        "is_keyboard": true,
-                        "is_pointing_device": true,
-                        "product_id": 64007,
-                        "vendor_id": 13652
-                    },
-                    "ignore": false,
-                    "simple_modifications": [
-                        {
-                            "from": { "key_code": "backslash" },
-                            "to": [{ "key_code": "delete_or_backspace" }]
-                        },
-                        {
-                            "from": { "key_code": "caps_lock" },
-                            "to": [{ "key_code": "left_control" }]
-                        },
-                        {
-                            "from": { "key_code": "delete_or_backspace" },
-                            "to": [{ "key_code": "backslash" }]
+                            "from": { "key_code": "right_command" },
+                            "to": [{ "key_code": "f13" }]
                         },
                         {
                             "from": { "key_code": "right_control" },
                             "to": [{ "key_code": "right_option" }]
                         }
                     ]
-                },
-                {
-                    "identifiers": {
-                        "is_pointing_device": true,
-                        "product_id": 32793,
-                        "vendor_id": 1149
-                    },
-                    "ignore": true
                 }
             ],
             "fn_function_keys": [
