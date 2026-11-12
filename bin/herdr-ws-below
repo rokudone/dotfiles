@@ -1,0 +1,107 @@
+#!/usr/bin/env python3
+"""今いる workspace の直下に新しい workspace を作って focus する。
+
+herdr 標準の new_workspace は常に一番下へ追加するため、
+socket API の workspace.create と workspace.move を続けて打ち、
+現在の workspace の次の位置へ差し込む。
+herdr の [[keys.command]] type="shell" から呼ばれる想定（HERDR_ACTIVE_* が渡る）。
+"""
+from __future__ import annotations
+
+import json
+import os
+import random
+import socket
+import sys
+import time
+
+SOURCE = "herdr-ws-below"
+
+
+def socket_path() -> str:
+    path = os.environ.get("HERDR_SOCKET_PATH")
+    if path:
+        return path
+    return os.path.expanduser("~/.config/herdr/herdr.sock")
+
+
+def call(method: str, params: dict) -> dict:
+    request_id = f"{SOURCE}:{int(time.time() * 1000)}:{random.randrange(1_000_000):06d}"
+    request = {"id": request_id, "method": method, "params": params}
+    with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as client:
+        client.settimeout(5)
+        client.connect(socket_path())
+        client.sendall((json.dumps(request) + "\n").encode())
+        buf = b""
+        while not buf.endswith(b"\n"):
+            chunk = client.recv(65536)
+            if not chunk:
+                break
+            buf += chunk
+    payload = json.loads(buf.decode())
+    if "error" in payload:
+        raise SystemExit(f"{method}: {json.dumps(payload['error'], ensure_ascii=False)}")
+    return payload.get("result") or {}
+
+
+def workspaces() -> list[dict]:
+    return call("workspace.list", {}).get("workspaces", [])
+
+
+def current_workspace_id(ws_list: list[dict]) -> str:
+    for key in ("HERDR_ACTIVE_WORKSPACE_ID", "HERDR_WORKSPACE_ID"):
+        wid = os.environ.get(key)
+        if wid:
+            return wid
+    for ws in ws_list:
+        if ws.get("focused"):
+            return ws["workspace_id"]
+    raise SystemExit("herdr-ws-below: 現在の workspace が分かりません")
+
+
+def find_id(obj) -> str | None:
+    """create の応答から workspace_id を拾う（応答形の違いに備えて再帰的に探す）。"""
+    if isinstance(obj, dict):
+        if isinstance(obj.get("workspace_id"), str) and "label" in obj:
+            return obj["workspace_id"]
+        for key in ("workspace", "created_workspace", "created", "result"):
+            if key in obj:
+                found = find_id(obj[key])
+                if found:
+                    return found
+        if isinstance(obj.get("workspace_id"), str):
+            return obj["workspace_id"]
+    return None
+
+
+def main() -> None:
+    before = workspaces()
+    current = current_workspace_id(before)
+    order = [ws["workspace_id"] for ws in before]
+    if current not in order:
+        raise SystemExit(f"herdr-ws-below: workspace が見つかりません: {current}")
+
+    params: dict = {"focus": True, "source_workspace_id": current}
+    cwd = os.environ.get("HERDR_ACTIVE_PANE_CWD")
+    if cwd:
+        params["cwd"] = cwd
+    created = call("workspace.create", params)
+
+    new_id = find_id(created)
+    if not new_id:
+        before_ids = set(order)
+        added = [ws["workspace_id"] for ws in workspaces() if ws["workspace_id"] not in before_ids]
+        if len(added) != 1:
+            raise SystemExit(f"herdr-ws-below: 作成した workspace を特定できません: {json.dumps(created)}")
+        new_id = added[0]
+
+    call("workspace.move", {"workspace_id": new_id, "insert_index": order.index(current) + 1})
+    print(new_id)
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except (OSError, json.JSONDecodeError) as err:
+        print(f"herdr-ws-below: {err}", file=sys.stderr)
+        sys.exit(1)
